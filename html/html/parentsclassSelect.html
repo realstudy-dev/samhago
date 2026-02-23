@@ -7,6 +7,7 @@
     <meta name="keyword" content="HTML, meta, tag, element, reference">
     <meta name="author" content="리얼스터디">
     <meta name="description" content="{props.description}" data-react-helmet="true">
+    <meta name="format-detection" content="telephone=no">
 
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="Cache-Control" content="No-Cache">
@@ -137,7 +138,8 @@
             '2026-02-08': 100,
             '2026-02-09': 100,
             '2026-02-10': 30,
-            '2026-02-11': 0
+            '2026-02-11': 0,
+            '2026-02-12': 70,
         };
 
         // ✅ 한국 시간대 기준으로 날짜 문자열 반환
@@ -561,7 +563,7 @@
     }
 
     function pageCenterDetailMoveTop() {
-        $('#pageCenterDetail .cd_mid')[0].scrollTo({
+        $('#pageCenterDetail .cd_btm')[0].scrollTo({
           top: 0,
           left: 0,
           behavior: 'smooth'
@@ -835,7 +837,7 @@
                 $('#pageCenter .scroll_top').removeClass('active');
             }
         });
-        $('#pageCenterDetail .cd_mid').on('scroll', function () {
+        $('#pageCenterDetail .cd_btm').on('scroll', function () {
             if ($(this).scrollTop() > 50) { 
                 $('#pageCenterDetail .scroll_top').addClass('active');
             } else {
@@ -1304,196 +1306,207 @@
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <h4>스케줄 입력</h4>
                     <h4 class="desired_time">[09:00 ~ 10:30]</h4>
-                    <p class="middle_title">활동 타입</p>
-                    <div class="todo_select center">
-                        <!-- 학교 input은 혹시 모르니 주석처리 해두겠습니다. -->
-                        <!-- <input type="radio" name="todo_add" id="Schedule1School"><label class="school" for="Schedule1School"><img src="../image/planner_icon_1.svg" alt="학교"><p>학교</p></label> -->
-                        <input type="radio" name="todo_add" id="Schedule1Academy"><label class="academy" for="Schedule1Academy"><img src="../image/planner_icon_2.svg" alt="학원"><p>학원</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Samhago"><label class="samhago" for="Schedule1Samhago"><img src="../image/planner_icon_3.svg" alt="쌤하고"><p>쌤하고</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Homework"><label class="homework" for="Schedule1Homework"><img src="../image/planner_icon_4.svg" alt="숙제"><p>숙제</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Workout"><label class="workout" for="Schedule1Workout"><img src="../image/planner_icon_5.svg" alt="운동"><p>운동</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Free"><label class="free" for="Schedule1Free"><img src="../image/planner_icon_6.svg" alt="자유"><p>자유</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Etc"><label class="etc" for="Schedule1Etc"><img src="../image/planner_icon_7.svg" alt="기타"><p>기타</p></label>
-                        <input type="radio" name="todo_add" id="Schedule1Sleep"><label class="sleep" for="Schedule1Sleep"><img src="../image/planner_icon_8.svg" alt="취침"><p>취침</p></label>
+                    <div class="scroll_area">
+                        <p class="middle_title">활동 타입</p>
+                        <div class="todo_select center">
+                            <!-- 학교 input은 혹시 모르니 주석처리 해두겠습니다. -->
+                            <!-- <input type="radio" name="todo_add" id="Schedule1School"><label class="school" for="Schedule1School"><img src="../image/planner_icon_1.svg" alt="학교"><p>학교</p></label> -->
+                            <input type="radio" name="todo_add" id="Schedule1Academy"><label class="academy" for="Schedule1Academy"><img src="../image/planner_icon_2.svg" alt="학원"><p>학원</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Samhago"><label class="samhago" for="Schedule1Samhago"><img src="../image/planner_icon_3.svg" alt="쌤하고"><p>쌤하고</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Homework"><label class="homework" for="Schedule1Homework"><img src="../image/planner_icon_4.svg" alt="숙제"><p>숙제</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Workout"><label class="workout" for="Schedule1Workout"><img src="../image/planner_icon_5.svg" alt="운동"><p>운동</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Free"><label class="free" for="Schedule1Free"><img src="../image/planner_icon_6.svg" alt="자유"><p>자유</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Etc"><label class="etc" for="Schedule1Etc"><img src="../image/planner_icon_7.svg" alt="기타"><p>기타</p></label>
+                            <input type="radio" name="todo_add" id="Schedule1Sleep"><label class="sleep" for="Schedule1Sleep"><img src="../image/planner_icon_8.svg" alt="취침"><p>취침</p></label>
+                        </div>
+                        <p class="middle_title">활동명</p>
+                        <div class="input_area"><input class="activity_input" type="text" maxlength="8" placeholder="예 : 수학학원, 영어 학원 등등"><p class="text_limit">0/8</p></div>
+
+                        <div class="small_title_area"><img src="../image/parents/parents_enterschedule_info.svg" alt="안내아이콘"><span class="small_title">활동명 미 입력시 기본활동 이름이 들어갑니다.</span></div>
+                        <p class="middle_title">활동 시간 범위</p>
+                        <div class="time_box_area">
+                            <input class="time_input" type="text" maxlength="5" value="06:00">
+                            <input class="time_input" type="text" maxlength="5" value="23:00">
+                        </div>
+                        <button class="scheduleAdd_savebtn">일정 등록하기</button>
+                        <button class="scheduleAdd_deletebtn">선택 영역 지우기</button>
                     </div>
-                    <p class="middle_title">활동명</p>
-                    <div class="input_area"><input class="activity_input" type="text" maxlength="8" placeholder="예 : 수학학원, 영어 학원 등등"><p class="text_limit">0/8</p></div>
-                    
-                    <div class="small_title_area"><img src="../image/parents/parents_enterschedule_info.svg" alt="안내아이콘"><span class="small_title">활동명 미 입력시 기본활동 이름이 들어갑니다.</span></div>
-                    <p class="middle_title">활동 시간 범위</p>
-                    <div class="time_box_area">
-                        <input class="time_input" type="text" maxlength="5" value="06:00">
-                        <input class="time_input" type="text" maxlength="5" value="23:00">
-                    </div>
-                    <button class="scheduleAdd_savebtn">일정 등록하기</button>
-                    <button class="scheduleAdd_deletebtn">선택 영역 지우기</button>
+
                 </section>
                 <!-- 스케줄 입력2 -->
                 <section id="pageEnterSchedule2" class="slider_section">
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <h4>스케줄 입력</h4>
-                    <p class="middle_title">활동 타입</p>
-                    <div class="todo_select center">
-                        <!-- 학교 input은 혹시 모르니 주석처리 해두겠습니다. -->
-                        <!-- <input type="radio" name="todo_add" id="Schedule2School"><label class="school" for="Schedule2School"><img src="../image/planner_icon_1.svg" alt="학교"><p>학교</p></label> -->
-                        <input type="radio" name="todo_add" id="Schedule2Academy"><label class="academy" for="Schedule2Academy"><img src="../image/planner_icon_2.svg" alt="학원"><p>학원</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Samhago"><label class="samhago" for="Schedule2Samhago"><img src="../image/planner_icon_3.svg" alt="쌤하고"><p>쌤하고</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Homework"><label class="homework" for="Schedule2Homework"><img src="../image/planner_icon_4.svg" alt="숙제"><p>숙제</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Workout"><label class="workout" for="Schedule2Workout"><img src="../image/planner_icon_5.svg" alt="운동"><p>운동</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Free"><label class="free" for="Schedule2Free"><img src="../image/planner_icon_6.svg" alt="자유"><p>자유</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Etc"><label class="etc" for="Schedule2Etc"><img src="../image/planner_icon_7.svg" alt="기타"><p>기타</p></label>
-                        <input type="radio" name="todo_add" id="Schedule2Sleep"><label class="sleep" for="Schedule2Sleep"><img src="../image/planner_icon_8.svg" alt="취침"><p>취침</p></label>
+                    <div class="scroll_area">
+                        <p class="middle_title">활동 타입</p>
+                        <div class="todo_select center">
+                            <!-- 학교 input은 혹시 모르니 주석처리 해두겠습니다. -->
+                            <!-- <input type="radio" name="todo_add" id="Schedule2School"><label class="school" for="Schedule2School"><img src="../image/planner_icon_1.svg" alt="학교"><p>학교</p></label> -->
+                            <input type="radio" name="todo_add" id="Schedule2Academy"><label class="academy" for="Schedule2Academy"><img src="../image/planner_icon_2.svg" alt="학원"><p>학원</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Samhago"><label class="samhago" for="Schedule2Samhago"><img src="../image/planner_icon_3.svg" alt="쌤하고"><p>쌤하고</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Homework"><label class="homework" for="Schedule2Homework"><img src="../image/planner_icon_4.svg" alt="숙제"><p>숙제</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Workout"><label class="workout" for="Schedule2Workout"><img src="../image/planner_icon_5.svg" alt="운동"><p>운동</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Free"><label class="free" for="Schedule2Free"><img src="../image/planner_icon_6.svg" alt="자유"><p>자유</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Etc"><label class="etc" for="Schedule2Etc"><img src="../image/planner_icon_7.svg" alt="기타"><p>기타</p></label>
+                            <input type="radio" name="todo_add" id="Schedule2Sleep"><label class="sleep" for="Schedule2Sleep"><img src="../image/planner_icon_8.svg" alt="취침"><p>취침</p></label>
+                        </div>
+                        <p class="middle_title">활동명</p>
+                        <div class="input_area"><input class="activity_input" type="text" maxlength="8" placeholder="예 : 수학학원, 영어 학원 등등"><p class="text_limit">0/8</p></div>
+
+                        <div class="small_title_area"><img src="../image/parents/parents_enterschedule_info.svg" alt="안내아이콘"><span class="small_title">활동명 미 입력시 기본활동 이름이 들어갑니다.</span></div>
+                        <p class="middle_title">활동 요일</p>
+                        <div class="day_select">
+                            <input type="checkbox" id="entermon"><label for="entermon">월</label>
+                            <input type="checkbox" id="entertue"><label for="entertue">화</label>
+                            <input type="checkbox" id="enterwed"><label for="enterwed">수</label>
+                            <input type="checkbox" id="enterthu"><label for="enterthu">목</label>
+                            <input type="checkbox" id="enterfri"><label for="enterfri">금</label>
+                            <input type="checkbox" id="entersat"><label for="entersat">토</label>
+                            <input type="checkbox" id="entersun"><label for="entersun">일</label>
+                        </div>
+                        <p class="middle_title">활동 시간 범위</p>
+                        <div class="time_box_area">
+                            <input class="time_input" type="text" maxlength="5" value="06:00">
+                            <input class="time_input" type="text" maxlength="5" value="23:00">
+                        </div>
+                        <button class="scheduleAdd_savebtn">일정 등록하기</button>
                     </div>
-                    <p class="middle_title">활동명</p>
-                    <div class="input_area"><input class="activity_input" type="text" maxlength="8" placeholder="예 : 수학학원, 영어 학원 등등"><p class="text_limit">0/8</p></div>
-                    
-                    <div class="small_title_area"><img src="../image/parents/parents_enterschedule_info.svg" alt="안내아이콘"><span class="small_title">활동명 미 입력시 기본활동 이름이 들어갑니다.</span></div>
-                    <p class="middle_title">활동 요일</p>
-                    <div class="day_select">
-                        <input type="checkbox" id="entermon"><label for="entermon">월</label>
-                        <input type="checkbox" id="entertue"><label for="entertue">화</label>
-                        <input type="checkbox" id="enterwed"><label for="enterwed">수</label>
-                        <input type="checkbox" id="enterthu"><label for="enterthu">목</label>
-                        <input type="checkbox" id="enterfri"><label for="enterfri">금</label>
-                        <input type="checkbox" id="entersat"><label for="entersat">토</label>
-                        <input type="checkbox" id="entersun"><label for="entersun">일</label>
-                    </div>
-                    <p class="middle_title">활동 시간 범위</p>
-                    <div class="time_box_area">
-                        <input class="time_input" type="text" maxlength="5" value="06:00">
-                        <input class="time_input" type="text" maxlength="5" value="23:00">
-                    </div>
-                    <button class="scheduleAdd_savebtn">일정 등록하기</button>
                 </section>
                 <!-- 오늘의 PLAN 등록하기 -->
                 <section id="pageTodayPlanUp" class="slider_section">
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <div class="plan_up_header"><img src="../image/icon_plan.svg" alt="오늘의 PLAN 등록하기"><p>오늘의 PLAN 등록하기</p></div>
-                    <div class="dropdown_area">
-                        <div class="dropdown_area_left">
-                            <p>출처</p>
-                            <div class="dropdown" onclick="dropdownToggle(this)">
-                              <button class="dropdown-btn">
-                                <span><img class="icon" src="../image/icon_school.svg" alt="">학교</span>
-                                <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
-                              </button>
-                              <div class="dropdown-list">
-                                <div class="dropdown-item school"><img class="icon" src="../image/icon_school.svg" alt="">학교</div>
-                                <div class="dropdown-item academy"><img class="icon" src="../image/icon_academy.svg" alt="">학원</div>
-                                <div class="dropdown-item personal"><img class="icon" src="../image/icon_personal.svg" alt="">개인</div>
-                              </div>
+                    <div class="scroll_area">
+                        <div class="dropdown_area">
+                            <div class="dropdown_area_left">
+                                <p>출처</p>
+                                <div class="dropdown" onclick="dropdownToggle(this)">
+                                  <button class="dropdown-btn">
+                                    <span><img class="icon" src="../image/icon_school.svg" alt="">학교</span>
+                                    <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
+                                  </button>
+                                  <div class="dropdown-list">
+                                    <div class="dropdown-item school"><img class="icon" src="../image/icon_school.svg" alt="">학교</div>
+                                    <div class="dropdown-item academy"><img class="icon" src="../image/icon_academy.svg" alt="">학원</div>
+                                    <div class="dropdown-item personal"><img class="icon" src="../image/icon_personal.svg" alt="">개인</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="dropdown_area_right">
+                                <p>과목</p>
+                                <div class="dropdown" onclick="dropdownToggle(this)">
+                                     <button class="dropdown-btn">
+                                       <span><img class="icon" src="../image/icon_math.svg" alt="">수학</span>
+                                       <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
+                                     </button>
+                                     <div class="dropdown-list">
+                                       <div class="dropdown-item math"><img class="icon" src="../image/icon_math.svg" alt="">수학</div>
+                                       <div class="dropdown-item korean"><img class="icon" src="../image/icon_korean.svg" alt="">국어</div>
+                                       <div class="dropdown-item english"><img class="icon" src="../image/icon_english.svg" alt="">영어</div>
+                                       <div class="dropdown-item society"><img class="icon" src="../image/icon_society.svg" alt="">사회</div>
+                                       <div class="dropdown-item science"><img class="icon" src="../image/icon_science.svg" alt="">과학</div>
+                                       <div class="dropdown-item hanja"><img class="icon" src="../image/icon_hanja.svg" alt="">한자</div>
+                                       <div class="dropdown-item reading"><img class="icon" src="../image/icon_reading.svg" alt="">독서</div>
+                                       <div class="dropdown-item diary"><img class="icon" src="../image/icon_diary.svg" alt="">일기</div>
+                                       <div class="dropdown-item etc"><img class="icon" src="../image/icon_etc.svg" alt="">기타</div>
+                                     </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="dropdown_area_right">
-                            <p>과목</p>
-                            <div class="dropdown" onclick="dropdownToggle(this)">
-                                 <button class="dropdown-btn">
-                                   <span><img class="icon" src="../image/icon_math.svg" alt="">수학</span>
-                                   <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
-                                 </button>
-                                 <div class="dropdown-list">
-                                   <div class="dropdown-item math"><img class="icon" src="../image/icon_math.svg" alt="">수학</div>
-                                   <div class="dropdown-item korean"><img class="icon" src="../image/icon_korean.svg" alt="">국어</div>
-                                   <div class="dropdown-item english"><img class="icon" src="../image/icon_english.svg" alt="">영어</div>
-                                   <div class="dropdown-item society"><img class="icon" src="../image/icon_society.svg" alt="">사회</div>
-                                   <div class="dropdown-item science"><img class="icon" src="../image/icon_science.svg" alt="">과학</div>
-                                   <div class="dropdown-item hanja"><img class="icon" src="../image/icon_hanja.svg" alt="">한자</div>
-                                   <div class="dropdown-item reading"><img class="icon" src="../image/icon_reading.svg" alt="">독서</div>
-                                   <div class="dropdown-item diary"><img class="icon" src="../image/icon_diary.svg" alt="">일기</div>
-                                   <div class="dropdown-item etc"><img class="icon" src="../image/icon_etc.svg" alt="">기타</div>
-                                 </div>
-                            </div>
+                        <p>교재/콘텐츠</p>
+                        <input class="content_input" type="text" maxlength="20" placeholder="예 : 세븐브릭스">
+                        <p>교재 범위</p>
+                        <input class="range_input" type="text" maxlength="20" placeholder="예 : 매일 2쪽 씩">
+                        <p>예상 시간</p>
+                        <div class="dropdown" onclick="dropdownToggle(this)">
+                          <button class="dropdown-btn">
+                            <span>20분</span>
+                            <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
+                          </button>
+                          <div class="dropdown-list">
+                            <div class="dropdown-item">10분</div>
+                            <div class="dropdown-item">20분</div>
+                            <div class="dropdown-item">30분</div>
+                            <div class="dropdown-item">40분</div>
+                            <div class="dropdown-item">50분</div>
+                            <div class="dropdown-item">60분</div>
+                          </div>
                         </div>
+                        <button class="planAdd_savebtn">PLAN 등록하기</button>
                     </div>
-                    <p>교재/콘텐츠</p>
-                    <input class="content_input" type="text" maxlength="20" placeholder="예 : 세븐브릭스">
-                    <p>교재 범위</p>
-                    <input class="range_input" type="text" maxlength="20" placeholder="예 : 매일 2쪽 씩">
-                    <p>예상 시간</p>
-                    <div class="dropdown" onclick="dropdownToggle(this)">
-                      <button class="dropdown-btn">
-                        <span>20분</span>
-                        <span class="dropdown-icon"><img src="../image/dropDown.svg" alt="드롭다운"></span>
-                      </button>
-                      <div class="dropdown-list">
-                        <div class="dropdown-item">10분</div>
-                        <div class="dropdown-item">20분</div>
-                        <div class="dropdown-item">30분</div>
-                        <div class="dropdown-item">40분</div>
-                        <div class="dropdown-item">50분</div>
-                        <div class="dropdown-item">60분</div>
-                      </div>
-                    </div>
-                    <button class="planAdd_savebtn">PLAN 등록하기</button>
+
                 </section>
                 <!-- 오늘의 PLAN 상세리뷰 -->
                 <section id="pageDetailedReview" class="slider_section">
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <div class="detailed_review_header"><img src="../image/icon_plan.svg" alt="오늘의 PLAN 상세리뷰"><p>오늘의 PLAN 상세리뷰</p></div>
-                    <div class="study_log log1 end repeat review"> <!-- end(완료) ing(진행) delay(미룸) wait(진행전) repeat(반복뱃지) review(복습뱃지) expected(복습예정뱃지) today(today뱃지) -->
-                        <div class="log_history">
-                            <div class="log_top">
-                                <span class="end">완료</span>
-                                <span class="ing">진행</span>
-                                <span class="delay">미룸</span>
-                               <div class="source school"><span></span><p>학교</p></div>
-                               <!-- <div class="source academy"><span></span><p>학원</p></div> -->
-                               <!-- <div class="source personal"><span></span><p>개인</p></div> -->
+                    <div class="scroll_area">
+                        <div class="study_log log1 ing repeat review"> <!-- end(완료) ing(진행) delay(미룸) wait(진행전) repeat(반복뱃지) review(복습뱃지) expected(복습예정뱃지) today(today뱃지) -->
+                            <div class="log_history">
+                                <div class="log_top">
+                                    <span class="end">완료</span>
+                                    <span class="ing">진행</span>
+                                    <span class="delay">미룸</span>
+                                   <div class="source school"><span></span><p>학교</p></div>
+                                   <!-- <div class="source academy"><span></span><p>학원</p></div> -->
+                                   <!-- <div class="source personal"><span></span><p>개인</p></div> -->
 
-                               <span class="today_badge">TODAY</span>
-                               <span class="review_badge">1/10 복습</span>
-                               <span class="expected_badge">1/10 복습 예정</span>
-                               <span class="repeat_badge">반복</span>
-                                <span></span>
-                            </div>
-                            <div class="log_mid">
-                                <div class="log_mid_left">
-                                    <span class="subject math"></span>
-                                    <!-- <span class="subject korean"></span> -->
-                                    <!-- <span class="subject english"></span> -->
-                                    <!-- <span class="subject society"></span> -->
-                                    <!-- <span class="subject science"></span> -->
-                                    <!-- <span class="subject hanja"></span> -->
-                                    <!-- <span class="subject reading"></span> -->
-                                    <!-- <span class="subject diary"></span> -->
-                                    <!-- <span class="subject etc"></span> -->
+                                   <span class="today_badge">TODAY</span>
+                                   <span class="review_badge">1/10 복습</span>
+                                   <span class="expected_badge">1/10 복습 예정</span>
+                                   <span class="repeat_badge">반복</span>
+                                    <span></span>
                                 </div>
-                                <div class="log_mid_right">
-                                    <p>뿌리깊은 독해력 어휘편 1단계1단계뿌리깊은 독해력 어휘편 1단계1단계</p>
-                                    <span>플란다스의 개, 80일간의 세계일주</span>
-                                </div>
+                                <div class="log_mid">
+                                    <div class="log_mid_left">
+                                        <span class="subject math"></span>
+                                        <!-- <span class="subject korean"></span> -->
+                                        <!-- <span class="subject english"></span> -->
+                                        <!-- <span class="subject society"></span> -->
+                                        <!-- <span class="subject science"></span> -->
+                                        <!-- <span class="subject hanja"></span> -->
+                                        <!-- <span class="subject reading"></span> -->
+                                        <!-- <span class="subject diary"></span> -->
+                                        <!-- <span class="subject etc"></span> -->
+                                    </div>
+                                    <div class="log_mid_right">
+                                        <p>뿌리깊은 독해력 어휘편 1단계1단계뿌리깊은 독해력 어휘편 1단계1단계</p>
+                                        <span>플란다스의 개, 80일간의 세계일주</span>
+                                    </div>
 
+                                </div>
+                                <span class="line"></span>
+                                <div class="log_btm">
+                                    <div class="log_btm_left"><img src="../image/parents/parents_icon_targetTime.svg" alt="목표시간"><p>목표 <span class="target_time">30분</span></p></div>
+                                    <div class="log_btm_right"><img src="../image/parents/parents_icon_target_time.svg" alt="목표시간"><p><span class="time_taken">30분 20초</span> 걸렸어요!</p></div>
+                                </div>
+                                <span class="line"></span>
                             </div>
-                            <span class="line"></span>
-                            <div class="log_btm">
-                                <div class="log_btm_left"><img src="../image/parents/parents_icon_targetTime.svg" alt="목표시간"><p>목표 <span class="target_time">30분</span></p></div>
-                                <div class="log_btm_right"><img src="../image/parents/parents_icon_target_time.svg" alt="목표시간"><p><span class="time_taken">30분 20초</span> 걸렸어요!</p></div>
-                            </div>
-                            <span class="line"></span>
+                            <ul class="study_log_btm">
+                                <li class="question question1 end">
+                                    <span class="qtxt">Q. 오늘 나의 공부는 어땠나요?</span>
+                                    <p class="answer">노력해서 했어요.</p>
+                                </li>
+                                <li class="question question2 end">
+                                    <span class="qtxt">Q. 오늘 나의 집중는 어땠나요?</span>
+                                    <p class="answer">시간가는 줄 몰랐어요.</p>
+                                </li>
+                                <li class="question question3 delay">
+                                    <span class="qtxt">Q. 왜 이 PLAN을 완료하지 못했나요?</span>
+                                    <p class="answer">다른 일이 있어서 못했어요.</p>
+                                </li>
+                                <li class="wait">
+                                    <span>해당 PLAN이 아직 진행되지 않았어요.</span>
+                                </li>
+                                <li class="ing">
+                                    <span>현재 진행중인 PLAN입니다.</span>
+                                    <span class="current_time">00 : 00</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="study_log_btm">
-                            <li class="question question1 end">
-                                <span class="qtxt">Q. 오늘 나의 공부는 어땠나요?</span>
-                                <p class="answer">노력해서 했어요.</p>
-                            </li>
-                            <li class="question question2 end">
-                                <span class="qtxt">Q. 오늘 나의 집중는 어땠나요?</span>
-                                <p class="answer">시간가는 줄 몰랐어요.</p>
-                            </li>
-                            <li class="question question3 delay">
-                                <span class="qtxt">Q. 왜 이 PLAN을 완료하지 못했나요?</span>
-                                <p class="answer">다른 일이 있어서 못했어요.</p>
-                            </li>
-                            <li class="wait">
-                                <span>해당 PLAN이 아직 진행되지 않았어요.</span>
-                            </li>
-                            <li class="ing">
-                                <span>현재 진행중인 PLAN입니다.</span>
-                                <span class="current_time">00 : 00</span>
-                            </li>
-                        </ul>
+                        <button class="check_btn">확인했어요!</button>
                     </div>
-                    <button class="check_btn">확인했어요!</button>
+
                 </section>
                 <!-- 비밀번호 재설정 -->
                 <section id="pageEditPassword" class="slider_section">
@@ -1519,50 +1532,56 @@
                 <section id="pageCertificationError">
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <div class="certification_error_header"><img src="../image/parents/parents_icon_wonder.svg" alt="인증번호가 오지 않나요?"><p>인증번호가 오지 않나요?</p></div>
-                    <div class="certification_error_top">
-                        <p>스팸 메시지 차단 여부를 확인하세요.</p>
-                        <span>
-                            쌤하고 인증 문자가 휴대폰 또는 앱 설정에서 스팸 차단된 경우 > 스팸 차단 해제 후 다시 시도합니다.
-                            <br>​
-                            <br>1）Android: 메시지 > 우측 상단 더 보기 > 설정 > 번호 및 메시지 차단 > 수신 차단·차단 문구·차단 메시지에서 각각 차단 여부 확인
-                            <br>2）iOS: 설정 > 메시지 > SMS·MMS > 차단 목록 > 차단 여부 확인<br>
+                    <div class="scroll_area">
+                        <div class="certification_error_top">
+                            <p>스팸 메시지 차단 여부를 확인하세요.</p>
+                            <span>
+                                쌤하고 인증 문자가 휴대폰 또는 앱 설정에서 스팸 차단된 경우 > 스팸 차단 해제 후 다시 시도합니다.
+                                <br>​
+                                <br>1）Android: 메시지 > 우측 상단 더 보기 > 설정 > 번호 및 메시지 차단 > 수신 차단·차단 문구·차단 메시지에서 각각 차단 여부 확인
+                                <br>2）iOS: 설정 > 메시지 > SMS·MMS > 차단 목록 > 차단 여부 확인<br>
 
-                        </span>
+                            </span>
+                        </div>
+                        <div class="certification_error_btm">
+                            <p>통신사의 기본 서비스로<br>스팸 차단됐는지 확인하세요.</p>
+                            <span>
+                                휴대폰 통신사로 인증번호 문자 수신 여부를 확인합니다.
+​                                <br>  
+                                <br>[통신사 고객센터]
+                                <br>- SK 텔레콤: 휴대폰에서 국번 없이 114
+                                <br>- KT: 휴대폰에서 국번 없이 100
+                                <br>- LG U+: 휴대폰에서 국번 없이 114 또는 1544-0010<br>
+                            </span>
+                        </div>
+                        <button class="check_btn">이해 했습니다</button>
                     </div>
-                    <div class="certification_error_btm">
-                        <p>통신사의 기본 서비스로<br>스팸 차단됐는지 확인하세요.</p>
-                        <span>
-                            휴대폰 통신사로 인증번호 문자 수신 여부를 확인합니다.
-​                            <br>  
-                            <br>[통신사 고객센터]
-                            <br>- SK 텔레콤: 휴대폰에서 국번 없이 114
-                            <br>- KT: 휴대폰에서 국번 없이 100
-                            <br>- LG U+: 휴대폰에서 국번 없이 114 또는 1544-0010<br>
-                        </span>
-                    </div>
-                    <button class="check_btn">이해 했습니다</button>
+
                 </section>
                 <!-- 서비스 이용약관 및 개인정보 수집 -->
                 <section id="pageCollectionRequest">
                     <img class="modal_slider_close" src="../image/parents/slider_close.svg" alt="모달 슬라이더 닫기">
                     <div class="collection_request_header"><img src="../image/parents/parents_icon_wonder.svg" alt="서비스 이용약관 및 개인정보 수집"><p>서비스 이용약관 및 개인정보 수집</p></div>
-                    <div class="collection_request_top">
-                        <p>내용내용</p>
-                        <span>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br><br>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        </span>
+                    <div class="scroll_area">
+                        <div class="collection_request_top">
+                            <p>내용내용</p>
+                            <span>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                                내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br><br>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                            </span>
+                        </div>
+                        <div class="collection_request_btm">
+                            <p>통신사의 기본 서비스로<br>스팸 차단됐는지 확인하세요.</p>
+                            <span>
+                                휴대폰 통신사로 인증번호 문자 수신 여부를 확인합니다.
+​                                <br>  
+                                <br>[통신사 고객센터]
+                                <br>- SK 텔레콤: 휴대폰에서 국번 없이 114
+                                <br>- KT: 휴대폰에서 국번 없이 100
+                                <br>- LG U+: 휴대폰에서 국번 없이 114 또는 1544-0010<br>
+                            </span>
+                        </div>
+                        <button class="check_btn">동의</button>
                     </div>
-                    <div class="collection_request_btm">
-                        <p>통신사의 기본 서비스로<br>스팸 차단됐는지 확인하세요.</p>
-                        <span>
-                            휴대폰 통신사로 인증번호 문자 수신 여부를 확인합니다.
-​                            <br>  
-                            <br>[통신사 고객센터]
-                            <br>- SK 텔레콤: 휴대폰에서 국번 없이 114
-                            <br>- KT: 휴대폰에서 국번 없이 100
-                            <br>- LG U+: 휴대폰에서 국번 없이 114 또는 1544-0010<br>
-                        </span>
-                    </div>
-                    <button class="check_btn">동의</button>
                 </section>
             </div>
         </div>
@@ -1599,7 +1618,7 @@
                     <img src="../image/planner_icon_samhago.svg" alt="쌤하고 로고">
                     <!-- <h2>반갑습니다.<br>올곧은 습관 쌤하고입니다.</h2> -->
                     <h2>비밀번호 찾기</h2>
-                    <p>비밀번호를 재설정하기 위해 본인 확인이 필요해요.<br>가입 시 등록한 정보를 입력해주세요</p>
+                    <p>비밀번호를 재설정하기 위해 본인 확인이 필요해요.<br>가입 시 등록한 정보를 입력해주세요.</p>
                     <div class="input_area"><img src="../image/parents/parents_icon_parents.svg" alt="학부모 성명"><input class="parent_name_input" type="text" maxlength="15" placeholder="학부모 성명"></div>
                     <div class="input_area"><img src="../image/parents/parents_icon_phone_number.svg" alt="휴대폰 번호"><input class="phone_number_input" type="text" maxlength="15" placeholder="휴대폰 번호"></div>
                 </div>
@@ -1725,7 +1744,7 @@
                     <span>유효성문구는 이쪽에 배치해주세요.</span>
                 </div>
                 <div class="join3_btm">
-                    <button class="join3_btn active">다음</button> <!-- 인풋 입력되면 active 클래스 추가 필요 -->
+                    <button class="join3_btn active">인증번호 받기</button> <!-- 인풋 입력되면 active 클래스 추가 필요 -->
                 </div>
             </section>
             <!-- 회원가입4 -->
@@ -1742,8 +1761,8 @@
                     </div>
                     <img src="../image/planner_icon_samhago.svg" alt="쌤하고 로고">
                     <h2>환영합니다!<br>이제 우리 아이의 학습을<br>한눈에 확인할 수 있어요.</h2>
-                    <div class="input_area"><p>이름</p><input class="name_input" type="text" maxlength="15" placeholder="김부모"></div>
-                    <div class="input_area"><p>핸드폰 번호</p><input class="phone_number_input" type="text" maxlength="15" placeholder="010-0000-0000"></div>
+                    <div class="input_area"><p>이름</p><input class="name_input" type="text" maxlength="15" value="김부모"></div>
+                    <div class="input_area"><p>핸드폰 번호</p><input class="phone_number_input" type="text" maxlength="15" value="010-0000-0000"></div>
                 </div>
                 <div class="join4_btm">
                     <button class="join4_btn active">시작하기</button> <!-- 인풋 입력되면 active 클래스 추가 필요 -->
@@ -2354,11 +2373,47 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="center_tab2">내용 추가 필요</div>
+                    <div class="center_tab2">
+                        <div class="kakao_box">
+                            <div class="kakao_left">
+                                <p>쌤하고 카카오 고객센터</p>
+                                <span>운영시간 : 08:00 - 17:00</span>
+                            </div>
+                            <img class="kakao_right" src="../image/parents/kakao_icon.svg" alt="카카오톡 아이콘">
+                        </div>
+                        <ul>
+                            <li class="tab1_item">
+                                <div class="item_top">
+                                    <div class="item_top_left">
+                                        <img src="../image/parents/parents_icon_alarm2.svg" alt="이용안내 아이콘">
+                                        <p>이용안내</p>
+                                    </div>
+                                    <span class="item_top_right time_ago unconfirmed">2분전</span>
+                                </div>
+                                <div class="item_btm">
+                                    <p>이용안내 제목을 입력하는 곳</p>
+                                    <span>이용안내내용을 입력하거나 어쩌고 저쩌고 샘하고이용안내 내용을여기에 어쩌고저저고 입력해야하긴 해야하는데</span>
+                                </div>
+                            </li>
+                            <li class="tab1_item">
+                                <div class="item_top">
+                                    <div class="item_top_left">
+                                        <img src="../image/parents/parents_icon_alarm2.svg" alt="이용안내 아이콘">
+                                        <p>이용안내</p>
+                                    </div>
+                                    <span class="item_top_right time_ago">2025.12.12</span>
+                                </div>
+                                <div class="item_btm">
+                                    <p>이용안내 제목을 입력하는 곳</p>
+                                    <span>이용안내내용을 입력하거나 어쩌고 저쩌고 샘하고이용안내 내용을여기에 어쩌고저저고 입력해야하긴 해야하는데</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="center_tab3">
                         <div class="toggle_tab">
                             <button class="samhago_btn active" onclick="centerTabToggle(this)">쌤하고</button>
-                            <button class="student_btn" onclick="centerTabToggle(this)">우리아이</button>
+                            <button class="student_btn" onclick="centerTabToggle(this)">학생</button>
                             <button class="parents_btn" onclick="centerTabToggle(this)">부모님</button>
                         </div>
                         <ul class="toggle_list samhago"> <!--samhago(쌤하고 리스트) student(우리아이 리스트) parents(학부모 리스트)-->
@@ -2429,7 +2484,7 @@
                     <span class="time_ago">2분전</span>
                     <span class="line"></span>
                 </div>
-                <div class="cd_mid">
+                <div class="cd_btm">
                     <p>안녕하세요, 세븐브릭스입니다.
                         <br><br>
                         일부 사용자분들께서 학습 테스트 창을 2개 이상 동시에 열어 진행할 경우, 학습 홈에서 브릭이 정상적으로 나타나지 않는 현상이 발생했습니다.
@@ -2442,8 +2497,6 @@
                         <br><br>
                         감사합니다.<br>
                         세븐브릭스 팀 드림</p>
-                </div>
-                <div class="cd_btm">
                     <button class="to_list_btn">목록으로</button>
                 </div>
             </section>
@@ -2659,11 +2712,12 @@
                         <div class="grid1"><img src="../image/parents/parents_icon_grid1.svg" alt=""><span>매주 화, 수, 목</span></div>
                         <div class="grid2"><img src="../image/parents/parents_icon_grid2.svg" alt=""><span>19:00</span></div>
                         <div class="grid3"><img src="../image/parents/parents_icon_grid3.svg" alt="">
-                            <p class="typeA typeB">입실 : <span class="entry_time">14:40</span></p>
+                            <p class="typeA typeB">입실 :&nbsp;<span class="entry_time">14:40</span></p>
                             <span style="color: #C2C2C2;white-space:nowrap" class="typeC">학습 시작 하기전 입니다.</span></div>
 
                         <div class="grid4 typeA typeB"><img src="../image/parents/parents_icon_grid4.svg" alt="">
-                            <p class="exit_time">퇴실 : <span class="typeA">14:40</span>
+                            <p class="exit_time">퇴실 :&nbsp;
+                                <span class="typeA">14:40</span>
                                 <span style="color: #C2C2C2" class="typeB">퇴실 전</span>
                             </p>
                         </div>
@@ -3749,14 +3803,14 @@
                         </li>
                         <li class="sum etc">
                             <div class="sum_top">
-                                <p></p>
+                                <p>기타</p>
                                 <span class="etc_sum_value">15시간 30분</span>
                             </div>
                             <img src="../image/parents/parents_icon_sum7.svg" alt="기타" class="sum_btm">
                         </li>
                         <li class="sum sleep">
                             <div class="sum_top">
-                                <p></p>
+                                <p>취침</p>
                                 <span class="sleep_sum_value">15시간 30분</span>
                             </div>
                             <img src="../image/parents/parents_icon_sum8.svg" alt="취침" class="sum_btm">

@@ -118,7 +118,7 @@
 .checkaction_section2 .flatpickr-days .dayContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0.8vw;/*3px*/
+    gap: 1.42857vh 0.9333vw;/*10px 3.5px*/
     width: 100% !important;
     min-width: unset;
     max-width: unset;
@@ -734,7 +734,7 @@
     font-size:40px;  /* 20px → 40px */
 }
 .checkaction_section2 .flatpickr-weekdays {
-    margin-bottom:6px;  /* 3px → 6px */
+    margin-bottom:24px;
 }
 .checkaction_section2 .flatpickr-weekdays .flatpickr-weekdaycontainer {
     gap:6px;  /* 3px → 6px */
@@ -744,7 +744,7 @@
     font-size:28px;  /* 14px → 28px */
 }
 .checkaction_section2 .flatpickr-days .dayContainer {
-    gap:6px;  /* 3px → 6px */
+    gap: 20px 7px;
 }
 .checkaction_section2 .flatpickr-day {
     width:78px;

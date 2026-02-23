@@ -479,6 +479,10 @@
 .todayplan_nav {
     height:calc(100% - 124px - 132px); /* 62px → 124px, 66px → 132px */
     top:124px;/* 62px → 124px */;
+    width:750px;
+    left:50%;
+    transform: translateX(-50%);
+
 }
 .todayplan_nav.active {
     backdrop-filter: blur(5px); /* 2.5px → 5px */
@@ -496,29 +500,29 @@
     gap:22px;/* 11px → 22px */
 }
 .quick_nav .q_nav1 > p {
-    font-size: 32px;/* 16px → 32px */
+    font-size: 24px;
 }
 .quick_nav .q_nav2 {
     gap:22px;/* 11px → 22px */
 }
 .quick_nav .q_nav2 > div {
-    gap:20px;/* 10px → 20px */
+    gap:10px;/* 10px → 20px */
 }
 .quick_nav .q_nav2 > div > span {
-    font-size: 24px;/* 12px → 24px */
+    font-size: 18px;/* 12px → 24px */
 }
 .quick_nav .q_nav2 > div > p {
-    font-size: 32px;/* 16px → 32px */
+    font-size: 24px;
 }
 .quick_nav .q_nav1 > img,
 .quick_nav .q_nav2 > img,
 .quick_nav .q_nav3 {
-    width: 102px;/* 51px → 102px */
-    height: 102px;/* 51px → 102px */
+    width: 80px;
+    height: 80px;
 }
 .quick_nav .q_nav3 > img {
-    width: 42px;/* 21px → 42px */
-    height: 42px;/* 21px → 42px */
+    width: 40px;/* 21px → 42px */
+    height: 40px;/* 21px → 42px */
 }
 
 /* section1 */
