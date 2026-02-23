@@ -608,6 +608,9 @@
     gap:1.333vw;/*5px*/
     cursor: pointer;
 }
+.todayplan_section4 .study_log.wait .log_history .log_btm .log_btm_right {
+    display: none;
+}
 .todayplan_section4 .study_log .log_history .log_btm .log_btm_right p {
     color: #19B5F5;
     font-size: 3.2vw;/*12px*/
