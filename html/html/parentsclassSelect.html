@@ -684,17 +684,19 @@
     }
 
     // 검수 페이지용 삭제예정
+
+    function All_close() {
+      mainPage_close()
+      modalWindow_close()
+      modalSlider_close()
+      modalPage_close()
+    }
     function mainPage_close() {
       $("#pageHome").removeClass("active")
       $("#pageWeek").removeClass("active")
       $("#pageTodayPlan").removeClass("active")
       $("#pageCheckAction").removeClass("active")
       $("#pageMypage").removeClass("active")
-    }
-    function modalAll_close() {
-      modalWindow_close()
-      modalSlider_close()
-      modalPage_close()
     }
     function modalWindow_close() {
       $("#modalBox").removeClass("active")
@@ -742,7 +744,7 @@
             $(this).addClass('on').siblings().removeClass('on');
         });
         // 검수 페이지용 삭제예정
-        
+
         // $("#pageHome").addClass("active")
         // $("#pageWeek").addClass("active")
         // $("#pageTodayPlan").addClass("active")
@@ -1226,40 +1228,40 @@
           <div class="dropdown-list">
                 <ul>
                   <li>
-                    <button onclick="mainPage_close(); modalAll_close()">모든 페이지 닫기</button>
-                    <button onclick="mainPage_close(); $('#pageHome').addClass('active')">메인페이지 - 홈화면</button>
-                    <button onclick="mainPage_close(); $('#pageWeek').addClass('active')">메인페이지 - 주간스케줄</button>
-                    <button onclick="mainPage_close(); $('#pageTodayPlan').addClass('active')">메인페이지 - 오늘플랜</button>
-                    <button onclick="mainPage_close(); $('#pageCheckAction').addClass('active')">메인페이지 - 체크앤액션</button>
-                    <button onclick="mainPage_close(); $('#pageMypage').addClass('active')">메인페이지 - 마이페이지</button>
-                    <button onclick="modalAll_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error1').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다1</button>
-                    <button onclick="modalAll_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error2').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다2</button>
-                    <button onclick="modalAll_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error3').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다3</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageEnterSchedule1').addClass('active')">모달 슬라이드 - 스케줄 입력1</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageEnterSchedule2').addClass('active')">모달 슬라이드 - 스케줄 입력2</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageTodayPlanUp').addClass('active')">모달 슬라이드 - 오늘의 PLAN 등록하기</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageDetailedReview').addClass('active')">모달 슬라이드 - 오늘의 PLAN 상세리뷰</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageEditPassword').addClass('active')">모달 슬라이드 - 비밀번호 재설정</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageCertificationError').addClass('active')">모달 슬라이드 - 인증번호가 오지 않나요?</button>
-                    <button onclick="modalAll_close(); $('#modalSlider').addClass('active'); $('#pageCollectionRequest').addClass('active')">모달 슬라이드 - 서비스 이용약관 및 개인정보 수집</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageLogin').addClass('active')">모달 페이지 - 로그인</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageFindPassword').addClass('active')">모달 페이지 - 비밀번호 찾기</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageCertification').addClass('active')">모달 페이지 - 인증번호 입력</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageTC').addClass('active')">모달 페이지 - 약관동의</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageJoin1').addClass('active')">모달 페이지 - 회원가입1</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageJoin2').addClass('active')">모달 페이지 - 회원가입2</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageJoin3').addClass('active')">모달 페이지 - 회원가입3</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageJoin4').addClass('active')">모달 페이지 - 회원가입4</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageAlarm').addClass('active')">모달 페이지 - 알림게시판</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageRegistration').addClass('active')">모달 페이지 - 반복 PLAN 등록하기, 수정하기</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageChangePassword').addClass('active')">모달 페이지 - 비밀번호 변경</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageEditinfoStudent').addClass('active')">모달 페이지 - 자녀 정보 수정</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageEditinfoParents').addClass('active')">모달 페이지 - 정보수정</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageCenter').addClass('active')">모달 페이지 - 고객센터</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageCenterDetail').addClass('active')">모달 페이지 - 고객센터 공지사항 클릭 페이지</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pagePaymentHistory').addClass('active')">모달 페이지 - 이용권 결제 내역</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageInquiry').addClass('active')">모달 페이지 - 1:1 문의</button>
-                    <button onclick="modalAll_close(); $('#modalPage').addClass('active'); $('#pageInfo').addClass('active')">모달 페이지 - 공지사항 및 이용안내</button>
+                    <button onclick="All_close(); modalAll_close()">모든 페이지 닫기</button>
+                    <button onclick="All_close(); $('#pageHome').addClass('active')">메인페이지 - 홈화면</button>
+                    <button onclick="All_close(); $('#pageWeek').addClass('active')">메인페이지 - 주간스케줄</button>
+                    <button onclick="All_close(); $('#pageTodayPlan').addClass('active')">메인페이지 - 오늘플랜</button>
+                    <button onclick="All_close(); $('#pageCheckAction').addClass('active')">메인페이지 - 체크앤액션</button>
+                    <button onclick="All_close(); $('#pageMypage').addClass('active')">메인페이지 - 마이페이지</button>
+                    <button onclick="All_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error1').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다1</button>
+                    <button onclick="All_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error2').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다2</button>
+                    <button onclick="All_close(); $('#modalBox').addClass('active'); $('#modal_Search_Error3').addClass('active')">모달 창 - 회원정보를 찾을 수 없습니다3</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageEnterSchedule1').addClass('active')">모달 슬라이드 - 스케줄 입력1</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageEnterSchedule2').addClass('active')">모달 슬라이드 - 스케줄 입력2</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageTodayPlanUp').addClass('active')">모달 슬라이드 - 오늘의 PLAN 등록하기</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageDetailedReview').addClass('active')">모달 슬라이드 - 오늘의 PLAN 상세리뷰</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageEditPassword').addClass('active')">모달 슬라이드 - 비밀번호 재설정</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageCertificationError').addClass('active')">모달 슬라이드 - 인증번호가 오지 않나요?</button>
+                    <button onclick="All_close(); $('#modalSlider').addClass('active'); $('#pageCollectionRequest').addClass('active')">모달 슬라이드 - 서비스 이용약관 및 개인정보 수집</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageLogin').addClass('active')">모달 페이지 - 로그인</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageFindPassword').addClass('active')">모달 페이지 - 비밀번호 찾기</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageCertification').addClass('active')">모달 페이지 - 인증번호 입력</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageTC').addClass('active')">모달 페이지 - 약관동의</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageJoin1').addClass('active')">모달 페이지 - 회원가입1</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageJoin2').addClass('active')">모달 페이지 - 회원가입2</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageJoin3').addClass('active')">모달 페이지 - 회원가입3</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageJoin4').addClass('active')">모달 페이지 - 회원가입4</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageAlarm').addClass('active')">모달 페이지 - 알림게시판</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageRegistration').addClass('active')">모달 페이지 - 반복 PLAN 등록하기, 수정하기</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageChangePassword').addClass('active')">모달 페이지 - 비밀번호 변경</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageEditinfoStudent').addClass('active')">모달 페이지 - 자녀 정보 수정</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageEditinfoParents').addClass('active')">모달 페이지 - 정보수정</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageCenter').addClass('active')">모달 페이지 - 고객센터</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageCenterDetail').addClass('active')">모달 페이지 - 고객센터 공지사항 클릭 페이지</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pagePaymentHistory').addClass('active')">모달 페이지 - 이용권 결제 내역</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageInquiry').addClass('active')">모달 페이지 - 1:1 문의</button>
+                    <button onclick="All_close(); $('#modalPage').addClass('active'); $('#pageInfo').addClass('active')">모달 페이지 - 공지사항 및 이용안내</button>
                   </li>
                 </ul>
             <div></div>
@@ -1571,7 +1573,7 @@
                 <div class="login_top">
                     <img src="../image/planner_icon_samhago.svg" alt="쌤하고 로고">
                     <!-- <h2>반갑습니다.<br>올곧은 습관 쌤하고입니다.</h2> -->
-                    <h2>반값습니다, 학부모님!<br>휴대폰 번호를 입력해 주세요.</h2>
+                    <h2>반갑습니다, 학부모님!<br>휴대폰 번호를 입력해 주세요.</h2>
                     <p>로그인 후 아이의 학습을 한눈에 확인하실 수 있습니다.</p>
                     <div class="input_area"><img src="../image/parents/parents_icon_phone_number.svg" alt="휴대폰 번호"><input class="phone_number_input" type="text" maxlength="15" placeholder="휴대폰 번호"></div>
                     <div class="input_area"><img src="../image/parents/parents_icon_password.svg" alt="비밀번호"><input class="password_input" type="password" maxlength="15" placeholder="비밀번호"></div>
