@@ -1,0 +1,475 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kr"><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="HTML, meta, tag, element, reference">
+    <meta name="author" content="리얼스터디">
+    <meta name="description" content="{props.description}" data-react-helmet="true">
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <meta http-equiv="pragma" content="No-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- sns미리보기 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://samhago.com/">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="쌤하고">
+    <meta property="og:description" content="스스로 공부하는 아아를 만드는 최고의 서비스!">
+
+    <!-- 사이트등록및소유확인 -->
+    <meta name="naver-site-verification" content="">
+    <title>쌤하고</title>
+
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="../image/favicon.ico?v1.2" type="image/x-icon">
+    <link rel="icon" href="../image/favicon.ico?v1.2" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../image/favicon.ico?v1.2">
+
+    <!-- 베이스css -->
+    <link rel="stylesheet" href="../bootstrap/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+
+    <!-- 적용css -->
+    <link rel="stylesheet" href="../css/web/common.css?v1.2">
+    <link rel="stylesheet" href="../css/web/jquery-ui.css">
+    <link rel="stylesheet" href="../css/web/font.css">
+    <link rel="stylesheet" href="../css/web/modal.css?v2.1">
+    <link rel="stylesheet" href="../css/web/loadingAnimations2.css">
+
+    <link rel="stylesheet" href="../css/web/userclass/userclassSelect.css?v1.4">
+    <link rel="stylesheet" href="../css/web/userclass/userclassSelectModal.css?v1.0">
+    <link rel="stylesheet" href="../css/web/userclass/userclassSelectModal_style.css?v1.1">
+    <link rel="stylesheet" href="../css/web/userHeader.css?v1.2">
+    <link rel="stylesheet" href="../js/web/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+
+
+    <!-- 베이스script -->
+    <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-ZZBV5V5K1X&amp;cx=c&amp;gtm=4e5c90"></script><script src="../js/web/jquery.min.js"></script>
+    <script src="../bootstrap/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+
+    <!-- 적용script -->
+    <script src="../js/web/jquery-ui.js"></script>
+    <script src="../js/web/data.js"></script>
+    <script src="../js/web/bootstrap-datetimepicker/moment-with-locales.min.js"></script>
+    <script src="../js/web/bootstrap-datetimepicker/ko.js"></script>
+    <script src="../js/web/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/web/common.js?v1.1"></script>
+
+
+</head>
+
+<body class="modal-open">
+
+<div id="modalBox">
+
+    <!-- CASE:1 예 -->
+    <!-- <div class="modal fade case1 in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="title">모달 팝업 제목</h3>
+                    <p class="notice"><b>가나다</b>라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="yes_btn">예</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- CASE:2 예, 아니오 -->
+    <!--<div class="modal fade case2 in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">=
+                    <h3 class="title">모달 팝업 제목</h3>
+                    <p class="notice"><b>가나다</b>라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바사
+                        가나다라마바사가나다라마바사가나다라마바
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">아니요</button>
+                        <button class="yes_btn">예</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!-- CASE:3 이미지 -->
+    <!-- <div class="modal fade case3 in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-imgbox">
+                        <button type="button" class="close-btn"></button>  
+                        <button type="button" class="hide-btn">다시 보지 않기</button>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 등록된 반복 PLAN을 정말 삭제 하시겠습니까? -->
+    <!-- <div class="modal fade plan_delete in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="notice">등록된 반복 PLAN을<br><b>정말 삭제 하시겠습니까?</b></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">아니요</button>
+                        <button class="yes_btn">예</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 대단해요! 오늘의 PLAN 100% 달성했어요. Modal -->
+    <!-- <div class="modal fade todo_completion in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_today_Complete.svg" alt="PLAN 100% 달성">
+                    <h3 class="title">대단해요!<br>오늘의 PLAN 100% 달성했어요.</h3>
+                    <p class="notice"><span class="user_name">[이름]</span> (이)가 오늘 계획한  PALN을 모두 끝냈어요!<br>정말 멋져요! 이제 오늘 공부가 어땠는지 돌아볼 시간이에요.<br><b>Check & Action</b> 탭으로 가서 <br>나의 집중력에 점수를 주고, 엄마/아빠에게 자랑하러 갈까요?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="yes_btn">나의 PLAN 리뷰하러 가기!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 오늘 공부를 자랑해 볼까? Modal -->
+    <!-- <div class="modal fade show_off in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_modal_smile.svg" alt="PLAN 100% 달성">
+                    <h3 class="title">오늘 공부를 자랑해 볼까?</h3>
+                    <p class="notice"><span class="user_name">[이름]</span> (이)가 오늘 <span span="user_today_run_time">[0시간 00분]</span> 동안 열심히 공부했어요!<br>계획했던 PLAN을 <span span="user_today_progress">[XX%]</span> 만큼 멋지게 해냈어요.<br>이 자랑스러운 결과를 자랑해볼까요?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">다음에 자랑할게요</button>
+                        <button class="yes_btn">지금 바로 자랑하기!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 튜토리얼 슬라이드 -->
+    <!-- <div class="modal fade tutorial in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <p class="tutorial_close"></p>
+                <div class="modal-body">
+                    <div class="slide_container">
+                        <ul class="slide_wrapper">
+                            <li class="slide slide01 active"></li>
+                            <li class="slide slide02"></li>
+                            <li class="slide slide03"></li>
+                            <li class="slide slide04"></li>
+                            <li class="slide slide05"></li>
+                            <li class="slide slide06"></li>
+                            <li class="slide slide07"></li>
+                            <li class="slide slide08"></li>
+                            <li class="slide slide09"></li>
+                            <li class="slide slide10"></li>
+                            <li class="slide slide11"></li>
+                            <li class="slide slide12"></li>
+                            <li class="slide slide13"></li>
+                            <li class="slide slide14"></li>
+                            <li class="slide slide15"></li>
+                            <li class="slide slide16"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="prev_btn"><img src="../image/icon_tutorial_prev.svg" alt="이전">이전</button>
+                        <ul>
+                            <li class="num num01 active"></li>
+                            <li class="num num02"></li>
+                            <li class="num num03"></li>
+                            <li class="num num04"></li>
+                            <li class="num num05"></li>
+                            <li class="num num06"></li>
+                            <li class="num num07"></li>
+                            <li class="num num08"></li>
+                            <li class="num num09"></li>
+                            <li class="num num10"></li>
+                            <li class="num num11"></li>
+                            <li class="num num12"></li>
+                            <li class="num num13"></li>
+                            <li class="num num14"></li>
+                            <li class="num num15"></li>
+                            <li class="num num16"></li>
+                        </ul>
+                        <button class="next_btn">다음<img src="../image/icon_tutorial_next.svg" alt="다음"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 잠깐만요! 아직 PLAN 진행 중이에요! -->
+    <!-- <div class="modal fade plan_warning in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_warning.svg" alt="잠깐만요! 아직 PLAN 진행 중이에요!">
+                    <h3 class="title">잠깐만요!<br>아직 PLAN 진행 중이에요!</h3>
+                    <p class="notice">지금 종료하면 열심히 집중하고 있는<br>타이머가 멈추게 돼요.<br>이번 PLAN을 마저 완료하고<br>점검해 볼까요?</b></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">종료하기</button>
+                        <button class="yes_btn">계속 하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 소중한 실천 기록을 남겨주세요! -->
+    <!-- <div class="modal fade practice in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_practice.svg" alt="소중한 실천 기록을 남겨주세요!">
+                    <h3 class="title">소중한 실천 기록을 남겨주세요!</h3>
+                    <p class="notice">오늘 <b>n개</b>의 PLAN을 멋지게 실천했네요!<br>스스로 점검하지 않고 종료하면<br>나의 성장이 기록되지 않아요. <br>기록을 남기고 마칠까요?</b></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">종료하기</button>
+                        <button class="yes_btn">점검하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 오늘의 PLAN 완성을 축하해요! -->
+    <!-- <div class="modal fade not_inspected in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_not_inspected.svg" alt="오늘의 PLAN 완성을 축하해요!">
+                    <h3 class="title">오늘의 PLAN 완성을 축하해요!</h3>
+                    <p class="notice">모든 계획을 실천했으니<br>이제 마지막 단계만 남았어요!<br>지금 바로 점검해 볼까요?</b></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">종료하기</button>
+                        <button class="yes_btn">점검하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 지금은 선생님이 상담을 준비 중이에요. -->
+    <!-- <div class="modal fade vacancy in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_vacancy.svg" alt="지금은 선생님이 상담을 준비 중이에요.">
+                    <h3 class="title">지금은 선생님이<br>상담을 준비 중이에요.</h3>
+                    <p class="notice">선생님이 학습방에 입장하시면<br>실시간 상담을 시작할 수 있습니다.<br>잠시 후 버튼을 다시 눌러주세요!</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="yes_btn">예</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 네트워크 환경이 안좋아서 입장 어려움 -> 입장 불가능 = 피그마에서 4-1번 모달 -->
+    <!-- <div class="modal fade network_fail in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="modal_close"></button>
+                    <img class="img_network network000" src="../image/icon_network_000.png" alt="네트워크 연결 약함">
+                    <h3 class="title">인터넷 상태를 확인해 주세요.</h3>
+                    <p class="notice">지금은 인터넷 신호가 약해서<br>선생님과 대화하기 어려운 상태예요.<br>아래 네트워크 확인법을 보고 다시 한번 입장해 볼까요?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="guide"><img src="../image/icon_network_gray.svg" alt="네트워크"><span>네트워크 확인법</span></button>
+                        <button class="enter"><span>다시 입장하기</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- 입장불가능 모달에서 네트워크 확인법 클릭 시 = 피그마에서 4-2번 모달 -->
+    <!-- <div class="modal fade network_guide in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="title">네트워크 점검가이드</h3>
+                    <ul>
+                        <li><div class="li_left"><span>1</span></div><div class="li_right"><h3>와이파이 안테나가 3칸 이상인가요?</h3><p>신호가 약하면 끊길 수 있어요.<br>공유기 근처로 자리를 옮겨보세요.</p></div></li>
+                        <li><div class="li_left"><span>2</span></div><div class="li_right"><h3>실행 중인 다른 앱을 종료했나요?</h3><p>유튜브, 게임 등과 같은 다른 앱 혹은<br>브라우저 창이 켜져 있으면 수업 입장이<br>느려질 수 있어요.</p></div></li>
+                        <li><div class="li_left"><span>3</span></div><div class="li_right"><h3>와이파이를 껐다가 3초 뒤에 다시 켜보세요.</h3><p>네트워크를 새로 고침하면<br>연결이 더 안정적으로 변해요.</p></div></li>
+                        <li><div class="li_left"><span>4</span></div><div class="li_right"><h3>태블릿이나 공유기를 다시 시작해보셨나요?</h3><p>기기를 껐다 켜는 것만으로도 대부분의<br>연결 문제가 해결돼요.</p></div></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="check_enter">확인했어요! (다시 입장하기)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 네트워크 환경 체크 = 피그마에서 1, 2, 3, 5 모달 -->
+    <!-- <div class="modal fade network_check in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="modal_close"></button>
+                    <img class="img_network network100" src="../image/icon_network_100.png" alt="네트워크 연결 원활">
+                    <img class="img_network network050" src="../image/icon_network_050.png" alt="네트워크 연결 느림">
+                    <img class="img_network network_ready" src="../image/icon_ready.svg" alt="준비 완료!">
+                    <h3 class="title">인터넷 신호를 다시 잡아봐야 해요!</h3>
+                    <p class="notice">지금 인터넷 신호가 조금 약해서<br>선생님 목소리가 끊길 수 있어요.</p>
+                    <div class="img_box">
+                        <div><img src="../image/icon_approach.svg" alt="학습방"><p>학습방1</p></div>
+                        <span>박세븐</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <p class="retry_text">다시 한번 연결해볼게요!</p>
+                        <button class="deactivate">
+                            <span>확인하고 있어요&nbsp;</span>
+                            <span class="loading-dots"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
+                        </button>
+                        <button class="activate" style="display: none;"><span>입장하기</span>
+                            <div class="arrow-box">
+                                <img class="arrow" src="../image/floating_banner_arrow.svg" alt="입장하기">
+                                <img class="arrow delay" src="../image/floating_banner_arrow.svg" alt="입장하기">
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 수업을 종료 하시겠습니까? -->
+    <!-- <div class="modal fade study_end_info in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_warning2.svg" alt="수업을 종료 하시겠습니까?">
+                    <h3 class="title">수업을 종료 하시겠습니까?</h3>
+                    <p class="notice">현재 입실중인 학생 : <b><span class="headcount">15</span>명</b><br><b>수업시간 : <span class="progress_time">2시간 15분 (16:00 - 18:15)</span></b><br>퇴장시 모든 학생이 자동으로 퇴실됩니다.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">취소</button>
+                        <button class="yes_btn">수업종료</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- 수업이 종료되었습니다. -->
+    <div class="modal fade study_end in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../image/icon_clock.svg" alt="수업이 종료되었습니다">
+                    <h3 class="title">수업이 종료되었습니다</h3>
+                    <p class="notice">오늘 쌤하고 학습시간 : <b><span class="progress_time">2시간 30분</span></b><br>더 공부하시겠어요?</p>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="button_box">
+                        <button class="no_btn">학습 종료하기</button>
+                        <button class="yes_btn">혼자 계속하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="modal-backdrop fade in modal-stack" style="z-index: 1039;"></div>
+
+</body>
+<script>
+$(document).ready(function() {
+    let currentIndex = 0;
+    const totalSlides = $('.slide').length;
+    const $wrapper = $('.slide_wrapper');
+    const $dots = $('.num');
+
+    function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        const movePercentage = (100 / totalSlides) * index;
+        $wrapper.css('transform', `translateX(-${movePercentage}%)`);
+        $('.slide').removeClass('active').eq(index).addClass('active');
+        $dots.removeClass('active').eq(index).addClass('active');
+
+        currentIndex = index;
+    }
+
+    // 다음 버튼
+    $('.next_btn').click(function() {
+        if (currentIndex < totalSlides - 1) {
+            updateSlide(currentIndex + 1);
+        } else {
+        }
+    });
+
+    // 이전 버튼
+    $('.prev_btn').click(function() {
+        if (currentIndex > 0) {
+            updateSlide(currentIndex - 1);
+        } else {
+        }
+    });
+
+    // 도트(숫자) 클릭 시 이동
+    $dots.click(function() {
+        const targetIndex = $(this).index();
+        updateSlide(targetIndex);
+    });
+});
+</script>
+</html>

@@ -1,0 +1,13 @@
+.project_wrap .header_section .header_content .header_right button { margin-left:10px; background:#DD3434; }
+.project_wrap .header_section .header_content .header_right button:hover { background:#c82929; }
+.project_wrap .header_section .header_content .header_right button.ezHelp_btn { background:#1E869F; }
+.project_wrap .header_section .header_content .header_right button.ezHelp_btn:hover { background:#207b91; }
+.project_wrap .header_section .header_content .header_right button.setting_btn {background:#1E869F;}
+.project_wrap .header_section .header_content .header_right button.setting_btn:hover {background:#207b91;}
+
+
+@media only screen and (max-width: 1280px){}
+
+@media only screen and (max-width: 1080px){}
+
+@media only screen and (max-width: 768px){}

@@ -1,0 +1,223 @@
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Noto Sans KR Thin'), local('Noto Sans CJK KR Thin'),
+    url(../../font/NotoSansKR-Thin.woff2) format('woff2'),
+    url(../../font/NotoSansKR-Thin.woff) format('woff'),
+    url(../../font/NotoSansKR-Thin.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Noto Sans KR Light'), local('Noto Sans CJK KR Light'),
+    url(../../font/NotoSansKR-Light.woff2) format('woff2'),
+    url(../../font/NotoSansKR-Light.woff) format('woff'),
+    url(../../font/NotoSansKR-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Sans KR Regular'), local('Noto Sans CJK KR Regular'),
+    url(../../font/NotoSansKR-Regular.woff2) format('woff2'),
+    url(../../font/NotoSansKR-Regular.woff) format('woff'),
+    url(../../font/NotoSansKR-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Noto Sans KR Medium'), local('Noto Sans CJK KR Medium'),
+    url(../../font/NotoSansKR-Medium.woff2) format('woff2'),
+    url(../../font/NotoSansKR-Medium.woff) format('woff'),
+    url(../../font/NotoSansKR-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Noto Sans KR Bold'), local('Noto Sans CJK KR Bold'),
+    url(../../font/NotoSansKR-Bold.woff2) format('woff2'),
+    url(../../font/NotoSansKR-Bold.woff) format('woff'),
+    url(../../font/NotoSansKR-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Noto Sans KR Black'), local('Noto Sans CJK KR Black'),
+    url(../../font/NotoSansKR-Black.woff) format('woff'),
+    url(../../font/NotoSansKR-Black.otf) format('opentype');
+}
+
+
+@font-face {
+    font-family: 'Black Han Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('BlackHanSans-Regular'), 
+    url(../../font/BlackHanSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../font/WantedSans-Regular.woff2) format('woff2'),
+         url(../../font/WantedSans-Regular.woff) format('woff'),
+         url(../../font/WantedSans-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: url(../../font/WantedSans-Medium.woff2) format('woff2'),
+         url(../../font/WantedSans-Medium.woff) format('woff'),
+         url(../../font/WantedSans-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url(../../font/WantedSans-SemiBold.woff2) format('woff2'),
+         url(../../font/WantedSans-SemiBold.woff) format('woff'),
+         url(../../font/WantedSans-SemiBold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url(../../font/WantedSans-Bold.woff2) format('woff2'),
+         url(../../font/WantedSans-Bold.woff) format('woff'),
+         url(../../font/WantedSans-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 800;
+    src: url(../../font/WantedSans-ExtraBold.woff2) format('woff2'),
+         url(../../font/WantedSans-ExtraBold.woff) format('woff'),
+         url(../../font/WantedSans-ExtraBold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 900;
+    src: url(../../font/WantedSans-Black.woff2) format('woff2'),
+         url(../../font/WantedSans-Black.woff) format('woff'),
+         url(../../font/WantedSans-Black.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Wanted Sans';
+    font-style: normal;
+    font-weight: 950;
+    src: url(../../font/WantedSans-ExtraBlack.woff2) format('woff2'),
+         url(../../font/WantedSans-ExtraBlack.woff) format('woff'),
+         url(../../font/WantedSans-ExtraBlack.otf) format('opentype');
+}
+
+/*Paperlogy*/
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Paperlogy Thin'), local('Paperlogy Thin'),
+    url(../../font/Paperlogy-1Thin.woff2) format('woff2'),
+    url(../../font/Paperlogy-1Thin.ttf) format('ttf'),
+    url(../../font/Paperlogy-1Thin.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 200;
+    src: local('Paperlogy ExtraLight'), local('Paperlogy ExtraLight'),
+    url(../../font/Paperlogy-2ExtraLight.woff2) format('woff2'),
+    url(../../font/Paperlogy-2ExtraLight.ttf) format('ttf'),
+    url(../../font/Paperlogy-2ExtraLight.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Paperlogy Light'), local('Paperlogy Light'),
+    url(../../font/Paperlogy-3Light.woff2) format('woff2'),
+    url(../../font/Paperlogy-3Light.ttf) format('ttf'),
+    url(../../font/Paperlogy-3Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Paperlogy Regular'), local('Paperlogy Regular'),
+    url(../../font/Paperlogy-4Regular.woff2) format('woff2'),
+    url(../../font/Paperlogy-4Regular.ttf) format('ttf'),
+    url(../../font/Paperlogy-4Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Paperlogy Medium'), local('Paperlogy Medium'),
+    url(../../font/Paperlogy-5Medium.woff2) format('woff2'),
+    url(../../font/Paperlogy-5Medium.ttf) format('ttf'),
+    url(../../font/Paperlogy-5Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Paperlogy SemiBold'), local('Paperlogy SemiBold'),
+    url(../../font/Paperlogy-6SemiBold.woff2) format('woff2'),
+    url(../../font/Paperlogy-6SemiBold.ttf) format('ttf'),
+    url(../../font/Paperlogy-6SemiBold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Paperlogy Bold'), local('Paperlogy Bold'),
+    url(../../font/Paperlogy-7Bold.woff2) format('woff2'),
+    url(../../font/Paperlogy-7Bold.ttf) format('ttf'),
+    url(../../font/Paperlogy-7Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 800;
+    src: local('Paperlogy ExtraBold'), local('Paperlogy ExtraBold'),
+    url(../../font/Paperlogy-8ExtraBold.woff2) format('woff2'),
+    url(../../font/Paperlogy-8ExtraBold.ttf) format('ttf'),
+    url(../../font/Paperlogy-8ExtraBold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Paperlogy';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Paperlogy Black'), local('Paperlogy Black'),
+    url(../../font/Paperlogy-9Black.woff2) format('woff2'),
+    url(../../font/Paperlogy-9Black.ttf) format('ttf'),
+    url(../../font/Paperlogy-9Black.otf) format('opentype');
+}
+/*Paperlogy*/

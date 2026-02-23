@@ -1,0 +1,40 @@
+.project_wrap .content_section { width:1280px; height:calc(100vh - 80px); padding:20px 0; margin:0 auto; }
+.project_wrap .content_section article { padding:20px; border-radius:8px; background:#fff; }
+/**********content_left************/
+.project_wrap .content_section .content_left { width:300px; float:left; }
+.project_wrap .content_section .content_left article { padding:50px 20px; text-align:center; }
+.project_wrap .content_section .content_left article p.user { font-size:18px; font-weight:700; }
+.project_wrap .content_section .content_left article p.working_hours { margin-top:10px; }
+/**********content_right************/
+.project_wrap .content_section .content_right { width:calc(100% - 320px); height:100%; margin-left:20px; float:left; }
+.project_wrap .content_section .content_right article { height:100%; }
+.project_wrap .content_section .content_right article .button_box .back_btn { padding:0; line-height:40px; background:none; }
+.project_wrap .content_section .content_right article .button_box .back_btn img { margin-right:5px; }
+.project_wrap .content_section .content_right article h3 { text-align:center; line-height:36px; color:#1E869F; }
+.project_wrap .content_section .content_right article .form_box { width:100%; display:table; }
+.project_wrap .content_section .content_right article .form_box h5 { color:#1E869F; }
+.project_wrap .content_section .content_right article .form_box .form_top ul { width:100%; display:table; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li { width:300px; height:36px; margin-left:10px; padding:0 10px; border:1px solid #EDEDED; border-radius:5px; background:#f9f9f9; float:left; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.mg_none { margin-left:0; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li:nth-child(n+4) { margin-top:10px; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li input { height:100%; margin-left:10px; border:0; background:inherit; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.change_box { position:relative; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.change_box .button_box { position:absolute; top:50%; right:-70px; transform:translateY(-50%); }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.change_box .button_box button { padding:0; color:#333; font-size:12px; background:none; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.change { background:none; }
+.project_wrap .content_section .content_right article .form_box .form_top ul li.change .button_box { right:-33px; }
+
+.project_wrap .content_section .content_right article .form_box .form_bottom { clear:both; width:100%; margin-top:50px; display:table; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left { width:50%; float:left; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li { width:300px; height:36px; padding:0 10px; border:1px solid #EDEDED; border-radius:5px; background:#f9f9f9; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li input { height:100%; margin-left:10px; border:0; background:inherit; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li.change_box { margin-top:10px; position:relative; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li.change_box .button_box { position:absolute; top:50%; right:-80px; transform:translateY(-50%); }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li.change_box .button_box button { padding:0; color:#333; font-size:12px; background:none; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li.change { background:none; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_left ul li.change .button_box { right:-33px; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_right { width:50%; float:left; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_right ul li { width:100%; height:82px; padding:0 10px; border:1px solid #EDEDED; border-radius:5px; display:table; background:#f9f9f9; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_right ul li textarea { width:calc(100% - 50px); height:100%; padding:7px; margin-left:10px; border:0; background:inherit; float:left; }
+.project_wrap .content_section .content_right article .form_box .form_bottom .form_bottom_right ul li label { line-height:36px; float:left; }
+

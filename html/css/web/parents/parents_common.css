@@ -1,0 +1,593 @@
+/* 브라우저 스타일 초기화 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+html {overflow: visible;}
+a {cursor:pointer !important;text-decoration-line: none;-webkit-tap-highlight-color: transparent;}
+a:hover, a:focus {text-decoration:none;}
+ol, ul {list-style:none;}
+button {border:none;background: none;padding:0;margin:0;cursor: pointer;}
+* {
+    font-family: 'Wanted Sans', sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; text-shadow:none; color:#404040;
+}
+/* 브라우저 스타일 초기화 */
+
+/* 이하 공통코드 */
+
+#project_wrap {
+    width:100%;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #F5F5F5;
+}
+
+/* 헤더 영역 ------------------------------------------------------------------------ */
+#headerSection {
+    width:100%;
+    height:8.857vh;/*62px*/
+    background: #FFF;
+}
+#headerSection .header_area {
+    width:100%;
+    height:100%;
+    padding:0 4.266vw;/*0 16px*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#headerSection .header_area .top_logo img {
+    width:21vw;/*79px*/
+}
+#headerSection .header_area .header_right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap:3.733vw;/*14px*/
+}
+#headerSection .header_area .top_dropdown {position: relative;}
+#headerSection .header_area .top_dropdown .dropdown-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1.6vw;/*6px*/
+    background: unset;
+    cursor: pointer;
+}
+#headerSection .header_area .top_dropdown .dropdown-btn .connecting {
+    width: 1.6vw;/*6px*/
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: #1FBDFF;
+    box-shadow: 0 0 5.2px 2px rgba(31, 189, 255, 0.25);
+}
+#headerSection .header_area .top_dropdown .dropdown-btn .user_name {
+    color: #131313;
+    font-size: 3.733vw;/*14px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+#headerSection .header_area .top_dropdown .dropdown-icon {
+    transition: transform 0.3s;
+    width:2.666vw;/*10px*/
+}
+#headerSection .header_area .top_dropdown .dropdown-icon img {
+    width:2.1333vw;/*8px*/
+}
+#headerSection .header_area .top_dropdown.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+#headerSection .header_area .top_dropdown .dropdown-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    width:24vw;/*90px*/
+    height:0;
+    border-radius: 3.733vw;/*14px*/
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: top center;
+    z-index: 100;
+}
+#headerSection .header_area .top_dropdown.active .dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    animation: bounceIn 0.4s cubic-bezier(0.5, 0.3, 0.3, 1);
+    height:unset;
+    max-height: 42.857vh;/*300px*/
+    overflow-y: auto;
+    padding:1.333vw;/*5px*/
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item {
+    display: flex;
+    width:100%;
+    padding: 1.71428vh 3.733vw;/*12px 14px*/
+    justify-content: center;
+    align-items: center;
+    gap:1.6vw;/*6px*/
+    border-radius: 999px;
+    background: #F2F2F2;
+}
+#headerSection .header_area .top_dropdown .dropdown-list > div {
+    margin-top:0.71428vh;/*5px*/
+    cursor: pointer;
+}
+#headerSection .header_area .top_dropdown .dropdown-list > div:first-child {
+    margin-top:0;
+}
+#headerSection .header_area .top_dropdown .dropdown-list .user_add {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#headerSection .header_area .top_dropdown .dropdown-list .user_add > img {
+    width:9.066vw;/*34px*/
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item span{
+    width:1.6vw;/*6px*/
+    height:1.6vw;/*6px*/
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item p{
+    color: #3A3A3A;
+    font-size: 3.733vw;/*14px*/
+    font-weight: 500;
+    line-height: 100%; /* 14px */
+}
+#headerSection .header_area .header_right .top_alarm {
+    width:9.066vw;/*34px*/
+    height:9.066vw;/*34px*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+#headerSection .header_area .header_right .top_alarm > img {
+    width:6.933vw;/*26px*/
+}
+#headerSection .header_area .header_right .top_alarm .alarm_count {
+    position: absolute;
+    padding: 0.2857vh 1.066vw; /*2px 4px*/
+    border-radius: 999px;
+    background: #FF1F1F;
+    color: #FFF;
+    font-size: 2.9333vw;/*11px*/
+    font-weight: 400;
+    line-height: 100%;
+    top:0;
+    right:0;
+}
+
+
+/* 헤더 영역 ------------------------------------------------------------------------ */
+
+/* 콘텐츠 영역 ---------------------------------------------------------------------- */
+#contentSection{
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+}
+#contentSection > section {
+    display: none;
+    width:100%;
+    padding:0 4.266vw;/*16px*/
+}
+/* 콘텐츠 영역 ---------------------------------------------------------------------- */
+
+/* 하단 메뉴 영역 ------------------------------------------------------------------- */
+#footerSection{
+    width:100%;
+    height:9.42857vh;/*66px*/
+}
+#footerSection #nav {
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: #fff;
+}
+#footerSection #nav li {
+width: calc(100% / 5);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:0.5714vh;/*4px*/
+    cursor: pointer;
+}
+#footerSection #nav .nav1 span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav1_o.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav2 span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav2_o.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav3 span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav3_o.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav4 span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav4_o.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav5 span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav5_o.svg");background-size: contain;background-repeat: no-repeat;}
+
+#footerSection #nav .nav1:hover span,
+#footerSection #nav .nav1.active span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav1_h.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav2:hover span,
+#footerSection #nav .nav2.active span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav2_h.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav3:hover span,
+#footerSection #nav .nav3.active span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav3_h.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav4:hover span,
+#footerSection #nav .nav4.active span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav4_h.svg");background-size: contain;background-repeat: no-repeat;}
+#footerSection #nav .nav5:hover span,
+#footerSection #nav .nav5.active span{width:6.933vw;/*26px*/aspect-ratio: 1/1;background-image: url("../../../image/parents/parents_icon_nav5_h.svg");background-size: contain;background-repeat: no-repeat;}
+
+#footerSection #nav li p{
+    font-size: 2.667vw;/*10px*/
+    color: #7C7C7C;
+    font-weight: 400;
+    line-height: 100%; /* 10px */
+}
+
+#footerSection #nav .nav1:hover p,
+#footerSection #nav .nav1.active p{color:#19B5F5}
+#footerSection #nav .nav2:hover p,
+#footerSection #nav .nav2.active p{color:#32CD8B}
+#footerSection #nav .nav3:hover p,
+#footerSection #nav .nav3.active p{color:#F2B819}
+#footerSection #nav .nav4:hover p,
+#footerSection #nav .nav4.active p{color:#98654C}
+#footerSection #nav .nav5:hover p,
+#footerSection #nav .nav5.active p{color:#191919}
+
+
+/* 하단 메뉴 영역 ------------------------------------------------------------------- */
+
+/* 모달 칭 영역 (우선순위1) ----------------------------------------------------------------------- */
+#modalBox {display:none;}
+#modalBox.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 20;
+    backdrop-filter: blur(2px);
+}
+/* 모달 창 영역 (우선순위1) ----------------------------------------------------------------------- */
+
+/* 모달 페이지 (우선순위2) ----------------------------------------------------------------------- */
+#modalSlider {display: none;}
+#modalSlider.active {
+    display : block;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 15;
+    background: rgba(25, 25, 25, 0.60);
+    backdrop-filter: blur(2px);
+}
+/* 모달 페이지 (우선순위2) ----------------------------------------------------------------------- */
+
+/* 모달 페이지 (우선순위3) ----------------------------------------------------------------------- */
+#modalPage {position: absolute;z-index: 10;}
+#modalPage {display: none;}
+#modalPage.active {
+    display : block;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 10;
+    background: #FFF;
+}
+/* 모달 페이지 (우선순위3) ----------------------------------------------------------------------- */
+
+/* 키프레임 */
+@keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5) translateX(-50%);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.03) translateX(-50%);
+    }
+    75% {
+      transform: scale(0.98) translateX(-50%);
+    }
+    100% {
+      transform: scale(1) translateX(-50%);
+    }
+}
+@keyframes bounceIn2 {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+    75% {
+      transform: scale(0.98);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeIn2 {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+@keyframes wave-animation {
+    0% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: -100% 0%;
+    }
+}
+/* 반응형 */
+/* 해상도 가로 750 이상 */
+@media only screen and (min-width:749px) {
+body {
+    background: #f9f9f9;
+}
+#project_wrap {
+    position: relative;
+    width:750px;
+    margin: 0 auto;
+}
+/* 헤더 영역 ------------------------------------------------------------------------ */
+#headerSection {
+    height:124px;  /* 62px → 124px */
+}
+#headerSection .header_area {
+    padding:0 32px;  /* 0 16px → 0 32px */
+}
+#headerSection .header_area .top_logo img {
+    width:158px;  /* 79px → 158px */
+}
+#headerSection .header_area .header_right {
+    gap:28px;  /* 14px → 28px */
+}
+#headerSection .header_area .top_dropdown .dropdown-btn {
+    gap:12px;  /* 6px → 12px */
+}
+#headerSection .header_area .top_dropdown .dropdown-btn .connecting {
+    width: 12px;  /* 6px → 12px */
+}
+#headerSection .header_area .top_dropdown .dropdown-btn .user_name {
+    font-size: 28px;  /* 14px → 28px */
+}
+#headerSection .header_area .top_dropdown .dropdown-icon {
+    width:20px;  /* 10px → 20px */
+}
+#headerSection .header_area .top_dropdown .dropdown-icon img {
+    width:16px;  /* 8px → 16px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list {
+    width:180px;  /* 90px → 180px */
+    border-radius: 28px;  /* 14px → 28px */
+}
+#headerSection .header_area .top_dropdown.active .dropdown-list {
+    max-height: 600px;  /* 300px → 600px */
+    padding:10px;  /* 5px → 10px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item {
+    padding: 24px 28px;  /* 12px 14px → 24px 28px */
+    gap:12px;  /* 6px → 12px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list > div {
+    margin-top:10px;  /* 5px → 10px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list .user_add > img {
+    width:68px;  /* 34px → 68px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item span{
+    width:12px;  /* 6px → 12px */
+    height:12px;  /* 6px → 12px */
+}
+#headerSection .header_area .top_dropdown .dropdown-list .dropdown-item p{
+    font-size: 28px;  /* 14px → 28px */
+}
+#headerSection .header_area .header_right .top_alarm {
+    width:68px;  /* 34px → 68px */
+    height:68px;  /* 34px → 68px */
+}
+#headerSection .header_area .header_right .top_alarm > img {
+    width:52px;  /* 26px → 52px */
+}
+#headerSection .header_area .header_right .top_alarm .alarm_count {
+    padding: 4px 8px;  /* 2px 4px → 4px 8px */
+    font-size: 22px;  /* 11px → 22px */
+}
+/* 콘텐츠 영역 ---------------------------------------------------------------------- */
+#contentSection > section {
+    padding:0 32px;  /* 16px → 32px */
+}
+/* 하단 메뉴 영역 ------------------------------------------------------------------- */
+
+/* 모달 칭 영역 (우선순위1) ----------------------------------------------------------------------- */
+#modalBox.active {
+    width:750px;
+    left:50%;
+    transform: translateX(-50%);
+}
+/* 모달 페이지 (우선순위2) ----------------------------------------------------------------------- */
+#modalSlider.active {
+    width:750px;
+    left:50%;
+    transform: translateX(-50%);
+}
+/* 모달 페이지 (우선순위3) ----------------------------------------------------------------------- */
+#modalPage.active {
+    width:750px;
+    left:50%;
+    transform: translateX(-50%);
+}
+#footerSection{
+    height:132px;  /* 66px → 132px */
+}
+#footerSection #nav li {
+    gap:8px;  /* 4px → 8px */
+}
+#footerSection #nav .nav1 span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav2 span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav3 span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav4 span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav5 span{width:52px;}  /* 26px → 52px */
+
+#footerSection #nav .nav1:hover span,
+#footerSection #nav .nav1.active span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav2:hover span,
+#footerSection #nav .nav2.active span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav3:hover span,
+#footerSection #nav .nav3.active span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav4:hover span,
+#footerSection #nav .nav4.active span{width:52px;}  /* 26px → 52px */
+#footerSection #nav .nav5:hover span,
+#footerSection #nav .nav5.active span{width:52px;}  /* 26px → 52px */
+
+#footerSection #nav li p{
+    font-size: 20px;  /* 10px → 20px */
+}
+}
+
+/* 검수 페이지용 삭제예정 */
+.sample_dropdown {
+    position: fixed;
+    top:1%;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 200;
+}
+.sample_dropdown .dropdown-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1.6vw;/*6px*/
+    background: unset;
+    cursor: pointer;
+}
+.sample_dropdown .dropdown-btn .sample_name {
+    color: #131313;
+    font-size: 3.2vw;/*12px*/
+    font-weight: 500;
+    line-height: 100%;
+    padding:2.133vw;/*8px*/
+    border: 1px solid #191919;
+    background: #fff;
+}
+.sample_dropdown .dropdown-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    width:93.33vw;/*350px*/
+    height:0;
+    border-radius: 3.733vw;/*14px*/
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform-origin: top center;
+    z-index: 100;
+}
+.sample_dropdown.active .dropdown-list {
+    opacity: 1;
+    visibility: visible;
+    height:unset;
+    max-height: 71.42857vh;/*500px*/
+    overflow-y: auto;
+    padding:2.666vw;/*10px*/
+    border: 4px solid #131313;
+    background:#949494;
+}
+.sample_dropdown.active .dropdown-list ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.sample_dropdown.active .dropdown-list button {
+    text-indent: 0.8vw;/*3px*/
+    text-align: left;
+    padding : 2.133vw;/*8px*/
+    margin : 1vh 0;/*7px 0*/
+    background: #464646;
+    color:#fff;
+    font-size: 3.733vw;/*14px*/
+}
+.sample_dropdown.active .dropdown-list button.on {
+    background: #ffc14e;
+    color:#000;
+}
+@media only screen and (min-width:749px) {
+.sample_dropdown {
+    top: 1%;
+}
+.sample_dropdown .dropdown-btn {
+    gap:12px;  /* 6px → 12px */
+}
+.sample_dropdown .dropdown-btn .sample_name {
+    font-size: 20px;  /* 14px → 28px */
+    padding:8px;  /* 8px (2.133vw × 3.75 = 8px) → 16px */
+}
+.sample_dropdown .dropdown-list {
+    width:700px;  /* 350px (93.33vw × 3.75 = 350px) → 700px */
+    border-radius: 28px;  /* 14px (3.733vw × 3.75 = 14px) → 28px */
+}
+.sample_dropdown.active .dropdown-list {
+    padding:20px;  /* 10px (2.666vw × 3.75 = 10px) → 20px */
+    max-height: 630px;
+}
+.sample_dropdown.active .dropdown-list button {
+    text-indent: 6px;  /* 3px (0.8vw × 3.75 = 3px) → 6px */
+    padding : 16px;  /* 8px (2.133vw × 3.75 = 8px) → 16px */
+    margin : 8px 0;  /* 7px 0 (1vh × 7 = 7px) → 14px 0 */
+    font-size: 20px;  /* 14px (3.733vw × 3.75 = 14px) → 28px */
+}
+}
+/* 검수 페이지용 삭제예정 */

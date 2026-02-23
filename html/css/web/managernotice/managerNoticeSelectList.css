@@ -1,0 +1,19 @@
+.project_wrap .content_section { width:1280px; height:calc(100vh - 80px); padding:20px 0; margin:0 auto; }
+.project_wrap .content_section article { padding:20px; border-radius:8px; background:#fff; }
+/**********content_left************/
+.project_wrap .content_section .content_left { width:300px; float:left; }
+.project_wrap .content_section .content_left article { padding:50px 20px; text-align:center; }
+.project_wrap .content_section .content_left article p.user { font-size:18px; font-weight:700; }
+.project_wrap .content_section .content_left article p.working_hours { margin-top:10px; }
+/**********content_right************/
+.project_wrap .content_section .content_right { width:calc(100% - 320px); height:100%; margin-left:20px; float:left; }
+.project_wrap .content_section .content_right article { height:100%; }
+.project_wrap .content_section .content_right article .button_box .back_btn { padding:0; line-height:40px; background:none; }
+.project_wrap .content_section .content_right article .button_box .back_btn img { margin-right:5px; }
+.project_wrap .content_section .content_right article h3 { text-align:center; line-height:36px; color:#1E869F; }
+.project_wrap .content_section .content_right article .table_box { height:calc(100% - 116px); margin-top:20px; overflow-y:auto; }
+.project_wrap .content_section .content_right article .table_box table { width:100%; }
+.project_wrap .content_section .content_right article .table_box table thead tr th { padding:0 10px; text-align:center; line-height:40px; position:sticky; top:0; background:#f9f9f9; }
+.project_wrap .content_section .content_right article .table_box table thead tr th:first-child { border-radius:5px 0 0 5px; }
+.project_wrap .content_section .content_right article .table_box table thead tr th:last-child { border-radius:0 5px 5px 0; }
+.project_wrap .content_section .content_right article .table_box table tbody tr td { padding:0 10px; text-align:center; line-height:40px; border-bottom:1px solid #f9f9f9; }

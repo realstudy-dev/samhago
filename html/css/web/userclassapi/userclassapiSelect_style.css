@@ -1,0 +1,5 @@
+/* bradley 추가 시작 */
+.project_wrap .content_section .content_left .left_top_article .mypage .ezhelp_btn {line-height:25px; float:right; background:#1e869f; color:#fff;}
+.project_wrap .content_section .content_left .left_top_article .mypage .moveRoom_btn {line-height:25px; float:right; background:#1e869f; color:#fff; margin-right:10px;}
+.project_wrap .content_section .content_left .left_bottom_article .chat_box .send_box .chat_activate_btn:disabled {cursor:not-allowed;}
+/* bradley 추가 종료 */

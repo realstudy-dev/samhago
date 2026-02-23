@@ -1,0 +1,255 @@
+
+
+body {background:#f4f4f4;}
+.project_wrap {width:100%; max-width:1920px; margin:0 auto; overflow:hidden; position:relative;}
+
+.project_wrap .nav_wrap {background:rgba(218, 218, 218, .2); width:100%; height:6.5vh;/*60px*/ max-height:60px; position:relative; top:0;}
+.project_wrap .nav_wrap .back {position:absolute; top:50%; transform:translateY(-50%); left:1.5625vw;/*30px*/ cursor:pointer;}
+.project_wrap .nav_wrap .top_logo {position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0); width:5.2083vw;/*100px*/ max-width:100px;}
+
+.project_wrap .content_wrap {width:72.916vw;/*1400px*/ max-width:1400px; margin:5.372vh auto;/*50px*/}
+.project_wrap .content_wrap .title {font-weight:700; font-size:1.770vw;/*34px*/ text-align:center; color:#1E869F;}
+
+.project_wrap .content_wrap .month_box {display:table; width:100%; margin-top:2.176vh;/*20px*/}
+.project_wrap .content_wrap .month_box .name {color:rgba(58, 58, 58, 60%); font-size:1.041vw;/*20px*/ font-weight:500; margin-bottom:1.305vh;/*12px*/}
+.project_wrap .content_wrap .month_box .choice {float:left; width:calc((100% / 4) - 15px);}
+.project_wrap .content_wrap .month_box .choice.left {margin-right:15px;}
+.project_wrap .content_wrap .month_box .choice.center1 {margin:0 10px 0 5px;}
+.project_wrap .content_wrap .month_box .choice.center2 {margin:0 5px 0 10px;}
+.project_wrap .content_wrap .month_box .choice.right {margin-left:15px;}
+.project_wrap .content_wrap .month_box .choice input[type=radio] {display:none;}
+.project_wrap .content_wrap .month_box .choice input[type=radio]+label {position:relative; display:inline-block; cursor:pointer; width:100%; height:230px; padding:1.041vw;/*20px*/ font-size:1.458vw;/*28px*/ font-weight:500; border-radius:0.416vw;/*8px*/}
+.project_wrap .content_wrap .month_box .choice input[type=radio]+label {background-color:#fff; color:rgba(58, 58, 58, 60%);}
+.project_wrap .content_wrap .month_box .choice input[type=radio]:checked+label {background-color:#1E869F;}
+.project_wrap .content_wrap .month_box .choice input[type=radio]:checked+label p {color:#fff;}
+.project_wrap .content_wrap .month_box .choice input[type=radio]:checked+label p.price {color:rgba(255, 255, 255, 50%);}
+.project_wrap .content_wrap .month_box .choice label .company {color:#686868; font-size:1.041vw;/*20px*/ font-weight:500;}
+.project_wrap .content_wrap .month_box .choice label .ticket {color:#686868; font-size:1.25vw;/*24px*/ font-weight:700;}
+.project_wrap .content_wrap .month_box .choice label .bottom {position:absolute; bottom:2.176vh;/*20px*/}
+.project_wrap .content_wrap .month_box .choice label .bottom .price {color:#D9D9D9; font-size:1.041vw;/*20px*/ font-weight:600;}
+.project_wrap .content_wrap .month_box .choice label .bottom .discount {color:#686868; font-size:26px; font-weight:700;}
+
+
+.project_wrap .content_wrap .couponBox {display:table; width:100%; margin-top:2.176vh;/*20px*/}
+.project_wrap .content_wrap .couponBox .name {color:rgba(58, 58, 58, 60%); font-size:1.041vw;/*20px*/ font-weight:500; margin-bottom:1.305vh;/*12px*/}
+.project_wrap .content_wrap .couponBox .text_wrap {float:left; width:calc(50% - 10px); margin-left:0.520vw;/*10px*/ margin-bottom:0.544vh;/*5px*/}
+.project_wrap .content_wrap .couponBox .text_wrap.first {margin:0; margin-right:0.520vw;/*10px*/}
+.project_wrap .content_wrap .couponBox .text_wrap .title {color:rgba(58, 58, 58, 60%); font-size:1.041vw;/*20px*/ font-weight:500; margin-bottom:1.305vh;/*12px*/ text-align:left;}
+.project_wrap .content_wrap .couponBox .text_wrap .text_box {width:100%; height:50px; padding:0 0.78125vw;/*15px*/ background:#FFFFFF; border:solid 2px #B9B9B9; border-radius:0.416vw;/*8px*/ color:#686868; font-size:0.9375vw;/*18px*/ outline:none;}
+.project_wrap .content_wrap .couponBox .text_wrap .btn_text_box {width:calc(100% - 120px); height:50px; padding:0 0.78125vw;/*15px*/ background:#FFFFFF; border:solid 2px #B9B9B9; border-radius:0.416vw;/*8px*/ color:#686868; font-size:0.9375vw;/*18px*/ float:left; outline:none;}
+.project_wrap .content_wrap .couponBox .text_wrap .apply_btn {width:100px; height:50px; background-color:#1E869F; margin-left:1.041vw;/*20px*/ color:#fff; font-weight:700; font-size:0.9375vw;/*18px*/}
+
+
+.project_wrap .content_wrap .pay_box {display:table; width:100%; margin-top:2.176vh;/*20px*/}
+.project_wrap .content_wrap .pay_box .name {color:rgba(58, 58, 58, 60%); font-size:1.041vw;/*20px*/ font-weight:500; margin-bottom:1.305vh;/*12px*/}
+.project_wrap .content_wrap .pay_box .select.left {float:left; width:calc(50% - 10px);}
+.project_wrap .content_wrap .pay_box .select.right {float:right; width:calc(50% - 10px);}
+.project_wrap .content_wrap .pay_box .select input[type=radio] {display:none;}
+.project_wrap .content_wrap .pay_box .select input[type=radio]+label {display:inline-block; cursor:pointer; width:100%; line-height:60px; text-align:center; font-size:1.041vw;/*20px*/ font-weight:500; border-radius:0.416vw;/*8px*/ margin:0;}
+.project_wrap .content_wrap .pay_box .select input[type=radio]+label {background-color:#fff; color:rgba(58, 58, 58, 60%);}
+.project_wrap .content_wrap .pay_box .select input[type=radio]:checked+label {background-color:#1E869F; color:#fff; font-weight:700;}
+
+
+
+.project_wrap .content_wrap .terms_wrap {width:100%; background:#fff; border-radius:1.041vw;/*20px*/ margin-top:2.176vh;/*20px*/ overflow:auto; padding:1.041vw;/*20px*/}
+.project_wrap .content_wrap .terms_wrap .check_wrap {background:none; padding:0 0 0.520vw 0;/*10px*/ position:relative;}
+
+.checkHide {display:none;}
+.checkShow {width:34px; height:34px; background:url(/image/web/check_off.svg) no-repeat; background-size:contain; position:absolute; right:0;}
+.checkHide:checked + .checkShow {background:url("/image/web/check_on.svg") no-repeat; background-size:contain;}
+
+.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:1.041vw;/*20px*/ line-height:3.699vh;/*34px*/ color:rgb(0 0 0 / 60%);}
+
+.project_wrap .content_wrap .terms_wrap .gray_box {width:100%; height:250px; background:#F4F6F9; border-radius:0.416vw;/*8px*/ margin:0; font-size:1.041vw;/*20px*/ color:rgb(0 0 0 / 40%); padding:1.041vw;/*20px*/ overflow:auto; margin-top:0.544vh;/*5px*/ resize:none; outline:none; border:none;}
+.project_wrap .content_wrap .terms_wrap .gray_box.first {margin-bottom:3.264vh;/*30px*/}
+
+
+
+.project_wrap .content_wrap .button_wrap {display:table; margin:5.372vh auto 0;/*50px auto 0*/}
+.project_wrap .content_wrap .button_wrap .left_btn {width:200px; height:50px; background:#C9CFD8; border-radius:0.416vw;/*8px*/ margin-right:0.520vw;/*10px*/ font-weight:600; font-size:1.041vw;/*20px*/ text-align:center; border:none; color:#FFFFFF; padding:0; line-height:unset;}
+.project_wrap .content_wrap .button_wrap .left_btn:hover {background:#B2B7BE;}
+.project_wrap .content_wrap .button_wrap .left_btn:focus {outline:none;}
+.project_wrap .content_wrap .button_wrap .right_btn {width:200px; height:50px; background:#1E869F; border-radius:0.416vw;/*8px*/ margin-left:0.520vw;/*10px*/ font-weight:600; font-size:1.041vw;/*20px*/ text-align:center; border:none; color:#FFFFFF; padding:0; line-height:unset;}
+.project_wrap .content_wrap .button_wrap .right_btn:hover {background:#1E869F;}
+.project_wrap .content_wrap .button_wrap .right_btn:focus {outline:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*반응형 View*/
+@media only screen and (min-width:1921px) {
+	.project_wrap .nav_wrap .back {left:30px;}
+	
+	.project_wrap .content_wrap {margin:50px auto;}
+	.project_wrap .content_wrap .title {font-size:34px;}
+	
+	.project_wrap .content_wrap .month_box {margin-top:20px;}
+	.project_wrap .content_wrap .month_box .name {font-size:20px; margin-bottom:12px;}
+	.project_wrap .content_wrap .month_box .choice input[type=radio]+label {padding:20px; font-size:28px; border-radius:8px;}
+	.project_wrap .content_wrap .month_box .choice label .company {font-size:20px;}
+	.project_wrap .content_wrap .month_box .choice label .ticket {font-size:24px;}
+	.project_wrap .content_wrap .month_box .choice label .bottom {bottom:20px;}
+	.project_wrap .content_wrap .month_box .choice label .bottom .price {font-size:20px;}
+	.project_wrap .content_wrap .month_box .choice label .bottom .discount {font-size:20px;}
+	
+	
+	.project_wrap .content_wrap .couponBox {margin-top:20px;}
+	.project_wrap .content_wrap .couponBox .name {font-size:20px; margin-bottom:12px;}
+	.project_wrap .content_wrap .couponBox .text_wrap {margin-left:10px; margin-bottom:5px;}
+	.project_wrap .content_wrap .couponBox .text_wrap.first {margin-right:10px;}
+	.project_wrap .content_wrap .couponBox .text_wrap .title {font-size:20px; margin-bottom:12px;}
+	.project_wrap .content_wrap .couponBox .text_wrap .text_box {padding:0 15px; border-radius:8px; font-size:18px;}
+	.project_wrap .content_wrap .couponBox .text_wrap .btn_text_box {padding:0 15px; border-radius:8px; font-size:18px;}
+	.project_wrap .content_wrap .couponBox .text_wrap .apply_btn {margin-left:20px; font-size:18px;}
+	
+	
+	.project_wrap .content_wrap .pay_box {margin-top:20px;}
+	.project_wrap .content_wrap .pay_box .name {font-size:20px; margin-bottom:12px;}
+	.project_wrap .content_wrap .pay_box .select input[type=radio]+label {font-size:20px; border-radius:8px;}
+	
+	
+	.project_wrap .content_wrap .terms_wrap {border-radius:20px; margin-top:20px; padding:20px;}
+	.project_wrap .content_wrap .terms_wrap .check_wrap {padding:0 0 10px 0;}
+	
+	.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:20px; line-height:34px;}
+	
+	.project_wrap .content_wrap .terms_wrap .gray_box {border-radius:8px; font-size:20px; padding:20px;/*20px*/ margin-top:5px;}
+	.project_wrap .content_wrap .terms_wrap .gray_box.first {margin-bottom:30px;}
+	
+	
+	.project_wrap .content_wrap .button_wrap {margin:50px auto 0;}
+	.project_wrap .content_wrap .button_wrap .left_btn {border-radius:8px; margin-right:10px; font-size:20px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {border-radius:8px; margin-left:10px; font-size:20px;}
+}
+
+@media only screen and (max-width:1440px) {
+	.project_wrap .content_wrap .month_box .choice input[type=radio]+label {height:200px;}
+}
+
+@media only screen and (max-width:1280px) {
+    .project_wrap {max-height:unset;}
+	.project_wrap .nav_wrap {height:8vh;}
+	.project_wrap .nav_wrap .back {left:3vw;}
+	.project_wrap .nav_wrap .top_logo {width:8vw;}
+	
+	.project_wrap .content_wrap {width:90%; margin:0 auto;}
+	.project_wrap .content_wrap .title {font-size:25px; margin-top:30px;}
+	.project_wrap .content_wrap .month_box { margin-top:10px; }
+	.project_wrap .content_wrap .month_box .name {font-size:16px;}
+	.project_wrap .content_wrap .month_box .choice input[type=radio]+label {height:200px;}
+    .project_wrap .content_wrap .month_box .choice label .company {font-size:16px;}
+    .project_wrap .content_wrap .month_box .choice label .ticket {font-size:18px;}
+    .project_wrap .content_wrap .month_box .choice label .bottom .price {font-size:16px; }
+    .project_wrap .content_wrap .month_box .choice label .bottom .discount {font-size:24px; }
+    
+    .project_wrap .content_wrap .pay_box .name {font-size:16px;}
+    .project_wrap .content_wrap .pay_box .select input[type=radio]+label {font-size:18px;}
+    
+    .checkShow {width:30px; height:30px;}
+    
+    .project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:16px; line-height:30px;}
+    .project_wrap .content_wrap .terms_wrap .gray_box {font-size:16px;}
+	
+	
+    .project_wrap .content_wrap .button_wrap .left_btn {font-size:16px; margin-bottom:30px;}
+    .project_wrap .content_wrap .button_wrap .right_btn {font-size:16px; margin-bottom:30px;}
+}
+
+@media only screen and (max-width:1200px) {
+	.project_wrap .content_wrap .month_box .choice input[type=radio]+label {height:150px;}
+	.project_wrap .content_wrap .pay_box .select input[type=radio]+label {line-height:50px;}
+}
+
+@media only screen and (max-width:1080px) {
+	.project_wrap .nav_wrap {height:7vh;}
+	.project_wrap .nav_wrap .top_logo {width:9vw;}
+	
+	.project_wrap .content_wrap .button_wrap .left_btn {width:180px; height:45px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {width:180px; height:45px;}
+}
+
+@media only screen and (max-width:1024px) {
+	.project_wrap .content_wrap .title {font-size:22px; }
+	.project_wrap .content_wrap .month_box .name {font-size:14px;}
+	.project_wrap .content_wrap .month_box .choice { width:calc((100% / 2) - 15px); }
+    .project_wrap .content_wrap .month_box .choice label .company {font-size:14px;}
+    .project_wrap .content_wrap .month_box .choice label .ticket {font-size:16px;}
+    .project_wrap .content_wrap .month_box .choice label .bottom .price {font-size:14px; }
+    .project_wrap .content_wrap .month_box .choice label .bottom .discount {font-size:22px; }
+    
+    .project_wrap .content_wrap .pay_box .name {font-size:14px;}
+	.project_wrap .content_wrap .pay_box .select.left { width:100%; }
+    .project_wrap .content_wrap .pay_box .select input[type=radio]+label {font-size:16px;}
+    
+    .checkShow {width:30px; height:30px;}
+    
+    .project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:14px; }
+    .project_wrap .content_wrap .terms_wrap .gray_box {font-size:14px;}
+	
+    .project_wrap .content_wrap .button_wrap .left_btn {font-size:14px; }
+    .project_wrap .content_wrap .button_wrap .right_btn {font-size:14px; }
+}
+
+@media only screen and (max-width:768px) {
+	.project_wrap .nav_wrap {height:45px;}
+	.project_wrap .nav_wrap .top_logo {width:70px;}
+
+	.project_wrap .content_wrap .month_box .choice input[type=radio]+label { height:120px; padding:10px; }
+	.project_wrap .content_wrap .pay_box .select input[type=radio]:checked+label { font-size:14px; }
+	.project_wrap .content_wrap .month_box .choice label .bottom { bottom:10px; }
+	.project_wrap .content_wrap .month_box .choice label .bottom .discount { font-size:20px; }
+	.checkShow { width:25px; height:25px; }
+	.project_wrap .content_wrap .button_wrap .right_btn { width:155px; }
+	.project_wrap .content_wrap .button_wrap .left_btn { width:155px; }
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (max-height:540px) {
+	body {overflow-y:auto;}
+	.project_wrap .nav_wrap {height:50px;}
+	.project_wrap .nav_wrap .top_logo {width:90px;}
+	
+	.project_wrap .content_wrap .title {font-size:20px;}
+	.project_wrap .content_wrap .month_box .name {font-size:14px;}
+	.project_wrap .content_wrap .month_box .choice label .company {font-size:12px;}
+	.project_wrap .content_wrap .month_box .choice label .ticket {font-size:16px;}
+	.project_wrap .content_wrap .month_box .choice label .bottom .price {font-size:15px;}
+	.project_wrap .content_wrap .month_box .choice label .bottom .discount {font-size:15px;}
+	
+	.project_wrap .content_wrap .pay_box .name {font-size:14px;}
+	.project_wrap .content_wrap .pay_box .select input[type=radio]+label {line-height:45px; font-size:14px;}
+	
+	.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:12px;}
+	label {margin-bottom:0;}
+	.checkShow {width:25px; height:25px; top:50%; transform:translateY(-50%);}
+	.project_wrap .content_wrap .terms_wrap .gray_box {font-size:12px; height:100px; padding:10px; margin-top:0;}
+	
+	.project_wrap .content_wrap .button_wrap .left_btn {width:150px; height:40px; font-size:12px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {width:150px; height:40px; font-size:12px;}
+}
+
+@media only screen and (max-height:414px) {
+}
+
+@media only screen and (max-height:375px) {
+}
+
+@media only screen and (max-height:320px) {
+}

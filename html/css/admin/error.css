@@ -1,0 +1,83 @@
+/*반응형 View*/
+@media (min-width: 768px){
+	.carousel-caption {width:70%;}
+}
+
+@media (min-width: 992px){
+	.carousel-caption {width:70%;}
+}
+
+@media (min-width: 1200px){
+	.carousel-caption {width:60%;}
+}
+
+/*홈네비*/
+#header #menu a {color:#fff;}
+#header #menu a:hover {color:#6487c2;}
+.header {background:#00000021;}
+.header {background:none;}
+.header .logo {color:#333;}
+
+/*error*/
+.error {/* margin-top:80px; */ height:889px; width:100%;}
+.error .normal {position:absolute; top:50%; transform:translatey(-50%); width:100%; left:0; right:0;}
+.error .normal .btn{background:#23527c; width:230px; position:relative; left:50%; margin-left:-115px; border-radius:4px; padding:5px; color:#fff; top:30px;}
+.error .normal .img {position:relative; left:50%; margin-left:-250px; margin-top:100px; width:500px;}
+.error .normal .img img {width:100%;}
+
+
+/*텍스트*/
+.font-title1 {font-size:60px;}
+.font-title2 {font-size:24px;}
+.font-title3 {font-size:22px;}
+.font-title4 {font-size:22px;}
+.font-title5 {font-size:16px;}
+
+.wh {color:#fff;}
+.gy {color:#878890;}
+.bk {color:#333;}
+.main-title {color:#56585a;}
+.sub-title {color:#86939e;}
+.color-title {color:#6487c2;}
+.wh-subtitle {color:#cccccc;}
+
+.tac {text-align:center;}
+.tal {text-align:left;}
+.tar {text-align:right;}
+.fl {float:left;}
+.fr {float:right;}
+.line-none1 {display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; word-break:break-all; -webkit-line-clamp:1;}
+.mg0 {margin:0;}
+.pd0 {padding:0;}
+.bd {font-weight:bold;}
+
+
+
+/*반응형 View*/
+@media only screen and (max-width:1220px) {
+}
+
+@media only screen and (max-width: 1024px){
+}
+
+@media only screen and (max-width:768px) {
+}
+
+@media only screen and (max-width:596px) {
+}
+
+@media only screen and (max-width:516px) {
+}
+
+@media only screen and (max-width:414px) {
+	.error .normal .img {margin-left:-150px; width:300px; margin-top:50px;}
+}
+
+@media only screen and (max-width: 375px){
+}
+
+@media only screen and (max-width: 360px){
+}
+
+@media only screen and (max-width: 320px){
+}

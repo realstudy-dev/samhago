@@ -1,0 +1,17 @@
+.project_wrap .content_section { width:1280px; height:calc(100vh - 80px); padding:20px 0; margin:0 auto; }
+.project_wrap .content_section article { padding:20px; border-radius:8px; background:#fff; }
+/**********content_left************/
+.project_wrap .content_section .content_left { width:300px; float:left; }
+.project_wrap .content_section .content_left article { padding:50px 20px; text-align:center; }
+.project_wrap .content_section .content_left article p.user { font-size:18px; font-weight:700; }
+.project_wrap .content_section .content_left article p.working_hours { margin-top:10px; }
+/**********content_right************/
+.project_wrap .content_section .content_right { width:calc(100% - 320px); height:100%; margin-left:20px; float:left; }
+.project_wrap .content_section .content_right article { height:100%; }
+.project_wrap .content_section .content_right article .button_box .back_btn { padding:0; background:none; }
+.project_wrap .content_section .content_right article .button_box .back_btn img { margin-right:5px; }
+.project_wrap .content_section .content_right article nav { margin-top:30px; }
+.project_wrap .content_section .content_right article nav ul li { padding:0 20px; border-bottom:1px solid #ddd; }
+.project_wrap .content_section .content_right article nav ul li a { padding:15px 0; display:block; position:relative; }
+.project_wrap .content_section .content_right article nav ul li a .nav_list { width:100px; font-size:16px; font-weight:700; display:inline-block; }
+.project_wrap .content_section .content_right article nav ul li a img { width:10px; position:absolute; top:50%; right:0; transform:translateY(-50%); }

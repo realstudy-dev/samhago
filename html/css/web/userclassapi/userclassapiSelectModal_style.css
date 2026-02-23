@@ -1,0 +1,15 @@
+/* bradley 추가 시작 */
+/* 상담종료 */
+.advice_end.fade .modal-dialog { width:300px; margin:0; display:table; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); transition: all 0.2s ease-in-out 0s; z-index:1; background:none; }
+.advice_end .modal-dialog .modal-content { width:100%; padding:20px; border:none; border-radius:20px; float:left; }
+.advice_end .modal-dialog .modal-content .modal-body { padding:40px 15px 30px 15px; }
+.advice_end .modal-dialog .modal-content .modal-body .notice { font-size:16px; text-align:center; }
+.advice_end .modal-dialog .modal-content .modal-body .notice span.red { display:inline-block; margin-top:10px; color:red; }
+.advice_end .modal-dialog .modal-content .modal-footer { border:0; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box { width:100%; display:table; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box button { width:calc((100% - 10px) / 2); border-radius:20px; float:left; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box button.yes_btn { color:#fff; background:#1E869F; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box button.no_btn { margin-left:10px; color:#1E869F; border:1px solid #1E869F; background:none; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box.processing { text-align:center; }
+.advice_end .modal-dialog .modal-content .modal-footer .button_box.processing button.yes_btn { float:none; }
+/* bradley 추가 종료 */

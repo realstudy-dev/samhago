@@ -1,0 +1,60 @@
+html { height:100%; }
+body { height:100%; background:#f4f4f4; }
+.project_wrap { max-width:1920px; height:100%; margin:0 auto; overflow:auto; }
+.project_wrap .content_wrap { width:1000px; height:calc(100% - 170px); margin:0 auto; display:flex; align-items:center; justify-content:center; }
+.project_wrap .content_wrap .left_Box { width:35%; }
+.project_wrap .content_wrap .left_Box img { width:230px; margin:0 auto; display:block; }
+.project_wrap .content_wrap .left_Box .logo_text { margin-top:30px; font-family:'Gmarket Sans'; font-size:15px; text-align:center; color:#1E869F; }
+.project_wrap .content_wrap .left_Box .form_wrap { margin-top:50px; }
+.project_wrap .content_wrap .left_Box .form_wrap .input_wrap { width:100%; height:50px; padding:0 10px; border:1px solid #AFB4B5; border-radius:5px; display:flex; align-items:center; background:#fff; }
+.project_wrap .content_wrap .left_Box .form_wrap .input_wrap label { width:80px; margin:0; font-size:16px; font-weight:500; color:#AFB4B5; }
+.project_wrap .content_wrap .left_Box .form_wrap .input_wrap input { width:calc(100% - 80px); height:100%; padding:0 10px; font-size:16px; border:0; background:inherit; }
+.project_wrap .content_wrap .left_Box .form_wrap .input_wrap input:focus { outline:none; }
+.project_wrap .content_wrap .left_Box .form_wrap .input_wrap2 { margin-top:10px; }
+.project_wrap .content_wrap .left_Box .button_wrap { margin-top:10px; }
+.project_wrap .content_wrap .left_Box .button_wrap .btn { width:100%; height:50px; font-size:16px; color:#fff; border-radius:5px; background:#1E869F;}
+.project_wrap .content_wrap .left_Box .button_wrap .btn:hover { background:#207b91; }
+.project_wrap .content_wrap .left_Box .button_wrap .btn:focus { outline:none; }
+.project_wrap .content_wrap .left_Box .route_warp { margin-top:30px; display:flex; justify-content:center; }
+.project_wrap .content_wrap .left_Box .route_warp li { font-size:12px; color:#898989; }
+.project_wrap .content_wrap .left_Box .route_warp li+li:before { padding:0 20px; color:#898989; content:"l"; }
+.project_wrap .content_wrap .right_Box { width:65%; }
+.project_wrap .content_wrap .right_Box img { width:100%; }
+
+.footer { width:100%; height:170px; padding:40px 0; text-align:center; background:#E6E6E6;}
+.footer .box { width:1024px; margin:0 auto; position:relative; }
+.footer .box .company { margin-bottom:24px; }
+.footer .box .company p { margin:0; margin-right:5px; padding-right:5px; position:relative; color:#686868; text-align:center; font-size:15px; font-weight:300; display:inline-block; }
+.footer .box .company p::after { content:''; width:2px; height:50%; position:absolute; top:25%; right:-3px; background:#686868; }
+.footer .box .company p:last-child::after { content:none; }
+.footer .box .copyright { margin:0; font-size:15px; font-weight:300; color:#686868; }
+
+@media only screen and (max-width:1024px) {
+	.project_wrap .content_wrap { width:100%; height:100%; margin:50px 0; }
+	.project_wrap .content_wrap .right_Box { display:none; }
+	.project_wrap .content_wrap .left_Box { width:60%; }
+	.project_wrap .content_wrap .left_Box img { width:150px; }
+	.project_wrap .content_wrap .left_Box .logo_text { font-size:14px; }
+	.project_wrap .content_wrap .left_Box .form_wrap { margin-top:30px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap label { font-size:14px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap label.on { font-size:14px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap input { font-size:14px; }
+	.project_wrap .content_wrap .left_Box .button_wrap .btn { font-size:14px; }
+	.project_wrap .content_wrap .left_Box .route_warp li { font-size:12px; }
+	.footer .box { width:90%; }
+    .footer .box .company p { font-size:15px; }
+    .footer .box .copyright { font-size:15px; }
+}
+
+@media only screen and (max-width:768px) {
+	.project_wrap .content_wrap .left_Box { width:90%; margin:50px 0; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap { height:40px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap input { line-height:40px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap label { line-height:40px; }
+	.project_wrap .content_wrap .left_Box .form_wrap .input_wrap label.on { line-height:40px; }
+	.project_wrap .content_wrap .left_Box .button_wrap .btn { height:42px; }
+	.footer { height:auto; padding:20px 0; }
+	.footer .box p { word-break:keep-all; }
+    .footer .box .company p { font-size:14px; }
+    .footer .box .copyright { font-size:14px; }
+}

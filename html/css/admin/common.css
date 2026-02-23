@@ -1,0 +1,905 @@
+/*
+Ntsoft v1.0.2
+Copyright 2021.11 NTSOFT, Inc. 
+*/
+
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Sans KR Regular'), local('Noto Sans CJK KR Regular'),
+    url(/font/admin/NotoSansKR-Regular.woff2) format('woff2'),
+    url(/font/admin/NotoSansKR-Regular.woff) format('woff'),
+    url(/font/admin/NotoSansKR-Regular.otf) format('opentype');
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; text-shadow:none;
+  color:rgba(49, 58, 70, .8);
+}
+svg , path {color:unset;}
+
+/* .box-sizing(@box-model) {
+  -webkit-box-sizing: @box-model; //사파리 <= 5
+     -moz-box-sizing: @box-model; //파이어폭스 <= 19
+          box-sizing: @box-model;
+} */
+
+
+body {font-family: "Noto Sans KR", "나눔고딕", "Dotum", "돋움",  "Arial", "AppleSDGothicNeo", sans-serif; padding:0; margin:0; font-size:13px;}
+
+/*상단네비*/
+/* .navbar.navbar-default {border-radius:0; margin-bottom:0; z-index:2; position:fixed; width:100%; background-color:#2196F3; border-color:#2196F3; border:none; height:50px; min-width:590px;}
+.navbar.navbar-default .container-fluid {padding-left:0; padding-right:0;}
+.navbar.navbar-default .container-fluid .navbar-header {float:left;	width:270px;}
+.navbar.navbar-default .container-fluid .navbar-header svg {display:none;}
+.navbar.navbar-default .container-fluid .navbar-header svg path {color:#fff;}
+.navbar.navbar-default .container-fluid .navbar-collapse{display:block; width:calc(100% - 270px); float:right; border:none; padding:0 10px;}
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {font-size:18px; font-weight:bold; line-height:50px; padding:0; width:200px; color:#fff; margin:0; padding-left:20px;}
+.nav.navbar-nav {float:right; padding:9px 0; margin:0;}
+.nav>li {float:left;}
+.navbar .nav > li > a {font-size:13px; color:#fff; width:120px; line-height:20px; text-align:center; padding:6px 0; background:#0E3F66; margin-left:10px; font-weight:700; border-radius:.267rem;}
+.navbar .nav > li > a.redBtn {background:#fc5083;}
+.navbar .nav > li > a.redBtn:hover {background:#eb4375;}
+.navbar .nav > li > a:hover {position:relative; z-index:1; display:inline-block; overflow:hidden; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; -webkit-transition:.3s ease-out; transition:.3s ease-out; vertical-align:middle; background-color:#0a375a; color:#fff;}
+.navbar .nav > li > a:focus {background:#082e1c; color:#fff;}
+.navbar .nav > li > a.service {padding-left:24px;}
+.navbar .nav > li > a.member {padding-left:24px;}
+.navbar .nav > li > a.logout {padding-left:16px;}
+.navbar .nav > li > a.service svg {position:absolute; top:3px; left:22px; width:18px;}
+.navbar .nav > li > a.member svg {position:absolute; top:8px; left:22px; width:18px;}
+.navbar .nav > li > a.logout svg {position:absolute; top:7px; left:22px; width:18px; height:18px;}
+.far.fa-sun {margin-right:5px;}
+.nav-tabs > li {width:100%;}
+.nav.nav-tabs.left {width:200px; height:100vh; border:none; float:left; position:absolute; top:0; z-index:1; padding-top:52px;}
+.left .caret {display:none;}
+.fas.fa-school {margin-right:5px; width:20px; text-align:center;}
+.fas.fa-plus {float:right; padding:9px 0; font-size:11px;}
+.fas.fa-minus {float:right; padding:9px 0; font-size:11px;}
+.nav-tabs .dropdown-menu {width:100%; box-shadow:none; border-radius:0; border:none; padding:0; position:relative;}
+.left .dropdown-menu > li > a {padding-left:40px; height:40px; line-height:34px; font-size:13px;}
+.left .dropdown-menu > li > a.active {}
+.left li {width:100%; display:inline-block; visibility:visible; position:relative;}
+.fas.fa-book-reader {margin-right:5px; width:20px; text-align: center;}
+.fas.fa-chalkboard-teacher {margin-right:5px; width:20px; text-align:center;}
+.fas.fa-baby {margin-right:5px; width:20px; text-align:center;}
+.fas.fa-user-tie {margin-right:5px; width:20px; text-align:center;}
+.fas.fa-clipboard-list {margin-right:5px; width:20px; text-align:center;}
+.nav-tabs > li > a {height:50px; line-height:30px; font-size:14px; box-sizing:border-box; margin:0; border-radius:0; border-bottom:solid 1px #DFE3E7; font-weight:bold;}
+.far.fa-user {margin-right:10px;}
+.navbar-nav .open .dropdown-menu {width:250px; padding:0; border-radius:0; border:none; left:-150px;}
+.name p {padding-left:30px; font-size:14px;}
+.far.fa-star {margin-right:10px; color:#fff;}
+.navbar-default .navbar-nav .open .dropdown-menu > li.name > a {width:250px; padding:15px 15px;}
+.margin0 {margin:0;}
+.left-btn {width:50%; background:#f7f7f9; position:relative; bottom:0; left:0; text-align:center; border:1px solid #eee;}
+.right-btn {width:50%; background:#f7f7f9; position:absolute; bottom:0; right:0; text-align:center; border:1px solid #eee;}
+.dropdown-menu > li.left-btn > a {font-size:13px; line-height:32px;}
+.navbar-default .navbar-nav .open .dropdown-menu > li.name > a:hover {background:none; color:#333;}
+.dropdown-menu > li.right-btn > a {font-size:13px; line-height:32px;}
+.left .open > a, .left .open > a:hover, .left .open > a:focus {border:none; border-bottom:solid 2px; box-sizing:border-box;}
+.breadcrumb > li {font-size:13px;}
+.breadcrumb {padding-left:0; margin:0;}
+.right .col-md-12 {padding:0;}
+.right .col-md-12.box {background:#fff; border:solid 1px #DFE3E7; margin:20px 0 30px; padding:20px; border-radius:4px; clear:both; background:#fff;}
+
+
+@media only screen and (max-width:1200px) {
+	.navbar.navbar-default .container-fluid .navbar-header svg#btn_mobileMenu {display:block; width:50px; height:50px; color:#fff; padding:11px; float:left;}
+	.navbar.navbar-default .container-fluid .navbar-header svg#btn_mobileMenu2 {display:block; width:50px; height:50px; color:#fff; padding:7px; float:left;}
+	.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {padding:0;}
+	.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {margin-right:0;margin-left:0;}
+} */
+
+
+
+
+
+
+
+
+
+
+
+/* 왼쪽메뉴 */
+.left-menu {overflow:auto; background:#151515; z-index:9; top:0px; left:0; width:200px; height:100%; box-sizing:border-box; vertical-align:top; position:fixed; padding-bottom:50px;}
+.left-menu::-webkit-scrollbar {width:6px; height:6px;}
+.left-menu::-webkit-scrollbar-thumb {border-radius:8px; background-color:#00939b;} 
+.left-menu::-webkit-scrollbar-corner {background:#151515;}
+
+.left-menu .navbar-brand {line-height:50px; padding:0; display:table; width:100%; padding-left:15px;}
+/*
+.left-menu .navbar-brand .logo {width:30px; height:30px; position:relative; float:left; top:10px; margin-right:10px;}
+.left-menu .navbar-brand .logo img {width:100%; position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0);}
+.left-menu .navbar-brand .logoSpan {color:#fff; font-weight:bold;}
+*/
+.left-menu .navbar-brand .imgBox {height:50px;}
+.left-menu .navbar-brand .imgBox img {width:130px;}
+
+.left-menu #sidebar ul.components {background:#151515;}
+.left-menu .left-icon {width:20px; float:left; font-size:14px; position:relative; top:3px; margin-right:8px;}
+.left-menu #sidebar .components li a .right-icon {font-size:22px; position:absolute; right:10px; top:50%; transform:translateY(-50%);}
+.left-menu a, .left-menu a:hover, .left-menu a:focus {text-decoration:none;}
+.left-menu a[data-toggle="collapse"] {position:relative;}
+
+.left-menu #sidebar .components li {display:table; width:100%;}
+.left-menu #sidebar .components li a {display:inline-block; padding:5px 10px; width:100%;}
+.left-menu #sidebar .components li a svg {fill:rgba(255, 255, 255, .6); float:left; /*background:rgb(131 212 217 / 50%);*/ padding:2px; border-radius:4px;}
+.left-menu #sidebar .components li a .tempSpan {color:rgba(255, 255, 255, .6); line-height:30px; font-size:13px; word-break:keep-all;}
+.left-menu #sidebar .components li.active a {background:#29292c;}
+.left-menu #sidebar .components li.active a svg {fill:#fff;}
+.left-menu #sidebar .components li.active a .tempSpan {color:#fff;}
+.left-menu #sidebar .components li:hover a svg {fill:#fff;}
+.left-menu #sidebar .components li:hover a .tempSpan {color:#fff;}
+
+.left-menu #sidebar .collapse.in {display:block; color:#fff; background:#055b80;}
+.left-menu #sidebar .collapse.in li {background:#43485e;}
+.left-menu #sidebar .components li .list-unstyled > li a {background:#29292c; border-bottom:none; font-size:12px; font-weight:normal; padding:8px 20px 8px; padding-left:40px; color:rgba(255, 255, 255, .6);}
+.left-menu #sidebar .components li .list-unstyled > li a:hover {color:#fff;}
+.left-menu #sidebar .components li .list-unstyled > li.active a {color:#fff; background:#009ea7;}
+.left-menu #sidebar .categoryLeftMenu {background:#009ea7; padding:2px 0; padding-left:20px; color:#fff;}
+.left-menu .imgNon{display:none;}
+.dropdown-toggle::after {display:none;}
+
+
+
+
+/*왼쪽메뉴 간략화(아이콘)*/
+.left-menu.summary {width:60px;}
+.tapNav.summary {left:60px; width:calc(100% - 60px);}
+.rightBoxNT.summary {left:60px; width:calc(100% - 60px);}
+
+.left-menu.summary #sidebar .components li {position:relative; height:40px;}
+.left-menu.summary a[data-toggle="collapse"] {position:absolute;}
+.left-menu.summary #sidebar .components li a {width:60px;}
+.left-menu.summary #sidebar .components li a .right-icon, .left-menu.summary #sidebar .components li .list-unstyled {display:none;}
+.left-menu.summary #sidebar .components li a svg {display:block; float:unset; margin:0 auto;}
+
+.left-menu.summary #sidebar .components li:hover a .tempSpan {display:inline-block !important; width:150px; height:40px; background:#151515; float:right; position:absolute; top:0; left:60px; line-height:40px; padding-left:10px;}
+.left-menu.summary #sidebar .components li.active:hover a .tempSpan {display:inline-block !important; width:150px; height:40px; background:#009ea7; float:right; position:absolute; top:0; left:60px; line-height:40px; padding-left:10px;}
+.left-menu.summary #sidebar .components li:hover .list-unstyled {display:inline-block !important; width:150px; height:40px; background:#151515; float:right; position:absolute; top:40px; left:60px; line-height:40px;}
+.left-menu.summary #sidebar .components li:hover .list-unstyled li a {display:inline-block !important; width:150px; padding:0; padding-left:10px;}
+
+
+
+
+
+
+
+.tapNav {margin:0; padding:0; background:#151515; position:absolute; top:0; left:200px; z-index:1; min-width:1000px; width:calc(100% - 200px); word-spacing:-1px;}
+/* .tapNav #btn_mobileMenu {display:none;} */
+.tapNav svg#btn_mobileMenu {display:block; float:left; margin:10px 5px 0; fill:#fff;}
+.tapNav svg#btn_mobileMenu2 {display:block; float:left; margin:10px 5px 0;}
+/* 경로 */
+.tapNav .breadcrumb {background:none; padding:0; line-height:50px; float:left; margin:0;}
+.tapNav .breadcrumb>li.active {color:#00939b;}
+
+.rightBtnWrap {float:right; padding:10px 0; margin:0 10px 0 0; list-style:none;}
+.rightBtnWrap li {float:left;}
+.rightBtnWrap li > a {background:#1e2362; width:100px; margin:0; margin-left:6px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px; display:block; text-align:center; color:#fff; text-decoration:none;}
+.rightBtnWrap li > a:hover {position:relative; z-index:1; display:inline-block; overflow:hidden; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; -webkit-transition:.3s ease-out; transition:.3s ease-out; vertical-align:middle; background-color:#191e58; color:#fff;}
+
+.rightBtnWrap li > a.logout {background:#c50000; color:#fff;}
+.rightBtnWrap li > a.logout:hover {background:#bf0000;}
+
+/*탭네비*/
+.tapNav .tabWrap {background:#333; overflow:hidden; width:100%; position:relative; height:40px;}
+.tapNav .tabWrap .tabList {margin:0; border-bottom:none; outline:none; transition:padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); position:absolute; height:40px; width:calc(100% - 40px);}
+.tapNav .tabWrap .tabList .tabContainer {position:relative; box-sizing:border-box; margin-bottom:-1px; overflow:hidden; font-size:14px; line-height:1.5715; white-space:nowrap; transition:padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); zoom:1; padding:0 40px; height:auto;}
+.tapNav .tabWrap .tabList .tabContainer::before, .tapNav .tabWrap .tabList .tabContainer::after {display:table; content:'';}
+.tapNav .tabWrap .tabList .tabContainer .tabPrev {left:0;}
+.tapNav .tabWrap .tabList .tabContainer .tabNext {right:2px;}
+.tapNav .tabWrap .tabList .tabContainer .tabPrev, .tapNav .tabWrap .tabList .tabContainer .tabNext {position:absolute; z-index:2; width:40px; height:100%; text-align:center; background-color:transparent; border:0; cursor:pointer; opacity:.7; transition:color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); user-select:none; pointer-events:auto; line-height:1; color:#fff;}
+.tapNav .tabWrap .tabList .tabContainer .tabPrev:hover , .tapNav .tabWrap .tabList .tabContainer .tabNext:hover {opacity:1;}
+.tapNav .tabWrap .tabList .tabContainer .disabled {cursor:not-allowed;}
+.tapNav .tabWrap .tabList .tabContainer .disabled, .tapNav .tabWrap .tabList .tabContainer .disabled:hover {opacity:.4;}
+
+.tapNav .tabWrap .tabList .tabContainer .tabPrev .tabPrevTarget, .tabWrap .tabList .tabContainer .tabNext .tabNextTarget {font-size:14px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff;}
+
+.tapNav .tabWrap .allClose {height:40px; position:absolute; right:0;}
+.tapNav .tabWrap .allClose svg {padding:8px; fill:rgba(255, 255, 255, .8);}
+.tapNav .tabWrap .allClose:hover svg {fill:#fff;}
+
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap {overflow:hidden; white-space:nowrap;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox {position:relative; display:inline-block; box-sizing:border-box; margin:0; padding-left:0; list-style:none; transition:transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox::before, .tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox::after {display:table; content:' ';}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab {padding:0; background:none; height:40px; line-height:40px; transition:background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); border-radius:0; border:none; margin:0; position:relative; display:inline-block; box-sizing:border-box; text-decoration:none; cursor:pointer; font-size:13px;}
+/* .tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .unclosable {color:#fff;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .tabPadding {color:#fff;} */
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab.active {background:#fff;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab.dashboard {padding:0 16px;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab.dashboard .unclosable { color:rgba(255, 255, 255, .8);}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab.active .tabPadding {color:rgba(49, 58, 70, .8);}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .tabPadding {padding:0 28px 0 16px; color:rgba(255, 255, 255, .8);}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .tabPadding .closeIcon {display:inline-block; color:inherit; line-height:0; text-align:center; text-transform:none; vertical-align:-0.125em; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; width:auto; height:auto; margin:-6px 0 0 0; position:absolute; right:10px; top:15px; font-size:12px;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .tabPadding .closeIcon[tabindex] {cursor:pointer;}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab .tabPadding .closeIcon svg {fill:rgba(255, 255, 255, .8);}
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tab.active .tabPadding .closeIcon svg {fill:rgba(49, 58, 70, .8);}
+
+.tapNav .tabWrap .tabList .tabContainer .scrollWrap .scrollBox .tabBar {position:absolute; bottom:1px; left:0; z-index:1; box-sizing:border-box; width:0; height:2px; background-color:#1890ff; transform-origin:0 0; visibility:hidden; display:none !important;}
+
+
+
+
+
+
+
+
+
+/* 전체외각 */
+.rightBoxNT {margin:0; padding:10px; padding-top:0; background:#fff; position:absolute; top:50px; left:200px; z-index:1; min-width:1000px; width:calc(100% - 200px); min-height:calc(100vh - 89px); word-spacing:-1px;}
+/* 상단라인 */
+.rightBoxNT .formLine {border-top:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal {margin:0 0 20px; display:table; width:100%; background:#fff; position:relative;}
+.rightBoxNT .form-horizontal .form-group {display:table; width:100%; border-bottom:1px solid #dee2e6; border-left:none; border-right:none; margin:0; padding:0; background:#f5f7f7;}
+/* 폼그룹2분할_영역제어 */
+.rightBoxNT .form-horizontal .form-group50Wrap {margin-top:0; border-bottom:none; display:table; width:100%;}
+/* 폼그룹2분할 */
+.rightBoxNT .form-horizontal .form-group50 {width:50%; float:left; border-bottom:1px solid #dee2e6; background:#f5f7f7;}
+/* 폼그룹라벨제목 */
+.rightBoxNT .form-horizontal .control-label {float:left; margin:0; width:170px; text-align:left; line-height:30px; padding:5px 0 5px 15px; font-weight:unset;}
+.rightBoxNT .form-horizontal .control-label .requisite {color:#ff4545;}
+/* 폼그룹왼쪽정렬*/
+.rightBoxNT .form-horizontal .floatLeft {float:left;}
+/* 폼그룹라벨제목 제외한 영역 */
+.rightBoxNT .form-horizontal .rightWidth {width:calc(100% - 170px); background:#fff;}
+/*영역필요없는 기간[오늘,3일,7일,1개월], 인풋옆에버튼있을시[ex.파일업로드]*/
+.rightBoxNT .form-horizontal .rightWarp {padding:5px 0 5px 5px;}
+
+
+
+
+/* 검색조건_인풋 */
+.rightBoxNT .form-horizontal .searchWrapInput {width:200px; padding:5px 0 5px 5px;}
+/* 등록,수정페이지_인풋 */
+.rightBoxNT .form-horizontal .pageWrapInput {width:250px; padding:5px 0 5px 5px;}
+/* 등록,수정페이지_텍스트에어리어,에디터 */
+.rightBoxNT .form-horizontal .pageWrapTextarea {padding:5px; width:100%;}
+
+
+/* 분할영역패딩제거 */
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding:0;}
+
+
+
+
+/* 경로 */
+.rightBoxNT .breadcrumb {background:none; padding:10px 0; margin:0; float:left; line-height:20px;}
+.rightBoxNT .breadcrumb>li.active {color:rgba(0, 147, 155, .7);}
+.breadcrumb>li {color:rgba(49, 58, 70, .7);}
+/* .breadcrumb>li+li:before {color:rgba(49, 58, 70, .2);} */
+
+
+/* 버튼기본 */
+.rightBoxNT .btnCommon {width:100px; margin:0 3px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+/* 버튼기본오른쪽정렬 */
+.rightBoxNT .btnRightCommon {width:100px; margin:0; margin-left:6px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+
+/* 검색화면 및 상세화면 버튼 박스 */
+.rightBoxNT .btnBox {padding:0; margin:24px auto 4px; min-width:10px; display:table; /*float:right;*/}
+/* 메인컬러_버튼 */
+.rightBoxNT .btnMain {background:#32CD8B; color:#fff;} /*.rightBoxNT .btnMint*/
+.rightBoxNT .btnMain:hover {background:#1FB072;}
+/* 회색_버튼 */
+.rightBoxNT .btnGray {background:#8e949d; color:#fff;}
+.rightBoxNT .btnGray:hover {background:#878c95;}
+
+
+/*상세조회,아이콘버튼사용시*/
+/*
+!* 흰색라인_버튼 *!
+.rightBoxNT .btnWhite {background:#fff; color:#00939b; border:solid 1px #00939b;}
+.rightBoxNT .btnWhite:hover {color:#008c95; border:solid 1px #008c95;}
+.rightBoxNT .btnWhite svg {fill:#00939b; height:30px; position:absolute;}
+.rightBoxNT .btnWhite:hover svg {fill:#008c95;}
+
+!* 버튼아이콘 *!
+.rightBoxNT .btnCommon svg {fill:#fff; float:left; padding:3px;}
+.rightBoxNT .btn-overlap svg {fill:#fff; float:left; padding:3px;}
+*/
+
+
+
+/* 폼 공통 */
+.rightBoxNT .form-horizontal .form-control {border:1px solid #dee2e6; display:block; width:100%; padding:0; padding-left:5px; background-color:#FFF; border-radius:0.267rem; box-shadow:none; height:30px; line-height:30px; font-size:13px; color:rgba(49, 58, 70, .8);}
+.rightBoxNT .form-horizontal .form-control[disabled]{background:rgba(238, 242, 247, .6);}
+.rightBoxNT select.form-control:not([multiple=multiple]) {background-image:url(../../image/arrow-down.png); background-position:95%; background-size:14px 14px,10px 10px; background-repeat:no-repeat; -webkit-appearance:none; -moz-appearance:none; padding-right:1.5rem; height:30px; color:rgba(49, 58, 70, .8);}
+.input-group.date .input-group-addon {background:none; border:1px solid #dee2e6; border-left:none; border-left:none;}
+.input-group.date .input-group-addon[disabled] {opacity:.5; background:#dee2e6;cursor:no-drop;}
+.rightBoxNT .input-group-addon:last-child {padding:5px 10px;}
+.glyphicon-calendar:before {color:rgba(49, 58, 70, .8);}
+.rightBoxNT .form-horizontal .dateInput {border-right:none;}
+.rightBoxNT .form-horizontal .password {font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
+.rightBoxNT textarea {font-size:13px; border:1px solid #dee2e6; outline:none; padding:.47rem .8rem; display:block; border-radius:0.267rem;}
+.rightBoxNT textarea.height107 {height: 107px;}
+.rightBoxNT textarea:focus {border:1px solid #00939b;}
+.rightBoxNT input.form-control:focus {border:1px solid #00939b;}
+.rightBoxNT select.form-control:not([multiple=multiple]):focus {border:1px solid #00939b;}
+.rightBoxNT .form-horizontal .sideNumber {line-height:30px; color:#97989b; position:relative; left:5px; bottom:-5px;}
+
+.rightBoxNT .form-horizontal .form-control.dateInput2 {border-radius:0.267rem 0 0 0.267rem;}
+
+
+/* 기간[오늘,3일,7일,1개월] */
+.rightBoxNT .form-horizontal .btn-choce {background:none; border-color:#dee2e6; color:rgba(49, 58, 70, .8); height:30px; padding:5px 12px; font-size:13px; font-weight:400; line-height:1.42857143; border-radius:4px;}
+.rightBoxNT .form-horizontal .btn-choce:hover, .rightBoxNT form .btn-choce:focus {background:#00939b; color:#fff; outline:none;}
+
+
+
+
+
+/* 상세페이지 회색버튼 [ex.아이디조회,중복확인] */
+.rightBoxNT .form-horizontal .overlap {float:left;}
+.rightBoxNT .form-horizontal .overlap .btnGray {width:100px; background:#00939b; color:#fff; text-shadow:none; border:none; padding:0; border-radius:.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+.rightBoxNT .form-horizontal .overlap .btnGray:hover {background:#008c95;}
+
+
+
+
+
+
+/* 리스트 왼쪽,오른쪽,마진제외 버튼 영역 */
+.rightBoxNT .form-horizontal .btnlistBox {padding:5px 0; display:table; width:100%; border-top:1px solid #a2a2a2;}
+
+/* 리스트버튼기본 */
+.rightBoxNT .form-horizontal .btnlistBox .btnCommon {width:100px; margin:0 3px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+/* 리스트버튼기본왼쪽정렬 */
+.rightBoxNT .form-horizontal .btnlistBox .btnLeftCommon {width:100px; margin:0; margin-right:6px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+/* 리스트버튼기본오른쪽정렬 */
+.rightBoxNT .form-horizontal .btnlistBox .btnRightCommon {width:100px; margin:0; margin-left:6px; text-shadow:none; border:none; padding:0 5px; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px; float:right;}
+
+/* 메인컬러_버튼 */
+.rightBoxNT .form-horizontal .btnlistBox .btnMain {background:#32CD8B; color:#fff;} /*.rightBoxNT .btnMint*/
+.rightBoxNT .form-horizontal .btnlistBox .btnMain:hover {background:#1FB072;}
+/* 회색_버튼 */
+.rightBoxNT .form-horizontal .btnlistBox .btnGray {background:#8e949d; color:#fff;}
+.rightBoxNT .form-horizontal .btnlistBox .btnGray:hover {background:#878c95;}
+/* 빨간색_버튼 */
+.rightBoxNT .form-horizontal .btnlistBox .btnRed {background:#c50049; color:#fff;}
+.rightBoxNT .form-horizontal .btnlistBox .btnRed:hover {background:#bb0045;}
+/* 엑셀_버튼 */
+.rightBoxNT .form-horizontal .btnlistBox .btnExcel {background:#0f743d; color:#fff;}
+.rightBoxNT .form-horizontal .btnlistBox .btnExcel:hover {background:#0e6e3a;}
+
+
+/* 리스트좌측검색갯수 */
+.rightBoxNT .listNav {display:inline-block; width:100%; height:30px; position:relative;}
+.rightBoxNT .listNav .numberBox {position: absolute;left: 0;}
+.rightBoxNT .listNav .numberBox .number {line-height:30px; margin:0; display:inline-block;}
+.rightBoxNT .listNav .numberBox .number .n-color {color:#00939b; padding-left:3px;}
+.rightBoxNT .listNav .numberBox .slush {padding:0 5px; display:inline-block;}
+.rightBoxNT .listNav .text {color:#324767; text-decoration:none; padding:0px 10px; text-align:left; line-height:34px; margin:0; font-size:16px; font-weight:700; display:block; border-bottom:1px solid #dee2e6;}
+/* 리스트우측셀렉트3종 */
+.rightBoxNT .listNav .selectBox {position:absolute; top:0; right:0;}
+.rightBoxNT .listNav .selectBox .selectList {margin:0 0 0 7px; float:right; width:150px;}
+
+
+/* 참고문구 */
+.rightBoxNT .form-horizontal .textareaText {line-height:30px; color:#97989b; position:relative; left:5px; bottom:-105px;}
+.rightBoxNT .form-horizontal .inputnoneText {font-size:13px; line-height:30px;}
+.rightBoxNT .form-horizontal .commentText {margin:0 0 0 5px; font-weight:600; line-height:40px;}
+.rightBoxNT .form-horizontal .inputcomment {clear:both; color:#50c3ca; margin:0; font-size:12px; padding-top:0;}
+.rightBoxNT .form-horizontal .commentCheck {position:relative; bottom:-5px; font-weight:500; line-height:40px; margin-left:5px;}
+.rightBoxNT .form-horizontal .commentSide {line-height:30px; color:#97989b; position:relative; left:5px; bottom:-5px;}
+
+
+/* 체크,라디오 공통 */
+.rightBoxNT .checkbox, .radio {position:relative; display:inline-block;}
+.rightBoxNT .checkbox input[type=checkbox], .rightBoxNT .radio input[type=radio] {display:none;}
+.rightBoxNT input[type=radio], .rightBoxNT input[type=checkbox] {box-sizing:border-box; padding:0;}
+.rightBoxNT .form-horizontal .checkbox, .rightBoxNT .form-horizontal .radio {min-height:29px; padding:0 5px 0 15px;}
+
+
+/* 체크박스 */
+.rightBoxNT .checkbox label {font-size:13px; line-height:30px; margin-left:7px; padding:0;}
+.rightBoxNT .checkbox label:after, .checkbox label:before {height:18px; width:18px; top:6px; left:0; position:absolute;}
+.rightBoxNT .checkbox label:after {content:''; border:1px solid #dee2e6; border-radius:4px; -webkit-transition:.1s ease-in-out; transition:.1s ease-in-out;}
+.rightBoxNT .checkbox label:before {content:''; border-radius:4px;}
+.rightBoxNT .checkbox input:checked~label:before {background-color:#FFF; border:1px solid #dee2e6;}
+.rightBoxNT .checkbox input:checked~label:after {border-top-style:none; border-right-style:none; -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); transform:rotate(-45deg); height:5px; width:9px; border-color:#6A99F8; border-radius:0; border-width:2px; top:12px; left:5px;}
+
+
+/* 라디오박스 */
+.rightBoxNT .radioWrap {padding:5px 0 5px 5px; display:inline;}
+.rightBoxNT .radio label {font-size:13px; line-height:29px; margin-left:5px; padding:0;}
+.rightBoxNT .radio label::after, .radio label::before {content:'';}
+.rightBoxNT .radio label:after, .radio label:before {height:20px; width:20px; top:8px; left:0; position:absolute;}
+.rightBoxNT .radio label::before {border:1px solid #dee2e6; border-radius:50%; width:16px; height:16px; margin-right:.5rem;}
+.rightBoxNT .radio label::after {position:absolute; display:-webkit-inline-box; display:-webkit-inline-flex; display:-ms-inline-flexbox; display:inline-flex; height:6px; width:6px; background-color:#00939b; border-radius:50%; top:13px; left:5px; opacity:0; -webkit-transform:scale(3.6); -ms-transform:scale(3.6); transform:scale(3.6); border:none;}
+.rightBoxNT .radio input[type=radio]:checked~label::after {opacity:1; -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1); -webkit-transition:all .3s cubic-bezier(.35,.9,.4,.9); transition:all .3s cubic-bezier(.35,.9,.4,.9);}
+
+
+/* 주소 */
+.rightBoxNT .form-horizontal .addressBox {width:calc(100% - 170px); float:left; padding:5px;}
+.rightBoxNT .form-horizontal .addressBox .numberBox {margin-bottom:6px; width:245px;}
+.rightBoxNT .form-horizontal .addressBox .last {margin-bottom:0;}
+.rightBoxNT .form-horizontal .addressBox .numberBox .number { margin-right:5px; width:calc(245px - 105px);}
+.rightBoxNT .form-horizontal .btn-overlap {background:#00939b; color:#fff; text-shadow:none; border:none; border-radius:0.267rem; box-shadow:none; line-height:30px; font-size:13px; padding:0; width:100px;}
+.rightBoxNT .form-horizontal .btn-overlap:hover {background:#008c95;}
+/* 버튼아이콘 */
+.rightBoxNT .btn-overlap svg {fill:#fff; float:left; width:25px}
+.rightBoxNT .form-horizontal .addressBox .address1 {margin-bottom:5px;}
+
+/* 주소찾기 */
+.rightBoxNT .form-horizontal .address {width:calc(100% - 200px); float:left; padding-left:10px;}
+.rightBoxNT .form-horizontal .address .roadBox {margin-bottom:5px;}
+.rightBoxNT .form-horizontal .address .roadBox .road {width:29.1%; float:left; margin-right:10px;}
+.rightBoxNT .form-horizontal .address .roadBox .btn-overlap {width:100px; background:#dee2e6; color:#333; text-shadow:none; border:none; padding:0; border-radius:.267rem; box-shadow:none; line-height:30px; font-size:13px;}
+.rightBoxNT .form-horizontal .address .roadBox .btn-overlap:hover {background:#dedede;}
+.rightBoxNT .form-horizontal .address .roadBox .subroad {width:39.6%;}
+
+
+
+/* 날짜 선택 체크리스트 */
+.rightBoxNT .choiceDateBox {display:block; overflow-y:scroll; border:1px solid #dee2e6; outline:none; width:100%; height:130px; padding:5px;}
+
+
+
+/* 파일업로드 */
+.rightBoxNT .input-file {min-height:37px; padding-right:0; padding-left:15px;}
+.rightBoxNT .input-file {display:inline-block;}
+.rightBoxNT .input-file [type="file"] {position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0, 0, 0, 0); border:0 none; }
+.rightBoxNT .input-file .file-label {background-color:#dee2e6; text-align:center; margin:0 0 0 7px; text-shadow:none; border:none; border-radius:.267rem; box-shadow:none; line-height:30px; font-weight:300; cursor:pointer; padding:0 12px 0 7px;}
+.rightBoxNT .input-file .btnFile {width:100px; background:#00939b; text-shadow:none; color:#fff; border:none; padding:0.47rem 0.8rem; border-radius:0.267rem; box-shadow:none; height:35px; margin:0; text-align:center; font-weight:normal; line-height:25px;}
+/* 버튼아이콘 */
+.rightBoxNT .input-file .file-label svg {fill:rgba(49, 58, 70, .8); float:left; width:25px}
+.rightBoxNT .input-file .file-name {width:245px; border:1px solid #dee2e6; padding:.47rem .8rem; background-color:#FFF; border-radius:.267rem; box-shadow:none; height:30px; outline:none; float:left;}
+.rightBoxNT .input-file [type="file"]:focus {border:1px solid #50c3ca;}
+/* 첨부파일_파일문구 */
+.rightBoxNT .download-file {padding-left:15px; height:30px; line-height:24px; color:#dee2e6;}
+.rightBoxNT .download-file .fileDownloadTitle {color:#999; text-decoration:underline;}
+
+
+/* 이미지 */
+/* .rightBoxNT .form-horizontal .photoBox {width:calc(100% - 200px); float:left; padding:0 0 0 10px;} */
+.rightBoxNT .form-horizontal .photoSlash {width:300px; float:left; padding:0 0 0 10px;}
+.rightBoxNT .form-horizontal .title-name {margin:5px 0;}
+.rightBoxNT .form-horizontal .imgnumber {color:#97989b; position:relative; left:10px;}
+input[type="file"] {position:absolute; opacity:0; cursor:pointer; z-index:1;}
+.rightBoxNT .form-horizontal .photoList {display:table; position:relative;}
+.rightBoxNT .form-horizontal .videoList {display:table;}
+.rightBoxNT .form-horizontal .imgBox {width:100px; height:100px; padding:0; float:left; margin-right:10px;}
+.rightBoxNT .form-horizontal .img-100 {border:1px solid #dee2e6; width:100px; height:100px; background:none; color:#3e3f3a;}
+.rightBoxNT .form-horizontal .img-100:hover{background:none;border:1px solid #dee2e6;box-shadow:none;}
+.rightBoxNT .form-horizontal .photoBorder {width:calc(100% - 200px); border-bottom:1px solid #dee2e6; display:-webkit-box; float:right;}
+.rightBoxNT .form-horizontal .photoBorder.last {border:none;}
+.rightBoxNT .form-horizontal .sub-name {clear:both; color:#97989b; margin:5px 0 0; font-size:12px; position:relative;}
+.rightBoxNT .form-horizontal .sub-name:first-child {margin-top:10px;}
+.rightBoxNT .form-horizontal .sub-name .deleteSvg {width:20px; height:20px; fill:rgba(49, 58, 70, .8); position:absolute;}
+/* 여러개이미지 */
+.rightBoxNT .form-horizontal .photoSlashAdd {width:calc(100% - 300px); float:left; padding:0 0 0 10px; display:grid;}
+.rightBoxNT .form-horizontal .photoListAdd {display:table; position:relative; float:left;}
+/*사용안할시 제거*/
+.rightBoxNT .form-horizontal .img-250 {border:1px solid #dee2e6; width:288px; height:288px; background:#f7f7f7;}
+.rightBoxNT .form-horizontal .img-250 img {opacity:0; width:auto; height:auto; max-width:100%; max-height:100%;}
+.rightBoxNT .form-horizontal .miniphotoBox {width:calc(100% - 200px - 10px); float:left; padding-left:10px;}
+
+
+
+
+
+
+/* 해더고정스크롤 */
+.rightBoxNT .basicScroll {overflow:hidden; min-width:100%; margin-bottom:21px;}
+.rightBoxNT .basicScroll .grid-layout {margin:0 auto; width:100%; background:#fff; font-size:12px; color:#444; border:solid 1px #dddfe4; border-top:none; position:relative; box-sizing:border-box;}
+/*툴팁레이어가 grid-layout 위에 있을 경우 overflow:hidden 제거 필요 */
+/* 스크롤바 스타일 관련 */
+.rightBoxNT .basicScroll .grid-layout {scrollbar-highlight-color:#fff; scrollbar-shadow-color:#fff; scrollbar-arrow-color:#8a8a8a; scrollbar-face-color:#d9d9d9; scrollbar-3dlight-color:#fff; scrollbar-darkshadow-color:#fff; scrollbar-track-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout ::-webkit-scrollbar {-webkit-appearance:none; width:17px; height:17px; background-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout ::-webkit-scrollbar-thumb {background-color:#d9d9d9; border:5px solid transparent; border-radius:16px; background-clip:content-box;}
+.rightBoxNT .basicScroll .grid-layout ::-webkit-scrollbar-thumb:hover {background-color:#c1c1c1;}
+.rightBoxNT .basicScroll .grid-layout ::-webkit-scrollbar-corner {background-color:#f2f2f2;}
+/* 헤더 영역 */
+.rightBoxNT .basicScroll .grid-layout .header {position:relative; overflow:hidden;}
+.rightBoxNT .basicScroll .grid-layout .header .headerBox {overflow:hidden; left:-1px; border-top:1px solid #dee2e6; background:#f6f6f6;}
+.rightBoxNT .basicScroll .grid-layout .header .base {overflow-x:scroll; margin-right:-1px;}
+.rightBoxNT .basicScroll .grid-layout .header .config-button {display:none;}
+.rightBoxNT .basicScroll .grid-layout .header tbody {background-color:#f6f6f6;}
+.rightBoxNT .basicScroll .grid-layout .header .left {margin-right:16px;}
+/* 바디 영역 */
+.rightBoxNT .basicScroll .grid-layout .body {position:relative; overflow:hidden; margin-bottom:-1px;}
+.rightBoxNT .basicScroll .grid-layout .body .height-bar {display:none;}
+.rightBoxNT .basicScroll .grid-layout .body .base {margin-right:-1px;}
+.rightBoxNT .basicScroll .grid-layout .body .bodyBox {top:-1px; left:-1px; overflow:hidden;}
+.rightBoxNT .basicScroll .grid-layout .vertical-scrollbar-line {display:none;}
+.rightBoxNT .basicScroll .grid-layout .horizontal-scrollbar-line {display:none; position:absolute; width:100%; height:1px; left:0px; background-color:#dddfe4;}
+.rightBoxNT .basicScroll .grid-layout .container {position:relative;}
+.rightBoxNT .basicScroll .grid-layout .body .left {display:none; position:absolute; top:0; margin:0;}
+.rightBoxNT .basicScroll .grid-layout .right {display:none; position:absolute; top:0; right:-1px;}
+.rightBoxNT .basicScroll .grid-layout .clipboard {position:absolute; left:-999px; width:1px; height:1px; bottom:0;}
+/* 합계 영역 */
+.rightBoxNT .basicScroll .grid-layout .header .footerBox {overflow:hidden; left:-1px; border-top:1px solid #dee2e6; background:#f6f6f6;}
+/* 그리드 전체 비활성화 */
+.rightBoxNT .basicScroll .grid-layout .blocker-layer {display:none; position:absolute; background:rgba(0, 0, 0, 0.05); width:100%; height:100%; top:0;}
+.rightBoxNT .basicScroll .grid-layout.disabled, .basicScroll .grid-layout.disabled th, .basicScroll .grid-layout.disabled .content-holder {color:#e0e0e0 !important;}
+.rightBoxNT .basicScroll .grid-layout.disabled .blocker-layer {display:block;}
+/* 수평 스크롤 가능 영역 */
+.rightBoxNT .basicScroll .grid-layout .horizontal-scrollable {overscroll-behavior-x:none;}
+/* 수직 스크롤바를 사용하지 않는 경우 */
+.rightBoxNT .basicScroll .grid-layout .virtual-horizontal-scrollbar {display:none;}
+.rightBoxNT .basicScroll .grid-layout .virtual-horizontal-scrollbar .space {display:none;}
+/* 수직 스크롤바를 사용하는 경우 */
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .header .config-button {display:block; position:absolute; border:solid 1px #dddfe4; top:0; right:-1px; width:18px; background-color:#f6f6f6;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .body {overflow-y:scroll; margin-right:-1px;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .body .height-bar {display:block; position:absolute; width:1px; top:0; left:0; background:transparent;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .virtual-horizontal-scrollbar {margin-right:16px;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .vertical-scrollbar-line {display:block; position:absolute; width:1px; height:100%; top:0; right:16px; background-color:#dddfe4;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .vertical-scrollbar-line:after {position:absolute; right:-17px; top:0; width:1px; height:100%; background-color:#dddfe4; content:'';}
+/* grid-layout overflow:hidden 제거시 필요 */
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .header .container {margin-right:16px;}
+.rightBoxNT .basicScroll .grid-layout.vertical-scrollbar .horizontal-scrollbar-line {bottom:-1px;}
+/* 수평 스크롤바를 사용하는 경우 */
+.rightBoxNT .basicScroll .grid-layout.horizontal-scrollbar .container {overflow:hidden;}
+.rightBoxNT .basicScroll .grid-layout.horizontal-scrollbar .body .base {overflow-x:scroll;}
+.rightBoxNT .basicScroll .grid-layout.horizontal-scrollbar .virtual-horizontal-scrollbar {display:block; overflow-y:hidden; overflow-x:scroll; height:17px;}
+.rightBoxNT .basicScroll .grid-layout.horizontal-scrollbar .virtual-horizontal-scrollbar .width-bar {height:1px;}
+.rightBoxNT .basicScroll .grid-layout.horizontal-scrollbar .horizontal-scrollbar-line {bottom:16px;}
+/* 데이터 테이블 관련 */
+.rightBoxNT .basicScroll .grid-layout table {border:0; table-layout:fixed; border-collapse:collapse; border-spacing:1px; width:100%;}
+.rightBoxNT .basicScroll .grid-layout table.titleTable {position:relative; right:2px;}
+.rightBoxNT .basicScroll .grid-layout table col {background-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout table th {font-weight:normal; font-size:12px; overflow:hidden; white-space:nowrap; text-align:center; position:relative; border:1px solid #dee2e6; border-top:none; border-left:none; height:35px;}
+.rightBoxNT .basicScroll .grid-layout table th.last {border-bottom:none;}
+.rightBoxNT .basicScroll .grid-layout table tr.hover {background-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout table tr.checked {background-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout table tr.focused {background-color:#fff;}
+.rightBoxNT .basicScroll .grid-layout table tr.disabled, .rightBoxNT .basicScroll .grid-layout table tr.disabled-row {color:#b0b0b0;}
+.rightBoxNT .basicScroll .grid-layout table td {overflow:hidden; font-size:12px; border:1px solid #dee2e6; border-top:none; border-left:none; background:#fff; text-align:center; height:35px;}
+.rightBoxNT .basicScroll .grid-layout table td div.productNameType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .basicScroll .grid-layout table td div.productOptionType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .basicScroll .grid-layout table td div.couponNameType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .basicScroll .grid-layout table td div.contentType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .basicScroll .grid-layout table td div.leftAlign {text-align:left;}
+.rightBoxNT .basicScroll .grid-layout table td div.rightAlign {text-align:right;}
+.rightBoxNT .basicScroll .grid-layout table td a {color:#5a86dd;}
+.rightBoxNT .basicScroll .grid-layout table td img {vertical-align:middle; margin:-1px;}
+/* 체크 박스 관련 스타일 */
+.rightBoxNT .basicScroll .grid-layout .checkbox label:after, .rightBoxNT .basicScroll .grid-layout .checkbox label:before {height:18px; width:18px; top:6px; left:8px; position:absolute;}
+.rightBoxNT .basicScroll .grid-layout .checkbox label:after {content:''; border:1px solid #dee2e6; border-radius:4px; -webkit-transition:.1s ease-in-out; transition:.1s ease-in-out;}
+.rightBoxNT .basicScroll .grid-layout .checkbox label:before {content:''; border-radius:4px;}
+.rightBoxNT .basicScroll .grid-layout .checkbox input:checked~label:before {background-color:#FFF; border:1px solid #dee2e6;}
+.rightBoxNT .basicScroll .grid-layout .checkbox input:checked~label:after {border-top-style:none; border-right-style:none; -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); transform:rotate(-45deg); height:.6rem; width:1rem; border-color:#50c3ca; border-radius:0; border-width:2px; top:11px; left:12px;}
+
+.rightBoxNT .basicScroll .cui-grid-textbox {display:inline-block; width:100%; box-sizing:border-box;}
+/* 데이터 없을 때 */
+.rightBoxNT .basicScroll .grid-layout .empty-layer {display:none; width:100%; height:100%; position:absolute; top:0; background:#fff; width:calc(100% - 17px);}
+.rightBoxNT .basicScroll .grid-layout .empty-layer .content {display:table-cell; font-size:14px; height:100%; text-align:center; padding-top:100px; overflow-x:hidden; overscroll-behavior-x:none;}
+/* 열고정 라인 그라데이션 스타일 */
+.rightBoxNT .basicScroll .grid-layout .line-gradient:after {position:absolute; top:0; bottom:0; width:6px; height:100%; content:'';}
+
+
+
+
+
+
+
+/* 왼쪽고정,해더고정 스크롤 */
+.rightBoxNT .fixedScroll {max-width:800px; overflow:hidden; min-width:100%; margin-bottom:21px;}
+.rightBoxNT .fixedScroll .grid-layout {margin:0 auto; width:100%; background:#fff; font-size:12px; color:#444; border:solid 1px #dddfe4; border-top:none; position:relative; box-sizing:border-box;}
+/*툴팁레이어가 grid-layout 위에 있을 경우 overflow:hidden 제거 필요 */
+/* 스크롤바 스타일 관련 */
+.rightBoxNT .fixedScroll .grid-layout {scrollbar-highlight-color:#fff; scrollbar-shadow-color:#fff; scrollbar-arrow-color:#8a8a8a; scrollbar-face-color:#d9d9d9; scrollbar-3dlight-color:#fff; scrollbar-darkshadow-color:#fff; scrollbar-track-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout ::-webkit-scrollbar {-webkit-appearance:none; width:17px; height:17px; background-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout ::-webkit-scrollbar-thumb {background-color:#d9d9d9; border:5px solid transparent; border-radius:16px; background-clip:content-box;}
+.rightBoxNT .fixedScroll .grid-layout ::-webkit-scrollbar-thumb:hover {background-color:#c1c1c1;}
+.rightBoxNT .fixedScroll .grid-layout ::-webkit-scrollbar-corner {background-color:#f2f2f2;}
+/* 헤더 영역 */
+.rightBoxNT .fixedScroll .grid-layout .header {position:relative; overflow:hidden; border-top:1px solid #dee2e6;}
+.rightBoxNT .fixedScroll .grid-layout .header .headerBox {overflow:hidden; left:-1px; overflow-y:scroll; height:35px;}
+.rightBoxNT .fixedScroll .grid-layout .header .base {overflow-x:hidden; margin-right:-1px;}
+.rightBoxNT .fixedScroll .grid-layout .header .config-button {display:none;}
+.rightBoxNT .fixedScroll .grid-layout .header tbody {background-color:#f6f6f6;}
+.rightBoxNT .fixedScroll .grid-layout #headerBox::-webkit-scrollbar-thumb {background-color:#f6f6f6;}
+.rightBoxNT .fixedScroll .grid-layout #headerBox::-webkit-scrollbar-track {background-color:#f6f6f6; border-bottom:1px solid #dee2e6;}
+/* 바디 영역 */
+.rightBoxNT .fixedScroll .grid-layout .body {position:relative; overflow:hidden; margin-bottom:-1px;}
+.rightBoxNT .fixedScroll .grid-layout .body .height-bar {display:none;}
+.rightBoxNT .fixedScroll .grid-layout .body .bodyBox {top:-1px; left:-1px; overflow:hidden;}
+.rightBoxNT .fixedScroll .grid-layout .vertical-scrollbar-line {display:none;}
+.rightBoxNT .fixedScroll .grid-layout .horizontal-scrollbar-line {display:none; position:absolute; width:100%; height:1px; left:0px; background-color:#dddfe4;}
+.rightBoxNT .fixedScroll .grid-layout .container {position:relative;}
+.rightBoxNT .fixedScroll .grid-layout .left {display:none; position:absolute; top:0;}
+.rightBoxNT .fixedScroll .grid-layout .right {display:none; position:absolute; top:0; right:-1px;}
+.rightBoxNT .fixedScroll .grid-layout .clipboard {position:absolute; left:-999px; width:1px; height:1px; bottom:0;}
+/* 합계 영역 */
+.rightBoxNT .fixedScroll .grid-layout .header .footerBox {overflow:hidden; left:-1px; border-top:1px solid #dee2e6; background:#f6f6f6; padding-right:17px;}
+.rightBoxNT .fixedScroll .grid-layout .header .footerBox table th {border-top:none; border-bottom:none;}
+/* 그리드 전체 비활성화 */
+.rightBoxNT .fixedScroll .grid-layout .blocker-layer {display:none; position:absolute; background:rgba(0, 0, 0, 0.05); width:100%; height:100%; top:0;}
+.rightBoxNT .fixedScroll .grid-layout.disabled, .fixedScroll .rightBoxNT .fixedScroll .grid-layout.disabled th, .fixedScroll .grid-layout.disabled .content-holder {color:#e0e0e0 !important;}
+.rightBoxNT .fixedScroll .grid-layout.disabled .blocker-layer {display:block;}
+/* 수평 스크롤 가능 영역 */
+.rightBoxNT .fixedScroll .grid-layout .horizontal-scrollable {overscroll-behavior-x:none;}
+/* 수직 스크롤바를 사용하지 않는 경우 */
+.rightBoxNT .fixedScroll .grid-layout .virtual-horizontal-scrollbar {display:none;}
+.rightBoxNT .fixedScroll .grid-layout .virtual-horizontal-scrollbar .space {display:none;}
+/* 수직 스크롤바를 사용하는 경우 */
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .header .config-button {display:block; position:absolute; border:solid 1px #dddfe4; top:0; right:-1px; width:18px; background-color:#f6f6f6;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .body {overflow-y:scroll; min-height:255px; max-height:initial; height:601px;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .body .height-bar {display:block; position:absolute; width:1px; top:0; left:0; background:transparent;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .virtual-horizontal-scrollbar {margin-right:16px;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .vertical-scrollbar-line {display:block; position:absolute; width:1px; height:100%; top:0; right:16px; background-color:#dddfe4;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .vertical-scrollbar-line:after {position:absolute; right:-17px; top:0; width:1px; height:100%; background-color:#dddfe4; content:'';}
+/* grid-layout overflow:hidden 제거시 필요 */
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .header .container {margin-right:16px;}
+.rightBoxNT .fixedScroll .grid-layout.vertical-scrollbar .horizontal-scrollbar-line {bottom:-1px;}
+/* 수평 스크롤바를 사용하는 경우 */
+.rightBoxNT .fixedScroll .grid-layout.horizontal-scrollbar .container {overflow:hidden;}
+.rightBoxNT .fixedScroll .grid-layout.horizontal-scrollbar .virtual-horizontal-scrollbar {display:block; overflow-y:hidden; overflow-x:scroll; height:17px;}
+.rightBoxNT .fixedScroll .grid-layout.horizontal-scrollbar .virtual-horizontal-scrollbar .width-bar {height:1px;}
+.rightBoxNT .fixedScroll .grid-layout.horizontal-scrollbar .horizontal-scrollbar-line {bottom:16px;}
+/* 데이터 테이블 관련 */
+.rightBoxNT .fixedScroll .grid-layout table {border:0; table-layout:fixed; border-collapse:collapse; border-spacing:1px; width:100%; height:35px;}
+.rightBoxNT .fixedScroll .grid-layout table.titleTable {position:relative; right:0;}
+.rightBoxNT .fixedScroll .grid-layout table col {background-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout table th {font-weight:normal; font-size:12px; overflow:hidden; white-space:nowrap; text-align:center; position:relative; border:1px solid #dee2e6; border-left:none; border-top:none;}
+.rightBoxNT .fixedScroll .grid-layout table tr {height:30px;}
+.rightBoxNT .fixedScroll .grid-layout table tr.hover {background-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout table tr.checked {background-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout table tr.focused {background-color:#fff;}
+.rightBoxNT .fixedScroll .grid-layout table tr.disabled, .fixedScroll .grid-layout table tr.disabled-row {color:#b0b0b0;}
+.rightBoxNT .fixedScroll .grid-layout table td {overflow:hidden; font-size:12px; border:1px solid #dee2e6; border-top:none; border-left:none; background:#fff; line-height:17px; text-align:center; height:35px;}
+.rightBoxNT .fixedScroll .grid-layout table td div.productNameType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .fixedScroll .grid-layout table td div.productOptionType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .fixedScroll .grid-layout table td div.couponNameType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .fixedScroll .grid-layout table td div.contentType {white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 5px;}
+.rightBoxNT .fixedScroll .grid-layout table td div.leftAlign {text-align:left;}
+.rightBoxNT .fixedScroll .grid-layout table td div.rightAlign {text-align:right;}
+.rightBoxNT .fixedScroll .grid-layout table td.focused {border:solid 1px #5a86dd; padding:7px 11px;}
+.rightBoxNT .fixedScroll .grid-layout table td a {color:#5a86dd;}
+.rightBoxNT .fixedScroll .grid-layout table td img {vertical-align:middle; margin:-1px;}
+/* 체크 박스 관련 스타일 */
+.rightBoxNT .fixedScroll .grid-layout .checkbox label:after, .rightBoxNT .fixedScroll .grid-layout .checkbox label:before {height:18px; width:18px; top:5px; left:5px; position:absolute;}
+.rightBoxNT .fixedScroll .grid-layout .checkbox label:after {content:''; border:1px solid #dee2e6; border-radius:4px; -webkit-transition:.1s ease-in-out; transition:.1s ease-in-out;}
+.rightBoxNT .fixedScroll .grid-layout .checkbox label:before {content:''; border-radius:4px;}
+.rightBoxNT .fixedScroll .grid-layout .checkbox input:checked~label:before {background-color:#FFF; border:1px solid #dee2e6;}
+.rightBoxNT .fixedScroll .grid-layout .checkbox input:checked~label:after {border-top-style:none; border-right-style:none; -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); transform:rotate(-45deg); height:.6rem; width:1rem; border-color:#178754; border-radius:0; border-width:2px; top:10px; left:9px;}
+
+.rightBoxNT .fixedScroll .cui-grid-textbox {display:inline-block; width:100%; box-sizing:border-box;}
+/* 데이터 없을 때 */
+.rightBoxNT .fixedScroll .grid-layout .empty-layer {display:none; width:100%; height:100%; position:absolute; top:0; background:#fff; width:calc(100% - 17px);}
+.rightBoxNT .fixedScroll .grid-layout .empty-layer .content {display:table-cell; font-size:14px; height:100%; text-align:center; padding-top:100px; overflow-x:hidden; overscroll-behavior-x:none;}
+/* 열고정 라인 그라데이션 스타일 */
+.rightBoxNT .fixedScroll .grid-layout .line-gradient:after {position:absolute; top:0; bottom:0; width:6px; height:100%; content:'';}
+
+
+
+
+
+
+
+
+
+/* 리스트 검색결과가 없습니다.*/
+.rightBoxNT .form-horizontal table .searchEmpty>td{cursor: default;}
+.rightBoxNT .form-horizontal table .searchEmpty>td .noData {height:200px; vertical-align:middle; display:block; text-align:center; padding:70px 0;}
+.rightBoxNT .form-horizontal table .searchEmpty>td .noData .noDataTitle {margin:0; font-size:18px; color:#777;}
+.rightBoxNT .form-horizontal table .searchEmpty>td .noData .noDataText {margin:0; line-height:14px; color:#999;}
+.rightBoxNT .form-horizontal table .searchEmpty>td .noData .noDataText span {color:#50c3ca;}
+
+
+
+
+/* 스크롤없는 일반표 */
+.rightBoxNT .basicTable {overflow:hidden; min-width:100%; margin-bottom:10px;}
+.rightBoxNT .basicTable table {border:0; table-layout:fixed; border-collapse:collapse; border-spacing:1px; border:1px solid #dee2e6; width:100%;}
+.rightBoxNT .basicTable table th {background-color:#f6f6f6; font-weight:normal; font-size:12px; overflow:hidden; white-space:nowrap; text-align:center; position:relative; border:1px solid #dee2e6; border-top:none; border-left:none; height:35px;}
+.rightBoxNT .basicTable table td {overflow:hidden; font-size:12px; border-top:none; border-left:none; background:#fff; border:1px solid #dee2e6; text-align:center; height:35px;}
+
+
+
+
+/* 탭 */
+.rightBoxNT .border {width:40px; height:3px; background:#00723e;}
+.rightBoxNT .listConbox {margin-bottom:1px;}
+.rightBoxNT .listConbox .tabList {list-style:none; padding:0; margin:1px; margin-bottom:-1px; width:100%; background:#fff;}
+.rightBoxNT .listConbox .tabList li {position:relative; display:table-cell; width:calc(100% / 7); border-left:0; text-align:center;}
+.rightBoxNT .listConbox .tabList li:after {content:''; position:absolute; top:0; bottom:0; left:-1px; right:0; border:1px solid #dedede;}
+.rightBoxNT .listConbox .tabList li a {position:relative; display:block; font-size:13px; line-height:41px; height:41px; z-index:1; margin:0; padding:0; border:0; background:#f5f7f7; border:1px solid #dee2e6; border-left:none; border-radius:0;}
+.rightBoxNT .listConbox .tabList li a:link {color:rgba(49, 58, 70, .8);}
+.rightBoxNT .listConbox .tabList li a:hover {background:#f5f7f7; color:rgba(49, 58, 70, .8);}
+.rightBoxNT .listConbox .tabList li.active a:after {content:''; position:absolute; top:0; left:0; right:0; bottom:0; border:0; z-index:2;}
+.rightBoxNT .listConbox .tabList li.active a:hover{background:none;}
+.rightBoxNT .listConbox .nav-tabs>li.active>a, .rightBoxNT .listConbox .nav-tabs>li.active>a:focus, .rightBoxNT .listConbox .nav-tabs>li.active>a:hover {color:#fff; background:#00939b; border-radius:0; border:none;} /*선택시 배경 여기에 넣을것 */
+.rightBoxNT .formSubstance .tab-pane {display:none;}
+.rightBoxNT .formSubstance .tab-pane.active {display:block;} /*bradley 수정*/
+/* 탭내용*/
+.rightBoxNT .form-horizontal .conBox {border:1px solid #dee2e6; padding:10px;}
+.rightBoxNT .form-horizontal .conBox .title {color:#324767; text-decoration:none; padding:0px 10px; text-align:left; line-height:34px; margin:0; font-size:16px; font-weight:700;}
+.rightBoxNT .form-horizontal .conBox .title span {color:#97989b; font-size:13px; margin-left:10px;}
+.rightBoxNT .form-horizontal .conBox .marginBox {margin:30px;}
+
+
+
+
+
+
+/* 페이지게이션 */
+.pagination{margin:0;}
+.pagination>li {width:30px; height:30px; display:inline-block;}
+
+.pagination>li>a {height:100%; width:100%; padding:0;}
+.pagination>li>a svg {width:14px; height:14px; position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0);}
+.pagination>li>a.page-link {padding:5px 0;}
+.pagination>li>a.next {border-right:1px solid #ddd;}
+.pagination>li>a, .pagination>li>span {line-height:1.5; padding:5px 12px; border-right:none;}
+.pagination>li:last-child>a, .pagination>li:last-child>span {border-right:solid 1px #e6e6e6;}
+
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{border-color:#e6e6e6; /* color:#919191; */  width:30px; height:30px;}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {background-color:#008c95; border-color:#008c95; color:#fff; width:30px; height:30px; line-height:20px;}
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {background:#00939b; color:#fff; border:solid 1px #00939b;}
+.pagination>li>a, .pagination>li>span {color:#333;}
+.pagination>.disabled>span svg {width:14px; height:14px; position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0);}
+.pagination>.disabled>span.next {border-right:1px solid #ddd;}
+
+
+
+/* 상세입력 */
+.rightBoxNT .detailsBox {margin-top:0; border-bottom:none; margin-bottom:20px; display:inline-block; width:100%;}
+.rightBoxNT .detailsBox .detailsTitle {color:rgba(49, 58, 70, .8); text-decoration:none; padding:0px 10px; text-align:left; line-height:34px; margin:0; font-size:16px; font-weight:700; display:block;}
+.rightBoxNT .detailsBox .left {padding:0;}
+.rightBoxNT .detailsBox .right {padding:0;}
+.rightBoxNT .detailsBox .group1 {padding-bottom:0;}
+.rightBoxNT .detailsBox .detailsPanel {}
+.rightBoxNT .detailsBox .detailsPanel .sideText {line-height:30px; color:#97989b; position:relative; left:5px; bottom:-5px;}
+
+/* 상세입력+,-버튼 */
+.rightBoxNT .form-horizontal .tableBtn {}
+.rightBoxNT .form-horizontal .tableBtn .btn-Plus {height:30px; background:#50c3ca; padding:0; width:30px; border-radius:.267rem;}
+.rightBoxNT .form-horizontal .tableBtn .btn-Plus:hover {background:#63b3a6;}
+.rightBoxNT .form-horizontal .tableBtn .btn-Plus svg {color:#fff; width:25px; height:25px; position:relative; top:2px;}
+.rightBoxNT .form-horizontal .tableBtn .btn-Minus {height:30px; background:#fc5083; padding:0; width:30px; border-radius:.267rem;}
+.rightBoxNT .form-horizontal .tableBtn .btn-Minus:hover {background:#eb4375;}
+.rightBoxNT .form-horizontal .tableBtn .btn-Minus svg {color:#fff; width:25px; height:25px; position:relative; top:2px;}
+
+.rightBoxNT .form-horizontal .tableBtn1 {width:40px; background:#fff; border:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal .tableBtn1 .btn-Minus {height:34px; background:#fc5083; padding:0; width:35px; border-radius:.267rem;}
+.rightBoxNT .form-horizontal .tableBtn1 .btn-Minus:hover {background:#eb4375;}
+.rightBoxNT .form-horizontal .tableBtn1 .btn-Minus svg {color:#fff; width:25px; height:25px; position:relative; top:3px;}
+
+
+
+
+
+/* 질문관리_질문답변내용 */
+.rightBoxNT .form-horizontal .mainTitle {font-size:15px; line-height:40px; font-weight:700; padding:0 15px; border-bottom:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal .openList {margin:0; padding:0; list-style:none; margin-bottom:30px;}
+.rightBoxNT .form-horizontal .openList li {padding:5px 0; border-bottom:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal .openList li .titleBox {background:#f7f7f7; height:40px; padding:0 15px; border:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal .openList li .titleBox .user {font-size:13px; line-height:40px; font-weight:700;}
+.rightBoxNT .form-horizontal .openList li .titleBox .site {margin:0 2px 0 3px; padding:1px 6px; border-radius:1px; font-size:12px; color:#fff; background:#4684e9; font-style:normal; position:relative; top:0;}
+.rightBoxNT .form-horizontal .openList li .titleBox .site.type {background: #fc5083;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox {float:right;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .time{margin:0; font-size:13px; line-height:40px; color:#999;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .openBtn {width:60px; margin:0 7px; text-shadow:none; border:none; padding:0; border-radius:.267rem; box-shadow:none; line-height:25px; font-size:13px; position:relative; top:-2px;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .open-revise {background:#50c3ca; color:#fff; margin-right:0;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .open-revise:hover {background:#63b3a6;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .open-delete {background:#fc5083; color:#fff; margin-right:0;}
+.rightBoxNT .form-horizontal .openList li .titleBox .timeBox .open-delete:hover {background:#eb4375;}
+/*질문내용*/
+.rightBoxNT .form-horizontal .openList li .questionTitle{background:rgb(112 192 179 / 20%); height:40px; padding:0 15px; border:1px solid #dee2e6;}
+.rightBoxNT .form-horizontal .openList li .answerBox .questionMainTitle {font-size:15px; font-weight:700; border-bottom:1px solid #dee2e6; padding-bottom:10px;}
+.rightBoxNT .form-horizontal .openList li .answerBox .questionAnswer {color:#888; letter-spacing:-.03em; padding:10px 0;}
+.rightBoxNT .form-horizontal .openList li .numberBox {border-top:1px solid #dee2e6; padding-top:10px;}
+/*질문답변*/
+.rightBoxNT .form-horizontal .openList li .answerBox {clear:both; position:relative; top:-2px; padding:10px 15px; border:1px solid #dee2e6; background-color:#fff;}
+.rightBoxNT .form-horizontal .openList li .answerBox .answer {color:#888; letter-spacing:-.03em;}
+.rightBoxNT .form-horizontal .openList li .answerBox .answer.memoTitle {font-weight:700;}
+.rightBoxNT .form-horizontal .openList li .answerBox .detail {margin-bottom:15px;display:inline-block;font-size:12px;color:#999;}
+
+
+
+/* 권한 체크리스트 박스 */
+.rightBoxNT .checkListchoiceBox {border:1px solid #dee2e6; display:block; width:100%; padding:0.47rem 0.8rem; border-radius:0.267rem; width:calc(100% - 10px); display:table;}
+.rightBoxNT .checkListchoiceBox .checkListWarp {width:calc(100%/5); float:left;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .title {line-height:30px; color:#333; font-weight:500; background:#f7f7f7; border:1px solid #dee2e6; border-left:none; text-align:center;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .title.first {border-left:1px solid #dee2e6;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox {border-top:none; border-right:none; /*padding:10px 10px 10px 30px;*/ min-height:150px; padding:10px;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox {position:relative; display:block;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox input[type=checkbox] {display:none;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox input[type=checkbox] {box-sizing:border-box; padding:0;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox {min-height:26px; padding:0 18px;}
+
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox label {font-size:13px; line-height:26px; margin-left:7px; padding:0;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox label:after, .rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox label:before {height:18px; width:18px; top:4px; left:0; position:absolute;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox label:after {content:''; border:1px solid #dee2e6; border-radius:4px; -webkit-transition:.1s ease-in-out; transition:.1s ease-in-out;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox label:before {content:''; border-radius:4px;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox input:checked~label:before {background-color:#FFF; border:1px solid #dee2e6;}
+.rightBoxNT .checkListchoiceBox .checkListWarp .checkListBox .checkbox input:checked~label:after {border-top-style:none; border-right-style:none; -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); transform:rotate(-45deg); height:5px; width:9px; border-color:#6A99F8; border-radius:0; border-width:2px; top:10px; left:5px;}
+
+
+
+
+
+/* 캘린더 */
+.rightBoxNT .form-horizontal .calendarBox{padding:5px 0;}
+/* 토요일 글자(요일,날짜) 색상 */
+.rightBoxNT .form-horizontal .calendarBox .fc-day-sat.fc-day-past div>a {color:#50c3ca;}
+.rightBoxNT .form-horizontal .calendarBox .fc-day.fc-day-sat div>a {color:#50c3ca;}
+/* 일요일 글자(요일,날짜) 색상 */
+.rightBoxNT .form-horizontal .calendarBox .fc-day-sun.fc-day-past div>a {color:#fc5083;}
+.rightBoxNT .form-horizontal .calendarBox .fc-day.fc-day-sun div>a {color:#fc5083;}
+/* 평일 글자(요일,날짜) 색상 */
+.rightBoxNT .form-horizontal .calendarBox .fc-daygrid-day-number {color:#333;}
+.rightBoxNT .form-horizontal .calendarBox .fc-day div>a{color:#333;}
+/* 캘린더 안 등록 버튼 */
+.rightBoxNT .form-horizontal .calendarBox .fc-insertButton-button{background-color:#63b3a6; color:#fff; border:0; line-height:23px;}
+/* 캘린더 안 다음달 버튼 */
+.rightBoxNT .form-horizontal .calendarBox .fc-next-button{margin:0;}
+/* 캘린더 안 제목(년월) */
+.rightBoxNT .form-horizontal .calendarBox .fc-toolbar-title{display:inline-block; vertical-align:middle; margin:0 30px;}
+/* 캘린더 안 이벤트 백그라운드 기본값 */
+.rightBoxNT .form-horizontal .calendarBox .fc-h-event{background:none;border:0;}
+/* 일정 커서 */
+.rightBoxNT .form-horizontal .calendarBox .fc-event-main-frame{cursor: pointer;}
+
+
+/*  */
+.ag-header-cell-label {
+   justify-content: center;
+}
+
+.ag-theme-alpine .ag-ltr .ag-cell{
+	text-align: center;font-size: 12px;padding:0;line-height: 30px;
+}
+.ag-theme-balham .ag-ltr .ag-cell{
+	text-align: center;font-size: 12px;padding:0;line-height: 30px;
+}
+
+.ag-theme-balham .ag-header-cell{
+    padding: 4px 18px;
+}
+
+.ag-selection-checkbox{
+	padding: 7px 17px;
+}
+
+
+
+
+/*반응형 View*/
+@media only screen and (max-width: 1376px) {
+	.left-menu {left:-200px;}
+	.rightBoxNT {left:0; width:calc(1376px - 20px);}
+
+	/* 모바일 햄버거 메뉴 관련 joy추가 */
+	html.open {overflow:hidden;}
+	#leftMenu.open {left:0px;}
+	.page_cover.open {display:block;}
+	.page_cover {width:100%; height:100%; position:fixed; top:0px; left:0px; background-color:rgba(0,0,0,0.4); z-index:4; display:none; margin-top:50px;}
+
+	.tapNav {width:calc(1376px - 20px); left:0;}
+	
+}
+
+@media only screen and (max-width:1200px) {
+	
+	.rightBoxNT {left:0; width:calc(1200px - 20px);}
+	.tapNav {width:calc(1200px - 20px);}
+}
+
+@media only screen and (max-width:1024px) {
+}
+
+@media only screen and (max-width:768px) {	
+}
+
+@media only screen and (max-width:596px) {
+}
+
+@media only screen and (max-width:414px) {
+}
+
+@media only screen and (max-width:375px) {
+}
+
+@media only screen and (max-width:360px) {
+}
+
+@media only screen and (max-width:320px) {
+}

@@ -1,0 +1,77 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'NanumSquare-L';
+  src: local(NanumSquareL);
+  src: url("/font/NanumSquareL.eot");
+  src: url("/font/NanumSquareL.woff") format("woff"), url("/font/NanumSquareL.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: 'NanumSquare';
+  src: local(NanumSquareR);
+  src: url("/font/NanumSquareR.eot");
+  src: url("/font/NanumSquareR.woff") format("woff"), url("/font/NanumSquareR.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: 'NanumSquare-B';
+  src: local(NanumSquareB);
+  src: url("/font/NanumSquareB.eot");
+  src: url("/font/NanumSquareB.woff") format("woff"), url("/font/NanumSquareB.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: 'NanumSquare-EB';
+  src: local(NanumSquareEB);
+  src: url("/font/NanumSquareEB.eot");
+  src: url("/font/NanumSquareEB.woff") format("woff"), url("/font/NanumSquareOTFEB.ttf") format("opentype");
+}
+
+
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;text-shadow:none;
+}
+
+.box-sizing(@box-model) {
+  -webkit-box-sizing: @box-model; // 사파리 <= 5
+     -moz-box-sizing: @box-model; // 파이어폭스 <= 19
+          box-sizing: @box-model;
+}
+
+* {text-shadow:none;}
+body {font-family:"NanumSquare", "나눔고딕", "Dotum", "돋움", "Helvetica", "Arial", "AppleSDGothicNeo", sans-serif; padding:0; margin:0;}
+a {color:inherit; text-decoration:none; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box;}
+a:focus, a:hover {text-decoration:none; color: #fff} /*bradley 수정*/
+ol, ul {list-style-type:none; margin:0; padding:0;}
+
+.wrap {position:relative; min-width:1186px; min-height:100%;}
+/*header 영역*/
+.header {position:absolute; left:0; right:0; top:0; z-index:999; background-color:#035fbe; min-width:1186px; padding:0 50px; height:80px;}
+.headerWrap {width:1600px; margin:0 auto; position:relative; top:0; height:80px;}
+.headerWrap img {position:relative; top:50%; transform:translateY(-50%);}
+
+/*배너영역*/
+.update {width:100%;height:849px; background:#1287ff; background-size:cover;}
+.update .updatebox {background:rgba(0, 0, 0, 0.4196078431372549); border-radius:4px; width:800px; padding:40px; position:absolute; top:50%; transform:translatey(-50%); text-align:left; left:50%; margin-left:-400px;}
+.update .updatebox .namebox {border-bottom:solid #1287ff; width:100%; padding-bottom:30px; text-align:center;}
+.update .updatebox .namebox p {color:#fff; height:45px; line-height:55px; font-weight:bold; letter-spacing:1px; font-size:35px; padding:0;}
+.update .updatebox .namebox p span {font-size:35px; line-height:45px; margin:0; color:#1287ff;}
+.update .updatebox p.text {width:100%; padding:50px 0; height:auto; margin:0; line-height:40px; font-size:18px; letter-spacing:0; text-align:center; color:#fff; word-break:keep-all;}
+.update .updatebox .btnChrome {text-decoration:none; width:100%; text-align:center; padding:5px; border-radius:4px; background:#fff; float:right; display:block;}
+.update .updatebox .btnChrome img {width:30px; height:30px; position:relative; left:-10px;}
+.update .updatebox .btnChrome span {font-size:18px; font-weight:bold; line-height:50px; letter-spacing:2px; color:#444;}
+
+
+/*풋터영역*/
+.footer {padding:30px 150px; height:185px; min-width:1186px; margin:0 auto; background-color:#035fbe; color:#fff;}
+.footer .txt {float:left; margin-top:.8em;}
+.footer .txt .information {font-size:14px; margin:0; margin-bottom:5px;}
+.footer a {text-decoration:none;}
+.footer a .individual {float:right; font-size:14px; margin:1.6em 0; color:#333; font-weight:bold;}
+
+.footer .logoUtilWrap .logoBox {margin-bottom:10px;}
+.footer .logoUtilWrap ul li {word-break:keep-all; font-size:13px; line-height:27px; color:#fff;}
+.footer .logoUtilWrap .copyright {clear:both; padding-top:7px; font-size:13px; color:#fff; margin:0;}

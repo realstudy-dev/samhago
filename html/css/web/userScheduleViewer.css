@@ -1,0 +1,686 @@
+* {
+    font-family: 'Wanted Sans', sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; text-shadow:none; color:#404040;
+}
+
+html {overflow: visible;}
+body {font-family:"Noto Sans KR", sans-serif;background: #F2F2F2;}
+a {cursor:pointer !important;}
+a:hover, a:focus {text-decoration:none;}
+ul {padding:0; margin:0; list-style:none;}
+p {margin:0;}
+button {border:none;}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: unset;
+    margin-bottom: unset;
+}
+.schedule_area {
+    width: 1345px;
+    padding: 63px;
+    margin: 0 auto;
+}
+
+.schedule_area .schedule_area_content .table_top_title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:15px;
+}
+
+.schedule_area .schedule_area_content .table_top_title img{
+    width:30px;
+}
+.schedule_area .schedule_area_content .table_top_title h2{
+    color: #3A3A3A;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 100%; /* 30px */
+    letter-spacing: -0.3px;
+}
+
+.schedule_area .schedule_area_content .table_top_box {
+    margin-top:40px;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.05);
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+}
+
+.schedule_area .schedule_area_content .table_top_box>p {
+    color: #555;
+    font-size: 14px;
+    line-height: 160%;
+    /* 22.4px */
+    font-weight: 400;
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn {
+    display: flex;
+    height: 44px;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    border-radius: 12px;
+    background-color: #FFF;
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn span {
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1/1;
+    background-image: url("../../image/hakki_off.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn p {
+    color: #575757;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 100%;
+    /* 16px */
+    letter-spacing: -0.16px;
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn.active {
+    background: linear-gradient(246deg, #32CD8B 55.27%, #95DDBE 106.01%);
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn.active span {
+    background-image: url("../../image/hakki_on.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.schedule_area .schedule_area_content .table_top_box .hakki_btn.active p {
+    font-weight: 600;
+    color: #FFF;
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn {
+    display: flex;
+    height: 44px;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    border-radius: 12px;
+    background-color: #FFF;
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn span {
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1/1;
+    background-image: url("../../image/banghak_off.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn p {
+    color: #575757;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 100%;
+    /* 16px */
+    letter-spacing: -0.16px;
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn.active {
+    background: linear-gradient(195deg, #F2B819 29.92%, #F6E4B3 109.75%);
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn.active span {
+    background-image: url("../../image/banghak_on.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+.schedule_area .schedule_area_content .table_top_box .banghak_btn.active p {
+    font-weight: 600;
+    color: #FFF;
+}
+
+.schedule_area .schedule_area_content .table_box {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_wrapper {
+    flex: 1;
+    overflow-x: auto;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.05);
+    padding: 30px 24px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap {
+    width: 100%;
+    overflow: hidden;
+    border-collapse: separate;
+    /* 필수: separate로 변경 */
+    border-spacing: 6px;
+    table-layout: fixed;
+    display: none;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap.active {
+    display: table;
+    animation: fadeIn 0.4s ease;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap th {
+    background: #F4F4F4;
+    border-radius: 6px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    height: 44px;
+    line-height: 44px;
+    color: #686868;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 16px */
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap th.sat {
+    background: #EAFFFF;
+    color: #11BEBE;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap th.sun {
+    background: #FFEFEF;
+    color: #F46969;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap .time-header {
+    table-layout: fixed;
+    width: 41px;
+    background-color: #fff !important;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap .tr_null {
+    height: 6px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap .time_label {
+    background-color: #fff !important;
+    border: none;
+    color: #686868;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 100%;
+    /* 12px */
+    letter-spacing: -0.12px;
+    text-align: left !important;
+    vertical-align: top;
+    padding-top: 2px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell {
+    height: 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    user-select: none;
+    background: #FFF;
+    border: 1px solid #E6E6E6;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.05);
+}
+
+.schedule_heatmap td:nth-child(2),
+.schedule_heatmap td:nth-child(3),
+.schedule_heatmap td:nth-child(4),
+.schedule_heatmap td:nth-child(5),
+.schedule_heatmap td:nth-child(6),
+.schedule_heatmap td:nth-child(7),
+.schedule_heatmap td:nth-child(8) {
+    width: calc((100% - 41px) / 7);
+    /* 전체에서 41px 빼고 7등분 */
+    min-width: 0;
+    /* 중요: 내용이 많아도 너비 유지 */
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell:hover {
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.10);
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell>span {
+    width: 14px;
+    height: 14px;
+    aspect-ratio: 1/1;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell>p {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 12px */
+    letter-spacing: -0.12px;
+}
+
+/* 드래그 중 선택되고 있는 셀 */
+.schedule_area .schedule_area_content .table_box .schedule_cell.selecting,
+/* 드래그 중 선택되고 있는 셀 */
+.schedule_area .schedule_area_content .table_box .schedule_cell.selected {
+    /* 드래그 완료 후 선택된 셀 */
+    border: 1px dashed #3A3A3A;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.20);
+}
+
+/* 드래그 중 커서 변경 */
+body.dragging,
+body.dragging * {
+    cursor: crosshair !important;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_heatmap.dragging .schedule_cell {
+    cursor: crosshair !important;
+}
+
+
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.empty {
+    background: white;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.school {
+    background: #E4FEE8;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.academy {
+    background: #FFD4DD;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.samhago {
+    background: #CFF1FF;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.homework {
+    background: #E4FEFD;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.workout {
+    background: #EAE4FE;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.free {
+    background: #FFF9B5;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.etc {
+    background: #FFF4EE;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.sleep {
+    background: #D5E3FD;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.school>span {
+    background-image: url("../../image/planner_icon_1.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.academy>span {
+    background-image: url("../../image/planner_icon_2.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.samhago>span {
+    background-image: url("../../image/planner_icon_3.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.homework>span {
+    background-image: url("../../image/planner_icon_4.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.workout>span {
+    background-image: url("../../image/planner_icon_5.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.free>span {
+    background-image: url("../../image/planner_icon_6.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.etc>span {
+    background-image: url("../../image/planner_icon_7.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.sleep>span {
+    background-image: url("../../image/planner_icon_8.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.school>p {
+    color: #009D5B;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.academy>p {
+    color: #D82047;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.samhago>p {
+    color: #187FA9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.homework>p {
+    color: #34C9C3;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.workout>p {
+    color: #6436FF;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.free>p {
+    color: #DE9101;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.etc>p {
+    color: #DE692D;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.sleep>p {
+    color: #2350B2;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.school.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.school.selected {
+    border: 1px dashed #009D5B
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.academy.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.academy.selected {
+    border: 1px dashed #D82047
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.samhago.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.samhago.selected {
+    border: 1px dashed #459BBE
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.homework.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.homework.selected {
+    border: 1px dashed #34C9C3
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.workout.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.workout.selected {
+    border: 1px dashed #6436FF
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.free.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.free.selected {
+    border: 1px dashed #FFCA1B
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.etc.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.etc.selected {
+    border: 1px dashed #DE692D
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_cell.sleep.selecting,
+.schedule_area .schedule_area_content .table_box .schedule_cell.sleep.selected {
+    border: 1px dashed #2350B2
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info {
+    width: 18%;
+    width:227px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total {
+    width: 100%;
+    padding: 31px 27px 35px;
+    background-color: #FFF;
+    border-radius: 20px;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total h2 {
+    color: #3A3A3A;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+    /* 16px */
+    letter-spacing: -0.16px;
+    margin-bottom: 15px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box {
+    width: 100%;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.school {
+    background: linear-gradient(0deg, #E4FEE8 0%, #E4FEE8 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.academy {
+    background: linear-gradient(0deg, #FFD4DD 0%, #FFD4DD 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.samhago {
+    background: linear-gradient(0deg, #CFF1FF 0%, #CFF1FF 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.homework {
+    background: linear-gradient(0deg, #E4FEFD 0%, #E4FEFD 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.workout {
+    background: linear-gradient(0deg, #EAE4FE 0%, #EAE4FE 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.free {
+    background: linear-gradient(0deg, #FFF9B5 0%, #FFF9B5 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.etc {
+    background: linear-gradient(0deg, #FFF4EE 0%, #FFF4EE 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.sleep {
+    background: linear-gradient(0deg, #D5E3FD 0%, #D5E3FD 100%), #D9D9D9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box .todo {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 12px */
+    letter-spacing: -0.12px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.school p {
+    color: #009D5B;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.academy p {
+    color: #D82047;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.samhago p {
+    color: #187FA9;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.homework p {
+    color: #34C9C3;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.workout p {
+    color: #6436FF;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.free p {
+    color: #DE9101;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.etc p {
+    color: #DE692D;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box.sleep p {
+    color: #2350B2;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box .todo img {
+    width: 18px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box .total_time {
+    display: flex;
+    align-items: center;
+    color: #3A3A3A;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+    /* 12px */
+    letter-spacing: -0.12px;
+}
+
+.schedule_area .schedule_area_content .table_box .schedule_info .weekly_total .todo_box_area .todo_box .total_time .total_minute {
+    margin-left: 3px;
+}
+
+.schedule_area .schedule_area_content .table_bottom_title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:15px;
+}
+
+.schedule_area .schedule_area_content .table_bottom_title img{
+    width:30px;
+}
+.schedule_area .schedule_area_content .table_bottom_title h2{
+    color: #3A3A3A;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 100%; /* 30px */
+    letter-spacing: -0.3px;
+}
+
+.schedule_area .schedule_area_content .week_box {
+    margin-top:26px;
+    margin-bottom:40px;
+}
+
+.schedule_area .schedule_area_content .week_box ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+}
+.schedule_area .schedule_area_content .week_box ul li{
+    width: 100%;
+    aspect-ratio: 169 / 150;
+    padding: 30px 35px 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #FFF;
+    box-shadow: 0 2px 7.6px 0 rgba(0, 0, 0, 0.05);
+}
+
+.schedule_area .schedule_area_content .week_box ul .long_time{
+    border: 1px solid #11BEBE;
+}
+
+.schedule_area .schedule_area_content .week_box ul .short_time{
+    border: 1px solid #F46969;
+}
+
+.schedule_area .schedule_area_content .week_box ul li > .week_title {
+    color: #3A3A3A;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.14px;
+}
+.schedule_area .schedule_area_content .week_box ul li > .week_time {
+    margin-top:20px;
+    color: #3A3A3A;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.16px;
+}
+.schedule_area .schedule_area_content .week_box ul .long_time > .week_time{color:#11BEBE}
+.schedule_area .schedule_area_content .week_box ul .short_time > .week_time{color:#F46969}
+.schedule_area .schedule_area_content .week_box ul li > .week_time > b{
+    font-size: 32px;
+    font-weight: 600;
+}
+.schedule_area .schedule_area_content .week_box ul .long_time > .week_time > b{color:#11BEBE}
+.schedule_area .schedule_area_content .week_box ul .short_time > .week_time > b{color:#F46969}
+.schedule_area .schedule_area_content .week_box ul li > span{
+    margin-top:7px;
+    color: #8A8A8A;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 100%; /* 12px */
+}

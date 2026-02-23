@@ -1,0 +1,32 @@
+.project_wrap .content_section { width:1280px; height:calc(100vh - 80px); padding:20px 0; margin:0 auto; }
+.project_wrap .content_section article { padding:20px; border-radius:8px; background:#fff; }
+/**********content_left************/
+.project_wrap .content_section .content_left { width:300px; float:left; }
+.project_wrap .content_section .content_left article { padding:50px 20px; text-align:center; }
+.project_wrap .content_section .content_left article p.user { font-size:18px; font-weight:700; }
+.project_wrap .content_section .content_left article p.working_hours { margin-top:10px; }
+/**********content_right************/
+.project_wrap .content_section .content_right { width:calc(100% - 320px); height:100%; margin-left:20px; float:left; }
+.project_wrap .content_section .content_right article { height:100%; }
+.project_wrap .content_section .content_right article .button_box .back_btn { padding:0; line-height:40px; background:none; }
+.project_wrap .content_section .content_right article .button_box .back_btn img { margin-right:5px; }
+.project_wrap .content_section .content_right article h3 { text-align:center; line-height:36px; color:#1E869F; }
+.project_wrap .content_section .content_right article .attendance_box { height:calc(100% - 112px); margin-top:20px; padding-top:36px; position:relative; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box { display:table; position:absolute; top:0; left:50%; transform:translateX(-50%); z-index:1; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box button { width:34px; padding:0; line-height:34px; border:1px solid #E9ECF0; border-radius:0 5px 5px 0; background:none; float:left; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box button img { width:18px; margin-top:-2px; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box button.next_btn { border-left:0; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box button.prev_btn { border-radius:5px 0 0 5px; border-right:0; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box button.prev_btn img { transform:rotate(180deg); }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box { width:115px; height:36px; position:relative; float:left; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box img { width:20px; position:absolute; top:50%; transform:translateY(-50%); left:15px; z-index:1; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box .date_picker { width:100%; padding:0 12px 0 45px; display:block; border:1px solid #E9ECF0; font-size:14px; line-height:34px; color:#494E53; outline:none; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box input[type="date"]::-webkit-calendar-picker-indicator { display:none; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box .date_picker { -webkit-appearance:none; -moz-appearance:none; appearance:none; position:absolute; cursor:pointer; }
+.project_wrap .content_section .content_right article .attendance_box .calendar_box .date_box input[type="date"] { opacity:0; }
+.project_wrap .content_section .content_right article .attendance_box .table_box { height:calc(100% - 20px); margin-top:20px; overflow-y:auto; }
+.project_wrap .content_section .content_right article .attendance_box .table_box table { width:100%; }
+.project_wrap .content_section .content_right article .attendance_box .table_box table thead tr th { padding:0 10px; text-align:center; line-height:40px; position:sticky; top:0; background:#f9f9f9; }
+.project_wrap .content_section .content_right article .attendance_box .table_box table thead tr th:first-child { border-radius:5px 0 0 5px; }
+.project_wrap .content_section .content_right article .attendance_box .table_box table thead tr th:last-child { border-radius:0 5px 5px 0; }
+.project_wrap .content_section .content_right article .attendance_box .table_box table tbody tr td { padding:0 10px; text-align:center; line-height:40px; border-bottom:1px solid #f9f9f9; }

@@ -1,0 +1,112 @@
+
+
+
+body {background:#f4f4f4;}
+.project_wrap {width:100%; max-width:1920px; height:100vh; margin:0 auto; position:relative;}
+
+.project_wrap .nav_wrap {background:rgba(218, 218, 218, .2); width:100%; height:60px;max-height:60px; position:relative; top:0;}
+.project_wrap .nav_wrap .back {position:absolute; top:50%; transform:translateY(-50%); left:30px;cursor:pointer;}
+.project_wrap .nav_wrap .top_logo {position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0); width:100px; max-width:100px;}
+
+.project_wrap .content_wrap { width:1024px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); }
+.project_wrap .content_wrap .title {font-weight:700; font-size:34px; text-align:center; color:#1E869F;}
+
+
+.project_wrap .content_wrap .terms_wrap {width:100%; background:#fff; border-radius:20px; margin-top:30px; overflow:auto; padding:20px;}
+.project_wrap .content_wrap .terms_wrap .check_wrap {background:none; padding:10px 0; position:relative;}
+.project_wrap .content_wrap .terms_wrap .check_wrap label {cursor:pointer; margin:0;}
+
+.checkHide {display:none;}
+.checkShow {width:34px; height:34px; background:url(/image/web/check_off.svg) no-repeat; background-size:contain; position:absolute; right:0;}
+.checkHide:checked + .checkShow {background:url("/image/web/check_on.svg") no-repeat; background-size:contain;}
+
+.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:20px; line-height:34px; color:rgba(0, 0, 0, .6);}
+
+.project_wrap .content_wrap .terms_wrap .check_wrap a {position:absolute; right:0; top:50%; transform: translateY(-50%);}
+ 
+.project_wrap .content_wrap .terms_wrap .check_all {width:100%; padding:10px 0;}
+
+.project_wrap .content_wrap .terms_wrap .gray_box {width:100%; height:200px; background:#F4F6F9; margin:0; font-size:18px; white-space:pre-line; color:rgb(0 0 0 / 40%); padding:20px; overflow:auto; margin-top:5px; resize:none; outline:none; border:none;}
+.project_wrap .content_wrap .terms_wrap .gray_box.first {margin-bottom:10px;}
+
+
+.project_wrap .content_wrap .button_wrap {display:table; margin:30px auto 0; }
+.project_wrap .content_wrap .button_wrap .left_btn {width:150px; height:50px; background:#C9CFD8; border-radius:8px; margin-right:10px; font-weight:600; font-size:20px; text-align:center; border:none; color:#FFFFFF; padding:0; line-height:unset;}
+.project_wrap .content_wrap .button_wrap .left_btn:hover {background:#B2B7BE;}
+.project_wrap .content_wrap .button_wrap .left_btn:focus {outline:none;}
+.project_wrap .content_wrap .button_wrap .right_btn {width:150px; height:50px; background:#1E869F; border-radius:8px; margin-left:10px; font-weight:600; font-size:20px; text-align:center; border:none; color:#FFFFFF; padding:0; line-height:unset;}
+.project_wrap .content_wrap .button_wrap .right_btn:hover {background:#207b91;}
+.project_wrap .content_wrap .button_wrap .right_btn:focus {outline:none;}
+
+.mb { display:none; }
+
+
+/*반응형 View*/
+@media only screen and (min-width:1921px) {
+	.project_wrap .nav_wrap .back {left:30px;}
+	.project_wrap .content_wrap {margin:100px auto;}
+	.project_wrap .content_wrap .title {font-size:34px;}
+	.project_wrap .content_wrap .terms_wrap {border-radius:20px; margin-top:50px; padding:20px;}
+	.project_wrap .content_wrap .terms_wrap .check_wrap {padding:10px 0;}
+	.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:20px; line-height:34px;}
+	.project_wrap .content_wrap .terms_wrap .check_all {padding:0 0 10px 0;}
+	.project_wrap .content_wrap .terms_wrap .gray_box { font-size:20px; padding:20px; margin-top:5px;}
+	.project_wrap .content_wrap .terms_wrap .gray_box.first {margin-bottom:30px;}
+	.project_wrap .content_wrap .button_wrap {margin:50px auto 0;}
+	.project_wrap .content_wrap .button_wrap .left_btn {border-radius:8px; margin-right:10px; font-size:20px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {border-radius:8px; margin-left:10px; font-size:20px;}
+}
+
+
+
+@media only screen and (max-width:1280px) {
+    .project_wrap {max-height:unset; overflow:auto; }
+	.project_wrap .nav_wrap {height:8vh;}
+	.project_wrap .nav_wrap .back {left:3vw;}
+	.project_wrap .nav_wrap .top_logo {width:8vw;}
+	.project_wrap .content_wrap { width:90%; max-height:100%; padding-top:20px; }
+	.project_wrap .content_wrap .title {font-size:30px;}
+	.checkShow {width:30px; height:30px;}
+	.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:18px; line-height:30px;}
+    .project_wrap .content_wrap .terms_wrap .gray_box {font-size:18px;}
+    .project_wrap .content_wrap .button_wrap .left_btn {font-size:18px; margin-bottom:20px; }
+    .project_wrap .content_wrap .button_wrap .right_btn {font-size:18px; margin-bottom:20px;}
+}
+
+@media only screen and (max-width:1080px) {
+	.project_wrap .nav_wrap {height:7vh;}
+	.project_wrap .nav_wrap .top_logo {width:9vw;}
+	.project_wrap .content_wrap .button_wrap .left_btn {width:130px; height:45px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {width:130px; height:45px;}
+}
+
+
+@media only screen and (max-width:768px) {
+	.project_wrap .nav_wrap {height:45px;}
+	.project_wrap .nav_wrap .top_logo {width:70px;}
+	
+	.project_wrap .content_wrap .title { font-size:28px; }
+	.project_wrap .content_wrap .terms_wrap { padding:15px; margin-top:20px; }
+	.project_wrap .content_wrap .terms_wrap .check_wrap span { font-size:16px; line-height:22px; }
+	.project_wrap .content_wrap .terms_wrap .gray_box { font-size:14px; padding:10px; }
+	.project_wrap .content_wrap .button_wrap { margin-top:20px; }
+	.project_wrap .content_wrap .button_wrap .left_btn { height:38px; margin-bottom:20px; font-size:16px; line-height:normal; }
+	.project_wrap .content_wrap .button_wrap .right_btn { height:38px; margin-bottom:20px; font-size:16px; line-height:normal; }
+	.checkShow { width:25px; height:25px; }
+	.checkShow.first { bottom:10px; }
+	.mb { display:block; }
+}
+
+
+@media only screen and (max-height:540px) {
+	body {overflow-y:auto;}
+	.project_wrap .content_wrap {width:600px; max-width:unset; margin:40px auto;}
+	.project_wrap .content_wrap .title {font-size:20px;}
+	.project_wrap .content_wrap .terms_wrap .check_wrap span {font-size:12px;}
+    .project_wrap .content_wrap .terms_wrap .check_all {padding:0;}
+    .checkShow {width:25px; height:25px; top:50%; transform:translateY(-50%);}
+	.project_wrap .content_wrap .terms_wrap .gray_box {font-size:12px; height:200px;}
+	.project_wrap .content_wrap .terms_wrap .gray_box.first {margin-bottom:10px;}
+	.project_wrap .content_wrap .button_wrap .left_btn {width:120px; height:40px; font-size:12px;}
+	.project_wrap .content_wrap .button_wrap .right_btn {width:120px; height:40px; font-size:12px;}
+}

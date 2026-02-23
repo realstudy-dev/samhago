@@ -1,0 +1,22 @@
+.project_wrap { width:100%; min-width:1340px; height:100vh; max-height:963px; margin:0 auto; overflow:hidden; }
+.project_wrap .header_section { height:80px; background:#fff; }
+.project_wrap .header_section .header_content { width:1280px; margin:0 auto; display:table; position:relative; }
+/*header_left*/
+.project_wrap .header_section .header_content .header_left { float:left; }
+.project_wrap .header_section .header_content .header_left p.class_name { font-size:25px; font-weight:700; line-height:80px;}
+/*header_center*/
+.project_wrap .header_section .header_content .header_center { position:absolute; top:0; left:320px; }
+.project_wrap .header_section .header_content .header_center p { font-size:16px; font-weight:700; line-height:80px; }
+.project_wrap .header_section .header_content .header_center p img { width:18px; margin: -3px 5px 0 0; }
+/*header_right*/
+.project_wrap .header_section .header_content .header_right { line-height:80px; float:right; }
+.project_wrap .header_section .header_content .header_right button { border-radius:20px; color:#fff; background:#1E869F; }
+
+
+@media only screen and (max-width: 1280px){
+    .project_wrap .content_section { width:90%; }
+}
+
+@media only screen and (max-width: 1080px){}
+
+@media only screen and (max-width: 768px){}

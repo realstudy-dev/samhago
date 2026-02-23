@@ -1,0 +1,604 @@
+/* 홈 콘텐츠 영역 */
+#contentSection > #pageMypage.active{
+    display: flex;
+    flex-direction: column;
+}
+/* section1 */
+.mypage_section1 {
+    margin-top:3.142857vh;/*22px*/
+    border-radius: 5.333vw;/*20px*/
+    background: #FFF;
+    overflow: hidden;
+}
+.mypage_section1 .section1_top {
+    width:100%;
+    height:16vh;/*113px*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 5.333vw;/*20px*/
+}
+.mypage_section1 .section1_top .top_left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:3.733vw;/*14px*/
+}
+.mypage_section1 .section1_top .top_left img {
+    width:14.93vw/*56px*/;
+    height:14.93vw/*56px*/;
+    aspect-ratio: 1/1;
+}
+.mypage_section1 .section1_top .top_left > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:1vh;/*7px*/
+}
+.mypage_section1 .section1_top .top_left > div h3 {
+    color: #191919;
+    font-size: 5.333vw;/*20px*/
+    font-weight: 700;
+    line-height: 100%;
+}
+.mypage_section1 .section1_top .top_left > div p {
+    color: #191919;
+    font-size: 3.733vw;/*14px*/
+    font-weight: 400;
+    line-height: 100%;
+}
+.mypage_section1 .section1_top .top_right {
+    display: flex;
+    padding: 1.142857vh 2.666vw;/*8px 10px*/
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8vw;/*18px*/
+    background: #B8B8B810;
+    backdrop-filter: blur(40px);
+    cursor: pointer;
+}
+.mypage_section1 .section1_top .top_right:hover {
+    filter: brightness(98%);
+}
+.mypage_section1 .section1_top .top_right p {
+    color: #B8B8B8;
+    font-size: 3.2vw;/*12px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section1 .section1_mid {
+    border-top:1px solid rgba(25, 25, 25, 0.05);    
+    width:100%;
+    height:8.57vh;/*60px*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 5.333vw;/*20px*/
+    cursor: pointer;
+    background: #fff;
+}
+.mypage_section1 .section1_mid:hover {
+    filter: brightness(90%);
+}
+.mypage_section1 .section1_mid > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:2.666vw;/*10px*/
+}
+.mypage_section1 .section1_mid > div img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section1 .section1_mid > div p {
+    color: #191919;
+    font-size: 4.266vw;/*16px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section1 .section1_mid > img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section1 .section1_btm {
+    border-top:1px solid rgba(25, 25, 25, 0.05);
+    width:100%;
+    height:8.57vh;/*60px*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 5.333vw;/*20px*/
+    cursor: pointer;
+    background: #fff;
+}
+.mypage_section1 .section1_btm:hover {
+    filter: brightness(90%);
+}
+.mypage_section1 .section1_btm > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:2.666vw;/*10px*/
+}
+.mypage_section1 .section1_btm > div img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section1 .section1_btm > div p {
+    color: #191919;
+    font-size: 4.266vw;/*16px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section1 .section1_btm > img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section1 .section1_btm {
+    width:100%;
+    height:8.57vh;/*60px*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 5.333vw;/*20px*/
+}
+
+/* section2 */
+.mypage_section2 {
+    margin-top:2vh;/*14px*/
+    display: flex;
+    border-radius: 5.333vw;/*20px*/
+    background: #FFF;
+    width:100%;
+    height:12.7vh;/*89px*/
+    align-items: center;
+    justify-content: center;
+    gap:5.333vw;/*20px*/    
+}
+.mypage_section2 > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:1.2857vh;/*9px*/
+}
+.mypage_section2 > div p {
+color: #191919;
+font-size: 4.266vw;/*16px*/
+font-weight: 600;
+line-height: 100%;
+}
+.mypage_section2 > div span {
+color: #8F8F8F;
+font-size: 3.2vw;/*12px*/
+font-weight: 400;
+line-height: 100%;
+}
+.mypage_section2 > img {
+    width:19.73vw;/*74px*/
+    height:19.73vw;/*74px*/
+    aspect-ratio: 1/1;
+}
+
+/* section3 */
+.mypage_section3 {
+    margin-top:4.2857vh;/*30px*/
+}
+.mypage_section3 .section3_top {
+    color: #191919;
+    font-size: 4.8vw;/*18px*/
+    font-weight: 600;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm {
+    margin-top:2.2857vh;/*16px*/
+}
+.mypage_section3 .section3_btm .slider-container {
+    width: 100%;
+}
+.mypage_section3 .section3_btm .card-slider .slick-slide {
+    margin: 0 2.666vw;/*10px*/
+}
+.mypage_section3 .section3_btm .card-slider {
+    margin: 0 -2.666vw;/*10px*/
+}
+.mypage_section3 .section3_btm .card {
+    border-radius: 3.2vw;/*12px*/
+    background: #FFF;
+    padding:4.2857vh 5.333vw;/*30px 20px*/
+}
+.mypage_section3 .section3_btm .card .card_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mypage_section3 .section3_btm .card .card_top .top_left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:1.142857vh;/*8px*/
+}
+.mypage_section3 .section3_btm .card .card_top .top_left p {
+    color: #191919;
+    font-size: 5.333vw;/*20px*/
+    font-weight: 700;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1.333vw;/*5px*/
+    padding:1.6vw;/*6px*/
+    border-radius: 1.066vw/*4px*/;
+    background: rgba(25, 181, 245, 0.10);
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product img {
+    width:3.2vw;/*12px*/
+    height:3.2vw;/*12px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product span {
+    color: #19B5F5;
+    font-size: 3.2vw;/*12px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm .card .card_top .top_right {
+    display: flex;
+    padding: 1.142857vh 2.666vw;/*8px 10px*/
+    justify-content: center;
+    align-items: center;
+    border-radius: 4.8vw;/*18px*/
+    background: #B8B8B810;
+    backdrop-filter: blur(40px);
+    cursor: pointer;
+}
+.mypage_section3 .section3_btm .card .card_top .top_right:hover {
+    filter: brightness(98%);
+}
+.mypage_section3 .section3_btm .card .card_top .top_right p {
+    color: #B8B8B8;
+    font-size: 3.2vw;/*12px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm .card .line {
+    margin-top:2.2857vh;/*16px*/
+    display: block;
+    width:100%;
+    height:1px;
+    background: #F5F5F5;
+}
+.mypage_section3 .section3_btm .card .card_mid {
+    margin-top:2.2857vh;/*16px*/
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap:2.133vw;/*8px*/
+}
+.mypage_section3 .section3_btm .card .card_mid img {
+    width: 4.266vw;/*16px*/
+    height: 4.266vw;/*16px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section3 .section3_btm .card .card_mid p {
+    color: #191919;
+    font-size: 3.733vw;/*14px*/
+    font-weight: 400;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm .card .card_btm {
+    margin-top:2.2857vh;/*16px*/
+    display: flex;
+    width: 100%;
+    padding: 2.2857vh 0;/*16px 0*/
+    justify-content: center;
+    align-items: center;
+    gap: 1.6vw;/*6px*/
+    border-radius: 4.8vw;/*18px*/
+    background: linear-gradient(247deg, #19B4F5 58.27%, #B5E9FF 105.91%), rgba(25, 181, 245, 0.10);
+    backdrop-filter: blur(40px);
+}
+.mypage_section3 .section3_btm .card .card_btm img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section3 .section3_btm .card .card_btm p {
+    color: #FFF;
+    font-size: 4.266vw;/*16px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section3 .section3_btm .card .card_btm:hover {
+    filter: brightness(98%);
+}
+.mypage_section3 .section3_btm .slick-dots { 
+    list-style: none; 
+    display: flex !important; 
+    justify-content: center; 
+    padding: 0; 
+    margin-top: 1.142857vh;/*8px*/
+}
+.mypage_section3 .section3_btm .slick-dots li {
+    margin: 0 1.066vw;/*4px*/
+}
+.mypage_section3 .section3_btm .slick-dots li button {
+    width: 2.4vw;/*9px*/
+    height: 2.4vw;/*9px*/
+    border-radius: 50%;
+    background: #D9D9D9;
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.mypage_section3 .section3_btm .slick-dots li.slick-active button {
+    width: 6.4vw;/*24px*/
+    border-radius:2.666vw;/*10px*/
+    background: #191919;
+}
+
+/* section4 */
+.mypage_section4 {
+    margin:5.7vh 0;/*40px*/
+    border-radius: 5.333vw;/*20px*/
+    background: #FFF;
+    overflow: hidden;
+}
+.mypage_section4 .section4_top {
+    display: table-cell;
+    width:100%;
+    height:7.7vh;/*54px*/
+    vertical-align: middle;
+    line-height:100%;
+    padding:0 5.333vw;/*20px*/
+    color: #191919;
+    font-size: 3.733vw;/*14px*/
+    font-weight: 500;
+}
+.mypage_section4 .section4_btm li {  
+    width:100%;
+    height:8.57vh;/*60px*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 5.333vw;/*20px*/
+    cursor: pointer;
+    background: #fff;
+}
+.mypage_section4 .section4_btm li:hover {
+    filter: brightness(90%);
+}
+.mypage_section4 .section4_btm li > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:2.666vw;/*10px*/
+}
+.mypage_section4 .section4_btm li > div img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+.mypage_section4 .section4_btm li > div p {
+    color: #191919;
+    font-size: 4.266vw;/*16px*/
+    font-weight: 500;
+    line-height: 100%;
+}
+.mypage_section4 .section4_btm li > img {
+    width:5.333vw;/*20px*/
+    height:5.333vw;/*20px*/
+    aspect-ratio: 1/1;
+}
+/* 반응형 */
+/* 해상도 가로 750 이상 */
+@media only screen and (min-width:749px) {
+/* section1 */
+.mypage_section1 {
+    margin-top:44px;  /* 22px → 44px */
+    border-radius: 40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_top {
+    height:226px;  /* 113px → 226px */
+    padding:0 40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_top .top_left {
+    gap:28px;  /* 14px → 28px */
+}
+.mypage_section1 .section1_top .top_left img {
+    width:112px;  /* 56px → 112px */
+    height:112px;  /* 56px → 112px */
+}
+.mypage_section1 .section1_top .top_left > div {
+    gap:14px;  /* 7px → 14px */
+}
+.mypage_section1 .section1_top .top_left > div h3 {
+    font-size: 40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_top .top_left > div p {
+    font-size: 28px;  /* 14px → 28px */
+}
+.mypage_section1 .section1_top .top_right {
+    padding: 16px 20px;  /* 8px 10px → 16px 20px */
+    border-radius: 36px;  /* 18px → 36px */
+}
+.mypage_section1 .section1_top .top_right p {
+    font-size: 24px;  /* 12px → 24px */
+}
+.mypage_section1 .section1_mid {
+    height:120px;  /* 60px → 120px */
+    padding:0 40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_mid > div {
+    gap:20px;  /* 10px → 20px */
+}
+.mypage_section1 .section1_mid > div img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_mid > div p {
+    font-size: 32px;  /* 16px → 32px */
+}
+.mypage_section1 .section1_mid > img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_btm {
+    height:120px;  /* 60px → 120px */
+    padding:0 40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_btm > div {
+    gap:20px;  /* 10px → 20px */
+}
+.mypage_section1 .section1_btm > div img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+.mypage_section1 .section1_btm > div p {
+    font-size: 32px;  /* 16px → 32px */
+}
+.mypage_section1 .section1_btm > img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+/* section2 */
+.mypage_section2 {
+    margin-top:28px;  /* 14px → 28px */
+    border-radius: 40px;  /* 20px → 40px */
+    height:178px;  /* 89px → 178px */
+    gap:40px;  /* 20px → 40px */    
+}
+.mypage_section2 > div {
+    gap:18px;  /* 9px → 18px */
+}
+.mypage_section2 > div p {
+    font-size: 32px;  /* 16px → 32px */
+}
+.mypage_section2 > div span {
+    font-size: 24px;  /* 12px → 24px */
+}
+.mypage_section2 > img {
+    width:148px;  /* 74px → 148px */
+    height:148px;  /* 74px → 148px */
+}
+/* section3 */
+.mypage_section3 {
+    margin-top:60px;  /* 30px → 60px */
+}
+.mypage_section3 .section3_top {
+    font-size: 36px;  /* 18px → 36px */
+}
+.mypage_section3 .section3_btm {
+    margin-top:32px;  /* 16px → 32px */
+}
+.mypage_section3 .section3_btm .card-slider .slick-slide {
+    margin: 0 20px;  /* 10px → 20px */
+}
+.mypage_section3 .section3_btm .card-slider {
+    margin: 0 -20px;  /* 10px → 20px */
+}
+.mypage_section3 .section3_btm .card {
+    border-radius: 24px;  /* 12px → 24px */
+    padding:60px 40px;  /* 30px 20px → 60px 40px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_left {
+    gap:16px;  /* 8px → 16px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_left p {
+    font-size: 40px;  /* 20px → 40px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product {
+    gap:10px;  /* 5px → 10px */
+    padding:12px;  /* 6px → 12px */
+    border-radius: 8px;  /* 4px → 8px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product img {
+    width:24px;  /* 12px → 24px */
+    height:24px;  /* 12px → 24px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_left .product span {
+    font-size: 24px;  /* 12px → 24px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_right {
+    padding: 16px 20px;  /* 8px 10px → 16px 20px */
+    border-radius: 36px;  /* 18px → 36px */
+}
+.mypage_section3 .section3_btm .card .card_top .top_right p {
+    font-size: 24px;  /* 12px → 24px */
+}
+.mypage_section3 .section3_btm .card .line {
+    margin-top:32px;  /* 16px → 32px */
+}
+.mypage_section3 .section3_btm .card .card_mid {
+    margin-top:32px;  /* 16px → 32px */
+    gap:16px;  /* 8px → 16px */
+}
+.mypage_section3 .section3_btm .card .card_mid img {
+    width: 32px;  /* 16px → 32px */
+    height: 32px;  /* 16px → 32px */
+}
+.mypage_section3 .section3_btm .card .card_mid p {
+    font-size: 28px;  /* 14px → 28px */
+}
+.mypage_section3 .section3_btm .card .card_btm {
+    margin-top:32px;  /* 16px → 32px */
+    padding: 32px 0;  /* 16px 0 → 32px 0 */
+    gap: 12px;  /* 6px → 12px */
+    border-radius: 36px;  /* 18px → 36px */
+}
+.mypage_section3 .section3_btm .card .card_btm img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+.mypage_section3 .section3_btm .card .card_btm p {
+    font-size: 32px;  /* 16px → 32px */
+}
+.mypage_section3 .section3_btm .slick-dots { 
+    margin-top: 16px;  /* 8px → 16px */
+}
+.mypage_section3 .section3_btm .slick-dots li {
+    margin: 0 8px;  /* 4px → 8px */
+}
+.mypage_section3 .section3_btm .slick-dots li button {
+    width: 18px;  /* 9px → 18px */
+    height: 18px;  /* 9px → 18px */
+}
+.mypage_section3 .section3_btm .slick-dots li.slick-active button {
+    width: 48px;  /* 24px → 48px */
+    border-radius:20px;  /* 10px → 20px */
+}
+/* section4 */
+.mypage_section4 {
+    margin:80px 0;  /* 40px → 80px */
+    border-radius: 40px;  /* 20px → 40px */
+}
+.mypage_section4 .section4_top {
+    height:108px;  /* 54px → 108px */
+    padding:0 40px;  /* 20px → 40px */
+    font-size: 28px;  /* 14px → 28px */
+}
+.mypage_section4 .section4_btm li {  
+    height:120px;  /* 60px → 120px */
+    padding:0 40px;  /* 20px → 40px */
+}
+.mypage_section4 .section4_btm li > div {
+    gap:20px;  /* 10px → 20px */
+}
+.mypage_section4 .section4_btm li > div img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+.mypage_section4 .section4_btm li > div p {
+    font-size: 32px;  /* 16px → 32px */
+}
+.mypage_section4 .section4_btm li > img {
+    width:40px;  /* 20px → 40px */
+    height:40px;  /* 20px → 40px */
+}
+}

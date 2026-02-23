@@ -1,0 +1,418 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="kr"><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="HTML, meta, tag, element, reference">
+    <meta name="author" content="리얼스터디">
+    <meta name="description" content="{props.description}" data-react-helmet="true">
+
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="No-Cache">
+    <meta http-equiv="pragma" content="No-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- sns미리보기 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://samhago.com/">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="쌤하고">
+    <meta property="og:description" content="스스로 공부하는 아아를 만드는 최고의 서비스!">
+
+    <!-- 사이트등록및소유확인 -->
+    <meta name="naver-site-verification" content="">
+    <title>쌤하고</title>
+
+    <!-- 파비콘 -->
+    <link rel="shortcut icon" href="../image/favicon.ico?v1.2" type="image/x-icon">
+    <link rel="icon" href="../image/favicon.ico?v1.2" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../image/favicon.ico?v1.2">
+
+    <!-- 베이스css -->
+    <link rel="stylesheet" href="../bootstrap/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+
+    <!-- 적용css -->
+    <link rel="stylesheet" href="../css/web/common.css?v1.2">
+    <link rel="stylesheet" href="../css/web/jquery-ui.css">
+    <link rel="stylesheet" href="../css/web/font.css">
+    <link rel="stylesheet" href="../css/web/modal.css?v2.0">
+    <link rel="stylesheet" href="../css/web/loadingAnimations2.css">
+
+    <link rel="stylesheet" href="../css/web/managerHeader.css?v1.1">
+    <link rel="stylesheet" href="../css/web/managerHeader_style.css?v1.1">
+    <link rel="stylesheet" href="../css/web/managerclass/managerclassSelect.css?v1.0">
+    <link rel="stylesheet" href="../css/web/managerclass/managerclassSelect_style.css?v1.7">
+    <link rel="stylesheet" href="../css/web/managerclass/managerclassSelectModal.css?v1.1">
+    <link rel="stylesheet" href="../css/web/managerclass/managerclassSelectModal_style.css?v1.0">
+    <link rel="stylesheet" href="../js/web/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+</head>
+
+<body class="" style="">
+
+<div id="modalBox"></div>
+
+<div class="loading-image-layer" style="z-index: 2000; background: rgb(0, 0, 0); opacity: 0.2; position: fixed; width: 100%; height: 100%; display: none;">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+
+<div class="project_wrap">
+
+    <header class="header_section">
+        <div class="header_content">
+            <div class="header_left">
+                <p class="class_name" id="classTitle">테스트방</p>
+            </div>
+
+            <div class="header_right">
+                <button class="ezHelp_btn" onclick="fn_ezHelpIntro()">원격지원</button>
+                <button class="check_out_btn" onclick="fn_leaveClass()">퇴실하기</button>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="content_section">
+        <!-- left -->
+        <div class="content_left">
+            <article class="left_top_article">
+                <div class="mypage">
+                    <a href="/webmanagersetting/selectManagerSettingIntro.do"><img src="../image/person3.svg" alt="마이페이지"></a>
+                    <p class="user"><span class="managerName">엔티원장</span> 선생님</p>
+                </div>
+                <div class="screen_box">
+                    <div class="screen"><video id="localVideo" autoplay="" muted="" style="width:100%; height:100%;"></video></div>
+                    <p class="user" id="averageOutgoingBitrate_manager">-</p>
+                </div>
+                <div class="button_box">
+                    <button class="cam_btn cam_off active">자리 비우기</button>
+                    <button class="cam_btn cam_on">활성화 하기</button>
+                </div>
+            </article>
+
+            <article class="left_bottom_article">
+                <div class="tab_panel" role="tabpanel">
+                    <!-- Nav tabs -->
+                    <div class="nav_box">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active first">
+                                <a class="active" href="#counsel" aria-controls="counsel" role="tab" data-toggle="tab">
+                                    <p>상담대기 <span id="classTalkTotalCount">(1명)</span></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 탭 상세 -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="counsel">
+                        <div class="table_box">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>순서</th>
+                                    <th>회원명</th>
+                                    <th>시간</th>
+                                </tr>
+                                </thead>
+                                <tbody id="classTalkList"><tr id="classTalk_U175575658578400000028061" class="chatting-one" data-userid="U175575658578400000028061" data-username="홍길동" data-chatsessionid="wq0s30du" name="classTalk">    <td>1</td>    <td>홍길동</td>    <td id="classTalkEnterTime_U175575658578400000028061">-</td>    <input type="hidden" id="classTalkEnterDate_U175575658578400000028061" value="2025-12-01 16:33"></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- right -->
+        <div class="content_right">
+            <article>
+                <ul class="student_situation_box">
+                    <li id="enterUserBtn">
+                        <img src="../image/person1.svg" alt="접속인원">
+                        <p id="enterUserCount">1</p>
+                    </li>
+                    <li id="leaveUserBtn">
+                        <img class="margin0" src="../image/person2.svg" alt="퇴실인원">
+                    </li>
+                </ul>
+
+                <div class="screen_wrap" id="classUserRelationList">
+                    <ul class="first" id="classUserRelationList2">
+                        <li class="waiting" id="videoBox_U175575658578400000028061" name="videoBox">
+                            <div class="screen_box">
+                                <div class=""><video id="remoteVideo_U175575658578400000028061" autoplay="" muted="" style="width:100%; height:100%;" name="userVideo"></video></div>
+                                <p class="user">홍길동</p>
+                                <p class="entering_time" id="enterTime_U175575658578400000028061">0</p>
+                                <p class="finish_study" id="finishStudy_U175575658578400000028061" style="display:none;">학습완료</p>
+                                <button class="full_screen" id="fullScreenBtn" data-userid="U175575658578400000028061"><img src="../image/full.svg" alt="전체화면"></button>
+                                <button class="play"><img src="../image/play.svg" alt="재생"></button>
+                                <input type="hidden" id="video_U175575658578400000028061" value="U175575658578400000028061">
+                                <input type="hidden" id="enterDate_U175575658578400000028061" value="2025-12-01 16:33">
+                                <input type="hidden" id="grade_U175575658578400000028061" value="1">
+                                <input type="hidden" id="koreanLevelName_U175575658578400000028061" value="1-2">
+                                <input type="hidden" id="mathematicsLevelName_U175575658578400000028061" value="1-2">
+                                <input type="hidden" id="englishLevelName_U175575658578400000028061" value="A-1">
+                            </div>
+                            <div class="btn_box">
+                                <button onclick="fn_selectListTodoUserIntro('U175575658578400000028061')">학습내역</button>
+                                <button class="chatting-one" data-userid="U175575658578400000028061" data-username="홍길동" data-chatsessionid="wq0s30du">상담하기</button>
+                                <button onclick="fn_updateMemoIntro('U175575658578400000028061')">메모장</button>
+                                <button class="check_schedule" onclick="window.open('userScheduleViewer.html', '_blank');">주간스케줄 확인하기</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 페이지네이션 (일단 사용x) -->
+                <!--<nav aria-label="Page navigation example">
+                    <ul class="pagination" id="userPagination">
+                    </ul>
+                </nav>-->
+            </article>
+        </div>
+
+        <input type="hidden" id="sbManagerId" value="M169779384149200000000005">
+        <input type="hidden" id="streamId" value="M169779384149200000000005">
+        <input type="hidden" id="managerName" value="엔티원장">
+        <input type="hidden" id="type" value="M">
+        <input type="hidden" id="enterDate" value="2025-12-01 16:24">
+        <input type="hidden" id="userId">
+        <input type="hidden" id="roomJoinYn">
+        <input type="hidden" id="chatSessionId" value="czyrwwgo">
+        <input type="hidden" id="sbUserIdOne">
+        <input type="hidden" id="userNameOne">
+        <input type="hidden" id="chatClassManagerRelationId" value="CMR1764573894855000002522">
+        <input type="hidden" id="selectSbUserId" value="U175575658578400000028061">
+    </section>
+
+    <!-- 상담진행 화면 -->
+    <div class="advice_screen" id="chattingOneBox">
+        <div class="advice_screen_content">
+            <div class="student_info">
+                <div class="student_info_top">
+                    <p class="student_name chattingOneUserName">홍길동</p>
+                    <!--<p class="join_date">가입일 : 2024년 01월 01일</p>-->
+                    <div class="button_box">
+                        <button class="end_btn" id="endClassTalkBtn">상담종료</button>
+                    </div>
+                </div>
+                <div class="student_bottom">
+                    <p id="gradeName"></p>
+                    <p>
+                        <span id="koreanLevelName" class="first"></span>
+                        <span id="mathematicsLevelName"></span>
+                        <span id="englishLevelName"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="chat_box">
+                <p class="chat_activate">채팅이 활성화 됩니다.<br>모든 채팅내역 및 상담 내역은 녹화, 저장됩니다.</p>
+                <div class="chat_content" id="oneChattingList">
+                </div>
+                <div class="send_box">
+                    <div class="form_box">
+                        <input type="text" id="chattingOneContent" placeholder="메시지를 입력하세요.">
+                        <button class="send_btn" id="sendClassTalkBtn"><img src="../image/send.svg" alt="보내기"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- 접속인원, 퇴실인원 -->
+<!--<div class="modal connect_student fade" id="classUserRelationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p>학생목록<span id="headerText">(접속인원)</span></p>
+                <div class="button_box">
+                    <button class="close_btn" data-dismiss="modal"><img src="../image/close.svg" alt="닫기"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p><span id="bodyText">접속인원</span> : <span id="classUserRelationListModalTotalCount">0</span>명</p>
+
+                <div class="table_box">
+                    <table>
+                        <thead>
+                        <tr>
+                            &lt;!&ndash;<th>방번호</th>&ndash;&gt;
+                            <th>이름</th>
+                            <th>학년</th>
+                            <th>입실시간</th>
+                            <th>퇴실시간</th>
+                        </tr>
+                        </thead>
+                        <tbody id="classUserRelationListModal1">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!-- 학습내역 -->
+<!--<div class="modal learning_list fade" id="userTodoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close_btn" data-dismiss="modal"><img src="../image/close.svg" alt="close"></button>
+                &lt;!&ndash; Nav tabs &ndash;&gt;
+                <div class="tab_panel" role="tabpanel">
+                    <div class="nav_box">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="first active">
+                                <a class="active" href="#todo" aria-controls="todo" role="tab" data-toggle="tab" onclick="fn_selectListTodoUser()" aria-expanded="true">
+                                    <p>할일목록</p>
+                                </a>
+                            </li>
+                            <li role="presentation" class="">
+                                <a href="#details" aria-controls="details" role="tab" data-toggle="tab" onclick="fn_selectListClassUserRelationUserHist()" aria-expanded="false">
+                                    <p>입퇴실 내역</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="todo">
+                        <div class="table_box_top">
+                            <div class="calendar_box">
+                                <button class="prev_btn" onclick="fn_selectNextPrevDate('-1')"><img src="../image/arrow_black.svg" alt="이전"></button>
+                                <div class="date_box">
+                                    <img src="../image/calendar.svg">
+                                    <input type="text" class="date_picker" id="todoDate">
+                                    &lt;!&ndash;<input type="date" class="date_picker" id="hidden_todoDate" onchange="javascript:fn_selectDateTime('todoDate', this.value);" style="display:none">
+                                    <p class="warning" id="userCareerStartDateEssential0" style="display:none;"></p>&ndash;&gt;
+                                </div>
+                                <button class="next_btn" onclick="fn_selectNextPrevDate('1')"><img src="../image/arrow_black.svg" alt="이전"></button>
+                            </div>
+                        </div>
+                        <div class="table_box">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>순서</th>
+                                    <th>학습과목</th>
+                                    <th>학습내용</th>
+                                    <th>완료여부</th>
+                                    <th>시간</th>
+                                </tr>
+                                </thead>
+                                <tbody id="todoList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="details">
+                        <div class="table_box">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>순서</th>
+                                    <th>일자</th>
+                                    <th>입/퇴실</th>
+                                    <th>학습시간</th>
+                                </tr>
+                                </thead>
+                                <tbody id="classUserRelationUserHistList"><tr>    <td>1</td>    <td>2025-12-01</td>    <td>09:54 ~ 16:33</td>    <td>00:45</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!-- 메모장 -->
+<!--<div class="modal memo fade" id="memoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="" style="z-index: 1040; display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p>메모장</p>
+            </div>
+            <div class="modal-body">
+                <textarea id="memoContent" placeholder="내용을 입력하세요."></textarea>
+            </div>
+            <div class="modal-footer">
+                <div class="button_box">
+                    <button class="save_btn" onclick="fn_updateMemo()">저장</button>
+                    <button class="close_btn" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!-- 장치설정 -->
+<!--<div class="modal setting fade" id="deviceSettingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p>장치설정</p>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li class="first">
+                        <label>카메라</label>
+                        <div class="select_box dropdown">
+                            <button class="label" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">FaceTime HD 카메라 (2C0E:82E3)</button>
+                            <ul class="select_option_list dropdown-menu">
+                                <li class="option_list_item">FaceTime HD 카메라 (2C0E:82E3)</li>
+                                <li class="option_list_item">카메라1</li>
+                                <li class="option_list_item">카메라2</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <label>마이크</label>
+                        <div class="select_box dropdown">
+                            <button class="label" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">기본값 - MacBook Pro 마이크 (Built-in)</button>
+                            <ul class="select_option_list dropdown-menu">
+                                <li class="option_list_item">MacBook Pro 마이크 (Built-in)</li>
+                                <li class="option_list_item">Microsoft Teams Audio Device (Virtual)</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <label>스피커</label>
+                        <div class="select_box dropdown">
+                            <button class="label" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">기본값 - MacBook Pro 스피커 (Built-in)</button>
+                            <ul class="select_option_list dropdown-menu">
+                                <li class="option_list_item">MacBook Pro 스피커 (Built-in)</li>
+                                <li class="option_list_item">스피커2</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <div class="button_box">
+                    <button class="save_btn">저장</button>
+                    <button class="close_btn">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+</body>
+
+</html>
