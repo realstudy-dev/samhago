@@ -690,10 +690,6 @@
     flex-direction: column;
     justify-content: space-between;
     gap:2.2857vh;/*16px*/
-    border: 1px solid transparent;
-}
-.home_section8 .study_log.ing .log_history {
-    border: 1px solid #19B5F5;
 }
 .home_section8 .study_log .log_history .log_top .source {
     display: inline-flex;

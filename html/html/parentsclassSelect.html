@@ -90,151 +90,154 @@
     <!-- 퍼블 필수 함수 달력 -->
     <script>
     //달력 api
-    $(document).ready(function () {
+$(document).ready(function () {
 
-        function updateMonthText(instance, showYear = false) {
-            const year = instance.currentYear;
-            const month = instance.currentMonth + 1;
+    /* ==========================================================================
+       [공통 유틸리티 함수]
+       ========================================================================== */
+    
+    function getLocalDateString(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
-            const newText = showYear
-                ? `${year}년 ${month}월`
-                : `${month}월`;
+    // 텍스트 업데이트 함수
+    function updateMonthText(instance, showYear = false) {
+        const year = instance.currentYear;
+        const month = instance.currentMonth + 1;
+        const newText = showYear ? `${year}년 ${month}월` : `${month}월`;
 
-            const $monthEl = $(instance.calendarContainer)
-                .find('.flatpickr-current-month .cur-month');
+        const $monthEl = $(instance.calendarContainer).find('.flatpickr-current-month .cur-month');
+        if ($monthEl.text() === newText) return;
+        $monthEl.text(newText);
+    }
 
-            if ($monthEl.text() === newText) return;
+    // ✅ 연도 유지를 위한 감시 함수 (핵심 수정 사항)
+    function observeMonthText(instance, showYear) {
+        const header = instance.calendarContainer.querySelector('.flatpickr-current-month');
+        if (!header) return;
 
-            $monthEl.text(newText);
-        }
+        const observer = new MutationObserver(() => {
+            updateMonthText(instance, showYear);
+        });
 
-        function observeMonthText(instance, showYear) {
-            const header = instance.calendarContainer.querySelector(
-                '.flatpickr-current-month'
-            );
+        observer.observe(header, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
+    }
 
-            if (!header) return;
 
-            const observer = new MutationObserver(() => {
-                updateMonthText(instance, showYear);
-            });
+    /* ==========================================================================
+       1. [CheckActionCalendar]
+       ========================================================================== */
+    const checkActionMockData = {
+        '2026-02-08': 100, '2026-02-09': 100, '2026-02-10': 30, '2026-02-12': 70
+    };
 
-            observer.observe(header, {
-                childList: true,
-                subtree: true,
-                characterData: false
-            });
-        }
+    function initCheckActionCalendar(calendarId, prevBtn, nextBtn, options = {}) {
+        const fp = flatpickr(calendarId, {
+            locale: "ko",
+            inline: true,
+            defaultDate: new Date(),
+            disableMobile: true,
+            minDate: options.allowPast ? null : "today",
+            monthSelectorType: "static",
+            prevArrow: "", nextArrow: "",
+            showOutsideDays: false,
 
-        // ✅ mockData
-        const mockData = {
-            '2026-02-01': 0,
-            '2026-02-02': 0,
-            '2026-02-03': 0,
-            '2026-02-04': 0,
-            '2026-02-05': 0,
-            '2026-02-06': 0,
-            '2026-02-07': 0,
-            '2026-02-08': 100,
-            '2026-02-09': 100,
-            '2026-02-10': 30,
-            '2026-02-11': 0,
-            '2026-02-12': 70,
-        };
+            onReady: function (selectedDates, dateStr, instance) {
+                updateMonthText(instance, options.showYear);
+                // 연도 표시가 필요 없어도 구조 유지를 위해 감시할 수 있음
+                if (options.showYear) observeMonthText(instance, options.showYear);
+            },
+            onMonthChange: function (selectedDates, dateStr, instance) {
+                updateMonthText(instance, options.showYear);
+            },
+            onDayCreate: function (dObj, dStr, fp, dayElem) {
+                const todayStr = getLocalDateString(new Date());
+                const cellDateStr = getLocalDateString(dayElem.dateObj);
+                dayElem.innerHTML = `<span>${dayElem.textContent}</span>`;
 
-        // ✅ 한국 시간대 기준으로 날짜 문자열 반환
-        function getLocalDateString(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
+                if (cellDateStr <= todayStr) {
+                    dayElem.classList.add("past-today-border");
+                    const progress = checkActionMockData[cellDateStr];
+                    if (progress !== undefined) dayElem.style.setProperty('--progress', progress);
+                } else {
+                    dayElem.classList.add("future-day");
+                }
+                if (cellDateStr === todayStr) dayElem.classList.add("today-highlight");
+            }
+        });
 
-        function initCalendar(calendarId, prevBtn, nextBtn, options = {}) {
-            const fp = flatpickr(calendarId, {
-                locale: "ko",
-                inline: true,
-                defaultDate: new Date(),
-                showMonths: 1,
-                disableMobile: true,
+        $(prevBtn).on('click', () => fp.changeMonth(-1));
+        $(nextBtn).on('click', () => fp.changeMonth(1));
+    }
 
-                minDate: options.allowPast ? null : "today",
 
-                monthSelectorType: "static",
-                prevArrow: "",
-                nextArrow: "",
+    /* ==========================================================================
+       2. [TodayPlanCalendar] - 연도 고정 로직 포함
+       ========================================================================== */
+    function initTodayPlanCalendar(calendarId, prevBtn, nextBtn, options = {}) {
+        const highlightDates = ['2026-02-16', '2026-02-17', '2026-02-18'];
 
-                showOutsideDays: false,  // ✅ 다음달 날짜 숨기기!
-                nextShowDays: false,     // ✅ 추가 옵션
+        const fp = flatpickr(calendarId, {
+            locale: "ko",
+            inline: true,
+            defaultDate: new Date(),
+            disableMobile: true,
+            minDate: options.allowPast ? null : "today",
+            monthSelectorType: "static",
+            prevArrow: "", nextArrow: "",
+            showOutsideDays: false,
 
-                onReady: function (selectedDates, dateStr, instance) {
-                    updateMonthText(instance, options.showYear);
-                    if (options.showYear) {
-                        observeMonthText(instance, options.showYear);
-                    }
-                },
+            onReady: function (selectedDates, dateStr, instance) {
+                updateMonthText(instance, options.showYear);
+                // ✅ 화살표 클릭 시 연도가 사라지지 않게 감시 시작
+                if (options.showYear) {
+                    observeMonthText(instance, options.showYear);
+                }
+            },
+            onMonthChange: function (selectedDates, dateStr, instance) {
+                updateMonthText(instance, options.showYear);
+            },
+            onDayCreate: function (dObj, dStr, fp, dayElem) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const cellDateStr = getLocalDateString(dayElem.dateObj);
 
-                onMonthChange: function (selectedDates, dateStr, instance) {
-                    updateMonthText(instance, options.showYear);
-                },
+                if (highlightDates.includes(cellDateStr)) {
+                    dayElem.classList.add("bg-gray-day");
+                }
+                if (dayElem.dateObj <= today) {
+                    dayElem.classList.add("past-today-border");
+                }
+                if (cellDateStr === getLocalDateString(today)) {
+                    dayElem.classList.add("today-highlight");
+                }
 
-                onDayCreate: function (dObj, dStr, fp, dayElem) {
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    
-                    const cellDate = dayElem.dateObj;
-                    cellDate.setHours(0, 0, 0, 0);
-                    
-                    // 날짜 숫자 span으로 감싸기
-                    const dayNumber = dayElem.textContent;
-                    dayElem.innerHTML = `<span>${dayNumber}</span>`;
-                    
-                    // ✅ 한국 시간대 기준 날짜 문자열
-                    const todayStr = getLocalDateString(today);
-                    const cellDateStr = getLocalDateString(cellDate);
-                    const dateStr = getLocalDateString(cellDate);
-                    
-                    // ✅ 이전날짜와 오늘날짜만 처리
-                    if (cellDateStr <= todayStr) {
-                        dayElem.classList.add("past-today-border");
-                        
-                        // mockData에서 progress 값 가져와서 적용
-                        const progressValue = mockData[dateStr];
-                        if (progressValue !== undefined) {
-                            dayElem.style.setProperty('--progress', progressValue);
-                        }
-                    } 
-                    // ✅ 다음날짜는 progress 적용 안함
-                    else {
-                        dayElem.classList.add("future-day");
-                    }
+                const randomProgress = Math.floor(Math.random() * 101);
+                dayElem.style.setProperty('--progress', randomProgress);
+            }
+        });
 
-                    // 오늘 하이라이트
-                    if (cellDateStr === todayStr) {
-                        dayElem.classList.add("today-highlight");
-                    }
-                },
-            });
+        $(prevBtn).on('click', () => fp.changeMonth(-1));
+        $(nextBtn).on('click', () => fp.changeMonth(1));
+    }
 
-            $(prevBtn).on('click', function () {
-                fp.changeMonth(-1);
-            });
 
-            $(nextBtn).on('click', function () {
-                fp.changeMonth(1);
-            });
+    /* ==========================================================================
+       [실행부]
+       ========================================================================== */
+    initCheckActionCalendar("#checkActionCalendar", ".calendar_btn.prev", ".calendar_btn.next", { allowPast: false, showYear: false });
+    
+    // TodayPlan은 showYear: true를 주어 연도가 유지되게 함
+    initTodayPlanCalendar("#CalendarTodayPlan", ".arrow_today_plan.prev", ".arrow_today_plan.next", { allowPast: true, showYear: true });
 
-            return fp;
-        }
-
-        initCalendar(
-            "#checkActionCalendar",
-            ".calendar_btn.prev",
-            ".calendar_btn.next",
-            { allowPast: false, showYear: false }
-        );
-
-    });
+});
     </script>
     <!-- 퍼블 필수 함수 달력 -->
 
@@ -676,6 +679,13 @@
         }
     }
 
+    function calendarTodayPlanToggle() {
+        if($('.calendar_today_plan').hasClass("active")){
+            $('.calendar_today_plan').removeClass("active")
+        }else{
+            $('.calendar_today_plan').addClass("active")
+        }
+    }
 
     function bottomNav() {
         $("#pageHome").removeClass("active")
@@ -749,9 +759,9 @@
 
         // $("#pageHome").addClass("active")
         // $("#pageWeek").addClass("active")
-        // $("#pageTodayPlan").addClass("active")
+        $("#pageTodayPlan").addClass("active")
         // $("#pageCheckAction").addClass("active")
-        $("#pageMypage").addClass("active")
+        // $("#pageMypage").addClass("active")
         // $("#modalBox").addClass("active")
         // $("#modal_Search_Error1").addClass("active")
         // $("#modal_Search_Error2").addClass("active")
@@ -2274,12 +2284,12 @@
                     <p>계정정보</p>
                     <div class="input_area">
                         <img src="../image/parents/parents_EditinfoStudent_icon1.svg" alt="학생 이메일">
-                        <input class="student_email_input" type="text" maxlength="15" placeholder="7bricks@7bricsk.co.kr">
+                        <input class="student_email_input" type="text" maxlength="15" value="7bricks@7bricsk.co.kr">
                         <button class="double_check">중복확인</button>
                     </div>
                     <p>회원 정보</p>
-                    <div class="input_area"><img src="../image/parents/parents_EditinfoStudent_icon2.svg" alt="학생 이름"><input class="student_name_input" type="text" maxlength="15" placeholder="김세븐"></div>
-                    <div class="input_area"><img src="../image/parents/parents_EditinfoStudent_icon3.svg" alt="학생 생일"><input class="student_birthday_input" type="text" maxlength="15" placeholder="2015-11-27"></div>
+                    <div class="input_area"><img src="../image/parents/parents_EditinfoStudent_icon2.svg" alt="학생 이름"><input class="student_name_input" type="text" maxlength="15" value="김세븐"></div>
+                    <div class="input_area"><img src="../image/parents/parents_EditinfoStudent_icon3.svg" alt="학생 생일"><input class="student_birthday_input" type="text" maxlength="15" value="2015-11-27"></div>
                     <div class="dropdown" onclick="dropdownToggle(this)">
                           <button class="dropdown-btn">
                             <div><img src="../image/parents/parents_EditinfoStudent_icon4.svg" alt="학생 학년"><span>초등 6</span></div>
@@ -3824,7 +3834,7 @@
                     <div>
                         <div class="quick_nav">
                             <div class="q_nav1">
-                                <p>PLAN 등록하기</p>
+                                <p>일일 PLAN 등록하기</p>
                                 <img src="../image/parents/parents_quickNav_icon1.svg" alt="PLAN 등록하기" onclick="todayplanquickNavOn()">
                             </div>
                             <div class="q_nav2">
@@ -3842,7 +3852,14 @@
                 </div>
                 <div class="todayplan_section1">
                     <span>2026년 1월</span>
-                    <h2>오늘의 PLAN<img src="../image/parents/parents_icon_calender_btn.png" alt="달력버튼"></h2>
+                    <h2>오늘의 PLAN<img src="../image/parents/parents_icon_calender_btn.png" alt="달력버튼" onclick="calendarTodayPlanToggle()"></h2>
+                    <div class="calendar_today_plan">
+                        <div class="calendar_today_plan_header">
+                            <button class="arrow_today_plan prev" type="button"></button>
+                            <button class="arrow_today_plan next" type="button"></button>
+                        </div>
+                        <div id="CalendarTodayPlan"></div>
+                    </div>
                 </div>
                 <ul class="todayplan_section2">
                     <li class="week_select mon active" data-key="1" onclick=""><span>월</span><p>30</p></li>
