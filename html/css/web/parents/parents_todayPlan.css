@@ -163,26 +163,26 @@
 .todayplan_section1 .calendar_today_plan > .calendar_today_plan_header {
   position: relative;
   width: 100%;
-  height: 2.142857vh;/*15px*/
+    height: 1vh;/*7px*/
 }
 
 .todayplan_section1 .calendar_today_plan .arrow_today_plan {
-  position: absolute;
-  top: 2.57vh;/*18px*/
-  width: 2.666vw;/*10px*/
-  height: 2.42857vh;/*17px*/
-  background: none no-repeat center / contain;
-  cursor: pointer;
-  z-index: 2;
+    position: absolute;
+    top: 2.2857vh;/*16px*/
+    width: 2.666vw;/*10px*/
+    height: 2.42857vh;/*17px*/
+    background: none no-repeat center / contain;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .todayplan_section1 .calendar_today_plan .arrow_today_plan.prev {
-  right: 10.93vw;/*41px*/
+    right: 11.2vw;/*42px*/
   background-image: url("../../../image/icon_backward_gray.svg");
 }
 
 .todayplan_section1 .calendar_today_plan .arrow_today_plan.next {
-  right: 0px;
+    right: 0;
   background-image: url("../../../image/icon_forward_gray.svg");
 }
 
@@ -197,12 +197,13 @@
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-months {
-  justify-content: center;
-  margin-bottom: 1.142857vh;/*8px*/
+    justify-content: center;
+    height: 4.2857vh;/*30px*/
+    margin-bottom: 1vh;/*7px*/
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-months .flatpickr-month {
-  height: 2.857vh;/*20px*/
+    height: 100%;
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-current-month .numInputWrapper {
@@ -210,17 +211,20 @@
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-current-month {
-  width: 100%;
-  padding: 0;
-  color: #3A3A3A;
-  font-size: 4.8vw;/*18px*/
-  font-weight: 600;
-  line-height: 100%;
-  letter-spacing: -0.408px;
-  pointer-events: none;
-  position: unset;
-  left: unset;
-  text-align: left;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    color: #191919;
+    font-size: 5.333vw;/*20px*/
+    font-weight: 600;
+    line-height: 110%;
+    letter-spacing: -0.408px;
+    pointer-events: none;
+    position: unset;
+    left: unset;
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-current-month span.cur-month {
@@ -228,20 +232,20 @@
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-weekdays {
-  margin-bottom: 0.7142857vh;/*5px*/
+    margin-bottom: 0.42857vh;/*3px*/
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-weekdays .flatpickr-weekdaycontainer {
-  gap: 1.6vw;/*6px*/
+    gap: 0.8vw;/*3px*/
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-weekdays span {
-  width: 10.66vw;/*40px*/
-  color: rgba(60, 60, 67, 0.30);
-  font-size: 3.733vw;/*14px*/
-  font-weight: 600;
-  line-height: 2.57vh; /*18px*/
-  letter-spacing: -0.078px;
+    width: 10.66vw;/*40px*/
+    color: rgba(60, 60, 67, 0.30);
+    font-size: 3.733vw;/*14px*/
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.078px;
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-days {
@@ -249,22 +253,30 @@
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-days .dayContainer {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1.6vw;/*6px*/
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.42857vh 0.9333vw;/*10px 3.5px*/
+    width: 100% !important;
+    min-width: unset;
+    max-width: unset;
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-day {
-  width: 10.66vw;/*40px*/
-  height: 10.66vw;/*40px*/
-  max-width: 40px;
-  border-radius: 50%;
-  font-size: 5.333vw;/*20px*/
-  font-weight: 400;
-  letter-spacing: 0.38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: relative;
+    width: 10.66vw;/*40px*/
+    height: 10.66vw;/*40px*/
+    max-width: unset;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 4.266vw;/*16px*/
+    font-weight: 400;
+    letter-spacing: 0.38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none !important;
+    background: white;
+    box-sizing: border-box;
 }
 
 .todayplan_section1 .calendar_today_plan .flatpickr-day:hover {
