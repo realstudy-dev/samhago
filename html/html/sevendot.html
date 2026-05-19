@@ -6,3158 +6,7 @@
 <title>세븐닷 — 학원의 기준을 바꾼다</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    /* === 브랜드 컬러 (7DOT Green Palette 2025) === */
-    /* 로고 메인 그린에서 추출한 그린 계열 팔레트 */
-    --violet:        #34C77B;  /* 메인 그린 (로고 색) */
-    --violet-light:  #7DDDA8;  /* 라이트 민트 (로고 우측 점) */
-    --violet-deep:   #1F9D5C;  /* 딥 그린 */
-    --turbo:         #D4FF3D;  /* 라임 옐로우 (포인트 액센트) */
-    --ink:           #0F2A1E;  /* 다크 그린 잉크 */
-    --chalk:         #EFFAF3;  /* 라이트 민트 배경 */
-    --white:         #FFFFFF;
-
-    /* === 중성색 === */
-    --gray-200:      #E6E6E6;
-    --gray-400:      #B5B5B5;
-    --gray-600:      #686868;
-    --gray-700:      #575757;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  section[id] { scroll-margin-top: 70px; }
-
-  body {
-    font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
-    background: var(--white);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
-
-  .wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ============================================
-     공지 띠 (상단 알림)
-  ============================================ */
-  .topnote {
-    background: var(--turbo);
-    color: var(--ink);
-    text-align: center;
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-  }
-
-  /* ============================================
-     HEADER
-  ============================================ */
-  .header {
-    background: var(--ink);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-  .header-logo img {
-    height: 26px;
-    width: auto;
-  }
-  .header-logo-tag {
-    font-size: 11px;
-    color: rgba(255,255,255,0.5);
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    line-height: 1.3;
-    padding-left: 12px;
-    border-left: 1px solid rgba(255,255,255,0.15);
-  }
-  .header-nav {
-    list-style: none;
-    display: flex;
-    gap: 32px;
-    flex: 1;
-    justify-content: center;
-  }
-  .header-nav li {
-    font-size: 14px;
-    font-weight: 700;
-    position: relative;
-    padding: 6px 0;
-  }
-  .header-nav li a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .header-nav li a:hover { color: var(--turbo); }
-  .header-nav li.active a { color: var(--turbo); }
-  .header-right {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .header-icon {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    display: grid;
-    place-items: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    cursor: pointer;
-  }
-  .header-select {
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-    background: rgba(255,255,255,0.06);
-    border-radius: 999px;
-    padding: 7px 14px;
-    cursor: pointer;
-  }
-  .header-cta {
-    padding: 9px 22px;
-    background: var(--violet);
-    color: var(--ink);
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: filter 0.15s;
-  }
-  .header-cta:hover { filter: brightness(0.95); }
-
-  /* ============================================
-     1. HERO
-  ============================================ */
-  /* ============================================
-     1. HERO — 2슬라이드 캐러셀 + 좌(텍스트) 우(시각) 분할
-  ============================================ */
-  .hero {
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* 슬라이드 컨테이너 — 높이 고정으로 슬라이드 전환 시 점프 방지 */
-  .hero-slides {
-    position: relative;
-    min-height: 640px;
-  }
-
-  /* 각 슬라이드 — 절대 위치로 겹쳐서 페이드 전환 */
-  .hero-slide {
-    position: absolute;
-    inset: 0;
-    padding: 80px 24px 100px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .hero-slide.active {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-    animation: heroSlideFade 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes heroSlideFade {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* 슬라이드 1: 라이트 그린 */
-  .hero-slide-1 {
-    background: linear-gradient(180deg, var(--white) 0%, var(--chalk) 100%);
-    color: var(--ink);
-  }
-  /* 슬라이드 2: 다크 */
-  .hero-slide-2 {
-    background: var(--ink);
-    color: var(--white);
-  }
-  /* 슬라이드 3: 라이트 (슬라이드 1과 비슷한 톤) */
-  .hero-slide-3 {
-    background: linear-gradient(180deg, var(--chalk) 0%, var(--white) 100%);
-    color: var(--ink);
-  }
-
-  /* 데코 도형 (슬라이드 1) */
-  .hero-deco {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(60px);
-    z-index: 1;
-  }
-  .hero-deco-1 {
-    top: -50px; left: 5%;
-    width: 360px; height: 360px;
-    background: radial-gradient(circle, rgba(52,199,123,0.28) 0%, transparent 70%);
-  }
-  .hero-deco-2 {
-    bottom: -100px; right: 5%;
-    width: 380px; height: 380px;
-    background: radial-gradient(circle, rgba(212,255,61,0.32) 0%, transparent 70%);
-  }
-
-  /* 슬라이드 내부 그리드 — 좌(텍스트) + 우(시각) */
-  .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-  }
-
-  /* 좌측 텍스트 영역 */
-  .hero-left {
-    text-align: left;
-  }
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(52,199,123,0.12);
-    border: 1px solid rgba(52,199,123,0.28);
-    color: var(--violet-deep);
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-    margin-bottom: 28px;
-  }
-  .hero-slide-2 .hero-eyebrow {
-    background: rgba(212,255,61,0.12);
-    border-color: rgba(212,255,61,0.4);
-    color: var(--turbo);
-  }
-  .hero-eyebrow .ico,
-  .hero-eyebrow svg { color: currentColor; }
-
-  .hero-title {
-    font-size: clamp(36px, 4.4vw, 56px);
-    font-weight: 800;
-    letter-spacing: -1.8px;
-    line-height: 1.15;
-    margin-bottom: 20px;
-    color: inherit;
-  }
-  .hero-title .accent { color: var(--violet); }
-  .hero-slide-2 .hero-title .accent,
-  .hero-slide-2 .hero-title strong { color: var(--turbo); font-weight: 800; }
-
-  .hero-sub {
-    font-size: 16px;
-    line-height: 1.7;
-    font-weight: 500;
-    margin-bottom: 36px;
-    color: var(--gray-700);
-  }
-  .hero-slide-2 .hero-sub { color: rgba(255,255,255,0.7); }
-
-  .hero-ctas {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-  }
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 24px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 800;
-    text-decoration: none;
-    cursor: pointer;
-    transition: filter 0.15s, transform 0.15s;
-    border: none;
-    font-family: inherit;
-  }
-  .hero-cta.primary {
-    background: var(--violet);
-    color: var(--ink);
-  }
-  .hero-cta.primary:hover { filter: brightness(0.95); transform: translateX(2px); }
-  .hero-cta.outline {
-    background: transparent;
-    border: 1.5px solid var(--gray-200);
-    color: var(--ink);
-  }
-  .hero-cta.outline:hover { border-color: var(--violet); color: var(--violet); }
-  .hero-slide-2 .hero-cta.outline {
-    border-color: rgba(255,255,255,0.3);
-    color: var(--white);
-  }
-  .hero-slide-2 .hero-cta.outline:hover { border-color: var(--turbo); color: var(--turbo); }
-
-  /* 슬라이드 2 통계 */
-  .hero-stats {
-    display: flex;
-    gap: 40px;
-    margin-top: 32px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-  }
-  .hero-stat-num {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1.2px;
-    color: var(--turbo);
-    margin-bottom: 4px;
-    line-height: 1;
-  }
-  .hero-stat-label {
-    font-size: 14px;
-    color: rgba(255,255,255,0.55);
-    font-weight: 600;
-  }
-
-  /* ============================================
-     우측 시각 영역
-  ============================================ */
-  .hero-right {
-    position: relative;
-  }
-
-  /* 슬라이드 1: 떠 있는 모의 카드 3개 */
-  .hero-mock {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 18px;
-    padding: 22px 24px;
-    box-shadow: 0 20px 50px rgba(15,42,30,0.08);
-    position: absolute;
-    width: 270px;
-  }
-  .hero-mock-1 {
-    top: 0; left: 30px;
-    z-index: 3;
-    animation: mockFloat 5s ease-in-out infinite;
-  }
-  .hero-mock-2 {
-    top: 120px; right: 0;
-    z-index: 2;
-    animation: mockFloat 5.5s ease-in-out 0.4s infinite;
-  }
-  .hero-mock-3 {
-    bottom: 10px; left: 200px;
-    z-index: 1;
-    animation: mockFloat 6s ease-in-out 0.8s infinite;
-  }
-  @keyframes mockFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-mock { animation: none; }
-  }
-
-  /* 과목별 컬러 변수 — 국어/영어/수학 통일 */
-  :root {
-    --subj-kor: #32CD8B; /* 국어 그린 */
-    --subj-eng: #FF7272; /* 영어 코랄 */
-    --subj-math: #04AAD5; /* 수학 블루 */
-    --subj-kor-deep: #1FA66A;
-    --subj-eng-deep: #E04F4F;
-    --subj-math-deep: #0388A8;
-  }
-
-  .mock-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    background: rgba(50, 205, 139, 0.15);
-    color: var(--subj-kor-deep);
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 800;
-    margin-bottom: 12px;
-  }
-  .mock-tag.coral { background: rgba(255, 114, 114, 0.15); color: var(--subj-eng-deep); }
-  .mock-tag.blue  { background: rgba(4, 170, 213, 0.15); color: var(--subj-math-deep); }
-  .mock-tag .ico,
-  .mock-tag svg { width: 12px; height: 12px; }
-
-  .mock-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.6px;
-    margin-bottom: 4px;
-    line-height: 1.2;
-  }
-  .mock-sub {
-    font-size: 14px;
-    color: var(--gray-600);
-    margin-bottom: 14px;
-    line-height: 1.5;
-  }
-  .mock-bar {
-    width: 100%;
-    height: 6px;
-    background: var(--gray-200);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 8px;
-  }
-  .mock-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--violet) 0%, var(--turbo) 100%);
-    border-radius: 3px;
-  }
-  .mock-meta {
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 600;
-  }
-  .mock-badges {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .mock-badge {
-    font-size: 13px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-  .mock-badge.correct {
-    background: rgba(52,199,123,0.15);
-    color: var(--violet-deep);
-  }
-  .mock-badge.point {
-    background: var(--turbo);
-    color: var(--ink);
-  }
-  .mock-options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .mock-option {
-    padding: 12px 0;
-    background: var(--chalk);
-    color: var(--ink);
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    text-align: center;
-  }
-  .mock-option.is-correct {
-    background: var(--violet);
-    color: var(--white);
-    box-shadow: 0 8px 20px rgba(52,199,123,0.35);
-  }
-
-  /* 슬라이드 2: 큰 카드 3개 (grid) */
-  .hero-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .hero-bigcard {
-    border-radius: 20px;
-    padding: 28px 20px;
-    aspect-ratio: 3/4.2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s;
-  }
-  .hero-bigcard:hover { transform: translateY(-6px); }
-  .hero-bigcard-1 {
-    background: linear-gradient(160deg, var(--subj-kor) 0%, var(--subj-kor-deep) 100%);
-    color: var(--white);
-  }
-  .hero-bigcard-2 {
-    background: linear-gradient(160deg, var(--subj-eng) 0%, var(--subj-eng-deep) 100%);
-    color: var(--white);
-  }
-  .hero-bigcard-3 {
-    background: linear-gradient(160deg, var(--subj-math) 0%, var(--subj-math-deep) 100%);
-    color: var(--white);
-  }
-  .hero-bigcard-tag {
-    display: inline-block;
-    padding: 4px 10px;
-    background: rgba(255,255,255,0.22);
-    color: inherit;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 800;
-    width: fit-content;
-    letter-spacing: -0.2px;
-  }
-  .hero-bigcard-2 .hero-bigcard-tag { background: rgba(255,255,255,0.22); }
-  .hero-bigcard-icon {
-    align-self: flex-end;
-    color: rgba(255,255,255,0.55);
-  }
-  .hero-bigcard-2 .hero-bigcard-icon { color: rgba(255,255,255,0.55); }
-  .hero-bigcard-icon svg {
-    width: 36px; height: 36px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .hero-bigcard-title {
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 1.3;
-    letter-spacing: -0.4px;
-  }
-
-  /* ============================================
-     슬라이드 3: 과목 커스텀 빌더 시각화
-  ============================================ */
-  .custom-builder {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 24px;
-    padding: 28px 28px 24px;
-    box-shadow: 0 24px 60px rgba(15,42,30,0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  /* 상단 — 사용 가능한 과목 풀 */
-  .custom-pool-label,
-  .custom-mission-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-600);
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .custom-mission-count {
-    color: var(--violet);
-    font-weight: 800;
-    background: var(--chalk);
-    padding: 2px 10px;
-    border-radius: 999px;
-  }
-  .custom-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .custom-chip {
-    position: relative;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1.5px dashed var(--gray-200);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-400);
-    background: var(--white);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: default;
-    user-select: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .custom-chip.is-on {
-    border-style: solid;
-    border-color: var(--violet);
-    color: var(--violet-deep);
-    background: rgba(52,199,123,0.08);
-  }
-  /* 과목별 chip 컬러 */
-  .custom-chip.is-on[data-subject="kor"] {
-    border-color: var(--subj-kor);
-    color: var(--subj-kor-deep);
-    background: rgba(50, 205, 139, 0.1);
-  }
-  .custom-chip.is-on[data-subject="eng"] {
-    border-color: var(--subj-eng);
-    color: var(--subj-eng-deep);
-    background: rgba(255, 114, 114, 0.1);
-  }
-  .custom-chip.is-on[data-subject="math"] {
-    border-color: var(--subj-math);
-    color: var(--subj-math-deep);
-    background: rgba(4, 170, 213, 0.1);
-  }
-  /* coming soon 칩 — 라임 옐로우 톤 */
-  .custom-chip.is-soon {
-    border-style: solid;
-    border-color: rgba(212,255,61,0.5);
-    color: var(--ink);
-    background: rgba(212,255,61,0.18);
-  }
-  .custom-chip.is-soon em {
-    font-style: normal;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--violet-deep);
-    background: var(--turbo);
-    padding: 1px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.2px;
-    line-height: 1.4;
-  }
-
-  /* 화살표 (선택된 것이 미션으로 흘러감) */
-  .custom-arrow {
-    display: flex;
-    justify-content: center;
-    color: var(--violet);
-    opacity: 0.6;
-    margin: -4px 0;
-  }
-  .custom-arrow .ico {
-    animation: customFlow 2.4s ease-in-out infinite;
-  }
-  @keyframes customFlow {
-    0%, 100% { transform: translateY(0); opacity: 0.6; }
-    50% { transform: translateY(4px); opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .custom-arrow .ico { animation: none; }
-  }
-
-  /* 하단 — 오늘의 미션 슬롯 */
-  .custom-mission {
-    background: var(--chalk);
-    border-radius: 16px;
-    padding: 18px 20px;
-  }
-  .custom-slots {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    /* 슬롯이 추가/제거될 때 부드러운 레이아웃 변경 */
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .custom-slot {
-    padding: 12px 10px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 800;
-    text-align: center;
-    color: var(--white);
-    letter-spacing: -0.3px;
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                margin 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: center top;
-    overflow: hidden;
-    max-height: 80px;
-  }
-  /* 슬롯이 사라지는 상태 (JS로 클래스 토글) */
-  .custom-slot.is-leaving {
-    opacity: 0;
-    transform: scale(0.85) translateY(-4px);
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin: 0;
-    pointer-events: none;
-  }
-  /* 모션 줄이기 설정 시 페이드만 */
-  @media (prefers-reduced-motion: reduce) {
-    .custom-chip,
-    .custom-slot,
-    .custom-slots { transition: opacity 0.2s ease; }
-    .custom-slot.is-leaving { transform: none; }
-  }
-
-  /* 과목별 색상 — 국어/영어/수학 통일 */
-  .custom-slot.kor  { background: linear-gradient(135deg, var(--subj-kor) 0%, var(--subj-kor-deep) 100%); }
-  .custom-slot.eng  { background: linear-gradient(135deg, var(--subj-eng) 0%, var(--subj-eng-deep) 100%); }
-  .custom-slot.math { background: linear-gradient(135deg, var(--subj-math) 0%, var(--subj-math-deep) 100%); }
-
-  /* ============================================
-     슬라이더 컨트롤
-  ============================================ */
-  .hero-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 24px 24px 32px;
-    background: inherit;
-  }
-  /* 슬라이드 활성에 따라 컨트롤 영역도 색상 통일 */
-  .hero[data-active="0"] .hero-controls { background: var(--chalk); }
-  .hero[data-active="1"] .hero-controls { background: var(--ink); }
-  .hero[data-active="2"] .hero-controls { background: var(--white); }
-
-  .hero-arrow {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gray-200);
-    background: var(--white);
-    color: var(--ink);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: all 0.2s;
-  }
-  .hero-arrow:hover {
-    background: var(--violet);
-    color: var(--ink);
-    border-color: var(--violet);
-  }
-  .hero[data-active="1"] .hero-arrow {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.2);
-    color: var(--white);
-  }
-  .hero[data-active="1"] .hero-arrow:hover {
-    background: var(--turbo);
-    border-color: var(--turbo);
-    color: var(--ink);
-  }
-  .hero-arrow svg {
-    width: 16px; height: 16px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .hero-dots {
-    display: flex;
-    gap: 8px;
-  }
-  .hero-dot {
-    width: 28px;
-    height: 4px;
-    border-radius: 2px;
-    border: none;
-    background: var(--gray-200);
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.3s;
-  }
-  .hero-dot.active {
-    width: 44px;
-    background: var(--violet);
-  }
-  .hero[data-active="1"] .hero-dot { background: rgba(255,255,255,0.2); }
-  .hero[data-active="1"] .hero-dot.active { background: var(--turbo); }
-
-  /* 반응형 */
-  @media (max-width: 900px) {
-    .hero-slides { min-height: 920px; }
-    .hero-slide { padding: 60px 20px 80px; }
-    .hero-inner {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-    .hero-title { letter-spacing: -1px; }
-
-    /* 슬라이드 1 모의 카드 — 모바일에서 자연스럽게 분리 */
-    .hero-right { min-height: 460px; }
-    .hero-mock { width: calc(100% - 60px); max-width: 280px; }
-    .hero-mock-1 { top: 0; left: 0; }
-    .hero-mock-2 { top: 150px; right: 0; left: auto; }
-    .hero-mock-3 { bottom: 0; left: 30px; }
-
-    .hero-stats { gap: 18px; flex-wrap: wrap; }
-    .hero-stat-num { font-size: 26px; }
-
-    /* 슬라이드 2 빅카드 — 모바일에서 가로 스크롤로 */
-    .hero-cards {
-      display: flex;
-      grid-template-columns: none;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      scrollbar-width: none;
-      margin: 0 -20px;
-      padding-left: 20px;
-      padding-right: 20px;
-      scroll-snap-type: x mandatory;
-    }
-    .hero-cards::-webkit-scrollbar { display: none; }
-    .hero-bigcard {
-      flex: 0 0 calc((100% - 20px) / 2.4);
-      scroll-snap-align: start;
-      padding: 18px 14px;
-      aspect-ratio: 3/4.4;
-      border-radius: 16px;
-    }
-    .hero-bigcard-tag { font-size: 12px; padding: 3px 9px; }
-    .hero-bigcard-icon svg { width: 28px; height: 28px; }
-    .hero-bigcard-title { font-size: 14px; }
-
-    /* 슬라이드 3 커스텀 빌더 — 모바일 보정 */
-    .custom-builder { padding: 22px 18px 18px; gap: 16px; }
-    .custom-chip { font-size: 13px; padding: 7px 12px; }
-    .custom-mission { padding: 14px 14px; }
-    /* 모바일에서는 2열로 — 폰트 14px 한 줄 가독성 유지 */
-    .custom-slots {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-    }
-    .custom-slot {
-      font-size: 14px;
-      padding: 11px 8px;
-      letter-spacing: -0.3px;
-    }
-  }
-  @media (max-width: 480px) {
-    /* 매우 좁은 화면 — 모의카드 더 작게 */
-    .hero-slides { min-height: 880px; }
-    .hero-mock { width: calc(100% - 40px); max-width: 260px; }
-    .hero-mock-2 { top: 140px; }
-    .hero-mock-3 { left: 20px; }
-
-    /* 텍스트가 좁은 화면에서 깨지지 않도록 단어 단위 줄바꿈 강제 */
-    body { word-break: keep-all; overflow-wrap: break-word; }
-    .hero-title,
-    .sec-title,
-    .results-headline,
-    .results-positioning-line,
-    .concept-title,
-    .cta-block-title,
-    .solo-cta-title,
-    .quote-body,
-    .hero-sub,
-    .sec-sub,
-    .prod-name,
-    .prod-desc,
-    .benefit-title,
-    .benefit-desc,
-    .srv-card-title,
-    .srv-card-list li {
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-
-    /* 가로 스크롤 방지 */
-    html, body { overflow-x: hidden; max-width: 100vw; }
-    .wrap { padding: 0 16px; }
-
-    /* hero 핵심 타이포 — clamp으로 자연 축소 */
-    .hero-title { font-size: clamp(22px, 7vw, 30px); letter-spacing: -0.6px; line-height: 1.2; }
-    .hero-sub { font-size: 14px; line-height: 1.6; }
-    .hero-eyebrow { font-size: 12px; padding: 6px 12px; margin-bottom: 20px; }
-    .hero-cta { padding: 12px 20px; font-size: 13px; }
-
-    /* hero stats — 좁은 화면에서 줄바꿈 */
-    .hero-stats { gap: 14px; }
-    .hero-stat-num { font-size: 22px; }
-    .hero-stat-label { font-size: 12px; }
-
-    /* results — 핵심 수치 강조 유지하면서 축소 */
-    .results-headline { font-size: clamp(28px, 9vw, 36px); letter-spacing: -1px; }
-    .results-figure { font-size: clamp(56px, 18vw, 72px); letter-spacing: -2px; }
-    .results-stats { gap: 20px; }
-    .results-stat-num { font-size: 22px; }
-    .results-stat-label { font-size: 12px; }
-    .results-positioning-line { font-size: clamp(18px, 5.6vw, 22px); line-height: 1.5; }
-    .results-positioning-sub { font-size: 13px; }
-
-    /* 후기 카드 */
-    .results-quote { padding: 24px 20px; }
-    .results-quote::before { font-size: 100px; top: -16px; right: 12px; }
-    .quote-body { font-size: 14px; line-height: 1.65; }
-    .quote-name { font-size: 13px; }
-    .quote-org { font-size: 12px; }
-
-    /* 섹션 헤더 */
-    .sec-title { font-size: clamp(20px, 6vw, 24px); letter-spacing: -0.5px; line-height: 1.3; }
-    .sec-sub { font-size: 13px; line-height: 1.6; }
-    .sec-kicker { font-size: 12px; }
-
-    /* concept */
-    .concept-band { padding: 48px 20px; }
-    .concept-title { font-size: clamp(17px, 5.2vw, 20px); line-height: 1.55; }
-
-    /* problem 카드 */
-    .problem-card { padding: 22px 18px; }
-    .problem-text { font-size: 14px; line-height: 1.5; }
-
-    /* product 카드 */
-    .prod-card { min-height: 380px; }
-    .prod-stage { min-height: 220px; margin: 0; }
-    .prod-body { padding: 20px 22px 24px; }
-    .prod-body .prod-name { font-size: 22px; }
-    .prod-desc { font-size: 13px; }
-
-    /* benefits 카드 */
-    .benefit-card { padding: 18px 14px; }
-    .benefit-title { font-size: 15px; }
-    .benefit-desc { font-size: 12px; line-height: 1.55; }
-
-    /* sol-card */
-    .sol-card { padding: 24px 20px; }
-    .sol-card-title { font-size: 18px; }
-    .sol-card-list li { font-size: 13px; }
-
-    /* CTA */
-    .cta-block { padding: 28px 22px; }
-    .cta-block-title { font-size: 18px; line-height: 1.4; }
-    .solo-cta { padding: 32px 22px; }
-    .solo-cta-title { font-size: 18px; }
-    .solo-cta-desc { font-size: 13px; }
-
-    /* faq */
-    .faq-q { font-size: 13px; padding: 16px 18px; }
-    .faq-a { padding: 0 18px 18px; font-size: 13px; line-height: 1.65; }
-
-    /* pricing */
-    .plan { padding: 28px 22px; }
-    .plan-capacity-num { font-size: 48px; }
-    .plan-name { font-size: 18px; }
-    .plan-price { font-size: 28px; }
-
-    /* v2 임팩트 텍스트 — 너비 초과 방지 */
-    .v2-impact-line { font-size: clamp(48px, 18vw, 90px); letter-spacing: -1.5px; }
-
-    /* 슬라이드 3 빌더 — 슬롯 가독성 보장 */
-    .custom-slot { font-size: 12px; padding: 9px 6px; }
-    .custom-pool-label, .custom-mission-label { font-size: 11px; }
-  }
-
-  /* iPhone Mini (375px) — 한 단계 더 보정 */
-  @media (max-width: 380px) {
-    .wrap { padding: 0 14px; }
-
-    .hero-slides { min-height: 820px; }
-    .hero-slide { padding: 48px 16px 64px; }
-    .hero-title { font-size: clamp(20px, 6.6vw, 26px); }
-    .hero-sub { font-size: 13px; }
-
-    .results { padding: 48px 0; }
-    .results-headline { font-size: clamp(24px, 8.5vw, 30px); }
-    .results-figure { font-size: clamp(48px, 16vw, 60px); }
-    .results-stats { gap: 14px; }
-    .results-stat-num { font-size: 19px; }
-    .results-stat-label { font-size: 11px; }
-    .results-quote { padding: 20px 16px; }
-    .quote-body { font-size: 13px; }
-
-    .section { padding: 48px 0; }
-    .sec-title { font-size: clamp(18px, 5.5vw, 22px); }
-    .concept-title { font-size: clamp(15px, 4.8vw, 18px); }
-
-    .prod-stage { min-height: 180px; margin: 0; }
-    .prod-body { padding: 18px 18px 22px; }
-    .prod-body .prod-name { font-size: 20px; }
-    .prod-desc { font-size: 12px; }
-
-    .v2-impact-line { font-size: clamp(40px, 16vw, 72px); letter-spacing: -1px; }
-
-    .custom-slots { grid-template-columns: 1fr; }
-    .custom-slot { font-size: 13px; padding: 10px 8px; }
-  }
-
-  /* 320px (iPhone SE 1세대 / 초소형) — 최후 안전장치 */
-  @media (max-width: 360px) {
-    .wrap { padding: 0 12px; }
-
-    .hero-title { font-size: clamp(18px, 6vw, 22px); letter-spacing: -0.4px; }
-    .hero-cta { padding: 10px 16px; font-size: 12px; }
-    .hero-eyebrow { font-size: 11px; padding: 5px 10px; }
-
-    .results-headline { font-size: clamp(20px, 7.5vw, 26px); }
-    .results-figure { font-size: clamp(40px, 14vw, 52px); }
-    .results-stats { flex-direction: column; gap: 12px; align-items: flex-start; }
-
-    .sec-title { font-size: clamp(16px, 5vw, 20px); }
-    .concept-title { font-size: clamp(14px, 4.5vw, 16px); }
-
-    .v2-impact-line { font-size: clamp(34px, 14vw, 60px); }
-  }
-
-  /* ============================================
-     섹션 공통 (디자인 시스템)
-  ============================================ */
-  .section {
-    padding: 100px 0;
-    background: var(--white);
-  }
-  .section--alt-bg {
-    background: var(--chalk);
-  }
-  .section.alt {
-    background: var(--chalk);
-  }
-
-  /* 통일 섹션 헤더 */
-  .sec-head {
-    margin-bottom: 56px;
-    max-width: 720px;
-  }
-  .sec-head--center {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .sec-kicker {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--violet);
-    letter-spacing: 1.5px;
-    margin-bottom: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .sec-kicker .dot {
-    width: 8px; height: 8px;
-    background: var(--turbo);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--turbo);
-    flex-shrink: 0;
-  }
-  .sec-title {
-    font-size: 36px;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    line-height: 1.25;
-    color: var(--ink);
-    margin-bottom: 14px;
-  }
-  .sec-title .accent {
-    color: var(--violet);
-  }
-  .sec-sub {
-    /* font-size: 15px; */
-    line-height: 1.7;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  /* ============================================
-     2.1 PROBLEM — 문제 공감
-  ============================================ */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 56px;
-  }
-  .problem-card {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 36px 28px;
-    text-align: center;
-    border: 1px solid rgba(52,199,123,0.08);
-  }
-  .problem-icon {
-    font-size: 36px;
-    margin-bottom: 16px;
-  }
-  .problem-text {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.55;
-    letter-spacing: -0.3px;
-    color: var(--ink);
-  }
-  .problem-insight {
-    text-align: center;
-    padding: 40px 24px;
-    background: var(--white);
-    border-radius: 20px;
-    border: 1px solid rgba(52,199,123,0.12);
-  }
-  .problem-insight-line {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--gray-700);
-    line-height: 1.6;
-    margin-bottom: 4px;
-  }
-  .problem-insight-line.problem-insight-strong {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.8px;
-    margin-top: 8px;
-    margin-bottom: 0;
-  }
-  .problem-insight .accent {
-    color: var(--violet);
-  }
-  .problem-insight .strike {
-    text-decoration: line-through;
-    text-decoration-color: var(--violet-light);
-    text-decoration-thickness: 2px;
-    color: var(--gray-400);
-  }
-
-  /* ============================================
-     2.2 CONCEPT — 핵심 컨셉
-  ============================================ */
-  .concept-band {
-    background: var(--chalk);
-    color: var(--ink);
-    padding: 100px 24px;
-    /* text-align: center; */
-    position: relative;
-    overflow: hidden;
-  }
-  .concept-band::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px; height: 400px;
-    background: radial-gradient(ellipse, rgba(52,199,123,0.18) 0%, transparent 70%);
-    pointer-events: none;
-    filter: blur(40px);
-  }
-  .concept-kicker {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--violet);
-    letter-spacing: 2px;
-    margin-bottom: 32px;
-    position: relative;
-    z-index: 2;
-  }
-  .concept-title {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.55;
-    letter-spacing: -0.8px;
-    color: var(--ink);
-    max-width: 900px;
-    position: relative;
-    z-index: 2;
-  }
-  .concept-brand {
-    color: var(--violet);
-    font-weight: 800;
-  }
-  .concept-em {
-    color: var(--violet-deep);
-    font-weight: 800;
-  }
-
-  /* ============================================
-     2.5 PRODUCT DETAIL
-  ============================================ */
-  .product-detail {
-    background: var(--white);
-  }
-
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .prod-card {
-    border-radius: 24px;
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-height: 480px;
-    position: relative;
-    overflow: hidden;
-  }
-  .prod-card--home {
-    background: var(--chalk);
-    color: var(--ink);
-    padding: 0;                      /* 이미지가 카드 끝까지 확장 */
-    gap: 0;                          /* 스테이지와 본문이 페이드로 연결 */
-    overflow: hidden;
-  }
-  .prod-card--study {
-    background: linear-gradient(160deg, #E8FFB8 0%, var(--turbo) 100%);
-    color: var(--ink);
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
-  }
-  .prod-card--brick {
-    background: linear-gradient(160deg, #143A28 0%, var(--ink) 100%);
-    color: var(--white);
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
-  }
-
-  .prod-label {
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--violet);
-  }
-  .prod-card--study .prod-label { color: #3A6B00; }
-  .prod-card--brick .prod-label { color: var(--violet-light); }
-
-  .prod-name {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1.2;
-  }
-  .prod-name-sub {
-    color: var(--violet);
-    font-weight: 800;
-  }
-  .prod-card--study .prod-name-sub { color: #5A8B00; }
-  .prod-card--brick .prod-name-sub { color: var(--violet-light); }
-
-  .prod-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--gray-600);
-    font-weight: 500;
-    margin-top: auto;
-  }
-  .prod-card--brick .prod-desc { color: rgba(255,255,255,0.7); }
-
-  /* ── 3카드 공통: 시각 영역(stage) ── */
-  /* 이미지가 카드 가장자리까지 꽉 차게 fill — margin/border-radius 제거 */
-  .prod-stage {
-    position: relative;
-    flex: 1 1 auto;
-    min-height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    background: rgba(255,255,255,0.4);
-    overflow: hidden;
-  }
-  /* 카드별 stage 톤 미세 조정 (placeholder 단계용) */
-  .prod-card--home .prod-stage {
-    background: rgba(255,255,255,0.55);
-  }
-  .prod-card--study .prod-stage {
-    background: rgba(255,255,255,0.4);
-  }
-  .prod-card--brick .prod-stage {
-    background: rgba(255,255,255,0.04);
-  }
-  /* 추후 들어갈 이미지가 stage를 꽉 채우도록 — img/video/svg 직계 자식 fill */
-  .prod-stage > img,
-  .prod-stage > video,
-  .prod-stage > svg,
-  .prod-stage > picture > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  /* placeholder 안내 라벨 — 이미지 없을 때만 노출 */
-  .prod-stage-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-400);
-    letter-spacing: 0.3px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.6);
-    border: 1px dashed rgba(15,42,30,0.2);
-    backdrop-filter: blur(4px);
-  }
-  .prod-card--brick .prod-stage-label {
-    color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.2);
-  }
-  .prod-stage-label::before {
-    content: '';
-    display: inline-block;
-    width: 14px; height: 14px;
-    border: 1.5px solid currentColor;
-    border-radius: 3px;
-    opacity: 0.6;
-  }
-
-  /* ── 3카드 공통: 본문 영역 ── */
-  .prod-body {
-    padding: 24px 28px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-    z-index: 2;
-  }
-  .prod-card--home .prod-body { background: var(--chalk); }
-  .prod-card--study .prod-body { background: #E8FFB8; }
-  .prod-card--brick .prod-body { background: var(--ink); }
-  .prod-body .prod-name { font-size: 28px; }
-  .prod-body .prod-desc { margin-top: 6px; }
-
-  /* ============================================
-     3. SERVICES — 가로 캐러셀 (카테고리 6장)
-  ============================================ */
-  .services-carousel {
-    position: relative;
-    margin-top: 32px;
-  }
-
-  /* 트랙: 가로 스크롤 + 스크롤 스냅 */
-  .services-track {
-    display: flex;
-    gap: 20px;
-    padding: 8px 24px 32px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .services-track::-webkit-scrollbar { display: none; }
-
-  /* 데스크톱: 한 화면에 카드 ~2.5장, 활성 카드는 가운데 */
-  @media (min-width: 1025px) {
-    .services-track {
-      /* 좌우 패딩을 카드 약 1장 폭으로 — 첫 카드도 가운데 정렬 가능 */
-      padding: 8px calc((100vw - 460px) / 2) 32px;
-      gap: 24px;
-    }
-  }
-
-  /* 카드 */
-  .srv-card {
-    flex: 0 0 calc((100vw - 48px - 20px) / 2.4);
-    max-width: 460px;
-    min-height: 360px;
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 24px;
-    padding: 36px 32px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s ease,
-                border-color 0.3s ease,
-                opacity 0.4s ease;
-    position: relative;
-    overflow: hidden;
-    cursor: grab;
-  }
-  .srv-card:active { cursor: grabbing; }
-
-  /* 데스크톱 카드 사이즈 */
-  @media (min-width: 1025px) {
-    .srv-card {
-      flex: 0 0 460px;
-      min-height: 380px;
-    }
-  }
-
-  /* 활성(가운데) 카드 — 살짝 들어올림 */
-  .srv-card.is-active {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(15, 42, 30, 0.08);
-    border-color: rgba(52, 199, 123, 0.25);
-  }
-
-  /* 카드 헤드 — 아이콘 + 카테고리명 */
-  .srv-card-head {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .srv-card-icon {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    background: rgba(52, 199, 123, 0.1);
-    display: grid;
-    place-items: center;
-    color: var(--violet);
-    flex-shrink: 0;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                background 0.3s ease;
-  }
-  .srv-card-icon .ico {
-    width: 24px; height: 24px;
-    stroke-width: 1.75;
-  }
-  .srv-card.is-active .srv-card-icon {
-    background: var(--violet);
-    color: var(--white);
-    transform: rotate(-4deg);
-  }
-  .srv-card-cat {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--gray-600);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .srv-card.is-active .srv-card-cat {
-    color: var(--violet-deep);
-  }
-
-  /* 카드 헤드라인 */
-  .srv-card-title {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.7px;
-    line-height: 1.3;
-    margin: 0;
-  }
-
-  /* 카드 리스트 */
-  .srv-card-list {
-    list-style: none;
-    margin: auto 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-top: 1px solid var(--gray-200);
-    padding-top: 22px;
-  }
-  .srv-card-list li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--gray-700);
-    font-weight: 600;
-    letter-spacing: -0.2px;
-  }
-  .srv-card-list li::before {
-    content: '';
-    flex-shrink: 0;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--violet);
-    opacity: 0.6;
-  }
-  .srv-card-list li span { flex: 1; }
-
-  /* 태그 (NEW / HOT / CORE / BETA) */
-  .srv-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 800;
-    background: var(--violet);
-    color: var(--white);
-    padding: 2px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.4px;
-    line-height: 1.4;
-    text-transform: uppercase;
-    font-style: normal;
-  }
-  .srv-tag--beta {
-    background: var(--turbo);
-    color: var(--ink);
-  }
-
-  /* 컨트롤 (좌측 화살표 + 도트 + 우측 화살표) */
-  .services-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 0 24px;
-  }
-  .srv-arrow {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gray-200);
-    background: var(--white);
-    color: var(--ink);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(15, 42, 30, 0.06);
-  }
-  .srv-arrow:hover {
-    background: var(--violet);
-    border-color: var(--violet);
-    color: var(--white);
-    transform: scale(1.08);
-    box-shadow: 0 8px 20px rgba(52, 199, 123, 0.25);
-  }
-  .srv-arrow:active {
-    transform: scale(0.96);
-  }
-  .srv-arrow .ico {
-    width: 20px; height: 20px;
-    stroke-width: 2;
-  }
-
-  .srv-dots {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  .srv-dot {
-    width: 24px;
-    height: 4px;
-    border-radius: 2px;
-    border: none;
-    background: var(--gray-200);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.3s, width 0.3s;
-    overflow: hidden;
-    position: relative;
-  }
-  .srv-dot:hover { background: var(--gray-400); }
-  .srv-dot.is-active {
-    width: 40px;
-    background: var(--gray-200);
-  }
-  .srv-dot.is-active::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--violet);
-    transform-origin: left center;
-    animation: srvDotProgress 5s linear forwards;
-  }
-  .services-carousel.is-paused .srv-dot.is-active::after {
-    animation-play-state: paused;
-  }
-  @keyframes srvDotProgress {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-
-  /* 모션 줄이기 */
-  @media (prefers-reduced-motion: reduce) {
-    .services-track { scroll-behavior: auto; }
-    .srv-card,
-    .srv-card-icon { transition: none; }
-    .srv-card.is-active { transform: none; }
-    .srv-dot.is-active::after { animation: none; opacity: 0; }
-  }
-
-  /* 태블릿 */
-  @media (max-width: 1024px) {
-    .services-track {
-      /* 카드 1장 폭을 기준으로 좌우 대칭 패딩 */
-      padding: 8px calc((100vw - ((100vw - 68px) / 1.6)) / 2) 32px;
-    }
-    .srv-card {
-      flex: 0 0 calc((100vw - 48px - 20px) / 1.6);
-      min-height: 340px;
-      padding: 32px 28px 28px;
-    }
-    .srv-card-title { font-size: 22px; }
-  }
-
-  /* 모바일 — 한 카드 거의 풀폭 + 다음 카드 살짝 엿보기 */
-  @media (max-width: 480px) {
-    .services-carousel { margin-top: 24px; }
-    .services-track {
-      gap: 14px;
-      /* 모바일은 카드가 거의 풀폭 → 24px 좌우 패딩 (다음 카드 엿보기) */
-      padding: 8px 24px 24px;
-    }
-    .srv-card {
-      flex: 0 0 calc(100vw - 48px);
-      min-height: 320px;
-      padding: 28px 24px 24px;
-      border-radius: 20px;
-    }
-    .srv-card-title { font-size: 20px; line-height: 1.35; }
-    .srv-card-list { padding-top: 18px; gap: 10px; }
-    .srv-card-list li { font-size: 13px; }
-    .srv-card-icon { width: 42px; height: 42px; }
-    .srv-card-icon .ico { width: 22px; height: 22px; }
-    .srv-card-cat { font-size: 12px; }
-    .services-controls { gap: 12px; padding: 0 16px; }
-    .srv-arrow { width: 38px; height: 38px; }
-    .srv-arrow .ico { width: 16px; height: 16px; }
-  }
-
-  /* iPhone Mini ~ 380px */
-  @media (max-width: 380px) {
-    .srv-card { padding: 24px 20px 22px; min-height: 300px; }
-    .srv-card-title { font-size: 18px; }
-  }
-
-
-  /* ============================================
-     4. SOLUTIONS / 운영 구조 4단계
-  ============================================ */
-  .sol-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  .sol-grid--4 {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .sol-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 18px;
-    padding: 24px 20px;
-    transition: all 0.2s;
-  }
-  .sol-card:hover {
-    border-color: var(--violet);
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(52,199,123,0.15);
-  }
-  .sol-step {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--violet);
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
-  }
-  .sol-illust {
-    aspect-ratio: 16/12;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    display: grid;
-    place-items: center;
-    font-size: 60px;
-    position: relative;
-    overflow: hidden;
-  }
-  .sol-illust.i1 { background: linear-gradient(135deg, #C8F5DC 0%, #D8FFE8 100%); }
-  .sol-illust.i2 { background: linear-gradient(135deg, var(--ink) 0%, #163E2C 100%); }
-  .sol-illust.i3 { background: linear-gradient(135deg, var(--chalk) 0%, var(--violet-light) 100%); }
-  .sol-illust.i4 { background: linear-gradient(135deg, var(--ink) 0%, var(--violet-deep) 100%); }
-  .sol-card-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--ink);
-    margin-bottom: 12px;
-    letter-spacing: -0.3px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .sol-card-tag {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 800;
-    background: var(--turbo);
-    color: var(--ink);
-    padding: 1px 7px;
-    border-radius: 99px;
-    letter-spacing: 0.2px;
-    line-height: 1.4;
-  }
-  .sol-card-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .sol-card-list li {
-    font-size: 14px;
-    line-height: 1.6;
-    padding: 5px 0 0 16px;
-    position: relative;
-    color: var(--gray-700);
-    font-weight: 500;
-  }
-  .sol-card-list li::before {
-    content: '·';
-    position: absolute;
-    left: 4px; top: 5px;
-    color: var(--violet);
-    font-weight: 800;
-  }
-
-  /* ============================================
-     5. SOLO CTA
-  ============================================ */
-  .solo-cta {
-    margin-top: 56px;
-    background: linear-gradient(135deg, var(--violet) 0%, var(--violet-deep) 100%);
-    border-radius: 24px;
-    padding: 56px 48px;
-    color: var(--white);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .solo-cta::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, var(--turbo) 0%, transparent 70%);
-    opacity: 0.25;
-    border-radius: 50%;
-    filter: blur(20px);
-    pointer-events: none;
-  }
-  .solo-cta-badge {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 800;
-    background: var(--turbo);
-    color: var(--ink);
-    padding: 6px 14px;
-    border-radius: 999px;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
-  }
-  .solo-cta-title {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1.35;
-    margin-bottom: 14px;
-    position: relative;
-    z-index: 2;
-  }
-  .solo-cta-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.8);
-    font-weight: 500;
-    margin-bottom: 28px;
-    position: relative;
-    z-index: 2;
-  }
-  .solo-cta-btn {
-    display: inline-block;
-    padding: 14px 32px;
-    background: var(--white);
-    color: var(--ink);
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 800;
-    text-decoration: none;
-    transition: transform 0.15s;
-    position: relative;
-    z-index: 2;
-  }
-  .solo-cta-btn:hover { transform: translateX(4px); }
-
-  /* ============================================
-     5.5 RESULTS
-  ============================================ */
-  .results {
-    background: var(--chalk);
-    color: var(--ink);
-    padding: 100px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .results::before {
-    content: '';
-    position: absolute;
-    top: 50%; right: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(212,255,61,0.25) 0%, transparent 60%);
-    border-radius: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    filter: blur(40px);
-  }
-  .results-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-  }
-  .results-kicker {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--violet);
-    letter-spacing: 1.5px;
-    margin-bottom: 32px;
-  }
-  .results-headline {
-    font-size: 56px;
-    font-weight: 800;
-    letter-spacing: -2px;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    color: var(--ink);
-  }
-  .results-figure {
-    color: var(--violet);
-    font-size: 96px;
-    display: inline-block;
-    line-height: 1;
-    letter-spacing: -4px;
-    margin-top: 4px;
-    font-variant-numeric: tabular-nums;
-    /* 카운트업 진입 시 살짝 scale + opacity */
-    opacity: 0;
-    transform: translateY(8px) scale(0.96);
-    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .results-figure.is-counting {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  /* 카운트 완료 시 살짝 펑 튀는 액센트 */
-  @keyframes figurePop {
-    0%   { transform: translateY(0) scale(1); }
-    35%  { transform: translateY(-2px) scale(1.04); }
-    100% { transform: translateY(0) scale(1); }
-  }
-  .results-figure.is-popped {
-    animation: figurePop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  /* results-stat 숫자도 count-up */
-  .results-stat-num {
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .results-stat-num.is-counting {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .results-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--gray-700);
-    font-weight: 500;
-    margin-bottom: 48px;
-  }
-  .results-stats {
-    display: flex;
-    gap: 56px;
-  }
-  .results-main {}
-  .results-stat {}
-  .results-stat-num {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1;
-    color: var(--ink);
-    margin-bottom: 6px;
-  }
-  .results-stat-label {
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-
-  /* 우측 인용 카드 (캐러셀) — 라이트 톤 */
-  .results-quote {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 20px;
-    padding: 36px 32px;
-    position: relative;
-    box-shadow: 0 8px 24px rgba(15, 42, 30, 0.04);
-    overflow: hidden;
-  }
-  /* 큰 인용부호 데코 — 슬라이드 전환마다 반짝 */
-  .results-quote::before {
-    content: '"';
-    position: absolute;
-    top: -24px;
-    right: 16px;
-    font-size: 140px;
-    line-height: 1;
-    font-family: 'Archivo', serif;
-    color: var(--violet);
-    opacity: 0;
-    transform: scale(0.6) rotate(-8deg);
-    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .results-quote.is-stamped::before {
-    opacity: 0.12;
-    transform: scale(1) rotate(0deg);
-  }
-
-  .quote-stage {
-    position: relative;
-    min-height: 220px;
-    z-index: 2;
-  }
-  .quote-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translateX(40px) scale(0.94);
-    filter: blur(6px);
-    transition:
-      opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.5s ease;
-    pointer-events: none;
-  }
-  .quote-slide.is-active {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
-    pointer-events: auto;
-    position: relative;
-  }
-  /* 진입 시 본문이 살짝 위에서 떨어져 들어옴 */
-  .quote-slide.is-active .quote-body {
-    animation: quoteBodyIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
-  }
-  .quote-slide.is-active .quote-author {
-    animation: quoteAuthorIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-  }
-  @keyframes quoteBodyIn {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-      filter: blur(4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-  }
-  @keyframes quoteAuthorIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px) translateX(-6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) translateX(0);
-    }
-  }
-  /* 활성 슬라이드 아바타 — 부드럽게 펄스 */
-  .quote-slide.is-active .quote-avatar {
-    animation: avatarPulse 2.6s ease-in-out infinite;
-  }
-  @keyframes avatarPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52,199,123,0.35); }
-    50%      { transform: scale(1.06); box-shadow: 0 0 0 8px rgba(52,199,123,0); }
-  }
-  /* 강조 마커 — 활성화 시 좌→우로 채워지는 형광펜 */
-  .quote-slide.is-active .quote-mark {
-    background: linear-gradient(180deg, transparent 60%, rgba(212,255,61,0.6) 60%);
-    background-size: 0% 100%;
-    background-repeat: no-repeat;
-    animation: markFill 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
-  }
-  @keyframes markFill {
-    from { background-size: 0% 100%; }
-    to   { background-size: 100% 100%; }
-  }
-  .quote-body {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--ink);
-    font-weight: 500;
-    margin-bottom: 28px;
-  }
-  .quote-mark {
-    background: linear-gradient(180deg, transparent 60%, rgba(212,255,61,0.6) 60%);
-    padding: 0 2px;
-  }
-  .quote-author {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .quote-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  /* 아바타별 다양한 그라데이션 (그린 팔레트로 재구성) */
-  .quote-avatar--1 { background: radial-gradient(circle at 30% 30%, var(--violet-light), var(--turbo) 85%); }
-  .quote-avatar--2 { background: radial-gradient(circle at 30% 30%, #B4E8C8, var(--violet) 85%); }
-  .quote-avatar--3 { background: radial-gradient(circle at 30% 30%, #E8FFB0, var(--violet-deep) 85%); }
-  .quote-avatar--4 { background: radial-gradient(circle at 30% 30%, #C4F1D5, var(--violet-light) 85%); }
-  .quote-name {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--ink);
-    margin-bottom: 2px;
-  }
-  .quote-org {
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  /* 도트 인디케이터 — 라이트 톤 */
-  .quote-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 24px;
-  }
-  .quote-dot {
-    width: 24px;
-    height: 4px;
-    border-radius: 2px;
-    border: none;
-    background: var(--gray-200);
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.3s, width 0.3s;
-    overflow: hidden;
-    position: relative;
-  }
-  .quote-dot:hover { background: var(--gray-400); }
-  .quote-dot.is-active {
-    width: 40px;
-    background: var(--gray-200);
-  }
-  .quote-dot.is-active::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--violet);
-    transform-origin: left center;
-    animation: quoteProgress 6s linear forwards;
-  }
-  @keyframes quoteProgress {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-  .results-quote:hover .quote-dot.is-active::after {
-    animation-play-state: paused;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .quote-slide { transition: opacity 0.2s; transform: none; filter: none; }
-    .quote-slide.is-active { transform: none; filter: none; }
-    .quote-slide.is-active .quote-body,
-    .quote-slide.is-active .quote-author,
-    .quote-slide.is-active .quote-avatar,
-    .quote-slide.is-active .quote-mark {
-      animation: none;
-    }
-    .quote-dot.is-active::after { animation: none; opacity: 0; }
-    .results-quote::before { transition: none; }
-    .results-figure { opacity: 1; transform: none; transition: none; }
-    .results-figure.is-popped { animation: none; }
-    .results-stat-num { opacity: 1; transform: none; transition: none; }
-  }
-
-  /* ============================================
-     5.3 BENEFITS
-  ============================================ */
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .benefit-card {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 32px 24px;
-    text-align: center;
-    border: 1px solid rgba(52,199,123,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .benefit-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(52,199,123,0.12);
-  }
-  .benefit-icon {
-    width: 56px; height: 56px;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-    font-size: 28px;
-    margin: 0 auto 20px;
-  }
-  .benefit-icon--violet      { background: var(--violet); }
-  .benefit-icon--ink         { background: var(--ink); }
-  .benefit-icon--turbo       { background: var(--turbo); }
-  .benefit-icon--violet-light{ background: var(--violet-light); }
-  .benefit-title {
-    font-size: 17px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-  .benefit-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  /* ============================================
-     RESULTS 내부 포지셔닝 헤더
-  ============================================ */
-  .results-positioning {
-    text-align: center;
-    margin-bottom: 80px;
-    position: relative;
-    z-index: 2;
-  }
-  .results-mark {
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: var(--violet);
-    margin: 0 auto 24px;
-    border-radius: 2px;
-  }
-  .results-positioning-line {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.55;
-    letter-spacing: -1px;
-    color: var(--ink);
-    max-width: 900px;
-    margin: 0 auto 16px;
-  }
-  .results-positioning-brand {
-    color: var(--violet);
-    font-weight: 800;
-  }
-  .results-positioning-em {
-    color: var(--violet);
-    font-weight: 800;
-    background: linear-gradient(180deg, transparent 60%, rgba(135, 255, 199, 0.4) 60%);
-    padding: 0 4px;
-  }
-  .results-positioning-sub {
-    font-size: 14px;
-    color: rgba(255,255,255,0.55);
-    font-weight: 600;
-    letter-spacing: -0.3px;
-  }
-
-  /* ============================================
-     5.7 PRICING
-  ============================================ */
-  .pricing-section {
-    background: var(--white);
-    padding: 100px 0;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    max-width: 1080px;
-    margin: 0 auto;
-  }
-  .pricing-grid--2 {
-    grid-template-columns: 1fr 1fr;
-    max-width: 880px;
-    gap: 24px;
-  }
-  .plan {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 24px;
-    padding: 44px 36px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: transform 0.25s, box-shadow 0.25s;
-  }
-  .plan:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 56px rgba(52,199,123,0.12);
-  }
-  .plan--featured {
-    background: var(--ink);
-    color: var(--white);
-    border-color: var(--ink);
-    box-shadow: 0 16px 40px rgba(15,42,30,0.25);
-  }
-  .plan--featured:hover {
-    box-shadow: 0 28px 64px rgba(15,42,30,0.4);
-  }
-  .plan-badge {
-    position: absolute;
-    top: -14px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--turbo);
-    color: var(--ink);
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    line-height: 1.4;
-  }
-  .plan-name {
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    color: var(--violet);
-    margin-bottom: 16px;
-  }
-  .plan--featured .plan-name { color: var(--turbo); }
-
-  .plan-capacity {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 8px;
-  }
-  .plan-capacity-num {
-    font-size: 64px;
-    font-weight: 800;
-    letter-spacing: -4px;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .plan--featured .plan-capacity-num { color: var(--white); }
-  .plan-capacity-unit {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -1px;
-  }
-  .plan--featured .plan-capacity-unit { color: var(--white); }
-  .plan-capacity-desc {
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 600;
-    margin-bottom: 28px;
-  }
-  .plan--featured .plan-capacity-desc { color: rgba(255,255,255,0.55); }
-
-  .plan-price {
-    margin-bottom: 28px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .plan--featured .plan-price { border-bottom-color: rgba(255,255,255,0.1); }
-  .plan-price-num {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    color: var(--violet);
-  }
-  .plan--featured .plan-price-num { color: var(--turbo); }
-  .plan-price-unit {
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 600;
-    margin-left: 4px;
-  }
-  .plan--featured .plan-price-unit { color: rgba(255,255,255,0.5); }
-  .plan-price-tag {
-    display: inline-block;
-    margin-left: 8px;
-    font-size: 13px;
-    font-weight: 800;
-    background: var(--chalk);
-    color: var(--violet);
-    padding: 2px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.2px;
-    vertical-align: middle;
-    line-height: 1.4;
-  }
-  .plan-price-tag--accent {
-    background: var(--turbo);
-    color: var(--ink);
-  }
-  .plan-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 28px 0;
-    flex: 1;
-  }
-  .plan-features li {
-    font-size: 14px;
-    line-height: 1.6;
-    padding: 8px 0 8px 24px;
-    position: relative;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-  .plan--featured .plan-features li { color: rgba(255,255,255,0.75); }
-  .plan-features li .ico {
-    position: absolute;
-    left: 0; top: 11px;
-    color: var(--violet);
-  }
-  .plan--featured .plan-features li .ico { color: var(--turbo); }
-  .plan-btn {
-    display: block;
-    text-align: center;
-    padding: 14px 24px;
-    background: var(--chalk);
-    color: var(--ink);
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 800;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .plan-btn:hover { background: rgba(52,199,123,0.1); }
-  .plan-btn--primary {
-    background: var(--turbo);
-    color: var(--ink);
-  }
-  .plan-btn--primary:hover { background: var(--turbo); filter: brightness(0.95); }
-
-  .pricing-footnote {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 14px;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  /* ============================================
-     5.8 FAQ
-  ============================================ */
-  .faq-section {
-    background: var(--chalk);
-    padding: 100px 0;
-  }
-  .faq-list {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .faq-item {
-    background: var(--white);
-    border-radius: 16px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    border: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-  .faq-item[open] {
-    border-color: var(--violet-light);
-  }
-  .faq-q {
-    padding: 22px 28px;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink);
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    letter-spacing: -0.3px;
-  }
-  .faq-q::-webkit-details-marker { display: none; }
-  .faq-icon {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--chalk);
-    color: var(--violet);
-    display: grid;
-    place-items: center;
-    font-size: 16px;
-    font-weight: 800;
-    transition: transform 0.25s, background 0.25s;
-    flex-shrink: 0;
-  }
-  .faq-item[open] .faq-icon {
-    background: var(--violet);
-    color: var(--white);
-    transform: rotate(45deg);
-  }
-  .faq-a {
-    padding: 0 28px 24px 28px;
-    font-size: 14px;
-    line-height: 1.75;
-    color: var(--gray-700);
-    font-weight: 500;
-  }
-
-  /* ============================================
-     6. FINAL CTA
-  ============================================ */
-  .final-cta {
-    background: var(--white);
-    padding: 80px 0 100px;
-  }
-  .final-cta-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .cta-block {
-    border-radius: 24px;
-    padding: 48px 40px;
-    position: relative;
-    overflow: hidden;
-    min-height: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .cta-block.dark {
-    background: var(--white);
-    color: var(--ink);
-    border: 1px solid var(--gray-200);
-  }
-  .cta-block.dark::before {
-    content: '';
-    position: absolute;
-    bottom: -60px; right: -60px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
-    opacity: 0.18;
-    border-radius: 50%;
-    filter: blur(20px);
-  }
-  .cta-block.accent {
-    background: linear-gradient(135deg, var(--violet) 0%, var(--violet-deep) 100%);
-    color: var(--white);
-  }
-  .cta-block.accent::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, var(--turbo) 0%, transparent 70%);
-    opacity: 0.3;
-    border-radius: 50%;
-    filter: blur(20px);
-  }
-  .cta-block-tag {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--chalk);
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-    width: fit-content;
-    color: var(--violet);
-    position: relative;
-    z-index: 2;
-  }
-  .cta-block.accent .cta-block-tag {
-    background: rgba(255,255,255,0.18);
-    color: var(--white);
-  }
-  .cta-block-tag.light {
-    background: var(--turbo);
-    color: var(--ink);
-  }
-  .cta-block-title {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 1.35;
-    margin-top: 20px;
-    position: relative;
-    z-index: 2;
-  }
-  .cta-block-desc {
-    font-size: 14px;
-    color: var(--gray-700);
-    line-height: 1.7;
-    font-weight: 500;
-    margin-top: 16px;
-    position: relative;
-    z-index: 2;
-  }
-  .cta-block.accent .cta-block-desc {
-    color: rgba(255,255,255,0.85);
-  }
-  .cta-block-btn {
-    display: inline-block;
-    padding: 14px 28px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    cursor: pointer;
-    width: fit-content;
-    margin-top: 32px;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.15s;
-  }
-  .cta-block-btn:hover { transform: translateX(4px); }
-  .cta-block-btn.dark {
-    background: var(--ink);
-    color: var(--white);
-  }
-  .cta-block-btn.light {
-    background: var(--ink);
-    color: var(--turbo);
-  }
-
-  /* ============================================
-     도입 문의 모달
-  ============================================ */
-  .modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-  .modal.is-open {
-    display: flex;
-    animation: modalFadeIn 0.25s ease;
-  }
-  .modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(15, 42, 30, 0.7);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    cursor: pointer;
-  }
-  .modal-dialog {
-    position: relative;
-    background: var(--white);
-    border-radius: 24px;
-    width: 100%;
-    max-width: 520px;
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 44px 40px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.4);
-    animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  @keyframes modalFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .modal-close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 36px; height: 36px;
-    border: none;
-    background: var(--chalk);
-    border-radius: 50%;
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--gray-700);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: background 0.2s, color 0.2s;
-    line-height: 1;
-  }
-  .modal-close:hover {
-    background: var(--violet);
-    color: var(--white);
-  }
-  .modal-kicker {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--violet);
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
-  }
-  .modal-title {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.8px;
-    margin-bottom: 8px;
-  }
-  .modal-desc {
-    font-size: 14px;
-    color: var(--gray-600);
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
-
-  /* 폼 */
-  .inquiry-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  .form-row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .form-row--split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  .form-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .form-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.2px;
-  }
-  .req {
-    color: var(--violet);
-    margin-left: 2px;
-  }
-  .form-input {
-    border: 1px solid var(--gray-200);
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--white);
-    color: var(--ink);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    width: 100%;
-  }
-  .form-input:focus {
-    outline: none;
-    border-color: var(--violet);
-    box-shadow: 0 0 0 3px rgba(52, 199, 123, 0.15);
-  }
-  .form-input.is-invalid {
-    border-color: #E53E3E;
-    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12);
-  }
-  .form-textarea {
-    resize: vertical;
-    min-height: 80px;
-    font-family: inherit;
-  }
-  .form-chips {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .chip {
-    cursor: pointer;
-    user-select: none;
-  }
-  .chip input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .chip span {
-    display: inline-block;
-    padding: 9px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--gray-200);
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--gray-700);
-    background: var(--white);
-    transition: all 0.18s;
-  }
-  .chip:hover span { border-color: var(--violet-light); }
-  .chip input:checked + span {
-    background: var(--violet);
-    color: var(--white);
-    border-color: var(--violet);
-  }
-  .form-submit {
-    margin-top: 8px;
-    padding: 15px 24px;
-    background: var(--ink);
-    color: var(--white);
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    font-family: inherit;
-  }
-  .form-submit:hover {
-    background: var(--violet);
-    transform: translateY(-1px);
-  }
-  .form-privacy {
-    font-size: 14px;
-    color: var(--gray-400);
-    text-align: center;
-    margin-top: 4px;
-    line-height: 1.5;
-  }
-
-  /* 완료 화면 */
-  .modal-success {
-    text-align: center;
-    padding: 24px 8px;
-    animation: successFadeIn 0.4s ease;
-  }
-  @keyframes successFadeIn {
-    from { opacity: 0; transform: scale(0.96); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  .success-icon {
-    width: 72px; height: 72px;
-    border-radius: 50%;
-    background: var(--chalk);
-    color: var(--violet);
-    display: grid;
-    place-items: center;
-    margin: 0 auto 24px;
-    animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  @keyframes successPop {
-    0%   { transform: scale(0); }
-    60%  { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  .success-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--ink);
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-  }
-  .success-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--gray-600);
-    margin-bottom: 32px;
-  }
-  .success-desc strong {
-    color: var(--ink);
-    font-weight: 800;
-  }
-
-  /* ============================================
-     스크롤 애니메이션
-  ============================================ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
-  .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.15s; }
-  .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.25s; }
-  .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.35s; }
-  .reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 0.45s; }
-  .reveal-stagger.is-visible > * {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal, .reveal-stagger > * {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* ============================================
-     FOOTER
-  ============================================ */
-  .footer {
-    background: var(--ink);
-    color: rgba(255,255,255,0.5);
-    padding: 48px 0;
-    font-size: 14px;
-    font-weight: 500;
-    margin-top: 0;
-  }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .footer img { height: 24px; opacity: 0.85; }
-  .footer-info { line-height: 1.8; }
-  .footer-info b { color: rgba(255,255,255,0.8); font-weight: 700; }
-
-  /* ============================================
-     반응형
-  ============================================ */
-  @media (max-width: 1100px) {
-    .header-logo-tag { display: none; }
-    .header-nav { gap: 16px; }
-    .header-nav li { font-size: 14px; }
-    .header-select { display: none; }
-  }
-  @media (max-width: 1024px) {
-    .header-nav { gap: 14px; }
-    .header-nav li { font-size: 14px; }
-    .sol-grid { grid-template-columns: repeat(3, 1fr); }
-    .sol-grid--4 { grid-template-columns: repeat(2, 1fr); }
-    .problem-grid { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-    .product-grid { grid-template-columns: 1fr; }
-    .results-grid { grid-template-columns: 1fr; gap: 48px; }
-    .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
-    .pricing-grid--2 { grid-template-columns: 1fr; max-width: 480px; }
-    .plan { padding: 36px 28px; }
-    .plan-capacity-num { font-size: 64px; }
-    .sec-title { font-size: 30px; }
-    .results-headline { font-size: 44px; }
-    .results-figure { font-size: 80px; }
-    .concept-title { font-size: 26px; }
-    .results-positioning-line { font-size: 28px; }
-  }
-  @media (max-width: 900px) {
-    .header { padding: 10px 0 0; }
-    .header-inner { flex-wrap: wrap; gap: 10px; padding: 0; }
-    .header-logo, .header-right { padding: 0 16px; }
-    .header-right { margin-left: auto; }
-    .header-nav {
-      display: flex;
-      order: 3;
-      flex: 0 0 100%;
-      gap: 4px;
-      padding: 4px 16px 8px;
-      margin: 0;
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .header-nav::-webkit-scrollbar { display: none; }
-    .header-nav li { flex: 0 0 auto; padding: 6px 0; }
-    .header-nav li a {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.75);
-      transition: background 0.2s, color 0.2s;
-    }
-    .header-nav li a:hover { background: rgba(255,255,255,0.12); color: var(--white); }
-    .header-nav li.active a { background: var(--turbo); color: var(--ink); }
-
-    .header-inner { gap: 10px; }
-    /* .hero { padding: 60px 24px 80px; } */
-    .hero-shape-left, .hero-shape-right { display: none; }
-    .hero-title { font-size: 28px; letter-spacing: -1px; }
-    .hero-badges { gap: 8px; }
-    .hero-badge { font-size: 14px; padding: 6px 12px; }
-    .section { padding: 60px 0; }
-    .sec-head { margin-bottom: 36px; }
-    .sec-title { font-size: 24px; }
-    .sec-sub { font-size: 14px; }
-    .sol-grid { grid-template-columns: 1fr 1fr; }
-    .sol-grid--4 { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .benefit-card { padding: 24px 18px; }
-    .problem-insight-line { font-size: 16px; }
-    .problem-insight-line.problem-insight-strong { font-size: 20px; }
-    .concept-band { padding: 60px 24px; }
-    .concept-title { font-size: 20px; line-height: 1.6; }
-    .results-positioning-line { font-size: 22px; line-height: 1.5; }
-    .results-positioning { margin-bottom: 56px; }
-    .final-cta-grid { grid-template-columns: 1fr; }
-    .solo-cta { padding: 40px 28px; }
-    .solo-cta-title { font-size: 22px; }
-    .cta-block { padding: 36px 28px; min-height: auto; }
-    .cta-block-title { font-size: 22px; }
-    .footer-inner { flex-direction: column; text-align: center; }
-    .results { padding: 60px 0; }
-    .results-headline { font-size: 36px; }
-    .results-figure { font-size: 64px; }
-    .results-stats { gap: 32px; flex-wrap: wrap; }
-    .results-stat-num { font-size: 26px; }
-    .quote-body { font-size: 14px; }
-    .pricing-section, .faq-section { padding: 60px 0; }
-    .faq-q { font-size: 14px; padding: 18px 22px; }
-    .faq-a { padding: 0 22px 20px 22px; font-size: 14px; }
-  }
-
-  /* ============================================
-     라인 아이콘 시스템
-     - 모든 아이콘은 <svg><use href="#icon-X"/></svg> 형태로 사용
-     - currentColor 상속 → 부모 색상 자동 적용
-  ============================================ */
-  .ico {
-    width: 1em;
-    height: 1em;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    flex-shrink: 0;
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  /* 사용처별 아이콘 크기 — 컨텍스트에 따라 자동 적용 */
-  .header-icon .ico { width: 18px; height: 18px; }
-  .problem-icon .ico { width: 36px; height: 36px; stroke-width: 1.5; color: var(--violet); }
-  .sol-illust .ico { width: 80px; height: 80px; stroke-width: 1.25; opacity: 0.85; }
-  .benefit-icon .ico { width: 28px; height: 28px; stroke-width: 1.75; color: var(--white); }
-  .benefit-icon--turbo .ico { color: var(--ink); }     /* turbo 배경에는 어두운 아이콘 */
-  .hero-badge .ico { width: 14px; height: 14px; stroke-width: 2; }
-  .plan-features .ico { width: 14px; height: 14px; stroke-width: 2.25; color: var(--violet); }
-  .plan--featured .plan-features .ico { color: var(--turbo); }
-  .plan-badge .ico,
-  .solo-cta-badge .ico { width: 13px; height: 13px; stroke-width: 2; }
-  .home-chip-info .ico { width: 12px; height: 12px; stroke-width: 2.25; }
-  /* ============================================
-     V2 EDITORIAL — PITAPAT 스타일 임팩트 요소
-     /OUR WORK · WE MAKE / DAILY / POSS·BLE · /SEVEN DOT 케이스
-     ============================================ */
-  .v2-display {
-    font-family: 'Archivo', 'Pretendard Variable', sans-serif;
-    font-weight: 900;
-    line-height: 0.92;
-  }
-
-  /* /OUR WORK 슬래시 헤딩 영역 */
-  .v2-slash-section {
-    padding: 80px 24px 60px;
-    background: var(--white);
-  }
-  .v2-slash-section--alt { background: var(--chalk); }
-  .v2-slash-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-  .v2-slash-title {
-    font-size: clamp(36px, 4.5vw, 56px);
-    letter-spacing: -2px;
-    color: var(--violet);
-    line-height: 1;
-    display: inline-block;
-  }
-  /* .v2-slash-title::before {
-    content: '';
-    color: var(--violet);
-    margin-right: 6px;
-  } */
-  .v2-slash-text {
-    margin-top: 20px;
-    max-width: 520px;
-    line-height: 1.7;
-    color: var(--gray-700);
-    font-weight: 500;
-  }
-  .v2-slash-text strong {
-    color: var(--violet);
-    font-weight: 800;
-  }
-  .v2-slash-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: var(--violet);
-    color: var(--ink);
-    border-radius: 999px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 800;
-    transition: filter 0.15s, transform 0.15s;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-    margin-top:32px;
-  }
-  .v2-slash-link:hover {
-    filter: brightness(0.92);
-    transform: translateX(4px);
-  }
-  .v2-slash-link .ico { width: 16px; height: 16px; }
-
-  /* WE MAKE / DAILY / POSS·BLE 임팩트 텍스트 */
-  .v2-impact {
-    padding: 100px 24px 120px;
-    background: var(--white);
-    overflow: hidden;
-  }
-  .v2-impact-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .v2-impact-line {
-    font-family: 'Archivo', 'Pretendard Variable', sans-serif;
-    font-weight: 900;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.95;
-    letter-spacing: -3px;
-    color: var(--violet);
-  }
-  .v2-impact-line.l1 { text-align: left; }
-  .v2-impact-line.l2 {
-    text-align: center;
-    color: transparent;
-    -webkit-text-stroke: 2px var(--violet);
-    margin: 6px 0;
-  }
-  .v2-impact-line.l3 { text-align: right; }
-  .v2-impact-line .slash { color: var(--turbo); }
-  .v2-impact-dot {
-    position: absolute;
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--turbo);
-    top: 38%;
-    right: 6%;
-  }
-
-  /* /SEVEN DOT 풀스크린 케이스 영역 */
-  .v2-case {
-    padding: 60px 24px 80px;
-    background: var(--white);
-  }
-  .v2-case-stage {
-    max-width: 1200px;
-    margin: 0 auto;
-    aspect-ratio: 16/8;
-    border-radius: 24px;
-    background: var(--ink);
-    background-image:
-      radial-gradient(circle at 30% 40%, rgba(52,199,123,0.4) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(212,255,61,0.18) 0%, transparent 50%);
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-  }
-  .v2-case-label {
-    font-family: 'Archivo', 'Pretendard Variable', sans-serif;
-    font-weight: 900;
-    font-size: clamp(32px, 4vw, 56px);
-    color: var(--white);
-    letter-spacing: -2px;
-    text-align: center;
-    line-height: 0.95;
-  }
-  .v2-case-label::before {
-    content: '/';
-    color: var(--violet-light);
-    margin-right: 6px;
-  }
-  .v2-case-tags-glass {
-    position: absolute;
-    bottom: 24px; left: 24px;
-    display: flex;
-    gap: 8px;
-  }
-  .v2-case-tags-glass span {
-    padding: 6px 14px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 999px;
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(8px);
-  }
-  .v2-case-meta {
-    max-width: 1200px;
-    margin: 24px auto 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-  .v2-case-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .v2-case-tag {
-    padding: 6px 14px;
-    background: var(--chalk);
-    color: var(--violet);
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 700;
-  }
-  .v2-case-desc {
-    max-width: 520px;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .v2-case-desc strong { color: var(--violet); font-weight: 800; }
-
-  /* 반응형 */
-  @media (max-width: 900px) {
-    .v2-slash-section { padding: 60px 20px 40px; }
-    .v2-slash-inner { flex-direction: column; align-items: flex-start; }
-    .v2-impact { padding: 60px 20px 80px; }
-    .v2-impact-line { letter-spacing: -2px; }
-    .v2-impact-line.l2 { -webkit-text-stroke-width: 1.5px; }
-    .v2-case { padding: 40px 20px 60px; }
-    .v2-case-stage { aspect-ratio: 4/3; }
-    .v2-case-meta { flex-direction: column; gap: 16px; }
-  }
-</style>
+<link rel="stylesheet" href="../css/web/sevendot.css">
 </head>
 <body>
 
@@ -3419,6 +268,9 @@
   </symbol>
 </svg>
 
+<!-- 스크롤 진행도 -->
+<div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar"></div></div>
+
 <!-- TOPNOTE -->
 <div class="topnote">
   세븐닷이 오픈했습니다. 학원 운영의 새로운 기준을 만나보세요.
@@ -3439,10 +291,52 @@
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="header-right">
-      <div class="header-cta">로그인</div>
+      <div class="header-cta" onclick="window.open('https://app.7bricks.co.kr/admin')">로그인</div>
+      <!-- 모바일 햄버거 버튼 -->
+      <button class="header-burger" id="headerBurger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">
+        <span class="header-burger-line"></span>
+        <span class="header-burger-line"></span>
+        <span class="header-burger-line"></span>
+      </button>
     </div>
   </div>
 </header>
+
+<!-- 모바일 드로어 -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="mobile-drawer-backdrop" data-drawer-close></div>
+  <nav class="mobile-drawer-panel" role="dialog" aria-modal="true" aria-label="모바일 메뉴">
+    <div class="mobile-drawer-head">
+      <div class="mobile-drawer-brand">
+        <img src="../image/sevendot/logo.svg" alt="7DOT">
+        <span>DAILY ROUTINE<br>SEVEN DOT.</span>
+      </div>
+      <button class="mobile-drawer-close" data-drawer-close aria-label="메뉴 닫기">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="mobile-drawer-nav">
+      <li><a href="#hero" data-drawer-close><span class="mobile-drawer-num">01</span><span>소개</span></a></li>
+      <li><a href="#product" data-drawer-close><span class="mobile-drawer-num">02</span><span>제품 상세</span></a></li>
+      <li><a href="#services" data-drawer-close><span class="mobile-drawer-num">03</span><span>서비스</span></a></li>
+      <li><a href="#pricing" data-drawer-close><span class="mobile-drawer-num">04</span><span>요금</span></a></li>
+      <li><a href="#faq" data-drawer-close><span class="mobile-drawer-num">05</span><span>FAQ</span></a></li>
+    </ul>
+    <div class="mobile-drawer-foot">
+      <a href="#pricing" class="mobile-drawer-cta" data-drawer-close>
+        도입 문의하기
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+      <p class="mobile-drawer-meta">월 55,000원부터 · 정식 오픈 특가</p>
+    </div>
+  </nav>
+</div>
 
 <!-- 1. HERO -->
 <section class="hero" id="hero" data-active="0">
@@ -3450,8 +344,8 @@
 
     <!-- 슬라이드 1: 라이트 그린 -->
     <div class="hero-slide hero-slide-1 active" data-slide="0">
-      <div class="hero-deco hero-deco-1"></div>
-      <div class="hero-deco hero-deco-2"></div>
+      <div class="hero-deco hero-deco-1" data-parallax="0.25" aria-hidden="true"></div>
+      <div class="hero-deco hero-deco-2" data-parallax="-0.35" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-left">
           <span class="hero-eyebrow">
@@ -3462,7 +356,6 @@
           <p class="hero-sub">학원이 직접 설계하고, 학생이 매일 풉니다.<br>국·영·수 일일학습지 운영을 한 시스템에서.</p>
           <div class="hero-ctas">
             <button class="hero-cta primary" data-form-trigger>
-              <svg class="ico" width="18" height="18"><use href="#i-gift"/></svg>
               도입 문의하기
               <svg class="ico" width="18" height="18"><use href="#i-arrow-right"/></svg>
             </button>
@@ -3544,17 +437,17 @@
             <div class="hero-bigcard hero-bigcard-1">
               <span class="hero-bigcard-tag">국어</span>
               <div class="hero-bigcard-icon"><svg><use href="#i-book"/></svg></div>
-              <div class="hero-bigcard-title">어휘<br>매일 7개</div>
+              <div class="hero-bigcard-title">어휘 <br>매일 7개</div>
             </div>
             <div class="hero-bigcard hero-bigcard-2">
               <span class="hero-bigcard-tag">영어</span>
               <div class="hero-bigcard-icon"><svg><use href="#i-letter"/></svg></div>
-              <div class="hero-bigcard-title">단어<br>누적 반복</div>
+              <div class="hero-bigcard-title">단어 <br>누적 반복</div>
             </div>
             <div class="hero-bigcard hero-bigcard-3">
               <span class="hero-bigcard-tag">수학</span>
               <div class="hero-bigcard-icon"><svg><use href="#i-calculator"/></svg></div>
-              <div class="hero-bigcard-title">연산<br>틀리지 않게</div>
+              <div class="hero-bigcard-title">연산 <br>틀리지 않게</div>
             </div>
           </div>
         </div>
@@ -3563,8 +456,8 @@
 
     <!-- 슬라이드 3: 라이트 + 과목 커스텀 -->
     <div class="hero-slide hero-slide-3" data-slide="2">
-      <div class="hero-deco hero-deco-1"></div>
-      <div class="hero-deco hero-deco-2"></div>
+      <div class="hero-deco hero-deco-1" data-parallax="0.25" aria-hidden="true"></div>
+      <div class="hero-deco hero-deco-2" data-parallax="-0.35" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-left">
           <span class="hero-eyebrow">
@@ -3575,7 +468,6 @@
           <p class="hero-sub">국·영·수 중 필요한 과목만, 원하는 비중으로.<br>같은 학원 안에서도 학생별 다른 구성이 가능합니다.</p>
           <div class="hero-ctas">
             <button class="hero-cta primary" data-form-trigger>
-              <svg class="ico" width="18" height="18"><use href="#i-gift"/></svg>
               도입 문의하기
               <svg class="ico" width="18" height="18"><use href="#i-arrow-right"/></svg>
             </button>
@@ -3705,6 +597,7 @@
       <article class="prod-card prod-card--home">
         <!-- 시각 영역: 추후 이미지가 들어갈 자리 -->
         <div class="prod-stage">
+          <img src="../image/sevendot/prod-card-home.png" alt="비버홈 화면" />
           <div class="prod-stage-label">이미지 영역</div>
         </div>
 
@@ -3719,6 +612,7 @@
       <article class="prod-card prod-card--study">
         <!-- 시각 영역: 추후 이미지가 들어갈 자리 -->
         <div class="prod-stage">
+          <img src="../image/sevendot/prod-card-study.png" alt="세븐루틴 화면" />
           <div class="prod-stage-label">이미지 영역</div>
         </div>
 
@@ -3733,7 +627,8 @@
       <article class="prod-card prod-card--brick">
         <!-- 시각 영역: 추후 이미지가 들어갈 자리 -->
         <div class="prod-stage">
-          <div class="prod-stage-label">이미지 영역</div>
+          <img src="../image/sevendot/prod-card-brick.png" alt="비버홈 화면" />
+          <div class="prod-stage-label">이미지 영역</div> 
         </div>
 
         <!-- 카드 본문 (라벨 + 제목 + 설명) -->
@@ -3747,178 +642,341 @@
   </div>
 </section>
 
-<!-- 3. SERVICES -->
-<section class="section alt" id="services">
+<!-- 3. SERVICES — 탭 + 좌측 Featured + 우측 아이템 그리드 -->
+<section class="section section--services" id="services">
   <div class="wrap">
     <div class="sec-head sec-head--left">
       <div class="sec-kicker"><span class="dot"></span> 서비스</div>
       <h2 class="sec-title">학원이 원하는 학습 환경을 위한<br><span class="accent">다양한 기능</span>을 제공합니다.</h2>
       <p class="sec-sub">콘텐츠 · 데이터 · 알림 · 운영 · 연동 — 학원 운영의 모든 흐름을 세븐닷이 맡습니다.</p>
     </div>
-  </div>
 
-  <!-- 가로 캐러셀 — wrap 바깥으로 빼서 좌우 끝까지 활용 -->
-  <div class="services-carousel" id="servicesCarousel" aria-roledescription="carousel">
-    <div class="services-track" id="servicesTrack">
+    <!-- 자동 좌우 슬라이드 캐러셀 (Featured → 콘텐츠 → 데이터 → 알림 → 운영 → 연동 순환) -->
+    <div class="svc-carousel" id="svcCarousel">
+      <div class="svc-carousel-viewport">
+        <div class="svc-carousel-track" id="svcCarouselTrack">
 
-      <article class="srv-card srv-card--contents" data-srv-idx="0">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-book"/></svg></div>
-          <div class="srv-card-cat">콘텐츠</div>
-        </div>
-        <h3 class="srv-card-title">학원이 직접 설계하는<br>국·영·수 일일학습지</h3>
-        <ul class="srv-card-list">
-          <li><span>레벨별 콘텐츠</span><em class="srv-tag">NEW</em></li>
-          <li><span>학생별 맞춤 미션</span></li>
-          <li><span>학원 맞춤 데이터</span><em class="srv-tag srv-tag--beta">BETA</em></li>
-        </ul>
-      </article>
-
-      <article class="srv-card srv-card--data" data-srv-idx="1">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-chart"/></svg></div>
-          <div class="srv-card-cat">데이터</div>
-        </div>
-        <h3 class="srv-card-title">학생의 성장이<br>지도로 쌓이는 브릭맵</h3>
-        <ul class="srv-card-list">
-          <li><span>골드/실버/브론즈 3단계</span></li>
-          <li><span>브릭맵 시각화</span></li>
-          <li><span>반복 학습·언제든 복습</span></li>
-        </ul>
-      </article>
-
-      <article class="srv-card srv-card--notify" data-srv-idx="2">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-chat"/></svg></div>
-          <div class="srv-card-cat">알림</div>
-        </div>
-        <h3 class="srv-card-title">학부모 신뢰를 만드는<br>주간·월간 알림톡</h3>
-        <ul class="srv-card-list">
-          <li><span>카카오톡 자동 발송</span></li>
-          <li><span>주간·월간 리포트</span></li>
-          <li><span>학원별 맞춤 메시지</span></li>
-        </ul>
-      </article>
-
-      <article class="srv-card srv-card--ops" data-srv-idx="3">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-settings"/></svg></div>
-          <div class="srv-card-cat">운영</div>
-        </div>
-        <h3 class="srv-card-title">학원장의 시간을<br>돌려주는 관리자 페이지</h3>
-        <ul class="srv-card-list">
-          <li><span>오늘 학습 현황</span><em class="srv-tag">CORE</em></li>
-          <li><span>출석률·진도 한눈에</span></li>
-          <li><span>학생별 빠른 액션</span></li>
-        </ul>
-      </article>
-
-      <article class="srv-card srv-card--connect" data-srv-idx="4">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-globe"/></svg></div>
-          <div class="srv-card-cat">연동</div>
-        </div>
-        <h3 class="srv-card-title">설치 없이 즉시<br>크롬으로 시작</h3>
-        <ul class="srv-card-list">
-          <li><span>모든 기기 지원</span></li>
-          <li><span>안전한 클라우드</span></li>
-          <li><span>자동 업데이트</span></li>
-        </ul>
-      </article>
-
-      <article class="srv-card srv-card--routine" data-srv-idx="5">
-        <div class="srv-card-head">
-          <div class="srv-card-icon"><svg class="ico"><use href="#icon-phone"/></svg></div>
-          <div class="srv-card-cat">학습</div>
-        </div>
-        <h3 class="srv-card-title">매일 7개 미션이<br>학습 루틴이 됩니다</h3>
-        <ul class="srv-card-list">
-          <li><span>오늘의 세븐루틴</span><em class="srv-tag">HOT</em></li>
-          <li><span>부담 없는 7문제</span></li>
-          <li><span>매일 누적되는 학습</span></li>
-        </ul>
-      </article>
-
-    </div>
-
-    <!-- 진행 도트 + 컨트롤 -->
-    <div class="services-controls">
-      <button class="srv-arrow" id="srvPrev" aria-label="이전 카드">
-        <svg class="ico"><use href="#icon-arrow-left"/></svg>
-      </button>
-      <div class="srv-dots" id="srvDots">
-        <button class="srv-dot is-active" data-srv-dot="0" aria-label="콘텐츠"></button>
-        <button class="srv-dot" data-srv-dot="1" aria-label="데이터"></button>
-        <button class="srv-dot" data-srv-dot="2" aria-label="알림"></button>
-        <button class="srv-dot" data-srv-dot="3" aria-label="운영"></button>
-        <button class="srv-dot" data-srv-dot="4" aria-label="연동"></button>
-        <button class="srv-dot" data-srv-dot="5" aria-label="학습"></button>
+    <!-- 탭 본문: 좌측 큰 카드 + 우측 아이템 그리드 -->
+    <div class="svc-panel" data-svc-panel="featured">
+      <div class="svc-feature">
+        <div class="svc-feature-title">핵심 기능</div>
+        <p class="svc-feature-desc">가장 많이 활용되는<br>세븐닷 핵심 기능을<br>한눈에 살펴보세요.</p>
       </div>
-      <button class="srv-arrow" id="srvNext" aria-label="다음 카드">
-        <svg class="ico"><use href="#icon-arrow-right"/></svg>
-      </button>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-book"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">레벨별 콘텐츠 <em class="svc-item-tag svc-item-tag--new">NEW</em></div>
+            <div class="svc-item-desc">학생 수준에 맞춰 학기별·학년별 선행학습 자유롭게 설정</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-target"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">맞춤 미션</div>
+            <div class="svc-item-desc">같은 반이어도 학생별로 다른 7개 미션 자동 배포</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-phone"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">오늘의 세븐닷 <em class="svc-item-tag svc-item-tag--hot">HOT</em></div>
+            <div class="svc-item-desc">학생 앱에서 매일 확인하는 7개 미션 학습 페이지</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-blocks"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">브릭맵 학습</div>
+            <div class="svc-item-desc">골드 브릭을 받을 때까지 반복 + 언제든 복습 가능</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-chat"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학부모 알림톡</div>
+            <div class="svc-item-desc">주간·월간 학습 결과 자동 전송으로 학부모 신뢰도 상승</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-settings"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학원장 페이지 <em class="svc-item-tag svc-item-tag--new">NEW</em></div>
+            <div class="svc-item-desc">오늘 학습한 학생·출석률·진도를 한눈에 확인</div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="svc-panel" data-svc-panel="contents">
+      <div class="svc-feature svc-feature--alt">
+        <div class="svc-feature-title">콘텐츠</div>
+        <p class="svc-feature-desc">학원이 직접 설계하는<br>국·영·수 일일학습지로<br>매일의 학습을 자동화합니다.</p>
+      </div>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-book"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">레벨별 콘텐츠</div>
+            <div class="svc-item-desc">학기별·학년별 선행학습까지 학원이 자유롭게 구성</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-target"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학생별 맞춤 미션</div>
+            <div class="svc-item-desc">같은 반이어도 학생 수준에 맞는 7개 미션 자동 배포</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-type"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학원 맞춤 데이터 <em class="svc-item-tag svc-item-tag--new">BETA</em></div>
+            <div class="svc-item-desc">요청 시 학원의 교재 흐름과 진도를 그대로 반영</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-phone"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">오늘의 세븐루틴 <em class="svc-item-tag svc-item-tag--hot">HOT</em></div>
+            <div class="svc-item-desc">매일 7개의 미션으로 학습 루틴을 만듭니다</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-panel" data-svc-panel="data">
+      <div class="svc-feature svc-feature--alt">
+        <div class="svc-feature-title">데이터</div>
+        <p class="svc-feature-desc">학생의 성장이<br>지도로 쌓이는<br>브릭맵 시스템.</p>
+      </div>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-blocks"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">브릭맵 시각화</div>
+            <div class="svc-item-desc">학생의 학습 이력이 지도처럼 한눈에</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-star"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">골드/실버/브론즈 3단계</div>
+            <div class="svc-item-desc">학습 결과에 따라 자동으로 등급이 매겨집니다</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-chart"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">반복 학습·언제든 복습</div>
+            <div class="svc-item-desc">골드 브릭을 받을 때까지 반복 + 언제든 복습 가능</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-target"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학습 현황 추적</div>
+            <div class="svc-item-desc">학생별 학습 시간·정답률·복습 빈도 자동 기록</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-panel" data-svc-panel="notify">
+      <div class="svc-feature svc-feature--alt">
+        <div class="svc-feature-title">알림</div>
+        <p class="svc-feature-desc">학부모 신뢰를 만드는<br>주간·월간 알림톡<br>자동 발송 시스템.</p>
+      </div>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-chat"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">카카오톡 자동 발송</div>
+            <div class="svc-item-desc">학습 결과를 카카오톡 알림톡으로 자동 전달</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-chart"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">주간·월간 리포트</div>
+            <div class="svc-item-desc">정해진 주기에 학습 현황 자동 발송</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-type"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학원별 맞춤 메시지</div>
+            <div class="svc-item-desc">학원 이름과 메시지를 자유롭게 설정</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-panel" data-svc-panel="ops">
+      <div class="svc-feature svc-feature--alt">
+        <div class="svc-feature-title">운영</div>
+        <p class="svc-feature-desc">학원장의 시간을<br>돌려주는<br>관리자 페이지.</p>
+      </div>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-settings"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">오늘 학습 현황 <em class="svc-item-tag svc-item-tag--new">CORE</em></div>
+            <div class="svc-item-desc">오늘 학습한 학생을 한눈에 확인</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-chart"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">출석률·진도 한눈에</div>
+            <div class="svc-item-desc">학생별 출석·진도 데이터 자동 집계</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-target"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">학생별 빠른 액션</div>
+            <div class="svc-item-desc">메시지·알림·미션 재배포를 한 화면에서</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svc-panel" data-svc-panel="connect">
+      <div class="svc-feature svc-feature--alt">
+        <div class="svc-feature-title">연동</div>
+        <p class="svc-feature-desc">설치 없이 즉시<br>크롬으로 시작하는<br>웹 기반 서비스.</p>
+      </div>
+      <div class="svc-items">
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-globe"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">모든 기기 지원</div>
+            <div class="svc-item-desc">PC·태블릿·스마트폰 어디서나 동일하게 사용</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-settings"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">안전한 클라우드</div>
+            <div class="svc-item-desc">학생 학습 데이터를 안전하게 보관</div>
+          </div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-item-ico"><svg class="ico"><use href="#icon-star"/></svg></div>
+          <div class="svc-item-body">
+            <div class="svc-item-title">자동 업데이트</div>
+            <div class="svc-item-desc">새 기능이 추가되면 별도 설치 없이 바로 사용</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        </div><!-- /.svc-carousel-track -->
+      </div><!-- /.svc-carousel-viewport -->
+
+      <!-- 캐러셀 컨트롤 -->
+      <div class="svc-carousel-controls">
+        <button class="svc-carousel-arrow" id="svcCarouselPrev" aria-label="이전 슬라이드">
+          <svg class="ico"><use href="#icon-arrow-left"/></svg>
+        </button>
+        <div class="svc-carousel-dots" id="svcCarouselDots" role="tablist">
+          <button class="svc-carousel-dot is-active" data-svc-idx="0" aria-label="Featured"><span>Featured</span></button>
+          <button class="svc-carousel-dot" data-svc-idx="1" aria-label="콘텐츠"><span>콘텐츠</span></button>
+          <button class="svc-carousel-dot" data-svc-idx="2" aria-label="데이터"><span>데이터</span></button>
+          <button class="svc-carousel-dot" data-svc-idx="3" aria-label="알림"><span>알림</span></button>
+          <button class="svc-carousel-dot" data-svc-idx="4" aria-label="운영"><span>운영</span></button>
+          <button class="svc-carousel-dot" data-svc-idx="5" aria-label="연동"><span>연동</span></button>
+        </div>
+        <button class="svc-carousel-arrow" id="svcCarouselNext" aria-label="다음 슬라이드">
+          <svg class="ico"><use href="#icon-arrow-right"/></svg>
+        </button>
+      </div>
+    </div><!-- /.svc-carousel -->
   </div>
 </section>
 
 
-<!-- 4. SOLUTIONS -->
-<section class="section">
+<!-- 4. SOLUTIONS — Clear 앱 스타일 (밝은 베이지 + 그라디언트 블롭 카드) -->
+<section class="section section--solutions">
   <div class="wrap">
     <div class="sec-head sec-head--left">
-      <div class="sec-kicker"><span class="dot"></span> 운영 구조</div>
+      <div class="sec-kicker sec-kicker--solutions"><span class="dot"></span> 운영 구조</div>
       <h2 class="sec-title">학원 운영의 흐름,<br><span class="accent">4단계</span>로 정리됩니다.</h2>
       <p class="sec-sub">학원 설정부터 학부모 알림까지, 매일의 루틴이 자동으로 흘러갑니다.</p>
     </div>
 
-    <div class="sol-grid sol-grid--4">
-      <div class="sol-card">
-        <div class="sol-step">STEP 01</div>
-        <div class="sol-illust i1"><svg class="ico"><use href="#icon-puzzle"/></svg></div>
-        <div class="sol-card-title">학원 설정</div>
-        <ul class="sol-card-list">
-          <li>학년 / 수준 / 수강 과목별 콘텐츠 선택</li>
-          <li>국어 · 영어 · 수학 자유 구성</li>
-          <li>기초 / 기본 / 심화 단계 설정</li>
-        </ul>
+    <div class="flow-grid">
+      <!-- 카드 1: 학원 설정 — 큰 타이포 카드 (Clear 스타일) -->
+      <div class="flow-card flow-card--type flow-card--01">
+        <div class="flow-step">STEP 01</div>
+        <div class="flow-headline">
+          <span class="flow-headline-text">맞춤형 커리큘럼 <span class="flow-headline-last">시작<span class="flow-caret">|</span></span></span>
+        </div>
+        <div class="flow-meta">학년·수준·과목별 콘텐츠 자유 구성</div>
       </div>
 
-      <div class="sol-card">
-        <div class="sol-step">STEP 02</div>
-        <div class="sol-illust i2"><svg class="ico"><use href="#icon-phone"/></svg></div>
-        <div class="sol-card-title">학생 학습</div>
-        <ul class="sol-card-list">
-          <li>오늘의 세븐루틴 페이지에서 학습 수행</li>
-          <li><span class="sol-card-tag">오늘의 세븐루틴</span> 하루 7개 미션</li>
-          <li>부담 없이 매일 반복</li>
-        </ul>
+      <!-- 카드 2: 학생 학습 — 그라디언트 블롭 (이미지 2 우상단) -->
+      <div class="flow-card flow-card--blob flow-card--02">
+        <div class="flow-step">STEP 02</div>
+        <div class="flow-blob flow-blob--warm" aria-hidden="true"></div>
+        <div class="flow-card-foot">
+          <div class="flow-card-title">오늘의 세븐루틴</div>
+          <div class="flow-card-desc">하루 7개 미션, 부담 없이 매일</div>
+        </div>
       </div>
 
-      <div class="sol-card">
-        <div class="sol-step">STEP 03</div>
-        <div class="sol-illust i3"><svg class="ico"><use href="#icon-chart"/></svg></div>
-        <div class="sol-card-title">결과 관리</div>
-        <ul class="sol-card-list">
-          <li>학습 결과 자동 수집</li>
-          <li>관리자 페이지에서 전체 학생 관리</li>
-          <li>학생별 학습 현황 확인</li>
-        </ul>
+      <!-- 카드 3: 결과 관리 — 칩 그리드 (이미지 2 좌중간 감정 칩 스타일) -->
+      <div class="flow-card flow-card--chips flow-card--03">
+        <div class="flow-step">STEP 03</div>
+        <div class="flow-chips">
+          <span class="flow-chip">오늘의 학습</span>
+          <span class="flow-chip  flow-chip--active">진행률</span>
+          <span class="flow-chip">완료율</span>
+          <span class="flow-chip">평균 학습 시간</span>
+          <span class="flow-chip">학습 기간</span>
+        </div>
+        <div class="flow-card-foot">
+          <div class="flow-card-title">결과 관리</div>
+          <div class="flow-card-desc">학생별 학습 현황 자동 수집</div>
+        </div>
       </div>
 
-      <div class="sol-card">
-        <div class="sol-step">STEP 04</div>
-        <div class="sol-illust i4"><svg class="ico"><use href="#icon-chat"/></svg></div>
-        <div class="sol-card-title">학부모 알림</div>
-        <ul class="sol-card-list">
-          <li>학습 결과 알림톡 발송 (선택)</li>
-          <li>주간 · 월간 자동 발송</li>
-          <li>학부모 신뢰도 상승</li>
-        </ul>
+      <!-- 카드 4: 학부모 알림 — 차트 일러스트 (이미지 2 우하단 Joy Increased 스타일) -->
+      <div class="flow-card flow-card--chart flow-card--04">
+        <div class="flow-step">STEP 04</div>
+        <div class="flow-chart-wrap">
+          <svg class="flow-chart" viewBox="0 0 600 144" aria-hidden="true">
+            <defs>
+              <linearGradient id="flowChartFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2BD964" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#2BD964" stop-opacity="0.05"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 115 C 90 113, 180 105, 260 88 S 460 35, 600 14 L 600 144 L 0 144 Z"
+                  fill="url(#flowChartFill)"/>
+            <path d="M0 115 C 90 113, 180 105, 260 88 S 460 35, 600 14"
+                  fill="none" stroke="#0A1F17" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+                  vector-effect="non-scaling-stroke"/>
+            <g class="flow-chart-pt">
+              <circle cx="260" cy="88" r="5" fill="#fff" stroke="#0A1F17" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            </g>
+            <g class="flow-chart-pt">
+              <circle cx="520" cy="26" r="5" fill="#fff" stroke="#0A1F17" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            </g>
+          </svg>
+          <div class="flow-chart-tag flow-chart-tag--start">지난주</div>
+          <div class="flow-chart-tag flow-chart-tag--end">이번주</div>
+        </div>
+        <div class="flow-card-foot">
+          <div class="flow-card-title">학부모 알림</div>
+          <div class="flow-card-desc">주간·월간 알림톡 자동 발송</div>
+        </div>
       </div>
     </div>
 
     <!-- <div class="solo-cta">
-      <div class="solo-cta-badge"><svg class="ico"><use href="#icon-star"/></svg> BETA 서비스 오픈</div>
+      <div class="solo-cta-badge"><svg class="ico"><use href="#icon-star"/></svg> 정식 오픈</div>
       <div class="solo-cta-title">우리 학원에 세븐닷을<br>도입하면 어떻게 달라질까요?</div>
       <div class="solo-cta-desc">학원 규모·과목 구성에 맞춘 맞춤 컨설팅과 데모를 제공합니다.<br>담당자가 1영업일 이내 연락드립니다.</div>
       <a class="solo-cta-btn" href="#pricing">요금제 보러가기 →</a>
@@ -3989,15 +1047,20 @@
       <div class="results-main">
         <div class="results-kicker">검증된 데이터</div>
         <div class="results-headline">
-          재참여율<br>
-          <span class="results-figure">41.3%</span>
+          10명 중 <strong>7명</strong>이 경험한<br>
+          <span class="results-figure-wrap"><span class="results-figure">74%</span></span>
+          <span class="results-headline-tail">꾸준한 학습 습관</span>
         </div>
         <p class="results-desc">
-          세븐브릭스 학교 도입 검증 데이터. 아이들이 "해야 해서" 열지 않고,<br>
-          "다음 블록이 궁금해서" 먼저 엽니다.
+          세븐닷을 꾸준히 활용한 학급의 <strong>74%</strong> 학생이<br>
+          한 달에 <strong>20일 이상</strong> 학습을 이어갔습니다.
         </p>
 
         <div class="results-stats">
+          <div class="results-stat">
+            <div class="results-stat-num">20일+</div>
+            <div class="results-stat-label">월 평균 학습일</div>
+          </div>
           <div class="results-stat">
             <div class="results-stat-num">84%</div>
             <div class="results-stat-label">평균 정답률</div>
@@ -4005,10 +1068,6 @@
           <div class="results-stat">
             <div class="results-stat-num">15분</div>
             <div class="results-stat-label">일 평균 학습</div>
-          </div>
-          <div class="results-stat">
-            <div class="results-stat-num">7.2일</div>
-            <div class="results-stat-label">평균 연속 학습</div>
           </div>
         </div>
       </div>
@@ -4089,59 +1148,96 @@
 
 <!-- 4.7 PRICING -->
 <section class="pricing-section" id="pricing">
+  <!-- 페럴랙스 플로팅 데코 -->
+  <div class="pricing-deco-1" data-parallax="-0.3" data-parallax-rotate="6" aria-hidden="true"></div>
+  <div class="pricing-deco-2" data-parallax="0.4" data-parallax-rotate="-8" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-head sec-head--center">
-      <div class="sec-kicker">PRICING</div>
-      <h2 class="sec-title"><span class="accent">베타 출시 기념</span><br>파격 할인가로 만나보세요</h2>
-      <p class="sec-sub">BETA 출시 기념 신규 가입 학원 한정 특가입니다.</p>
+      <div class="sec-kicker"><span class="dot"></span>PRICING</div>
+      <h2 class="sec-title">지금 시작하는 학원에게<br><span class="accent">최대 28% 할인</span></h2>
+      <p class="sec-sub">정식 오픈 기념 신규 가입 학원 한정 프로모션입니다.<br>월 단위 결제, 약정 없이 부담 없이 시작하세요.</p>
     </div>
 
     <div class="pricing-grid pricing-grid--2">
-      <div class="plan plan--featured">
-        <div class="plan-badge"><svg class="ico"><use href="#icon-star"/></svg> POPULAR</div>
-        <div class="plan-name">베이직</div>
-        <div class="plan-capacity">
-          <span class="plan-capacity-num">50</span><span class="plan-capacity-unit">명</span>
+      <div class="plan">
+        <div class="plan-name">2과목</div>
+        <div class="plan-capacity-desc">국·영·수 중 2개 과목을 선택하는 학원</div>
+
+        <div class="plan-price-original">
+          <span class="plan-price-original-label">정가</span>
+          <span class="plan-price-original-num">월 77,000원</span>
         </div>
-        <div class="plan-capacity-desc">학생 50명까지 운영하는 학원</div>
-        <div class="plan-price">
-          <span class="plan-price-num">월 50,000</span><span class="plan-price-unit">원</span>
-          <span class="plan-price-tag plan-price-tag--accent">BETA 특가</span>
+        <!-- <span class="plan-price-promo-label">프로모션 특가</span> -->
+        <div class="plan-price-promo">
+          <span class="plan-price-hero-num">55,000</span><span class="plan-price-hero-unit">원/월</span>
         </div>
+        <div class="plan-price-save">28% 할인 · 월 22,000원 절약</div>
+
         <ul class="plan-features">
-          <li><svg class="ico"><use href="#icon-check"/></svg>국·영·수 콘텐츠 제공</li>
+          <li><svg class="ico"><use href="#icon-check"/></svg>선택한 2개 과목 콘텐츠 제공</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>오늘의 세븐루틴 (하루 7문제)</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>브릭맵 학습 시각화</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>학생별 맞춤 미션 자동 배포</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>주간·월간 학부모 알림톡</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>학원장 관리자 대시보드</li>
         </ul>
-        <a class="plan-btn plan-btn--primary" data-form-trigger="basic">도입 문의하기</a>
+
+        <div class="plan-meta">
+          <div class="plan-meta-row">
+            <span class="plan-meta-label">기본 사용 인원</span>
+            <span class="plan-meta-value">최대 50명</span>
+          </div>
+          <div class="plan-meta-row">
+            <span class="plan-meta-label">1명 추가 시</span>
+            <span class="plan-meta-value">+ 3,000원</span>
+          </div>
+        </div>
+
+        <a class="plan-btn" data-form-trigger="basic" style="margin-top: 24px;">도입 문의하기</a>
       </div>
 
-      <div class="plan">
-        <div class="plan-name">프로</div>
-        <div class="plan-capacity">
-          <span class="plan-capacity-num">100</span><span class="plan-capacity-unit">명</span>
+      <div class="plan plan--featured">
+        <!-- <div class="plan-badge"><svg class="ico"><use href="#icon-star"/></svg> POPULAR</div> -->
+        <div class="plan-name">3과목</div>
+        <div class="plan-capacity-desc">국·영·수 모두 운영하는 학원</div>
+
+        <div class="plan-price-original">
+          <span class="plan-price-original-label">정가</span>
+          <span class="plan-price-original-num">월 99,000원</span>
         </div>
-        <div class="plan-capacity-desc">학생 100명까지 운영하는 학원</div>
-        <div class="plan-price">
-          <span class="plan-price-num">월 100,000</span><span class="plan-price-unit">원</span>
-          <span class="plan-price-tag">BETA 특가</span>
+        <!-- <span class="plan-price-promo-label">프로모션 특가</span> -->
+        <div class="plan-price-promo">
+          <span class="plan-price-hero-num">77,000</span><span class="plan-price-hero-unit">원/월</span>
         </div>
+        <div class="plan-price-save">22% 할인 · 월 22,000원 절약</div>
+
         <ul class="plan-features">
-          <li><svg class="ico"><use href="#icon-check"/></svg>국·영·수 콘텐츠 제공</li>
+          <li><svg class="ico"><use href="#icon-check"/></svg>국·영·수 3과목 콘텐츠 모두 제공</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>오늘의 세븐루틴 (하루 7문제)</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>브릭맵 학습 시각화</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>학생별 맞춤 미션 자동 배포</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>주간·월간 학부모 알림톡</li>
           <li><svg class="ico"><use href="#icon-check"/></svg>학원장 관리자 대시보드</li>
         </ul>
-        <a class="plan-btn" data-form-trigger="pro">도입 문의하기</a>
+
+        <div class="plan-meta">
+          <div class="plan-meta-row">
+            <span class="plan-meta-label">기본 사용 인원</span>
+            <span class="plan-meta-value">최대 50명</span>
+          </div>
+          <div class="plan-meta-row">
+            <span class="plan-meta-label">1명 추가 시</span>
+            <span class="plan-meta-value">+ 4,000원</span>
+          </div>
+        </div>
+
+        <a class="plan-btn plan-btn--primary" data-form-trigger="pro" style="margin-top: 24px;">도입 문의하기</a>
       </div>
     </div>
 
-    <p class="pricing-footnote">학생 100명 초과 학원 / 법인 단위 도입은 별도 문의 부탁드립니다.</p>
+    <div class="pricing-footnote-wrap">
+      <p class="pricing-footnote">법인 단위 도입 / 대규모 학원은 별도 문의 부탁드립니다.</p>
+    </div>
   </div>
 </section>
 
@@ -4193,7 +1289,7 @@
           <span class="faq-icon">＋</span>
         </summary>
         <div class="faq-a">
-          네, 가능합니다. 학원이 보유한 데이터를 주시면 세븐닷이 학생에게 자동으로 배포해드립니다 (현재 BETA 단계). 자세한 형식과 절차는 도입 문의로 연락 주세요.
+          네, 가능합니다. 학원이 보유한 데이터를 주시면 세븐닷이 학생에게 자동으로 배포해드립니다. 자세한 형식과 절차는 도입 문의로 연락 주세요.
         </div>
       </details>
 
@@ -4213,8 +1309,8 @@
           <span class="faq-icon">＋</span>
         </summary>
         <div class="faq-a">
-          페이지 하단 "도입 문의하기" 버튼 또는 요금제의 "도입 문의"를 통해 연락 주시면 됩니다. 담당자가 1영업일 이내 연락드리고,
-          학원 규모·과목 구성에 맞춘 맞춤 컨설팅과 데모를 제공합니다.
+          페이지 하단 "도입 문의하기" 버튼 또는 요금제의 "도입 문의"를 통해 연락 주시면 됩니다. 담당자가 2-3영업일 이내 연락드리고,
+          학원 규모·과목 구성에 맞춘 맞춤 컨설팅을 제공합니다.
         </div>
       </details>
 
@@ -4242,17 +1338,17 @@
           학원 규모·과목 구성에 맞춘 맞춤 컨설팅과 데모를 제공합니다.<br>
           담당자가 1영업일 이내 연락드립니다.
         </div>
-        <a class="cta-block-btn dark" data-form-trigger="general">도입 문의하기 →</a>
+        <a class="cta-block-btn dark" data-form-trigger="general">도입 문의하기</a>
       </div>
 
       <div class="cta-block accent">
         <div class="cta-block-tag light">서비스 안내</div>
-        <div class="cta-block-title">세븐닷 BETA 서비스가<br>이미 시작되었습니다.</div>
+        <div class="cta-block-title">세븐닷이 정식 오픈하여<br>이미 시작되었습니다.</div>
         <div class="cta-block-desc">
           학원장님께 세븐닷의 기능과 도입 효과를 한눈에 정리한<br>
           서비스 안내 자료를 무료로 보내드립니다.
         </div>
-        <a class="cta-block-btn light">자료 받아보기 →</a>
+        <a class="cta-block-btn light">자료 받아보기</a>
       </div>
     </div>
   </div>
@@ -4356,6 +1452,18 @@
   </div>
 </div>
 
+<!-- 플로팅 스티키 CTA (PC + 모바일) -->
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+  <div class="sticky-cta-inner">
+    <!-- <button class="sticky-cta-close" aria-label="닫기" data-sticky-close>×</button> -->
+    <div class="sticky-cta-text">
+      <span class="sticky-cta-tag">정식 오픈 특가</span>
+      <span class="sticky-cta-price">월 55,000원부터</span>
+    </div>
+    <a class="sticky-cta-btn" data-form-trigger="sticky">도입 문의 <span>→</span></a>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
@@ -4368,657 +1476,7 @@
   </div>
 </footer>
 
-<script>
-  // 서비스 카테고리 캐러셀 — 무한 루프 (클론 방식) + 자동 재생 + 수동 스와이프
-  (function () {
-    const carousel = document.getElementById('servicesCarousel');
-    const track    = document.getElementById('servicesTrack');
-    const prevBtn  = document.getElementById('srvPrev');
-    const nextBtn  = document.getElementById('srvNext');
-    const dots     = document.querySelectorAll('#srvDots .srv-dot');
-    if (!carousel || !track) return;
-
-    const originals = Array.from(track.querySelectorAll('.srv-card'));
-    if (!originals.length) return;
-    const total = originals.length; // 6
-
-    // 1) 클론 추가 — 앞에 마지막 카드, 뒤에 첫 카드
-    const firstClone = originals[0].cloneNode(true);
-    const lastClone  = originals[total - 1].cloneNode(true);
-    firstClone.dataset.clone = 'first';
-    lastClone.dataset.clone = 'last';
-    firstClone.setAttribute('aria-hidden', 'true');
-    lastClone.setAttribute('aria-hidden', 'true');
-    track.insertBefore(lastClone, originals[0]);
-    track.appendChild(firstClone);
-
-    // 전체 카드(클론 포함) — 인덱스 0:lastClone, 1~total:originals, total+1:firstClone
-    const allCards = Array.from(track.querySelectorAll('.srv-card'));
-    const totalWithClones = allCards.length; // 8
-
-    const INTERVAL = 5000;
-    const SCROLL_SETTLE_MS = 420;
-    let current = 1;
-    let timer = null;
-    let isProgrammaticScroll = false;
-    let scrollSettleTimer = null;
-    let isJumping = false;
-
-    // 카드 좌표 계산 — 카드를 트랙 가운데에 위치시키는 scrollLeft 값
-    const getCardLeft = (idx) => {
-      const card = allCards[idx];
-      if (!card) return 0;
-      // 카드의 중심점 - 트랙 중심점 = scrollLeft 목표
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const trackCenter = track.clientWidth / 2;
-      return cardCenter - trackCenter;
-    };
-
-    // 즉시 점프 (애니메이션 없이) — 클론 → 원본 위치로 순간이동
-    const jumpInstant = (idx) => {
-      isJumping = true;
-      isProgrammaticScroll = true;
-      track.scrollTo({ left: getCardLeft(idx), behavior: 'auto' });
-      // 다음 프레임에 플래그 해제
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          isJumping = false;
-          isProgrammaticScroll = false;
-        });
-      });
-    };
-
-    // 부드러운 스크롤 + 도착 후 클론 점프 처리
-    const slideTo = (targetIdx) => {
-      // 인덱스를 클론 범위 안으로 정규화 (0 ~ totalWithClones-1)
-      let safeIdx = targetIdx;
-      // 만약 누군가 이상한 인덱스를 넘기면 안전하게 wrap
-      if (safeIdx < 0) safeIdx = totalWithClones - 1;
-      if (safeIdx >= totalWithClones) safeIdx = 0;
-
-      current = safeIdx;
-      isProgrammaticScroll = true;
-      track.scrollTo({ left: getCardLeft(safeIdx), behavior: 'smooth' });
-
-      // 활성 표시 — 클론이어도 시각적으로 매핑된 원본 도트 활성화
-      const originalIdx = clonedToOriginal(safeIdx);
-      setActiveDisplay(originalIdx, safeIdx);
-
-      // 도착 후 클론에 멈춰있으면 즉시 점프
-      clearTimeout(scrollSettleTimer);
-      scrollSettleTimer = setTimeout(() => {
-        if (current === 0) {
-          // 시작 클론 → 진짜 마지막 카드로 점프
-          current = total;
-          jumpInstant(total);
-          setActiveDisplay(total - 1, total);
-        } else if (current === totalWithClones - 1) {
-          // 끝 클론 → 진짜 첫 카드로 점프
-          current = 1;
-          jumpInstant(1);
-          setActiveDisplay(0, 1);
-        } else {
-          isProgrammaticScroll = false;
-        }
-      }, SCROLL_SETTLE_MS);
-    };
-
-    // 클론 인덱스 → 원본 인덱스 매핑
-    const clonedToOriginal = (idx) => {
-      if (idx === 0) return total - 1;          // 시작 클론 = 마지막 원본
-      if (idx === totalWithClones - 1) return 0; // 끝 클론 = 첫 원본
-      return idx - 1;
-    };
-
-    // 시각적 활성 표시
-    const setActiveDisplay = (originalIdx, currentClonedIdx) => {
-      allCards.forEach((c, i) => c.classList.toggle('is-active', i === currentClonedIdx));
-      dots.forEach((d, i) => d.classList.toggle('is-active', i === originalIdx));
-      const activeDot = dots[originalIdx];
-      if (activeDot) {
-        activeDot.style.animation = 'none';
-        void activeDot.offsetWidth;
-        activeDot.style.animation = '';
-      }
-    };
-
-    // 다음/이전 — 안전한 다음 인덱스 계산
-    const goNext = () => slideTo(current + 1);
-    const goPrev = () => slideTo(current - 1);
-
-    // 자동 재생
-    const startAuto = () => {
-      stopAuto();
-      timer = setInterval(goNext, INTERVAL);
-      carousel.classList.remove('is-paused');
-    };
-    const stopAuto = () => {
-      if (timer) { clearInterval(timer); timer = null; }
-      carousel.classList.add('is-paused');
-    };
-
-    // 컨트롤
-    prevBtn?.addEventListener('click', () => {
-      goPrev();
-      startAuto();
-    });
-    nextBtn?.addEventListener('click', () => {
-      goNext();
-      startAuto();
-    });
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const originalIdx = parseInt(dot.dataset.srvDot, 10);
-        slideTo(originalIdx + 1); // 원본 인덱스 → 클론 포함 인덱스 (1~total)
-        startAuto();
-      });
-    });
-
-    // 사용자 직접 스와이프 감지 — 프로그램 스크롤은 무시
-    track.addEventListener('scroll', () => {
-      if (isProgrammaticScroll || isJumping) return;
-      stopAuto();
-      clearTimeout(scrollSettleTimer);
-      scrollSettleTimer = setTimeout(() => {
-        // 가장 가까운 카드 찾기 — 트랙 가운데에 가장 가까운 카드
-        const trackRect = track.getBoundingClientRect();
-        const trackCenter = trackRect.left + trackRect.width / 2;
-        let nearestIdx = 0;
-        let minDist = Infinity;
-        allCards.forEach((card, i) => {
-          const rect = card.getBoundingClientRect();
-          const cardCenter = rect.left + rect.width / 2;
-          const dist = Math.abs(cardCenter - trackCenter);
-          if (dist < minDist) {
-            minDist = dist;
-            nearestIdx = i;
-          }
-        });
-        current = nearestIdx;
-
-        // 클론에 멈췄으면 점프
-        if (current === 0) {
-          current = total;
-          jumpInstant(total);
-          setActiveDisplay(total - 1, total);
-        } else if (current === totalWithClones - 1) {
-          current = 1;
-          jumpInstant(1);
-          setActiveDisplay(0, 1);
-        } else {
-          setActiveDisplay(clonedToOriginal(current), current);
-        }
-
-        startAuto();
-      }, 240);
-    });
-
-    // hover 시 자동재생 일시정지
-    carousel.addEventListener('mouseenter', stopAuto);
-    carousel.addEventListener('mouseleave', startAuto);
-
-    // 화면에서 사라지면 자동재생 정지
-    const visObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) startAuto();
-        else stopAuto();
-      });
-    }, { threshold: 0.2 });
-    visObserver.observe(carousel);
-
-    // 초기 위치 — 원본 첫 카드(인덱스 1)로 즉시 점프
-    requestAnimationFrame(() => {
-      jumpInstant(1);
-      current = 1;
-      setActiveDisplay(0, 1);
-    });
-
-    // 리사이즈 시 현재 카드 위치 재정렬
-    let resizeTimer = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        jumpInstant(current);
-      }, 150);
-    });
-
-    // 모션 줄이기 — 자동재생 비활성
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      stopAuto();
-    }
-  })();
-
-  // GNB 스크롤 스파이
-  (function () {
-    const navItems = document.querySelectorAll('.header-nav li');
-    const sections = ['hero', 'product', 'services', 'pricing', 'faq']
-      .map(id => document.getElementById(id))
-      .filter(Boolean);
-
-    if (!sections.length) return;
-
-    const setActive = (id) => {
-      navItems.forEach(li => {
-        const link = li.querySelector('a');
-        if (!link) return;
-        li.classList.toggle('active', link.getAttribute('href') === '#' + id);
-      });
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (visible[0]) setActive(visible[0].target.id);
-    }, {
-      rootMargin: '-30% 0px -50% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    });
-
-    sections.forEach(s => observer.observe(s));
-  })();
-
-  // Hero 슬라이더 (2슬라이드 페이드 + auto-play + 컨트롤)
-  (function () {
-    const hero = document.getElementById('hero');
-    if (!hero) return;
-    const slides = hero.querySelectorAll('.hero-slide');
-    const dots = hero.querySelectorAll('.hero-dot');
-    const prevBtn = hero.querySelector('#heroPrev');
-    const nextBtn = hero.querySelector('#heroNext');
-    if (!slides.length) return;
-
-    let idx = 0;
-    let autoTimer = null;
-    const total = slides.length;
-
-    const goTo = (n) => {
-      idx = ((n % total) + total) % total;
-      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      hero.dataset.active = String(idx);
-    };
-
-    const startAuto = () => {
-  stopAuto();
-  const tick = () => {
-    const next = (idx + 1) % total;
-    goTo(next);
-    // 슬라이드 3(커스텀 빌더 시뮬레이션)은 사이클 한 번 보이도록 길게
-    const dwell = idx === 2 ? 9000 : 7000;
-    autoTimer = setTimeout(tick, dwell);
-  };
-  const initialDwell = idx === 2 ? 9000 : 7000;
-  autoTimer = setTimeout(tick, initialDwell);
-};
-const stopAuto = () => {
-  if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
-};
- 
- 
-// ───── [3-2] 커스텀 빌더 시뮬레이션 신규 추가 ─────
-// Hero 슬라이더 IIFE 안에서 startAuto() 호출하는 부분 직후에 삽입.
-// (즉, prefers-reduced-motion 체크 블록 다음, IIFE 닫는 })(); 직전)
- 
-// ===== 커스텀 빌더 시뮬레이션 =====
-// 슬라이드 3이 활성화될 때 자동으로 칩/슬롯이 토글되는 데모 애니메이션
-const builder = document.getElementById('customBuilder');
-if (builder) {
-  const chips = builder.querySelectorAll('.custom-chip[data-subject]');
-  const slots = builder.querySelectorAll('.custom-slot[data-subject]');
-  let demoTimer = null;
-  let cycleStep = 0;
- 
-  // 시나리오: 0 = 국·영·수 ON, 1 = 영어 OFF, 2 = 수학도 OFF (국어만)
-  const scenarios = [
-    { off: [] },                    // 모두 ON
-    { off: ['eng'] },               // 영어 OFF
-    { off: ['eng', 'math'] },       // 영어·수학 OFF
-  ];
- 
-  const applyScenario = (step) => {
-    const off = scenarios[step].off;
-    // 칩 상태 업데이트 (한자는 항상 is-soon이므로 건드리지 않음)
-    chips.forEach(chip => {
-      const subj = chip.dataset.subject;
-      if (subj === 'hanja') return;
-      chip.classList.toggle('is-on', !off.includes(subj));
-    });
-    // 슬롯 toggle: leaving → 사라짐
-    slots.forEach(slot => {
-      const subj = slot.dataset.subject;
-      slot.classList.toggle('is-leaving', off.includes(subj));
-    });
-  };
- 
-  const startDemo = () => {
-    stopDemo();
-    // 처음에는 모두 ON 상태로 리셋
-    cycleStep = 0;
-    applyScenario(0);
-    // 2.6초 간격으로 시나리오 순환
-    demoTimer = setInterval(() => {
-      cycleStep = (cycleStep + 1) % scenarios.length;
-      applyScenario(cycleStep);
-    }, 1600);
-  };
-  const stopDemo = () => {
-    if (demoTimer) { clearInterval(demoTimer); demoTimer = null; }
-    // 슬라이드 3 떠나면 모두 ON 상태로 복귀
-    applyScenario(0);
-  };
- 
-  // 슬라이드 변경 시 시뮬레이션 시작/종료
-  const observer = new MutationObserver(() => {
-    if (hero.dataset.active === '2') {
-      startDemo();
-    } else {
-      stopDemo();
-    }
-  });
-  observer.observe(hero, { attributes: true, attributeFilter: ['data-active'] });
- 
-  // 페이지 로드 시 슬라이드 3이 이미 활성 상태일 수 있음
-  if (hero.dataset.active === '2') startDemo();
- 
-  // 모션 줄이기 설정 시 시뮬레이션 비활성
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    observer.disconnect();
-  }
-}
-
-    prevBtn?.addEventListener('click', () => { goTo(idx - 1); startAuto(); });
-    nextBtn?.addEventListener('click', () => { goTo(idx + 1); startAuto(); });
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { goTo(i); startAuto(); });
-    });
-
-    // hover 시 일시정지
-    hero.addEventListener('mouseenter', stopAuto);
-    hero.addEventListener('mouseleave', startAuto);
-
-    // 모션 줄이기 설정 시 자동 전환 비활성
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // 자동 전환 안 함, 수동 컨트롤만 동작
-    } else {
-      startAuto();
-    }
-  })();
-
-  // 도입 문의 모달
-  (function () {
-    const modal       = document.getElementById('inquiryModal');
-    const formScreen  = document.getElementById('modalForm');
-    const successScreen = document.getElementById('modalSuccess');
-    const form        = document.getElementById('inquiryForm');
-    if (!modal || !form) return;
-
-    const openModal = () => {
-      formScreen.hidden = false;
-      successScreen.hidden = true;
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => document.getElementById('academy')?.focus(), 100);
-    };
-
-    const closeModal = () => {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      form.reset();
-      form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-    };
-
-    document.querySelectorAll('[data-form-trigger]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal();
-      });
-    });
-
-    document.querySelectorAll('[data-modal-close]').forEach(el => {
-      el.addEventListener('click', closeModal);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      let valid = true;
-      const academy  = form.academy;
-      const director = form.director;
-      const region   = form.region;
-      const contact  = form.contact;
-      const subjects = form.querySelectorAll('input[name="subject"]:checked');
-
-      [academy, director, region, contact].forEach(input => {
-        if (!input.value.trim()) {
-          input.classList.add('is-invalid');
-          valid = false;
-        } else {
-          input.classList.remove('is-invalid');
-        }
-      });
-
-      if (subjects.length === 0) {
-        alert('진행 과목을 1개 이상 선택해주세요.');
-        valid = false;
-      }
-
-      if (!valid) return;
-
-      document.getElementById('successAcademy').textContent = academy.value.trim();
-      formScreen.hidden = true;
-      successScreen.hidden = false;
-    });
-  })();
-
-  // 학원장 인용 캐러셀
-  (function () {
-    const stage = document.getElementById('quoteStage');
-    const dots  = document.getElementById('quoteDots');
-    if (!stage || !dots) return;
-
-    const slides = stage.querySelectorAll('.quote-slide');
-    const dotEls = dots.querySelectorAll('.quote-dot');
-    if (!slides.length) return;
-
-    let current = 0;
-    let timer = null;
-    const INTERVAL = 6000;
-
-    const wrapper = document.querySelector('.results-quote');
-    let stampTimer = null;
-
-    const show = (index) => {
-      const next = (index + slides.length) % slides.length;
-      slides.forEach((s, i) => s.classList.toggle('is-active', i === next));
-      dotEls.forEach((d, i) => d.classList.toggle('is-active', i === next));
-      const activeDot = dotEls[next];
-      if (activeDot) {
-        activeDot.style.animation = 'none';
-        void activeDot.offsetWidth;
-        activeDot.style.animation = '';
-      }
-      // 인용부호 데코 — 살짝 reset 후 다시 stamp
-      if (wrapper) {
-        wrapper.classList.remove('is-stamped');
-        if (stampTimer) clearTimeout(stampTimer);
-        stampTimer = setTimeout(() => wrapper.classList.add('is-stamped'), 60);
-      }
-      current = next;
-    };
-
-    const start = () => {
-      stop();
-      timer = setInterval(() => show(current + 1), INTERVAL);
-    };
-    const stop = () => {
-      if (timer) { clearInterval(timer); timer = null; }
-    };
-
-    dotEls.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const target = parseInt(dot.dataset.dot, 10);
-        show(target);
-        start();
-      });
-    });
-
-    wrapper?.addEventListener('mouseenter', stop);
-    wrapper?.addEventListener('mouseleave', start);
-
-    const visObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // 첫 진입 시 — 인용부호 데코 stamp
-          if (wrapper && !wrapper.classList.contains('is-stamped')) {
-            setTimeout(() => wrapper.classList.add('is-stamped'), 80);
-          }
-          start();
-        } else {
-          stop();
-        }
-      });
-    }, { threshold: 0.3 });
-    visObserver.observe(wrapper);
-  })();
-
-  // 스크롤 애니메이션
-  (function () {
-    const targets = [
-      ...document.querySelectorAll('.sec-head'),
-      ...document.querySelectorAll('.problem-insight'),
-      ...document.querySelectorAll('.concept-title'),
-      ...document.querySelectorAll('.results-positioning'),
-      ...document.querySelectorAll('.results-grid'),
-      ...document.querySelectorAll('.solo-cta'),
-      ...document.querySelectorAll('.pricing-footnote'),
-      ...document.querySelectorAll('.cta-block'),
-    ];
-    targets.forEach(el => el.classList.add('reveal'));
-
-    const grids = [
-      ...document.querySelectorAll('.problem-grid'),
-      ...document.querySelectorAll('.product-grid'),
-      ...document.querySelectorAll('.sol-grid'),
-      ...document.querySelectorAll('.benefits-grid'),
-      ...document.querySelectorAll('.pricing-grid'),
-      ...document.querySelectorAll('.faq-list'),
-    ];
-    grids.forEach(el => el.classList.add('reveal-stagger'));
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    [...targets, ...grids].forEach(el => observer.observe(el));
-
-    // HTML에서 직접 class="reveal"이 붙은 요소들도 observe (v2 임팩트 영역 등)
-    document.querySelectorAll('.reveal').forEach(el => {
-      if (!targets.includes(el) && !grids.includes(el)) {
-        observer.observe(el);
-      }
-    });
-  })();
-
-  // 카운트업 애니메이션 — 재참여율 41.3% + 보조 stat 숫자
-  (function () {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // easeOutCubic — 빠르게 시작해서 천천히 정착
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-    // 숫자 카운트업 함수
-    // el: 대상 element
-    // target: 최종 숫자 (소수점 가능)
-    // suffix: 단위 (% / 분 / 일 등)
-    // duration: ms
-    const countUp = (el, target, suffix, duration, decimals = 0) => {
-      if (reduceMotion) {
-        el.textContent = target.toFixed(decimals) + suffix;
-        return;
-      }
-      const start = performance.now();
-      const tick = (now) => {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = easeOutCubic(progress);
-        const value = target * eased;
-        el.textContent = value.toFixed(decimals) + suffix;
-        if (progress < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          el.textContent = target.toFixed(decimals) + suffix;
-        }
-      };
-      requestAnimationFrame(tick);
-    };
-
-    // 메인 figure (재참여율 41.3%)
-    const figure = document.querySelector('.results-figure');
-    if (figure) {
-      // 초기 값 0% 표시
-      figure.textContent = '0%';
-
-      const figObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            figure.classList.add('is-counting');
-            // entrance 애니메이션 후 카운트업
-            setTimeout(() => {
-              countUp(figure, 41.3, '%', 1800, 1);
-              // 카운트 끝나고 펑 효과
-              setTimeout(() => {
-                figure.classList.add('is-popped');
-                setTimeout(() => figure.classList.remove('is-popped'), 600);
-              }, 1850);
-            }, 200);
-            figObserver.unobserve(figure);
-          }
-        });
-      }, { threshold: 0.4 });
-      figObserver.observe(figure);
-    }
-
-    // 보조 stat 숫자들 (84% / 15분 / 7.2일)
-    const statTargets = [
-      { selector: '.results-stats .results-stat:nth-child(1) .results-stat-num', value: 84,  suffix: '%', decimals: 0 },
-      { selector: '.results-stats .results-stat:nth-child(2) .results-stat-num', value: 15,  suffix: '분', decimals: 0 },
-      { selector: '.results-stats .results-stat:nth-child(3) .results-stat-num', value: 7.2, suffix: '일', decimals: 1 },
-    ];
-    statTargets.forEach((cfg, i) => {
-      const el = document.querySelector(cfg.selector);
-      if (!el) return;
-      el.textContent = '0' + cfg.suffix;
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // 메인 figure 다음 순서로 살짝 stagger
-            setTimeout(() => {
-              el.classList.add('is-counting');
-              countUp(el, cfg.value, cfg.suffix, 1300, cfg.decimals);
-            }, 500 + i * 180);
-            obs.unobserve(el);
-          }
-        });
-      }, { threshold: 0.4 });
-      obs.observe(el);
-    });
-  })();
-</script>
+<script src="../js/web/sevendot.js" defer></script>
 
 </body>
 </html>
