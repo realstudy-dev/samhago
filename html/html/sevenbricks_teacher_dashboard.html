@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>세븐브릭스 교사용 대시보드</title>
+<style>
+:root{--blue:#1677ff;--soft:#eef6ff;--line:#e6edf5;--bg:#f7faff;--text:#172033;--muted:#778399;--green:#27ae60;--orange:#ff8a1f;--purple:#7c5cff}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--text)}
+.app{min-height:100vh;display:grid;grid-template-columns:190px 1fr 330px;grid-template-rows:62px 1fr;background:linear-gradient(#fff,#f7faff)}
+header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:5}
+.brand{font-size:21px;font-weight:900;display:flex;gap:10px;align-items:center}.logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#ff3b30,#ffc400,#1677ff);transform:rotate(-10deg)}
+.teacher{font-weight:800}.bell{margin-right:16px;position:relative}.bell b{position:absolute;top:-10px;right:-10px;background:#ff3b30;color:white;border-radius:999px;font-size:11px;padding:2px 6px}
+aside{grid-row:2;padding:18px 14px;border-right:1px solid var(--line);background:#fff8}.class{padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font-weight:800;margin-bottom:24px}
+.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;text-align:left;padding:13px 12px;border-radius:13px;font-weight:900;font-size:15px;cursor:pointer}.nav button.active{background:var(--soft);color:var(--blue)}
+.ai{margin-top:210px;border:1px solid #cfe1ff;background:#eef6ff;border-radius:18px;padding:18px;font-weight:900;line-height:1.6}.ai .bot{font-size:48px;text-align:center;margin:16px}.primary{background:var(--blue)!important;color:white!important;border:0!important}
+main{grid-row:2;padding:22px;overflow:auto}.top{display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px}.search{width:250px;border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:#fff;color:var(--muted);font-weight:700}
+.cards{display:grid;grid-template-columns:1.55fr 1fr 1fr 1fr;gap:12px;margin-bottom:18px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 24px #1f2d3d0a}.goal{background:#fff8e7;border-color:#ffe2a8;cursor:pointer}
+.goal h3{margin:0 0 8px;font-size:14px}.goal .title{font-weight:900;margin-bottom:14px}.progress{height:10px;background:#e9edf3;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:var(--green);border-radius:99px}.percent{color:var(--green);font-weight:900;float:right;margin-top:6px}.sub{color:var(--muted);font-size:13px;margin-top:12px;font-weight:700}
+.stat .label{color:var(--muted);font-size:13px;font-weight:800}.stat .num{font-size:31px;font-weight:900;margin-top:8px}.stat small{font-weight:900;color:var(--green)}
+.tabs{display:flex;gap:42px;border-bottom:1px solid var(--line);margin-bottom:16px}.tab{padding:13px 0;border:0;background:transparent;font-weight:900;color:#536078;cursor:pointer}.tab.active{color:var(--blue);border-bottom:3px solid var(--blue)}
+.grid-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:#56657b;font-weight:800;font-size:13px}
+.students{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.student{position:relative;display:grid;grid-template-columns:60px 1fr;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 14px;min-height:112px;cursor:pointer}.student.selected{border:2px solid var(--blue)}.avatar{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#e7f5ff;font-size:33px}.girl{background:#f3e6ff}.name{font-weight:900}.money{font-weight:900;margin:6px 0}.tag{font-size:11px;font-weight:900;border-radius:99px;padding:5px 8px;margin-right:4px}.green{background:#eaf8ef;color:#168043}.orange{background:#fff4e8;color:#e86000}.purple{background:#f1edff;color:#6a4de8}.learning-done{background:#eaf8ef;color:#168043}.learning-wait{background:#f1f5f9;color:#64748b}
+.bottom{margin-top:14px;display:grid;gap:12px}.mini{display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:12px}.box{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}.panel-title{display:flex;justify-content:space-between;font-weight:900;margin-bottom:14px}.link{color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid #f0f4f8;font-weight:800}th{color:#79859a}.pill{background:var(--soft);color:var(--blue);border-radius:99px;padding:4px 10px}
+.detail{grid-row:2;border-left:1px solid var(--line);background:#fff;padding:20px 18px;overflow:auto}.detail-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;box-shadow:0 10px 30px #1f2d3d14;text-align:left}.center{text-align:center}.big{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:#f1e3ff;font-size:54px;margin:auto}.student-name{font-size:27px;font-weight:900}.balance-num{font-size:44px;font-weight:900}.reasons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.reason{border:1px solid var(--line);background:white;border-radius:12px;padding:12px 10px;font-weight:900;cursor:pointer}.reason.active{border-color:var(--blue);color:var(--blue);background:#f8fbff}.stepper{display:grid;grid-template-columns:30px 1fr 30px;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:42px}.stepper button{border:0;background:#fff;font-weight:900;cursor:pointer}.stepper span{display:grid;place-items:center;border-left:1px solid var(--line);border-right:1px solid var(--line);font-weight:900}.give{display:grid;grid-template-columns:92px 1fr;gap:10px}.comment,.field{border:1px solid var(--line);border-radius:12px;padding:12px;color:#465268;font-weight:700;line-height:1.55}.tiny{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px;font-weight:900;cursor:pointer}.post{width:100%;padding:14px;margin-top:12px}
+.modal-bg{position:fixed;inset:0;background:#0f172a59;display:none;place-items:center;z-index:10}.modal-bg.show{display:grid}.modal{width:min(560px,calc(100vw - 40px));background:#fff;border-radius:22px;padding:22px;box-shadow:0 24px 60px #0f172a40}.modal.large{width:min(980px,calc(100vw - 40px));max-height:88vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.close{border:0;background:#f4f7fb;border-radius:10px;width:36px;height:36px;font-size:20px;cursor:pointer}.modal input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:800;margin-bottom:10px}
+.morning{display:grid;grid-template-columns:1.35fr .85fr;gap:18px}.section{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}.schedule{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.period{display:grid;grid-template-columns:48px 1fr;gap:6px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 10px}.period span{color:var(--blue);font-size:12px;font-weight:900}.period input{border:0!important;outline:0!important;padding:0!important;margin:0!important}.preview{background:#f8fbff;border:1px solid #dceaff;border-radius:20px;padding:18px}.preview-row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}.period-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}.chip{background:var(--soft);border-radius:99px;padding:7px 10px;font-size:12px;font-weight:900}.toast{position:fixed;right:24px;bottom:24px;background:#172033;color:white;padding:14px 18px;border-radius:14px;font-weight:900;opacity:0;transform:translateY(12px);transition:.25s;z-index:99}.toast.show{opacity:1;transform:none}
+.no-result{grid-column:1/-1;text-align:center;padding:34px;border:1px dashed var(--line);border-radius:18px;background:#fff;color:var(--muted);font-weight:900}
+@media(max-width:1200px){.app{grid-template-columns:80px 1fr}.detail{display:none}.students{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:1fr 1fr}}
+
+.today-learning-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0 18px}
+.today-learning-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px;text-align:center;box-shadow:0 8px 20px rgba(31,45,61,.06)}
+.today-learning-level{font-size:13px;font-weight:900;color:#334155}
+.today-learning-round{font-size:24px;font-weight:950;margin:6px 0 14px}
+.subject-icon{width:78px;height:78px;border-radius:50%;background:#f8fafc;margin:0 auto 14px;display:grid;place-items:center;font-size:38px}
+.brick-counts{display:grid;gap:7px;text-align:left}
+.brick-count{display:flex;align-items:center;justify-content:space-between;border-radius:12px;padding:8px 10px;font-size:12px;font-weight:950}
+.brick-count.gold{background:#fff7d9;color:#9b6500}.brick-count.silver{background:#f1f5f9;color:#475569}.brick-count.bronze{background:#fff1e8;color:#a34c10}
+.subject-summary{margin-top:10px;border-radius:999px;padding:9px 10px;font-weight:950;color:#fff}.subject-summary.korean{background:#34d399}.subject-summary.math{background:#06b6d4}.subject-summary.english{background:#fb7185}
+.student-status{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.status-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:#f8fbff;font-weight:900}.praise-list{display:grid;gap:8px}.praise-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;font-weight:800;line-height:1.45}
+
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand"><div class="logo"></div>세븐브릭스 교사용 대시보드</div><div><span class="bell">🔔<b>3</b></span><span class="teacher">👩‍🏫 김선생님⌄</span></div></header>
+<aside><div class="class">🏫 4학년 1반 ⌄</div><nav class="nav"><button data-menu="학급">⌂ 학급</button><button class="active" data-menu="학생">👥 학생</button><button data-menu="브릭머니">🪙 브릭머니</button><button data-menu="주간리포트">📊 주간리포트</button><button data-menu="알림게시판">💬 알림게시판 NEW</button><button data-menu="설정">⚙ 설정</button></nav><div class="ai">AI 코멘트로<br>학생 성장을<br>더 쉽게!<div class="bot">🤖</div><button class="btn primary">자세히 보기</button></div></aside>
+<main>
+<div class="top"><input class="search" id="studentSearch" type="search" placeholder="🔍 학생 이름 검색" aria-label="학생 이름 검색" /><button class="btn" data-action="filter">☷ 필터</button></div>
+<section class="cards">
+<div class="card goal" data-action="goal"><h3>우리 반 공동 목표</h3><div class="title">서로 칭찬하고 함께 성장하기</div><div class="progress"><div class="bar"></div></div><span class="percent">0%</span><div style="clear:both"></div><div class="sub">목표까지 0 브릭머니 남았어요! ✨ 🧱</div></div>
+<div class="card stat"><div class="label">🧱 전체 브릭머니</div><div class="num totalNum">0</div><small>+120 이번 주</small></div>
+<div class="card stat"><div class="label">💜 이번 주 칭찬 수</div><div class="num">58</div><small style="color:var(--purple)">+12 이번 주</small></div>
+<div class="card stat"><div class="label">📈 학습 참여율</div><div class="num">87%</div><small style="color:var(--blue)">+6% 이번 주</small></div>
+</section>
+<div class="tabs"><button class="tab active" data-tab="학생">학생</button><button class="tab" data-tab="자리배치도">자리배치도</button><button class="tab" data-tab="브릭머니">브릭머니</button><button class="tab" data-tab="주간리포트">주간리포트</button></div>
+<div class="grid-head"><span>전체 21명</span><span>정렬 : 이름순 ▦ ☰</span></div>
+<section class="students" id="students"></section>
+<section class="bottom">
+<div class="card"><div class="panel-title">최근 활동 요약 <span class="link">주간리포트 보기 ›</span></div><div class="mini"><div class="box">🏆 가장 많이 칭찬받은 학생<br><b>김하랑</b><br><small>칭찬 5회</small></div><div class="box">📈 가장 많이 성장한 학생<br><b>최민준</b><br><small style="color:var(--green)">브릭머니 +35</small></div><div class="box">주요 클래스 활동<ul><li>공동 목표에 함께 참여하고 있어요!</li><li>이번 주 칭찬이 12회 늘었어요! 🎉</li><li>18명이 이번 주 학습을 완료했어요! 🎉</li></ul></div></div></div>
+<div class="card"><div class="panel-title">최근 알림 게시판 <span class="link">전체 알림 게시판 보기 ›</span></div><table><thead><tr><th>제목</th><th>보낸 대상</th><th>보낸 시간</th></tr></thead><tbody id="boards"><tr><td>오늘의 수업 안내</td><td><span class="pill">전체 학생</span> 21명</td><td>오늘 09:30</td></tr><tr><td>주간 준비물 안내</td><td><span class="pill">전체 학생</span> 21명</td><td>어제 16:20</td></tr></tbody></table></div>
+</section>
+</main>
+<section class="detail"><div class="detail-card"><div class="center"><div class="big">👧</div><div class="student-name">한예린</div><div class="tag orange">🔥 연속 9일 참여 중</div></div><h4>브릭머니 잔액</h4><div class="balance-num">🧱 122</div><h4>칭찬 사유 선택</h4><div class="reasons"><button class="reason active">👍 칭찬 참여</button><button class="reason">💬 모두 다시 하기</button><button class="reason">❤️ 친구 도와주기</button><button class="reason">🎯 수업 집중</button></div><h4>지급 브릭머니</h4><div class="give"><div class="stepper"><button>-</button><span>5</span><button>+</button></div><button class="btn primary" data-action="give">🧱 +5 브릭머니 지급</button></div><h4>✨ AI 코멘트 생성</h4><div class="comment">예린이는 매일 꾸준히 학습에 참여하며 어려운 문제도 포기하지 않고 끝까지 다시 풀어보는 모습이 정말 멋져요!</div><p style="text-align:right"><button class="tiny" data-action="regen">↻ 다시 생성</button></p><hr><h3>아침게시판</h3><p class="sub">학생들이 아침에 세븐브릭스를 열면 가장 먼저 보는 안내 화면입니다.</p><button class="btn primary post" data-action="morning">☀ 아침게시판 작성</button></div></section>
+</div>
+
+<div class="modal-bg" id="goalModal"><div class="modal"><div class="modal-head"><b>🎯 우리 반 공동목표 설정</b><button class="close" data-action="goalClose">×</button></div><label>목표명</label><input id="goalTitle" value="서로 칭찬하고 함께 성장하기"><label>목표 브릭머니</label><input id="goalTarget" type="number" value="1000"><label>현재 달성 브릭머니</label><input id="goalCurrent" readonly><small>학생들이 받은 브릭머니 총합으로 자동 계산됩니다.</small><br><br><label>달성 보상</label><input value="금요일 5분 놀이 시간"><label>목표 기간</label><input value="이번 주 월요일 ~ 금요일"><div class="comment" id="goalPreview"></div><p style="text-align:right"><button class="btn" data-action="goalReset">새로고침</button> <button class="btn" data-action="goalPreview">미리보기</button> <button class="btn primary" data-action="goalSave">저장</button></p></div></div>
+<div class="modal-bg" id="boardModal"><div class="modal large"><div class="modal-head"><b>☀ 아침게시판 작성</b><button class="close" data-action="morningClose">×</button></div><div class="morning"><div class="section"><h3>📚 오늘의 수업</h3><div class="schedule" id="schedule"></div><h3>🎒 수업 준비</h3><div class="field" contenteditable data-field="ready">국어 공책, 수학 익힘책, 색연필 준비</div><h3>🌱 아침활동</h3><div class="field" contenteditable data-field="morning">세븐브릭스 학습 완료 후 독서 10분 하기</div><h3>📢 전달사항</h3><div class="field" contenteditable data-field="notice">오늘은 미술 준비물을 꼭 챙겨 주세요.</div><p style="text-align:right"><button class="tiny" data-action="polish">✨ AI 문장 다듬기</button> <button class="tiny" data-action="draft">🔍 AI 초안 생성</button> <button class="btn primary" data-action="post">✈ 학생 화면에 게시하기</button></p></div><div class="preview"><h2>학생 화면 미리보기</h2><div class="preview-row"><b>오늘의 수업</b><div class="period-list" id="previewSchedule"></div></div><div class="preview-row"><b>수업 준비</b><div id="pReady"></div></div><div class="preview-row"><b>아침활동</b><div id="pMorning"></div></div><div class="preview-row"><b>전달사항</b><div id="pNotice"></div></div></div></div></div></div>
+
+<div class="modal-bg" id="learningModal">
+  <div class="modal large">
+    <div class="modal-head">
+      <b id="learningTitle">학생 학습 결과</b>
+      <button class="close" data-action="learningClose">×</button>
+    </div>
+    <div class="center" style="margin-bottom:12px">
+      <div class="big" id="learningAvatar">👧</div>
+      <div class="student-name" id="learningName">한예린</div>
+    </div>
+    <h3>오늘의 학습 결과</h3>
+    <div class="today-learning-cards">
+      <div class="today-learning-card">
+        <div class="today-learning-level">국어 레벨 2-1</div>
+        <div class="today-learning-round" id="korRound">9 회차</div>
+        <div class="subject-icon">📗</div>
+        <div class="brick-counts">
+          <div class="brick-count gold">골드브릭 <span id="korGold">2</span></div>
+          <div class="brick-count silver">실버브릭 <span id="korSilver">1</span></div>
+          <div class="brick-count bronze">브론즈브릭 <span id="korBronze">0</span></div>
+        </div>
+        <div class="subject-summary korean">어휘 학습 완료</div>
+      </div>
+      <div class="today-learning-card">
+        <div class="today-learning-level">수학 레벨 2-1</div>
+        <div class="today-learning-round" id="mathRound">8 회차</div>
+        <div class="subject-icon">📐</div>
+        <div class="brick-counts">
+          <div class="brick-count gold">골드브릭 <span id="mathGold">1</span></div>
+          <div class="brick-count silver">실버브릭 <span id="mathSilver">2</span></div>
+          <div class="brick-count bronze">브론즈브릭 <span id="mathBronze">1</span></div>
+        </div>
+        <div class="subject-summary math">연산 학습 완료</div>
+      </div>
+      <div class="today-learning-card">
+        <div class="today-learning-level">영어 레벨 A-1</div>
+        <div class="today-learning-round" id="engRound">8 회차</div>
+        <div class="subject-icon">📕</div>
+        <div class="brick-counts">
+          <div class="brick-count gold">골드브릭 <span id="engGold">1</span></div>
+          <div class="brick-count silver">실버브릭 <span id="engSilver">1</span></div>
+          <div class="brick-count bronze">브론즈브릭 <span id="engBronze">1</span></div>
+        </div>
+        <div class="subject-summary english">단어 학습 완료</div>
+      </div>
+    </div>
+    <div class="student-status">
+      <div class="status-card">🔥 연속 학습 <span id="learningStreak">9일</span></div>
+      <div class="status-card">✅ 오늘의 학습 <span id="learningDone">완료</span></div>
+    </div>
+    <h3>지금까지 받은 칭찬</h3>
+    <div class="praise-list" id="praiseList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const students=[['김우주','👦',120,'오늘 학습 완료','연속 7일'],['김하랑','👧',165,'오늘 학습 완료','연속 11일'],['박지한','👦',98,'오늘 학습 완료',''],['이서온','👧',82,'칭찬 3회',''],['이도현','👦',73,'','연속 5일'],['정민아','👧',104,'오늘 학습 완료','칭찬 2회'],['최민준','👦',56,'오늘 학습 완료',''],['한예린','👧',122,'연속 9일','칭찬 4회'],['강서준','👦',86,'오늘 학습 완료',''],['박소율','👧',63,'','연속 4일'],['윤지후','👦',104,'오늘 학습 완료','칭찬 3회'],['임서준','👦',46,'','연속 3일']];
+let selected=7, target=1000, resetOffset=0, toastTimer, searchQuery='';
+const $=s=>document.querySelector(s);
+function toast(msg){$('#toast').textContent=msg;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2200)}
+function total(){return students.reduce((a,b)=>a+b[2],0)} function goalNow(){return Math.max(0,total()-resetOffset)}
+function renderStudents(){
+ const q=searchQuery.trim().toLowerCase();
+ const filtered=students.map((s,i)=>({s,i})).filter(({s})=>!q||s[0].toLowerCase().includes(q));
+ $('#students').innerHTML=filtered.length
+  ? filtered.map(({s,i})=>{
+    const learned = s[3] && s[3].includes('학습');
+    const learningTag = learned
+      ? '<span class="tag learning-done">✅ 오늘 학습 완료</span>'
+      : '<span class="tag learning-wait">⏳ 오늘 학습 확인 전</span>';
+    const streakTag = s[4] ? `<span class="tag ${s[4].includes('칭찬')?'purple':'orange'}">${s[4].includes('연속')?'🔥 ':''}${s[4]}</span>` : '';
+    const praiseTag = s[3] && s[3].includes('칭찬') ? `<span class="tag purple">${s[3]}</span>` : '';
+    return `<article class="student ${i===selected?'selected':''}" data-i="${i}"><div class="avatar ${s[1]==='👧'?'girl':''}">${s[1]}</div><div><div class="name">${s[0]}</div><div class="money">🧱 ${s[2]}</div>${learningTag}${streakTag}${praiseTag}</div></article>`;
+  }).join('')
+  : `<div class="no-result">검색 결과가 없습니다. 다른 이름으로 검색해 주세요.</div>`;
+}
+function updateGoal(){let now=goalNow(), pct=target?Math.min(100,Math.round(now/target*100)):0, left=Math.max(0,target-now);$('.totalNum').textContent=total().toLocaleString();$('.bar').style.width=pct+'%';$('.percent').textContent=pct+'%';$('.sub').textContent=`목표까지 ${left} 브릭머니 남았어요! ✨ 🧱`;$('#goalCurrent').value=now;$('#goalPreview').textContent=`${$('#goalTitle').value} · ${pct}% 달성 · 목표까지 ${left} 브릭머니 남았어요!`}
+function updateDetail(){let s=students[selected];$('.big').textContent=s[1];$('.student-name').textContent=s[0];$('.balance-num').innerHTML='🧱 '+s[2]}
+function makeSchedule(){let subs=['국어','수학','과학','미술','',''];$('#schedule').innerHTML=subs.map((v,i)=>`<div class="period"><span>${i+1}교시</span><input class="periodInput" data-p="${i+1}" value="${v}" placeholder="입력"></div>`).join('')}
+function preview(){ $('#previewSchedule').innerHTML=[...document.querySelectorAll('.periodInput')].map(x=>`<span class="chip">${x.dataset.p}교시 ${x.value||'미입력'}</span>`).join(''); $('#pReady').textContent=$('[data-field=ready]').textContent; $('#pMorning').textContent=$('[data-field=morning]').textContent; $('#pNotice').textContent=$('[data-field=notice]').textContent}
+
+function learningData(i){
+ const base=i+1;
+ return {
+  kor:[base%3+1,(base+1)%3,base%2],
+  math:[(base+2)%3+1,base%3,(base+1)%2],
+  eng:[(base+1)%3+1,(base+2)%3,base%2],
+  rounds:[8+(base%3),7+(base%4),6+(base%5)],
+  done: students[i][3] && students[i][3].includes('학습') ? '완료' : '확인 전',
+  praise:[
+   '성실 참여 · 세븐브릭스 학습에 꾸준히 참여했어요.',
+   '오답 다시 풀기 · 어려운 문제도 끝까지 다시 도전했어요.',
+   '수업 집중 · 오늘 수업에 집중하는 모습이 좋았어요.'
+  ].slice(0,(base%3)+1)
+ }
+}
+function openLearningModal(i){
+ const s=students[i], d=learningData(i);
+ $('#learningAvatar').textContent=s[1]; $('#learningName').textContent=s[0]; $('#learningTitle').textContent=s[0]+' 학생 학습 결과';
+ ['kor','math','eng'].forEach((sub,idx)=>{
+   const roundEl=document.getElementById(sub+'Round'); if(roundEl) roundEl.textContent=d.rounds[idx]+' 회차';
+   ['Gold','Silver','Bronze'].forEach((name,j)=>document.getElementById(sub+name).textContent=d[sub][j]);
+ });
+ const streak=(s[4]&&s[4].includes('연속'))?s[4].replace('연속 ',''):(i+1)+'일';
+ $('#learningStreak').textContent=streak; $('#learningDone').textContent=d.done;
+ $('#praiseList').innerHTML=d.praise.map(p=>`<div class="praise-item">${p}</div>`).join('');
+ $('#learningModal').classList.add('show');
+}
+
+document.addEventListener('click',e=>{let a=e.target.closest('[data-action]');let st=e.target.closest('.student');let nav=e.target.closest('.nav button');let tab=e.target.closest('.tab');
+ if(nav){document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===nav));toast(nav.dataset.menu+' 메뉴를 열었습니다.');if(nav.dataset.menu==='알림게시판'){$('#boardModal').classList.add('show');preview()}return}
+ if(tab){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===tab));toast(tab.dataset.tab+' 탭으로 이동했습니다.');return}
+ if(st){selected=+st.dataset.i;renderStudents();updateDetail();openLearningModal(selected);toast(students[selected][0]+' 학생 학습 결과를 열었습니다.');return}
+ if(e.target.closest('.reason')){document.querySelectorAll('.reason').forEach(x=>x.classList.remove('active'));e.target.closest('.reason').classList.add('active');return}
+ if(!a)return;let act=a.dataset.action;
+ if(act==='learningClose') $('#learningModal').classList.remove('show');
+ if(act==='goal'){$('#goalModal').classList.add('show');updateGoal()}
+ if(act==='goalClose')$('#goalModal').classList.remove('show');
+ if(act==='goalPreview')updateGoal();
+ if(act==='goalSave'){target=+$('#goalTarget').value||1000;$('.goal .title').textContent=$('#goalTitle').value;$('#goalModal').classList.remove('show');updateGoal();toast('공동목표를 저장했습니다.')}
+ if(act==='goalReset'){if(confirm('우리 반 공동목표 달성 브릭머니를 0으로 새로고침할까요?\n학생 개인 브릭머니는 유지되고, 공동목표 진행률만 0으로 초기화됩니다.')){resetOffset=total();updateGoal();toast('공동목표 진행률을 0으로 초기화했습니다.')}else toast('새로고침을 취소했습니다.')}
+ if(act==='give'){let n=+$('.stepper span').textContent;students[selected][2]+=n;renderStudents();updateDetail();updateGoal();toast(students[selected][0]+' 학생에게 '+n+' 브릭머니를 지급했습니다.')}
+ if(act==='regen'){$('.comment').textContent=students[selected][0]+'이는 꾸준히 참여하며 스스로 도전하는 모습이 돋보입니다. 앞으로도 응원합니다!';toast('AI 코멘트를 생성했습니다.')}
+ if(act==='morning'){$('#boardModal').classList.add('show');preview()}
+ if(act==='morningClose')$('#boardModal').classList.remove('show');
+ if(act==='polish'){$('[data-field=notice]').textContent='오늘은 미술 준비물을 꼭 챙겨 주세요. 세븐브릭스 학습 후 차분히 수업을 시작하겠습니다.';preview();toast('AI가 문장을 다듬었습니다.')}
+ if(act==='draft'){['국어','수학','과학','미술','창체','체육'].forEach((v,i)=>document.querySelectorAll('.periodInput')[i].value=v);$('[data-field=ready]').textContent='국어 공책, 수학 익힘책, 색연필, 풀 준비';$('[data-field=morning]').textContent='세븐브릭스 오늘 학습 완료 후 독서 10분 하기';$('[data-field=notice]').textContent='오늘은 미술 활동이 있으니 준비물을 꼭 확인해 주세요.';preview();toast('AI가 초안을 생성했습니다.')}
+ if(act==='post'){$('#boards').insertAdjacentHTML('afterbegin','<tr><td>오늘의 수업 안내</td><td><span class="pill">전체 학생</span> 21명</td><td>방금 전</td></tr>');$('#boardModal').classList.remove('show');toast('아침게시판을 학생 첫 화면에 게시했습니다.')}
+});
+document.querySelectorAll('.stepper button').forEach(b=>b.onclick=(e)=>{let v=$('.stepper span'),n=+v.textContent;n=b.textContent==='+'?n+1:Math.max(1,n-1);v.textContent=n;$('[data-action=give]').innerHTML='🧱 +'+n+' 브릭머니 지급';e.stopPropagation()});
+document.addEventListener('input',e=>{if(e.target.matches('.periodInput')||e.target.matches('[data-field]'))preview();if(e.target.matches('#goalTitle,#goalTarget'))updateGoal()});
+$('#studentSearch').addEventListener('input',e=>{
+ searchQuery=e.target.value;
+ renderStudents();
+ if(searchQuery.trim()) toast(`'${searchQuery}' 검색 결과를 표시합니다.`);
+});
+$('#studentSearch').addEventListener('keydown',e=>{
+ if(e.key==='Escape'){ e.target.value=''; searchQuery=''; renderStudents(); toast('검색을 초기화했습니다.'); }
+});
+renderStudents();makeSchedule();updateDetail();updateGoal();preview();
+</script>
+</body>
+</html>
