@@ -771,7 +771,7 @@ const PAGE_URLS = {
 const CURRENT_PAGE = document.body.dataset.page || "class";
 
 const VIEW_TITLES = {
-  class: "반 홈",
+  class: "관리 홈",
   classmgmt: "반 관리",
   students: "학생",
   brick: "포인트",
