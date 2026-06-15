@@ -1,0 +1,137 @@
+/* ============================================================================
+   board_list.css - 게시판형 리스트 공통 (notice/policy/inquiry/faq/lecture/experienceapply/semhago/user 공유)
+   ============================================================================ */
+
+/* 페이지 헤더 우측 안내 텍스트 (인라인 → 클래스) */
+/* 헤더 설명줄(.nt-header-desc) / 검색바(.nt-search)는 공통 sevendot-admin.css 로 이동 (중복 제거) */
+
+/* 게시판 테이블 */
+.sevendot-admin .nt-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+.sevendot-admin .nt-table thead {
+  background: #fff;
+  border-top: 1px solid #e6e8eb;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .nt-table th {
+  font-size: 13px;
+  font-weight: 700;
+  color: #97989b;
+  letter-spacing: -0.2px;
+  padding: 10px 14px;
+  text-align: left;
+}
+.sevendot-admin .nt-table th.right {
+  text-align: right;
+}
+.sevendot-admin .nt-table th.center {
+  text-align: center;
+}
+.sevendot-admin .nt-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.sevendot-admin .nt-table tbody tr:hover {
+  background: #f3faf6;
+}
+.sevendot-admin .nt-table tbody tr.pinned {
+  background: #fff;
+}
+.sevendot-admin .nt-table tbody tr.pinned:hover {
+  background: #f3faf6;
+}
+.sevendot-admin .nt-table td {
+  padding: 14px;
+  font-size: 13px;
+  color: rgba(49, 58, 70, 0.9);
+  vertical-align: middle;
+}
+.sevendot-admin .nt-table td.muted {
+  color: #97989b;
+  font-size: 13px;
+}
+.sevendot-admin .nt-table td.right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.sevendot-admin .nt-table td.center {
+  text-align: center;
+}
+
+/* "필독" 강조 (인라인 → 클래스) */
+.sevendot-admin .nt-table .pin-flag {
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* 제목 셀 - 핀/첨부 아이콘 */
+.sevendot-admin .nt-title-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sevendot-admin .nt-pin-ico {
+  font-size: 13px;
+  color: #dc3545;
+}
+.sevendot-admin .nt-title-cell .title {
+  font-weight: 600;
+  color: rgba(49, 58, 70, 0.95);
+  letter-spacing: -0.2px;
+}
+.sevendot-admin .nt-title-cell .new-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #dc3545;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.sevendot-admin .nt-title-cell .attach-ico {
+  font-size: 13px;
+  color: #97989b;
+  margin-left: 4px;
+}
+
+/* ============================================================================
+   [반응형]
+   ============================================================================ */
+@media (max-width: 768px) {
+  .sevendot-admin .nt-table colgroup, .sevendot-admin .nt-table thead {
+    display: none;
+  }
+  .sevendot-admin .nt-table, .sevendot-admin .nt-table tbody {
+    display: block;
+    width: 100%;
+  }
+  .sevendot-admin .nt-table tbody tr {
+    display: block;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .sevendot-admin .nt-table td {
+    display: block;
+    padding: 2px 0;
+    border: none;
+    font-size: 13px;
+  }
+  .sevendot-admin .nt-table td.muted {
+    font-size: 13px;
+  }
+  .sevendot-admin .nt-table td.right, .sevendot-admin .nt-table td.center {
+    text-align: left;
+  }
+  .sevendot-admin .nt-table td.col-views {
+    display: none;
+  }
+}
+
+/* [보정] 컬러 카테고리 칩 줄바꿈 방지 + 좌측 정렬용 최소폭 해제 (.nt-table 안에서만) */
+.sevendot-admin .nt-table .badge.chip-color { white-space: nowrap; min-width: 0; }
+
+/* .cat-label / .reply-cnt 는 공통 .badge.neutral / .badge.count 로 통합 → sevendot-admin.css */

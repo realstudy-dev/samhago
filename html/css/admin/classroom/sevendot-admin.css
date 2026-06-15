@@ -1,0 +1,1273 @@
+/* ============================================================================
+   세븐닷 관리자 - 공통 디자인 시스템
+   ============================================================================
+
+   [사용법]
+   페이지의 <head> 안에 아래 한 줄 추가:
+
+     <link rel="stylesheet" href="admin-common.css">
+
+   [수정 방법]
+   ① 색상/여백/라운드 등 디자인 토큰은 이 파일에서 일괄 관리
+   ② 페이지별 고유 스타일은 각 HTML 의 \3c style> 블록에 그대로 유지
+   ③ 같은 클래스명을 페이지에서 override 하려면 더 구체적인 셀렉터 사용
+
+   [디자인 토큰 요약]  — Toss 비주얼 언어 참고 (2026-06 업데이트)
+   - 메인 그린:      #009D5B   (액션, 활성, 강조)
+   - 액션 그린:      #32CD8B   (조회 등 보조 액션)
+   - 호버 그린:      #1FB072
+   - 옅은 그린:      #e7f5ed, #f3faf6
+   - 텍스트 진:      #191F28 / #333D4B   (제목·강조)
+   - 텍스트 기본:    #191F28             (본문·레이블 — 제목과 동일 톤으로 통일)
+   - 텍스트 보조:    #8B95A1             (설명·플레이스홀더)
+   - 보더:           #e6e8eb (기본), #D1D6DB (강조)
+   - 라운드:         8px (input/button), 12px (card), 16px (modal)
+   - 자간:           -0.01em (-1%, 전역)
+   - 컬러 활용:      6:3:1 (60% 바탕 / 30% 보조 / 10% 포인트 그린)
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   [기본 리셋]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin *, .sevendot-admin *::before, .sevendot-admin *::after {
+  box-sizing: border-box;
+  color: #191F28;
+  text-shadow: none;
+}
+.sevendot-admin {
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    "Helvetica Neue",
+    "Segoe UI",
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    "Malgun Gothic",
+    sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  letter-spacing: -0.01em; /* 자간 -1% (전역) */
+  -webkit-font-smoothing: antialiased;
+
+  /* 포인트 컬러 6:3:1 (60:30:10) 활용 비율
+     - 60% 바탕(중립): 화면 대부분의 배경/본문
+     - 30% 보조: 옅은 그린·회색 표면 (구분/카드/필터)
+     - 10% 포인트: 메인 그린은 액션·활성·강조에만 절제해서 사용 */
+  --c-base: #ffffff; /* 60% 바탕 */
+  --c-sub: #f3faf6; /* 30% 보조 (옅은 그린) */
+  --c-point: #009d5b; /* 10% 포인트 (액션/강조) */
+}
+
+/* ----------------------------------------------------------------------------
+   [페이지 컨테이너]
+   좌측 메뉴 옆에 붙는 우측 영역 — 좌측 메뉴 외 공간을 100% 채움
+   max-width / margin auto 제거. 페이지 내부 콘텐츠는 width:100% 자연스럽게.
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .rightBoxNT {
+  width: calc(100% - 200px); /* sevenbricks: 좌측 고정메뉴(200px) 회피 */
+  padding: 24px;
+  background: #F5F6F8; /* 페이지 옅은 회색 — 카드가 떠보이는 효과 */
+  min-height: calc(100vh - 89px);
+  box-sizing: border-box;
+}
+
+/* ag-Grid 목록처럼 .rightBoxNT 가 .sevendot-admin 을 감싸는 "역중첩" 레이아웃.
+   (그리드는 .sevendot-admin 밖에 둬야 하므로 중첩이 뒤집힘)
+   위 base 규칙이 안 닿으므로 동일 여백/배경을 여기서 보장 → 페이지별 인라인 padding 금지 */
+.rightBoxNT:has(> .sevendot-admin) {
+  padding: 24px;
+  background: #F5F6F8;
+  box-sizing: border-box;
+}
+
+/* ----------------------------------------------------------------------------
+   [페이지 헤더]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .page-header {
+  padding: 0 0 10px;
+  border-bottom: 1px solid #e6e8eb;
+  margin: 0 0 14px; /* Bootstrap .page-header(margin:40px 0 20px) 덮어쓰기 */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.sevendot-admin .page-header h2 {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #191F28;
+  letter-spacing: -0.3px;
+}
+.sevendot-admin .page-header .breadcrumb {
+  font-size: 13px;
+  color: #8B95A1;
+  background: none;
+  padding: 0;
+  margin: 0;
+  float: none; /* common.css .breadcrumb{float:left} 무력화 */
+}
+/* 브레드크럼 링크 (상세/작성 페이지 공용) — 구 notice_detail.css/notice_write.css 중복 제거 */
+.sevendot-admin .bc-link {
+  color: #009d5b;
+  text-decoration: none;
+}
+.sevendot-admin .bc-link:hover {
+  text-decoration: underline;
+}
+/* 헤더 설명줄 (구 notice_list.css → 공통 이동) */
+.sevendot-admin .nt-header-desc {
+  font-size: 13px;
+  color: #8B95A1;
+}
+
+/* ----------------------------------------------------------------------------
+   [섹션 박스] 카드형 컨테이너
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .section-box {
+  border: 1px solid #e6e8eb;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02); /* 페이지 회색 위에 떠보이는 효과 */
+}
+/* datepicker 드롭다운이 카드 밖으로 보이도록 overflow 해제 (문의관리 기간 필터 등) */
+.sevendot-admin .section-box:has(.input-group.date) {
+  overflow: visible;
+}
+.sevendot-admin .section-box .section-head {
+  padding: 16px 20px;
+  background: #fff; /* 흰 헤더 (회색 배경 제거) */
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sevendot-admin .section-box .section-head .title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #191F28;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.2px;
+}
+.sevendot-admin .section-box .section-head .desc {
+  font-size: 13px;
+  color: #8B95A1;
+}
+.sevendot-admin .section-box .section-body {
+  padding: 20px;
+}
+
+/* ----------------------------------------------------------------------------
+   [검색바 / 필터]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .search-bar {
+  padding: 14px 20px;
+  background: #fff; /* 흰 배경 통일 */
+  border: 1px solid #e6e8eb;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+.sevendot-admin .search-bar label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8B95A1;
+  margin-right: 4px;
+}
+.sevendot-admin .search-bar input, .sevendot-admin .search-bar select, .sevendot-admin .search-bar textarea {
+  border: 1px solid #D1D6DB;
+  height: 32px;
+  padding: 0 10px;
+  font-size: 15px;
+  font-family: inherit;
+  color: #333D4B;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.sevendot-admin .search-bar input:focus, .sevendot-admin .search-bar select:focus {
+  border-color: #009d5b;
+  box-shadow: 0 0 0 3px rgba(0, 157, 91, 0.08);
+}
+.sevendot-admin .search-bar select {
+  min-width: 100px;
+}
+.sevendot-admin .search-bar .btn-search {
+  background: #32cd8b;
+  color: #fff;
+  border: none;
+  padding: 0 18px;
+  height: 32px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background 0.15s;
+}
+.sevendot-admin .search-bar .btn-search:hover {
+  background: #1fb072;
+}
+.sevendot-admin .search-bar .date-row {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+.sevendot-admin .search-bar .quick-btn {
+  background: #fff;
+  border: 1px solid #D1D6DB;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #191F28;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sevendot-admin .search-bar .quick-btn:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+
+/* ----------------------------------------------------------------------------
+   [결과 영역]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .result-wrap {
+  border: 1px solid #e6e8eb;
+  border-top: none;
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+.sevendot-admin .result-meta {
+  padding: 12px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.sevendot-admin .result-meta .count {
+  font-size: 14px;
+  color: #8B95A1;
+}
+.sevendot-admin .result-meta .count strong {
+  color: #009d5b;
+  font-weight: 700;
+}
+.sevendot-admin .result-meta .hint {
+  font-size: 13px;
+  color: #8B95A1;
+}
+
+/* ----------------------------------------------------------------------------
+   [공통 테이블] table.tbl
+   페이지별 변종: tbl-product, tbl-payment, tbl-mini 등
+   ---------------------------------------------------------------------------- */
+.sevendot-admin table.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.sevendot-admin table.tbl thead tr {
+  background: #fafbfc;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin table.tbl th {
+  padding: 11px 18px;
+  text-align: left;
+  font-weight: 700;
+  color: #191F28;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.sevendot-admin table.tbl th.center {
+  text-align: center;
+}
+.sevendot-admin table.tbl th.right {
+  text-align: right;
+}
+.sevendot-admin table.tbl tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+.sevendot-admin table.tbl tbody tr:hover {
+  background: #f7faf9;
+}
+.sevendot-admin table.tbl td {
+  padding: 14px 18px;
+}
+.sevendot-admin table.tbl td.center {
+  text-align: center;
+}
+.sevendot-admin table.tbl td.right {
+  text-align: right;
+}
+.sevendot-admin table.tbl td.muted {
+  color: #8B95A1;
+}
+.sevendot-admin table.tbl td.nowrap {
+  white-space: nowrap;
+}
+.sevendot-admin table.tbl td.bold {
+  font-weight: 700;
+  color: #191F28;
+}
+.sevendot-admin table.tbl td.price {
+  font-weight: 700;
+  color: #191F28;
+}
+
+/* ----------------------------------------------------------------------------
+   [페이지네이션]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .pagination {
+  padding: 14px;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+}
+.sevendot-admin .pagination button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #D1D6DB;
+  background: #fff;
+  font-size: 14px;
+  color: #191F28;
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: inherit;
+  margin: 0 2px;
+  transition: all 0.15s;
+}
+.sevendot-admin .pagination button:hover {
+  background: #f5f7f7;
+  border-color: #009d5b;
+}
+.sevendot-admin .pagination button.active {
+  background: #009d5b;
+  color: #fff;
+  border-color: #009d5b;
+}
+
+/* ----------------------------------------------------------------------------
+   [상태 뱃지] .badge - 의미별 색상 변형
+   ----------------------------------------------------------------------------
+   사용:  <span class="badge success">결제완료</span>
+          <span class="badge warning">대기</span>
+          <span class="badge danger">만료</span>
+          <span class="badge info">처리 중</span>
+          <span class="badge neutral">종료</span>
+
+   레거시 alias (paid/failed/refunded 등)는 호환을 위해 유지.
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+/* 의미별 (권장) */
+.sevendot-admin .badge.success {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .badge.info {
+  background: #e9f0ff;
+  color: #3a6df0;
+}
+.sevendot-admin .badge.warning {
+  background: #fff4e6;
+  color: #e8862c;
+}
+.sevendot-admin .badge.danger {
+  background: #fde7e7;
+  color: #dc3545;
+}
+.sevendot-admin .badge.neutral {
+  background: #f0f2f4;
+  color: #191F28;
+}
+.sevendot-admin .badge.outline {
+  background: #fff;
+  color: #191F28;
+  border: 1px solid #D1D6DB;
+}
+
+/* 레거시 alias (기존 페이지 호환) */
+.sevendot-admin .badge.paid {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .badge.failed {
+  background: #fde7e7;
+  color: #dc3545;
+}
+.sevendot-admin .badge.refunded {
+  background: #fff4e6;
+  color: #e8862c;
+}
+.sevendot-admin .badge.scheduled {
+  background: #f0f2f4;
+  color: #191F28;
+  border: 1px solid #e6e8eb;
+}
+.sevendot-admin .badge.pending {
+  background: #fff4e6;
+  color: #e8862c;
+}
+.sevendot-admin .badge.approved {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .badge.rejected {
+  background: #fde7e7;
+  color: #dc3545;
+}
+
+/* ----------------------------------------------------------------------------
+   [탭 언더라인] .tab-pills - 카테고리/필터 탭  (Toss 언더라인 스타일)
+   ----------------------------------------------------------------------------
+   사용:  <div class="tab-pills">
+            <button class="active">전체</button>
+            <button>업데이트<span class="count">3</span></button>
+          </div>
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .tab-pills {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  background: #fff;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .tab-pills button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #8B95A1;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.sevendot-admin .tab-pills button:hover {
+  color: #191F28;
+}
+.sevendot-admin .tab-pills button.active {
+  color: #009d5b;
+  border-bottom-color: #009d5b;
+  font-weight: 500;
+}
+.sevendot-admin .tab-pills button .count {
+  display: inline-block;
+  background: #f0f2f4;
+  color: #8B95A1;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 99px;
+}
+.sevendot-admin .tab-pills button.active .count {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+
+/* ----------------------------------------------------------------------------
+   [요약 카드] .summary-cards - 페이지 상단 요약 그리드
+   ----------------------------------------------------------------------------
+   사용:  <div class="summary-cards">
+            <div class="sc-card"><div class="sc-k">대기</div><div class="sc-v info">3건</div></div>
+          </div>
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .summary-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.sevendot-admin .summary-cards .sc-card {
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sevendot-admin .summary-cards .sc-k {
+  font-size: 13px;
+  color: #8B95A1;
+  font-weight: 600;
+}
+.sevendot-admin .summary-cards .sc-v {
+  font-size: 22px;
+  font-weight: 800;
+  color: #191F28;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+.sevendot-admin .summary-cards .sc-v.success {
+  color: #009d5b;
+}
+.sevendot-admin .summary-cards .sc-v.info {
+  color: #3a6df0;
+}
+.sevendot-admin .summary-cards .sc-v.warning {
+  color: #e8862c;
+}
+.sevendot-admin .summary-cards .sc-v.danger {
+  color: #dc3545;
+}
+.sevendot-admin .summary-cards .sc-v .unit {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8B95A1;
+  margin-left: 2px;
+}
+.sevendot-admin .summary-cards .sc-sub {
+  font-size: 13px;
+  color: #8B95A1;
+}
+
+@media (max-width: 1024px) {
+  .sevendot-admin .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .sevendot-admin .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   [빈 상태] .empty-state - 검색 결과 없음, 데이터 없음 안내
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .empty-state {
+  padding: 60px 20px;
+  text-align: center;
+  color: #8B95A1;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.sevendot-admin .empty-state .ico {
+  font-size: 32px;
+  margin-bottom: 6px;
+  opacity: 0.5;
+}
+
+/* ----------------------------------------------------------------------------
+   [공통 폼 입력] .form-input / .form-textarea / .form-select
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .form-input, .sevendot-admin .form-textarea, .sevendot-admin .form-select {
+  width: 100%;
+  border: 1px solid #D1D6DB;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #191F28;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.sevendot-admin .form-input, .sevendot-admin .form-select {
+  height: 38px;
+}
+.sevendot-admin .form-textarea {
+  min-height: 96px;
+  padding: 10px 12px;
+  line-height: 1.6;
+  resize: vertical;
+}
+.sevendot-admin .form-input:focus, .sevendot-admin .form-textarea:focus, .sevendot-admin .form-select:focus {
+  border-color: #009d5b;
+  box-shadow: 0 0 0 3px rgba(0, 157, 91, 0.08);
+}
+.sevendot-admin .form-input::placeholder, .sevendot-admin .form-textarea::placeholder {
+  color: #B0B8C1;
+}
+
+/* ----------------------------------------------------------------------------
+   [검색 바] .nt-search - 목록 상단 검색 줄 (셀렉트/인풋/버튼 인라인 배치)
+   ----------------------------------------------------------------------------
+   .section-box 안에 넣어 카드 헤더형 검색바로 사용. (구 notice_list.css → 공통 이동)
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .nt-search {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e6e8eb;
+  background: #fff;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nt-search input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+}
+/* 셀렉트는 내용폭에 맞춤 (기본 .form-select width:100% 해제) */
+.sevendot-admin .nt-search .form-select {
+  width: auto;
+  min-width: 110px;
+}
+/* 검색바 안의 날짜(데이트피커) 입력칸 — 세로 잘림 방지 + 높이 통일 (페이지별 중복 제거) */
+.sevendot-admin .nt-search .input-group.date {
+  width: 150px;
+  vertical-align: middle;
+}
+.sevendot-admin .nt-search .input-group.date .form-control.dateInput2 {
+  height: 38px;
+  line-height: 1.4;
+  font-size: 14px;
+  padding: 6px 10px;
+}
+.sevendot-admin .nt-search .input-group.date .input-group-addon {
+  height: 38px;
+}
+
+/* ----------------------------------------------------------------------------
+   [안내 박스] .guideBox — 목록 상단 안내문 (구 .form-list .guideBox → 공통화)
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .guideBox {
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  background: #fff;
+}
+.sevendot-admin .guideBox p {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #191F28;
+}
+.sevendot-admin .guideBox ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.sevendot-admin .guideBox li {
+  font-size: 13px;
+  color: #191F28;
+  line-height: 1.7;
+}
+.sevendot-admin .guideBox .txtBold {
+  font-weight: 700;
+  color: #009d5b;
+}
+
+/* tip 변형 — 팁/포인트 강조 (연한 녹색 + 좌측 강조 라인). 구 .iw-tip 흡수 */
+.sevendot-admin .guideBox.tip {
+  background: #f3faf6;
+  border-color: #c8e6d3;
+  border-left: 3px solid #009d5b;
+  padding: 14px 18px;
+}
+.sevendot-admin .guideBox.tip p {
+  color: #009d5b;
+  font-weight: 800;
+  font-size: 13.5px;
+  letter-spacing: -0.2px;
+}
+.sevendot-admin .guideBox.tip li {
+  color: #333D4B;
+  line-height: 1.75;
+}
+.sevendot-admin .guideBox.tip .txtBold {
+  color: #009d5b;
+  font-weight: 800;
+}
+
+/* ----------------------------------------------------------------------------
+   [아이콘 버튼] .icon-btn - 카드 우상단 액션 등
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .icon-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #D1D6DB;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7685;
+  transition: all 0.12s;
+}
+.sevendot-admin .icon-btn:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ----------------------------------------------------------------------------
+   [.badge 확장 변형] .chip-color / .count
+   ----------------------------------------------------------------------------
+   .badge.chip-color : 카테고리 칩 (--cat-color 변수로 배경색 지정). 구 .cat-chip-color
+   .badge.count      : 카운트 칩 (제목셀의 첨부/답변 수 등). 구 .reply-cnt
+   사용:
+     <span class="badge chip-color" style="--cat-color:#dc3545;">중요</span>
+     <span class="badge count">첨부 3</span>
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .badge.chip-color {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  color: #fff;
+  background: var(--cat-color, #4E5968);
+  letter-spacing: -0.2px;
+}
+.sevendot-admin .badge.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 7px;
+  background: #e9f0ff;
+  color: #3a6df0;
+}
+
+/* ----------------------------------------------------------------------------
+   [칩] .chip - 가벼운 라벨
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .chip {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #f5f7f7;
+  color: #191F28;
+  border: 1px solid #e6e8eb;
+  border-radius: 99px;
+}
+
+/* ----------------------------------------------------------------------------
+   [공통 버튼] .btn
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .btn {
+  border: 1px solid #D1D6DB;
+  background: #fff;
+  color: #333D4B;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.sevendot-admin .btn:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .btn.primary {
+  background: #009d5b;
+  color: #fff;
+  border-color: #009d5b;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 157, 91, 0.18);
+}
+.sevendot-admin .btn.primary:hover {
+  background: #1fb072;
+  border-color: #1fb072;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 157, 91, 0.32);
+}
+.sevendot-admin .btn.primary:disabled {
+  background: #B0B8C1;
+  border-color: #B0B8C1;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.sevendot-admin .btn.danger {
+  color: #dc3545;
+  border-color: #f5c6cb;
+}
+.sevendot-admin .btn.danger:hover {
+  background: #fde7e7;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+.sevendot-admin .btn.danger.solid {
+  background: #dc3545;
+  color: #fff;
+  border-color: #dc3545;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+}
+.sevendot-admin .btn.danger.solid:hover {
+  background: #c82333;
+  border-color: #c82333;
+  color: #fff;
+}
+
+/* 보조 버튼 (목록으로 / 링크복사 등) — 공통 outline 스타일 */
+.sevendot-admin .btn-list {
+  background: #fff;
+  border: 1px solid #D1D6DB;
+  color: #333D4B;
+  height: 38px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.sevendot-admin .btn-list:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+  background: #f3faf6;
+}
+.sevendot-admin .btn-list.lg {
+  height: 42px;
+  padding: 0 28px;
+  font-size: 14px;
+}
+
+/* 작은 버튼 */
+.sevendot-admin .btn-sm {
+  border: 1px solid #D1D6DB;
+  background: #fff;
+  color: #191F28;
+  padding: 0 10px;
+  height: 30px;
+  font-size: 13px;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+.sevendot-admin .btn-sm:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .btn-sm.approve {
+  background: #009d5b;
+  color: #fff;
+  border-color: #009d5b;
+  font-weight: 700;
+}
+.sevendot-admin .btn-sm.approve:hover {
+  background: #1fb072;
+  border-color: #1fb072;
+  color: #fff;
+}
+.sevendot-admin .btn-sm.reject {
+  color: #dc3545;
+  border-color: #f5c6cb;
+}
+.sevendot-admin .btn-sm.reject:hover {
+  background: #fde7e7;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* ----------------------------------------------------------------------------
+   [모달 공통]
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 14px;
+}
+.sevendot-admin .modal-overlay.show {
+  display: flex;
+}
+.sevendot-admin .modal {
+  background: #fff;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+}
+.sevendot-admin .modal-head {
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sevendot-admin .modal-head .title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #191F28;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.2px;
+}
+/* 좌측 그린 바 제거 (대시보드 톤 통일) */
+.sevendot-admin .modal-head .close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #8B95A1;
+  width: 30px;
+  height: 30px;
+}
+.sevendot-admin .modal-head .close:hover {
+  color: #009d5b;
+}
+.sevendot-admin .modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.sevendot-admin .modal-foot {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .modal-foot .btn {
+  height: 42px;
+  font-size: 15px;
+  padding: 0 20px;
+}
+.sevendot-admin .modal-foot .btn.primary {
+  min-width: 160px;
+}
+
+/* ----------------------------------------------------------------------------
+   [공통 모바일 대응]
+   ---------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .sevendot-admin {
+    font-size: 14px;
+  }
+  .sevendot-admin .rightBoxNT {
+    padding: 10px;
+  }
+
+  .sevendot-admin .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 0 0 12px;
+    margin-bottom: 12px;
+  }
+  .sevendot-admin .page-header h2 {
+    font-size: 19px;
+  }
+  .sevendot-admin .page-header > div:last-child:not(:only-child) {
+    display: none;
+  }
+
+  .sevendot-admin .section-box {
+    border-radius: 8px;
+  }
+  .sevendot-admin .section-box .section-head {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .sevendot-admin .section-box .section-body {
+    padding: 12px;
+  }
+
+  /* 검색바 - 세로 정렬 */
+  .sevendot-admin .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+  .sevendot-admin .search-bar select, .sevendot-admin .search-bar input {
+    width: 100%;
+  }
+  .sevendot-admin .search-bar .btn-search {
+    margin-left: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+  }
+  .sevendot-admin .search-bar .date-row {
+    display: flex;
+  }
+  .sevendot-admin .search-bar .date-row input {
+    flex: 1;
+  }
+
+  /* 테이블 → 카드 변환 (data-label 속성 필요) */
+  .sevendot-admin table.tbl colgroup, .sevendot-admin table.tbl thead {
+    display: none;
+  }
+  .sevendot-admin table.tbl, .sevendot-admin table.tbl tbody {
+    display: block;
+    width: 100%;
+  }
+  .sevendot-admin table.tbl tbody tr {
+    display: block;
+    border: 1px solid #e6e8eb;
+    border-radius: 12px;
+    margin: 8px;
+    padding: 10px 12px;
+    background: #fff;
+  }
+  .sevendot-admin table.tbl tbody tr:nth-child(even) {
+    background: #fff;
+  }
+  .sevendot-admin table.tbl td {
+    padding: 5px 0;
+    text-align: left !important;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .sevendot-admin table.tbl td::before {
+    content: attr(data-label);
+    font-size: 13px;
+    font-weight: 700;
+    color: #8B95A1;
+    flex-shrink: 0;
+  }
+  .sevendot-admin table.tbl td:not([data-label])::before {
+    display: none;
+  }
+
+  /* 모달 */
+  .sevendot-admin .modal {
+    border-radius: 12px;
+  }
+  .sevendot-admin .modal-body {
+    padding: 14px;
+  }
+  .sevendot-admin .modal-foot {
+    flex-direction: column;
+  }
+  .sevendot-admin .modal-foot .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
+   [sevenbricks 통합] 목록 하단(listNav) · 페이지네이션 · 모바일
+   - page-header / summary-cards / rightBoxNT 폭은 위 base 규칙에 병합됨(중복 제거)
+   ============================================================================ */
+
+/* 목록 하단 바: 기존 common.css 의 absolute 배치 무력화 → flex 정렬 */
+.sevendot-admin .listNav {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  height: auto !important;
+  position: static !important;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .listNav .numberBox,
+.sevendot-admin .listNav .selectBox {
+  position: static !important;
+}
+.sevendot-admin .listNav .selectBox .selectList {
+  float: none;
+  width: auto;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   [목록 하단 바 컴포넌트] .nt-listnav — 검색건수 + 페이징 + 보기개수
+   ----------------------------------------------------------------------------
+   Thymeleaf fragment:
+     · /admin/common/listComponents :: listFoot('user')       → .nt-listnav.card   (ag-Grid 독립 카드)
+     · /admin/common/listComponents :: listFootInCard('faq')  → .nt-listnav.incard (테이블 카드 내부 footer)
+   기존 페이지의 listNav 인라인 스타일을 클래스로 일원화 (인라인 금지)
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .nt-listnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+/* ag-Grid 목록: 독립된 흰 카드 */
+.sevendot-admin .nt-listnav.card {
+  padding: 12px 16px;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+/* 테이블 목록: 카드 내부 하단 footer(구분선) */
+.sevendot-admin .nt-listnav.incard {
+  padding: 12px 14px;
+  border-top: 1px solid #f0f0f0;
+}
+.sevendot-admin .nt-listnav .number {
+  margin: 0;
+  font-size: 13px;
+  color: #8B95A1;
+}
+.sevendot-admin .nt-listnav .n-color {
+  color: #009d5b;
+  font-weight: 700;
+}
+.sevendot-admin .nt-listnav .pagination {
+  margin: 0;
+}
+.sevendot-admin .nt-listnav .selectBox .form-select {
+  width: auto;
+  height: 32px;
+}
+/* 보기개수 셀렉트 없이 페이징만 가운데 두는 푸터 (대시보드형) */
+.sevendot-admin .nt-listnav.center-pag {
+  justify-content: center;
+  position: relative;
+}
+.sevendot-admin .nt-listnav.center-pag .numberBox {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 페이지네이션(ul.pagination > li > a) 우리 톤 */
+.sevendot-admin .pagination {
+  display: inline-flex !important;
+  gap: 3px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.sevendot-admin .pagination > li {
+  display: inline-flex;
+}
+.sevendot-admin .pagination > li > a,
+.sevendot-admin .pagination > li > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  margin: 0;
+  float: none;
+  border: 1px solid #D1D6DB;
+  border-radius: 8px;
+  background: #fff;
+  color: #191F28;
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+}
+.sevendot-admin .pagination > li > a:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+  background: #f3faf6;
+}
+.sevendot-admin .pagination > .active > a,
+.sevendot-admin .pagination > .active > span,
+.sevendot-admin .pagination > .active > a:hover {
+  background: #009d5b;
+  border-color: #009d5b;
+  color: #fff;
+}
+
+/* 모바일: 기존 .rightBoxNT min-width:1000px 해제 → 카드형 @media 동작 */
+@media (max-width: 1024px) {
+  .sevendot-admin .rightBoxNT {
+    min-width: 0;
+  }
+}
+@media (max-width: 768px) {
+  .sevendot-admin .rightBoxNT,
+  .rightBoxNT:has(> .sevendot-admin) {
+    min-width: 0;
+    padding: 12px;
+  }
+  .sevendot-admin .iq-filter-bar {
+    gap: 6px;
+  }
+}
+
+/* ============================================================================
+   [폼 하단 버튼 영역] .nw-foot  — 공통 컴포넌트 (페이지별 중복/인라인 제거)
+   사용: <div class="nw-foot">…</div>  /  가운데정렬: class="nw-foot center"
+   ============================================================================ */
+.sevendot-admin .nw-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0 8px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nw-foot.center { justify-content: center; }
+.sevendot-admin .nw-foot .left,
+.sevendot-admin .nw-foot .right { display: flex; gap: 8px; }
+.sevendot-admin .nw-foot .btn { height: 42px; font-size: 14px; }
+.sevendot-admin .nw-foot .btn.primary { min-width: 130px; }

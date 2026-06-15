@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반 관리 - 세븐닷 교사용 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="classmgmt">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+
+        <div class="page-header">
+          <div><h2>반 관리</h2></div>
+        </div>
+
+        <!-- 탭 네비게이션 (오늘의 현황은 반 홈, 게시판은 운영 > 게시판 페이지가 담당) -->
+        <div class="tab-pills cd-manage-tabs" id="manageTabs">
+          <button class="active" type="button" data-mtab="report"><span class="material-symbols-outlined">bar_chart</span>주간리포트</button>
+          <button type="button" data-mtab="seating"><span class="material-symbols-outlined">grid_view</span>자리배치</button>
+          <button type="button" data-mtab="game"><span class="material-symbols-outlined">casino</span>반 게임</button>
+          <button type="button" data-mtab="praise"><span class="material-symbols-outlined">thumb_up</span>칭찬 사유</button>
+        </div>
+
+        <!-- ===== 주간리포트 ===== -->
+        <div class="cd-mtab active" data-mtabpane="report">
+          <!-- 공동목표 배너 -->
+          <div class="cd-goal-banner" data-action="goal">
+            <div class="cd-goal-ico"><span class="material-symbols-outlined">emoji_events</span></div>
+            <div class="cd-goal-banner-info">
+              <div class="cd-goal-banner-head"><span class="badge success">우리 반 공동목표</span><span class="cd-goal-title">서로 칭찬하고 함께 성장하기</span></div>
+              <div class="cd-progress lg"><div class="cd-bar"></div></div>
+              <div class="cd-goal-foot"><span class="cd-sub">달성률 <b class="percent">0%</b></span><span class="cd-sub cd-goal-left">목표까지 0 브릭 남음</span></div>
+            </div>
+            <span class="cd-goal-inline-action">목표 설정 →</span>
+          </div>
+
+          <div class="cd-2col cd-2col-wide">
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title">학생별 받은 칭찬</div>
+                <div class="cd-desc">이번 주 · 학생을 누르면 상세</div>
+              </div>
+              <div class="section-body">
+                <div class="cd-praise-week" id="praiseWeek"></div>
+              </div>
+            </div>
+            <div>
+              <div class="section-box">
+                <div class="section-head"><div class="title">이번 주 학습</div><button class="cd-link" type="button" data-menu="learning" data-ltab="today">학습 이력 →</button></div>
+                <div class="section-body">
+                  <div class="cd-metric">
+                    <div class="cd-metric-row"><span class="k">월</span><span class="track"><span class="fill" style="width:87%"></span></span><span class="v">87%</span></div>
+                    <div class="cd-metric-row"><span class="k">화</span><span class="track"><span class="fill" style="width:92%"></span></span><span class="v">92%</span></div>
+                    <div class="cd-metric-row"><span class="k">수</span><span class="track"><span class="fill" style="width:78%"></span></span><span class="v">78%</span></div>
+                    <div class="cd-metric-row"><span class="k">목</span><span class="track"><span class="fill" style="width:85%"></span></span><span class="v">85%</span></div>
+                    <div class="cd-metric-row"><span class="k">금</span><span class="track"><span class="fill" style="width:58%"></span></span><span class="v">진행 중</span></div>
+                  </div>
+                  <div class="cd-paneltitle" style="margin-top:16px">챙겨볼 학생 <span class="cd-desc">이번 주 2일 이상 미완료</span></div>
+                  <div class="cd-chip-list" id="rpNeedCare"></div>
+                </div>
+              </div>
+              <div class="section-box">
+                <div class="section-head"><div class="title">이번 주 요약</div></div>
+                <div class="section-body">
+                  <div class="cd-check-list">
+                    <div class="cd-check-item"><span><b>평균 학습 완료율</b><span class="cd-desc">월~금 평균</span></span><span class="badge success">86%</span></div>
+                    <div class="cd-check-item"><span><b>학습 참여일 평균</b><span class="cd-desc">1인 기준</span></span><span class="badge neutral">4.2일</span></div>
+                    <div class="cd-check-item"><span><b>받은 칭찬 합계</b><span class="cd-desc">우리 반 전체</span></span><span class="badge info">58회</span></div>
+                    <div class="cd-check-item"><span><b>칭찬 받은 학생</b><span class="cd-desc" id="rpTotalSub">전체 0명 중</span></span><span class="badge success" id="rpPraised">0명</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="section-box">
+                <div class="section-head">
+                  <div class="title">AI 선생님 코멘트</div>
+                  <div class="cd-head-actions">
+                    <button class="btn primary" type="button" data-action="generateReport">AI 주간리포트 생성</button>
+                  </div>
+                </div>
+                <div class="section-body">
+                  <div class="cd-comment" id="weeklyComment">이번 주 우리 반은 서로 칭찬을 자주 나누었습니다. 특히 오답을 다시 풀어보는 친구들과 친구를 도와준 칭찬이 많아 따뜻한 반 분위기가 이어지고 있습니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /주간리포트 -->
+
+        <!-- ===== 자리배치 ===== -->
+        <div class="cd-mtab" data-mtabpane="seating">
+          <div class="section-box">
+            <div class="section-head">
+              <div class="title">자리배치</div>
+              <div class="cd-head-actions">
+                <label class="cd-seat-label-ctrl">열
+                  <input type="number" id="seatCols" value="5" min="2" max="10" class="form-input" style="width:56px;text-align:center" />
+                </label>
+                <label class="cd-seat-label-ctrl">행
+                  <input type="number" id="seatRows" value="4" min="2" max="10" class="form-input" style="width:56px;text-align:center" />
+                </label>
+                <button class="btn primary" type="button" data-action="randomSeating">랜덤 배치</button>
+                <button class="btn" type="button" data-action="resetSeating">초기화</button>
+              </div>
+            </div>
+            <div class="section-body">
+              <div class="cd-desc gap-b">자리를 클릭해 선택한 뒤 다른 자리를 클릭하면 서로 바뀝니다.</div>
+              <div class="cd-seat-board">
+                <div class="cd-seat-blackboard">칠판</div>
+                <div class="cd-seat-grid" id="seatGrid"></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /자리배치 -->
+
+        <!-- ===== 반 게임 ===== -->
+        <div class="cd-mtab" data-mtabpane="game">
+          <div class="cd-game-nav">
+            <button class="cd-game-tab active" type="button" data-game="lottery">제비뽑기</button>
+            <button class="cd-game-tab" type="button" data-game="teams">팀 나누기</button>
+            <button class="cd-game-tab" type="button" data-game="ladder">사다리타기</button>
+          </div>
+
+          <!-- 제비뽑기 -->
+          <div class="cd-game-pane active" data-gamepane="lottery">
+            <div class="section-box">
+              <div class="section-head"><div class="title">제비뽑기</div></div>
+              <div class="section-body">
+                <div class="cd-lottery">
+                  <div class="cd-lottery-stage">
+                    <div class="cd-lottery-result" id="lotteryResult">?</div>
+                    <div class="cd-lottery-sub" id="lotterySubText">추첨 시작 버튼을 눌러보세요</div>
+                  </div>
+                  <button class="btn primary cd-lottery-btn" type="button" data-action="runLottery" id="lotteryBtn">추첨 시작</button>
+                  <div class="cd-lottery-exclude">
+                    <div class="cd-desc gap-b">제외할 학생 클릭 (취소선 = 제외)</div>
+                    <div class="cd-lottery-names" id="lotteryNames"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 팀 나누기 -->
+          <div class="cd-game-pane" data-gamepane="teams">
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title">팀 나누기</div>
+                <div class="cd-head-actions">
+                  <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600">팀 수
+                    <select class="form-select" id="teamCount" style="width:72px">
+                      <option value="2">2팀</option>
+                      <option value="3" selected>3팀</option>
+                      <option value="4">4팀</option>
+                      <option value="5">5팀</option>
+                      <option value="6">6팀</option>
+                    </select>
+                  </label>
+                  <button class="btn primary" type="button" data-action="runTeams">랜덤 나누기</button>
+                </div>
+              </div>
+              <div class="section-body">
+                <div class="cd-teams-result" id="teamsResult">
+                  <p class="cd-desc">팀 수를 선택하고 랜덤 나누기를 눌러보세요.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 사다리타기 -->
+          <div class="cd-game-pane" data-gamepane="ladder">
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title">사다리타기</div>
+                <div class="cd-head-actions">
+                  <button class="btn-sm" type="button" data-action="generateLadder">사다리 다시 생성</button>
+                  <button class="btn-sm approve" type="button" data-action="revealAllLadder">전체 결과 보기</button>
+                </div>
+              </div>
+              <div class="section-body">
+                <p class="cd-desc gap-b">상단 이름을 클릭하면 해당 경로가 표시됩니다.</p>
+                <div class="cd-ladder-wrap">
+                  <div class="cd-ladder-tops" id="ladderTops"></div>
+                  <canvas class="cd-ladder-canvas" id="ladderCanvas"></canvas>
+                  <div class="cd-ladder-bots" id="ladderBots"></div>
+                </div>
+                <div class="cd-ladder-results" id="ladderResults"></div>
+                <div class="cd-ladder-edit">
+                  <div class="cd-paneltitle">하단 결과 항목 편집</div>
+                  <div class="cd-ladder-prize-list" id="ladderPrizeList"></div>
+                  <button class="btn-sm" type="button" data-action="addLadderPrize" style="margin-top:8px">＋ 항목 추가</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /반 게임 -->
+
+        <!-- ===== 칭찬 사유 ===== -->
+        <div class="cd-mtab" data-mtabpane="praise">
+          <div class="cd-praise-tab-wrap">
+            <!-- 왼쪽: 사유 추가 폼 -->
+            <div class="section-box">
+              <div class="section-head"><div class="title">칭찬 사유 추가</div></div>
+              <div class="section-body">
+                <div class="cd-form-row"><label>아이콘</label><input type="hidden" id="newPraiseIconTab" value="thumb_up" /><div class="cd-icon-pick" data-iconpick="newPraiseIconTab"><button type="button" class="active" data-icon="thumb_up"><span class="material-symbols-outlined">thumb_up</span></button><button type="button" data-icon="chat_bubble"><span class="material-symbols-outlined">chat_bubble</span></button><button type="button" data-icon="favorite"><span class="material-symbols-outlined">favorite</span></button><button type="button" data-icon="track_changes"><span class="material-symbols-outlined">track_changes</span></button><button type="button" data-icon="menu_book"><span class="material-symbols-outlined">menu_book</span></button><button type="button" data-icon="auto_awesome"><span class="material-symbols-outlined">auto_awesome</span></button><button type="button" data-icon="handshake"><span class="material-symbols-outlined">handshake</span></button><button type="button" data-icon="local_fire_department"><span class="material-symbols-outlined">local_fire_department</span></button><button type="button" data-icon="eco"><span class="material-symbols-outlined">eco</span></button><button type="button" data-icon="emoji_events"><span class="material-symbols-outlined">emoji_events</span></button></div></div>
+                <div class="cd-form-row"><label>지급 브릭</label><input class="form-input" id="newPraiseBrickTab" type="number" value="5" style="max-width:160px" /></div>
+                <div class="cd-form-row"><label>칭찬 사유명</label><input class="form-input" id="newPraiseNameTab" placeholder="예: 발표를 잘했어요" /></div>
+                <div class="cd-form-row"><label>칭찬 사유 설명 <span class="cd-desc">(선택)</span></label><textarea class="form-textarea" id="newPraiseDescTab" rows="3" placeholder="예: 수업 시간에 자신 있게 발표하고 친구들의 생각도 잘 들어주었습니다."></textarea></div>
+                <div class="cd-head-actions row-end">
+                  <button class="btn" type="button" data-action="resetPraiseFormTab">초기화</button>
+                  <button class="btn primary" type="button" data-action="savePraiseReasonTab">저장</button>
+                </div>
+              </div>
+            </div>
+            <!-- 오른쪽: 등록된 사유 목록 -->
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title">등록된 칭찬 사유</div>
+                <div class="cd-head-actions">
+                  <button class="cd-link" type="button" data-action="loadPraiseExamples">예시 불러오기</button>
+                </div>
+              </div>
+              <div class="section-body">
+                <div class="cd-desc gap-b">학생 카드를 누르면 이 사유로 바로 브릭을 지급할 수 있어요.</div>
+                <div class="cd-praise-reason-list" id="praiseReasonListCm"></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /칭찬 사유 -->
+
+        <div id="site-footer-mount"></div>
+      </div><!-- /.content_area -->
+    </div>
+
+    <!-- ======================================================================
+     모달
+     ====================================================================== -->
+
+    <!-- 공통 모달: ../../js/admin/classroom/classroom-modals.js 가 body 끝에 주입 -->
+
+    <div class="cd-toast" id="toast"></div>
+
+    <script src="../../js/admin/admin-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>

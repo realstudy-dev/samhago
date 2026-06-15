@@ -1,0 +1,3769 @@
+/* ============================================================================
+   교사용 학급 대시보드 - 페이지 전용 스타일
+   ----------------------------------------------------------------------------
+   통일 디자인 시스템(sevendot-admin.css)에 없는 컴포넌트만 정의한다.
+   색/보더/라운드 토큰은 통일 시스템과 동일하게 맞춘다.
+     - 포인트 그린 #009d5b / 보조 #f3faf6 / 보더 #e6e8eb / 텍스트 #191F28(기본)·#8B95A1(보조) (Toss 참고)
+   ============================================================================ */
+
+/* Google Material Symbols Rounded (아이콘 통일 · 둥근 버전)
+   wght 300 = 얇은 라인 (폰트 URL의 @20,300,0,0 인스턴스와 일치해야 함) */
+.sevendot-admin .material-symbols-outlined {
+  font-family: "Material Symbols Rounded";
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 20;
+  font-size: 20px;
+  line-height: 1;
+  padding: 2px;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================================
+   카카오 비즈니스 파트너센터형 셸: 상단 글로벌 바 + 좌측 사이드바 + 본문
+   ============================================================================ */
+
+/* 상단 글로벌 바 */
+.sevendot-admin .cd-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: #fff;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .cd-tb-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #191F28;
+}
+.sevendot-admin .cd-tb-sub {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-tb-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.sevendot-admin .cd-tb-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+}
+.sevendot-admin .cd-tb-link:hover {
+  color: #009d5b;
+}
+.sevendot-admin .cd-tb-acct {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+}
+
+/* 좌측 사이드바 */
+.sevendot-admin .cd-side {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  background: #fff;
+  border-right: 1px solid #e6e8eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+.sevendot-admin .cd-side-acct {
+  display: none;
+}
+.sevendot-admin .cd-side-acct .cd-arrow {
+  margin-left: auto;
+  color: #B0B8C1;
+}
+.sevendot-admin .cd-side-menu {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 6px;
+  display: grid;
+  gap: 2px;
+  align-content: start;
+}
+.sevendot-admin .cd-side-group {
+  display: none;
+}
+.sevendot-admin .cd-side-sep {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 6px 8px;
+}
+.sevendot-admin .cd-side-menu button,
+.sevendot-admin .cd-side-menu a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 52px;
+  text-align: center;
+  text-decoration: none;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  color: #8B95A1;
+  padding: 4px 2px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.sevendot-admin .cd-side-menu button:hover,
+.sevendot-admin .cd-side-menu a:hover {
+  background: #f3faf6;
+  color: #009d5b;
+}
+.sevendot-admin .cd-side-menu button.active {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .cd-side-menu button.active .cd-si-short {
+  font-weight: 700;
+}
+.sevendot-admin .cd-side-menu .material-symbols-outlined {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-side-menu .cd-si-full,
+.sevendot-admin .cd-side-menu .cd-ext {
+  display: none;
+}
+.sevendot-admin .cd-side-menu .cd-si-short {
+  font-size: 11px;
+  font-weight: 500;
+  color: inherit;
+  line-height: 1;
+}
+.sevendot-admin .cd-side-menu .cd-ext {
+  margin-left: auto;
+  opacity: 0.5;
+  display: inline-flex;
+}
+.sevendot-admin .cd-side-menu .cd-ext .material-symbols-outlined {
+  font-size: 16px;
+}
+.sevendot-admin .cd-side-menu button .count {
+  margin-left: auto;
+  background: #009d5b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+/* 사이드바 하단 안내 카드 — 64px 슬림 사이드바에서 숨김 */
+.sevendot-admin .cd-side-promo {
+  display: none;
+}
+.sevendot-admin .cd-side-promo b {
+  display: block;
+  font-size: 13px;
+  color: #009d5b;
+  margin-bottom: 4px;
+}
+.sevendot-admin .cd-side-promo span {
+  font-size: 12px;
+  color: #191F28;
+  line-height: 1.5;
+}
+
+/* 본문: 좌측 사이드바 200px 회피 (상단바는 흐름상 위에서 밀어줌) */
+.sevendot-admin .rightBoxNT {
+  width: auto;
+  margin-left: 64px;
+  min-height: calc(100vh - 56px);
+  transition: margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* 콘텐츠 영역: 너무 넓어지지 않게 1180px로 캡 + 가운데 정렬 (카카오 content_area) */
+.sevendot-admin .content_area {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+/* 페이지 헤더 하단 보더 제거 */
+.sevendot-admin .page-header {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.sevendot-admin .page-header h2 {
+  font-size: 24px;
+}
+
+/* 뷰 내 최상위 섹션 간 일정한 세로 간격 (요약카드/section-box/2단 등 제각각 마진 통일) */
+.sevendot-admin .cd-view > * {
+  margin-bottom: 40px;
+}
+.sevendot-admin .cd-view > *:last-child {
+  margin-bottom: 0;
+}
+/* 그리드 안 section-box는 그리드 gap이 간격을 담당 → 이중 마진 제거 */
+.sevendot-admin .cd-2col > .section-box,
+.sevendot-admin .cd-3col > .section-box {
+  margin-bottom: 0;
+}
+
+/* 활동 이력 필터 바 */
+.sevendot-admin .cd-hfilter {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e6e8eb;
+}
+
+/* 월별 학습현황 헤더 우측 선택 (form-select cd-classsel) */
+.sevendot-admin .cd-classsel {
+  width: auto;
+  min-width: 140px;
+  height: 36px;
+}
+
+/* 뷰 전환 */
+.sevendot-admin .cd-view {
+  display: none;
+}
+.sevendot-admin .cd-view.active {
+  display: block;
+}
+
+/* 학습 현황 내부 탭 — 세그먼트 컨트롤 */
+.sevendot-admin .cd-ltabs.tab-pills {
+  display: inline-flex;
+  background: #F5F6F8;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 2px;
+  margin-bottom: 28px;
+  border: none;
+}
+.sevendot-admin .cd-ltabs.tab-pills button {
+  padding: 9px 24px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8B95A1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s, color .15s, box-shadow .15s;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+.sevendot-admin .cd-ltabs.tab-pills button.active {
+  background: #fff;
+  color: #191F28;
+  box-shadow: 0 1px 6px rgba(25,31,40,.10);
+}
+.sevendot-admin .cd-ltabs.tab-pills button:hover:not(.active) {
+  color: #191F28;
+}
+
+/* 날짜 네비게이터 */
+.sevendot-admin .cd-date-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sevendot-admin .cd-date-nav .cd-date-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #191F28;
+  min-width: 170px;
+  text-align: center;
+}
+.sevendot-admin .cd-date-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #D1D6DB;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  color: #191F28;
+  font-family: inherit;
+  transition: background .12s, border-color .12s;
+  line-height: 1;
+}
+.sevendot-admin .cd-date-arrow:hover:not(:disabled) {
+  background: #F5F6F8;
+  border-color: #8B95A1;
+}
+.sevendot-admin .cd-date-arrow:disabled {
+  color: #D1D6DB;
+  border-color: #e6e8eb;
+  cursor: not-allowed;
+  background: #fff;
+}
+.sevendot-admin .cd-ltab-pane {
+  display: none;
+}
+.sevendot-admin .cd-ltab-pane.active {
+  display: block;
+}
+.sevendot-admin .cd-ltab-pane > * {
+  margin-bottom: 40px;
+}
+.sevendot-admin .cd-ltab-pane > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 뷰 상단 툴바 (설명 + 액션) */
+.sevendot-admin .cd-view-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .cd-head-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 공통 보조 텍스트/타이틀/링크 */
+.sevendot-admin .cd-desc {
+  display: block;
+  font-size: 13px;
+  color: #8B95A1;
+  line-height: 1.5;
+}
+.sevendot-admin .cd-paneltitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #191F28;
+  margin: 16px 0 10px;
+}
+.sevendot-admin .cd-paneltitle:first-child {
+  margin-top: 0;
+}
+.sevendot-admin .cd-link {
+  border: none;
+  background: none;
+  color: #009d5b;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.sevendot-admin .cd-link:hover {
+  text-decoration: underline;
+}
+.sevendot-admin .section-divider {
+  border-top: 1px solid #f0f0f0;
+  margin: 16px 0;
+}
+
+/* 2단 레이아웃 */
+.sevendot-admin .cd-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.sevendot-admin .cd-2col-wide {
+  grid-template-columns: 1.4fr 1fr;
+}
+.sevendot-admin .cd-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.sevendot-admin .cd-2col > div > .section-box:last-child {
+  margin-bottom: 0;
+}
+
+/* summary-cards 3열 변형 */
+.sevendot-admin .summary-cards.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ----- 체크리스트 / 미니 박스 ----- */
+.sevendot-admin .cd-check-list {
+  display: grid;
+  gap: 12px;
+}
+.sevendot-admin .cd-check-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.sevendot-admin .cd-check-item b {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 700;
+  color: #191F28;
+}
+
+/* 오늘 확인할 일 — 체크 가능한 투두 */
+.sevendot-admin .cd-todo-list {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-todo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(31, 45, 61, 0.07);
+}
+.sevendot-admin .cd-todo.done {
+  background: #f7faf9;
+  box-shadow: none;
+}
+.sevendot-admin .cd-todo-check {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0;
+  color: #B0B8C1;
+}
+.sevendot-admin .cd-todo-check:hover {
+  color: #009d5b;
+}
+.sevendot-admin .cd-todo.done .cd-todo-check {
+  color: #009d5b;
+}
+.sevendot-admin .cd-todo-check .material-symbols-outlined {
+  font-size: 24px;
+}
+.sevendot-admin .cd-todo-body {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-todo-body b {
+  display: block;
+  font-weight: 700;
+  color: #191F28;
+  margin-bottom: 2px;
+}
+.sevendot-admin .cd-todo.done .cd-todo-body b {
+  color: #8B95A1;
+  text-decoration: line-through;
+}
+
+.sevendot-admin .cd-mini-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 16px;
+}
+.sevendot-admin .cd-mini-box {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px 14px;
+}
+.sevendot-admin .cd-mini-box b {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  margin: 6px 0 2px;
+  color: #191F28;
+}
+.sevendot-admin .cd-bullets {
+  margin: 6px 0 0;
+  padding-left: 16px;
+}
+.sevendot-admin .cd-bullets li {
+  font-size: 13px;
+  color: #191F28;
+  line-height: 1.7;
+}
+
+/* ----- 아침게시판 상태 ----- */
+.sevendot-admin .cd-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.sevendot-admin .cd-status-grid.two {
+  grid-template-columns: 1fr 1fr;
+}
+.sevendot-admin .cd-status-box {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #f3faf6;
+  padding: 12px;
+}
+.sevendot-admin .cd-status-box b {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #191F28;
+}
+.sevendot-admin .cd-status-box span {
+  font-size: 13px;
+  color: #191F28;
+}
+
+/* ----- 공동목표 (배너/진행바) ----- */
+.sevendot-admin .cd-goal-title {
+  font-weight: 800;
+  font-size: 15px;
+  margin: 6px 0 12px;
+  color: #191F28;
+}
+.sevendot-admin .cd-progress {
+  height: 9px;
+  background: #e3eee8;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-progress.lg {
+  height: 12px;
+}
+.sevendot-admin .cd-bar {
+  height: 100%;
+  width: 0;
+  background: #009d5b;
+  border-radius: 99px;
+  transition: width 0.3s;
+}
+.sevendot-admin .cd-goal-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 8px;
+}
+.sevendot-admin .cd-goal-foot .percent {
+  color: #009d5b;
+  font-weight: 800;
+  font-size: 15px;
+}
+.sevendot-admin .cd-goal-foot .cd-sub {
+  font-size: 12px;
+  color: #8B95A1;
+}
+
+/* ----- 학생 카드 그리드 ----- */
+.sevendot-admin .cd-grid-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+}
+/* 학생 보드: 칸반 톤 — 옅은 회색 바닥 위 흰 카드 */
+.sevendot-admin .cd-students {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  background: #F5F6F8;
+  border-radius: 16px;
+  padding: 14px;
+}
+.sevendot-admin .cd-student {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #fff;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sevendot-admin .cd-stu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sevendot-admin .cd-status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.sevendot-admin .cd-status-chip.done {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .cd-status-chip.undone {
+  background: #ECEEF0;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-stu-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sevendot-admin .cd-stu-info {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-stu-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 22px;
+}
+.sevendot-admin .cd-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #F5F6F8;
+  color: #191F28;
+}
+.sevendot-admin .cd-meta-chip .material-symbols-outlined {
+  font-size: 13px;
+  padding: 0;
+}
+.sevendot-admin .cd-meta-chip.streak {
+  background: #fff3e2;
+  color: #d97706;
+}
+.sevendot-admin .cd-meta-chip.praise {
+  background: #e8f3ff;
+  color: #1d6fd6;
+}
+.sevendot-admin .cd-meta-chip.rank-praise {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .cd-meta-chip.rank-brick {
+  background: #fff6cf;
+  color: #a16207;
+}
+/* 학급번호 배지 (아바타 대체) */
+.sevendot-admin .cd-stu-no {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+  background: #E8EBED;
+  color: #191F28;
+}
+/* 번호 칩: 학습 상태로 구분 — 완료=초록, 미완료=회색 */
+.sevendot-admin .cd-student.done .cd-stu-no {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .cd-student.undone .cd-stu-no {
+  background: #ECEEF0;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-stu-check {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #009d5b;
+  margin: 0;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-student.sel {
+  box-shadow: 0 0 0 2px #009d5b, 0 2px 8px rgba(0, 157, 91, 0.12);
+}
+
+/* 일괄 칭찬 지급 바 */
+.sevendot-admin .cd-bulk-praise {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  background: #f3faf6;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .cd-bulk-praise button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+/* section-body 첫 요소로 올 때: 박스 모서리까지 풀블리드 툴바로
+   (이 페이지 section-body 패딩 20px 24px — 모바일에서도 동일하게 유지됨) */
+.sevendot-admin .section-body > .cd-bulk-praise:first-child {
+  margin: -20px -24px 16px;
+}
+.sevendot-admin .cd-bulk-praise .cd-checkall {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333D4B;
+  cursor: pointer;
+}
+.sevendot-admin .cd-bulk-praise .cd-checkall input {
+  width: 16px;
+  height: 16px;
+  accent-color: #009d5b;
+  margin: 0;
+}
+.sevendot-admin .cd-bulk-grow {
+  flex: 1;
+}
+.sevendot-admin .cd-bulk-praise .form-select {
+  width: auto;
+  min-width: 170px;
+  height: 34px;
+}
+.sevendot-admin .cd-student:hover {
+  border-color: #009d5b;
+  box-shadow: 0 4px 14px rgba(0, 157, 91, 0.1);
+}
+.sevendot-admin .cd-student.selected {
+  border: 2px solid #009d5b;
+}
+/* 카드 타이포 비율: 이름 16 > 번호 15 > 포인트 15 (뱃지 제외 최소 14px) */
+.sevendot-admin .cd-student .name {
+  font-weight: 800;
+  font-size: 16px;
+  color: #191F28;
+}
+.sevendot-admin .cd-student .money {
+  font-weight: 800;
+  font-size: 15px;
+  color: #009d5b;
+  margin-top: 2px;
+}
+.sevendot-admin .cd-student .money small {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8B95A1;
+  margin-left: 2px;
+}
+
+/* ----- 브릭머니: 통장 리스트 ----- */
+.sevendot-admin .cd-bank-list {
+  display: grid;
+  gap: 8px;
+  max-height: 360px;
+  overflow: auto;
+}
+.sevendot-admin .cd-bank-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+.sevendot-admin .cd-bank-item:hover {
+  background: #f3faf6;
+}
+.sevendot-admin .cd-bank-item .name {
+  font-weight: 700;
+  font-size: 15px;
+}
+.sevendot-admin .cd-balance-pill {
+  font-weight: 800;
+  color: #009d5b;
+  background: #e7f5ed;
+  border-radius: 99px;
+  padding: 5px 11px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.sevendot-admin td.money,
+.sevendot-admin .tbl td.money {
+  font-weight: 700;
+}
+
+/* ----- 브릭장터: 쿠폰 카드 ----- */
+.sevendot-admin .cd-coupons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.sevendot-admin .cd-coupon {
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+.sevendot-admin .cd-coupon-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.sevendot-admin .cd-coupon-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #f3faf6;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+.sevendot-admin .cd-coupon-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #191F28;
+}
+.sevendot-admin .cd-coupon-desc {
+  font-size: 13px;
+  color: #191F28;
+  line-height: 1.5;
+  min-height: 38px;
+}
+.sevendot-admin .cd-coupon-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.sevendot-admin .cd-price {
+  font-weight: 800;
+  color: #009d5b;
+  background: #e7f5ed;
+  border-radius: 99px;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+.sevendot-admin .cd-coupon-actions {
+  display: flex;
+  gap: 6px;
+}
+.sevendot-admin .cd-coupon-actions .btn-sm {
+  flex: 1;
+}
+
+/* ----- 공동목표 배너 ----- */
+.sevendot-admin .cd-goal-banner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #c8e6d3;
+  background: linear-gradient(135deg, #f3faf6, #fff);
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+.sevendot-admin .cd-goal-banner:hover {
+  border-color: #009d5b;
+}
+.sevendot-admin .cd-goal-banner-info {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-goal-banner-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.sevendot-admin .cd-goal-banner .cd-goal-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: #191F28;
+}
+.sevendot-admin .cd-goal-banner .btn {
+  flex-shrink: 0;
+}
+/* 탭 패널·페이지 뷰 직속 배너: 다음 블록과 20px 리듬 유지 */
+.sevendot-admin .cd-mtab > .cd-goal-banner,
+.sevendot-admin .cd-view > .cd-goal-banner {
+  margin-bottom: 20px;
+}
+/* 학급 홈 상단 공동목표 (읽기 전용 · 연한 노랑) */
+.sevendot-admin .cd-goal-banner.cd-goal-home {
+  cursor: default;
+  padding: 22px 26px;
+  gap: 18px;
+  align-items: center;
+  background: linear-gradient(135deg, #fff6cf, #fffdf4);
+}
+.sevendot-admin .cd-goal-home:hover {
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(31, 45, 61, 0.08);
+}
+.sevendot-admin .cd-goal-home .cd-goal-ico {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #ffe49b;
+  color: #c47d00;
+}
+.sevendot-admin .cd-goal-home .cd-goal-ico .material-symbols-outlined {
+  font-size: 30px;
+}
+/* 풀폭 가로 트래커: 제목 행 → 진행바(가로 꽉) + 달성률 */
+.sevendot-admin .cd-goal-home .cd-goal-headline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.sevendot-admin .cd-goal-home .cd-goal-title {
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+.sevendot-admin .cd-goal-home .cd-goal-headline .cd-goal-left {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b8860b;
+}
+.sevendot-admin .cd-goal-home .cd-goal-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sevendot-admin .cd-goal-home .cd-goal-track .cd-progress.lg {
+  flex: 1;
+}
+.sevendot-admin .cd-goal-home .cd-goal-pct {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 5px;
+}
+.sevendot-admin .cd-goal-home .cd-goal-pct .percent {
+  font-size: 24px;
+  font-weight: 800;
+  color: #d99a00;
+  line-height: 1;
+}
+.sevendot-admin .cd-goal-home .cd-goal-pct span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b8860b;
+}
+.sevendot-admin .cd-goal-home .cd-progress.lg {
+  height: 14px;
+  background: #f6e6ad;
+}
+.sevendot-admin .cd-goal-home .cd-bar {
+  background: linear-gradient(90deg, #f5c518, #e0a000);
+}
+.sevendot-admin .cd-goal-home .cd-goal-foot {
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+.sevendot-admin .cd-goal-home .cd-goal-foot .cd-sub {
+  font-size: 13px;
+}
+.sevendot-admin .cd-goal-home .badge.success {
+  background: #fbe7b0;
+  color: #93702a;
+}
+
+/* ----- 학생 상세 모달 ----- */
+.sevendot-admin .cd-modal-lg {
+  max-width: 860px;
+}
+/* 헤더+서브탭 고정, 본문(.cd-sd-panes)만 스크롤 */
+.sevendot-admin .cd-sd-modal {
+  max-height: 92vh;
+}
+.sevendot-admin .cd-sd-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #f3faf6;
+}
+.sevendot-admin .cd-modal-tabs {
+  padding: 8px 16px;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .cd-sd-panes {
+  padding: 18px 20px;
+}
+.sevendot-admin .cd-sd-pane {
+  display: none;
+}
+.sevendot-admin .cd-sd-pane.active {
+  display: block;
+}
+.sevendot-admin .cd-sd-pane .cd-paneltitle:first-child {
+  margin-top: 0;
+}
+/* 지급 바: 칭찬 탭 하단 고정 */
+.sevendot-admin .cd-give-bar {
+  position: sticky;
+  bottom: -18px;
+  margin: 16px -20px -18px;
+  padding: 14px 20px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+.sevendot-admin .cd-give-bar .cd-give-row {
+  margin: 0;
+}
+.sevendot-admin .cd-student-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #191F28;
+  margin-bottom: 4px;
+}
+.sevendot-admin .cd-balance {
+  text-align: right;
+}
+.sevendot-admin .cd-balance b {
+  display: block;
+  font-size: 28px;
+  font-weight: 800;
+  color: #009d5b;
+}
+.sevendot-admin .cd-comment {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #f3faf6;
+  padding: 14px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333D4B;
+}
+
+/* 학습 결과 카드 */
+.sevendot-admin .cd-learning-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.sevendot-admin .cd-learning-card {
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  text-align: center;
+}
+.sevendot-admin .cd-learning-card .level {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+}
+.sevendot-admin .cd-learning-card .round {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 4px 0 12px;
+  color: #191F28;
+}
+.sevendot-admin .cd-brick-count {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 6px 0;
+}
+.sevendot-admin .cd-brick-count.gold {
+  background: #fff7d9;
+  color: #9b6500;
+}
+.sevendot-admin .cd-brick-count.silver {
+  background: #f0f2f4;
+  color: #475569;
+}
+.sevendot-admin .cd-brick-count.bronze {
+  background: #fbeee4;
+  color: #a34c10;
+}
+/* 학습내역 표: 획득 브릭 등급 배지 (골드/실버/브론즈) */
+.sevendot-admin .cd-tier {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  vertical-align: middle;
+}
+.sevendot-admin .cd-tier-gold {
+  background: #fff7d9;
+  color: #9b6500;
+}
+.sevendot-admin .cd-tier-silver {
+  background: #f0f2f4;
+  color: #475569;
+}
+.sevendot-admin .cd-tier-bronze {
+  background: #fbeee4;
+  color: #a34c10;
+}
+.sevendot-admin .cd-subject-summary {
+  margin-top: 10px;
+  border-radius: 99px;
+  padding: 7px 10px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fff;
+  background: #009d5b;
+}
+
+/* 칭찬 사유 버튼 */
+.sevendot-admin .cd-reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.sevendot-admin .cd-reason {
+  border: 1px solid #e6e8eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 11px 10px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #333D4B;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+}
+.sevendot-admin .cd-reason:hover {
+  border-color: #009d5b;
+}
+.sevendot-admin .cd-reason.active {
+  border-color: #009d5b;
+  color: #009d5b;
+  background: #f3faf6;
+}
+.sevendot-admin .cd-reason.add {
+  border-style: dashed;
+  color: #009d5b;
+}
+
+/* 지급 stepper */
+.sevendot-admin .cd-give-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  margin: 12px 0 4px;
+}
+.sevendot-admin .cd-stepper {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  border: 1px solid #D1D6DB;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 42px;
+}
+.sevendot-admin .cd-stepper button {
+  border: none;
+  background: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  color: #191F28;
+}
+.sevendot-admin .cd-stepper button:hover {
+  background: #f3faf6;
+  color: #009d5b;
+}
+.sevendot-admin .cd-stepper span {
+  display: grid;
+  place-items: center;
+  border-left: 1px solid #D1D6DB;
+  border-right: 1px solid #D1D6DB;
+  font-weight: 800;
+}
+.sevendot-admin .cd-give-row .btn {
+  height: 42px;
+}
+
+/* 받은 칭찬 리스트 */
+.sevendot-admin .cd-praise-list {
+  display: grid;
+  gap: 8px;
+}
+.sevendot-admin .cd-praise-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333D4B;
+}
+
+/* ----- AI 코멘트 모달 ----- */
+.sevendot-admin .cd-ai-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.sevendot-admin .cd-ai-option {
+  border: 1px solid #e6e8eb;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #333D4B;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+}
+.sevendot-admin .cd-ai-option:hover {
+  border-color: #009d5b;
+}
+.sevendot-admin .cd-ai-option.active {
+  border-color: #009d5b;
+  color: #009d5b;
+  background: #f3faf6;
+}
+.sevendot-admin .cd-ai-history {
+  display: grid;
+  gap: 8px;
+  max-height: 200px;
+  overflow: auto;
+}
+.sevendot-admin .cd-ai-history-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333D4B;
+}
+.sevendot-admin .cd-ai-history-item b {
+  color: #009d5b;
+}
+
+/* ----- 칭찬 사유 관리 ----- */
+.sevendot-admin .cd-praise-manage {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 16px;
+}
+.sevendot-admin .cd-praise-reason-list {
+  display: grid;
+  gap: 8px;
+  max-height: 320px;
+  overflow: auto;
+}
+.sevendot-admin .cd-praise-reason-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.sevendot-admin .cd-praise-reason-item b {
+  display: block;
+  margin-bottom: 3px;
+}
+.sevendot-admin .cd-praise-reason-item small {
+  color: #8B95A1;
+  font-size: 12px;
+}
+
+/* ----- 아침게시판 작성 (인라인 화면) ----- */
+.sevendot-admin .cd-schedule {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.sevendot-admin .cd-period {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid #D1D6DB;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.sevendot-admin .cd-period span {
+  color: #009d5b;
+  font-size: 12px;
+  font-weight: 700;
+}
+.sevendot-admin .cd-period input {
+  border: none;
+  outline: none;
+  padding: 0;
+  font-size: 14px;
+  font-family: inherit;
+  background: transparent;
+  width: 100%;
+}
+.sevendot-admin .cd-period:focus-within {
+  border-color: #009d5b;
+  box-shadow: 0 0 0 3px rgba(0, 157, 91, 0.08);
+}
+/* 입력 필드 라벨 + textarea 어포던스 */
+.sevendot-admin .cd-field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333D4B;
+  margin: 14px 0 6px;
+}
+.sevendot-admin .cd-board-field {
+  margin-bottom: 2px;
+}
+/* 현재 게시 상태 배너 */
+.sevendot-admin .cd-board-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #f3faf6;
+  border: 1px solid #c8e6d3;
+  border-radius: 12px;
+}
+.sevendot-admin .cd-board-status > .material-symbols-outlined {
+  color: #009d5b;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-board-status > div {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-board-status b {
+  display: block;
+  font-size: 13px;
+  color: #009d5b;
+  font-weight: 800;
+}
+.sevendot-admin .cd-board-status #boardLiveInfo {
+  font-size: 13px;
+  color: #333D4B;
+}
+.sevendot-admin .cd-preview-row {
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.sevendot-admin .cd-preview-row b {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #191F28;
+}
+.sevendot-admin .cd-period-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+/* ----- 일괄 등록 미리보기 ----- */
+.sevendot-admin .cd-bulk-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 16px;
+}
+.sevendot-admin .cd-bulk-textarea {
+  min-height: 220px;
+  line-height: 1.6;
+}
+.sevendot-admin .cd-bulk-preview {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-bulk-head,
+.sevendot-admin .cd-bulk-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 60px 60px 70px;
+}
+.sevendot-admin .cd-bulk-head {
+  background: #fafbfc;
+  color: #191F28;
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid #e6e8eb;
+}
+.sevendot-admin .cd-bulk-row {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+}
+.sevendot-admin .cd-bulk-head span,
+.sevendot-admin .cd-bulk-row span {
+  padding: 9px 10px;
+}
+
+/* ----- 설정 ----- */
+.sevendot-admin .cd-setting-list {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-setting-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+.sevendot-admin .cd-setting-row b {
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ----- 폼 행 (모달 공용) ----- */
+.sevendot-admin .cd-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.sevendot-admin .cd-form-row {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.sevendot-admin .cd-form-row:last-child {
+  margin-bottom: 0;
+}
+.sevendot-admin .cd-form-row > label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333D4B;
+}
+
+/* ============================================================================
+   학급 홈 — 한눈에 보기(대시보드) 차트 컴포넌트
+   hq_dashboard 패턴(conic 도넛·라벨 막대·영역 차트)을 초록 톤으로 재사용
+   ============================================================================ */
+
+/* KPI 카드 행 */
+.sevendot-admin .cd-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.sevendot-admin .cd-kpi {
+  background: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(31, 45, 61, 0.08);
+}
+.sevendot-admin .cd-kpi[data-menu] {
+  cursor: pointer;
+  transition: box-shadow 0.12s, transform 0.12s;
+}
+.sevendot-admin .cd-kpi[data-menu]:hover {
+  box-shadow: 0 6px 18px rgba(0, 157, 91, 0.16);
+  transform: translateY(-1px);
+}
+.sevendot-admin .cd-kpi-k {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+  margin-bottom: 8px;
+}
+.sevendot-admin .cd-kpi-go {
+  font-size: 18px;
+  color: #B0B8C1;
+}
+.sevendot-admin .cd-kpi[data-menu]:hover .cd-kpi-go {
+  color: #009d5b;
+}
+.sevendot-admin .cd-kpi-v.warning {
+  color: #e8862c;
+}
+.sevendot-admin .cd-kpi-v {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: #191F28;
+  line-height: 1.1;
+}
+.sevendot-admin .cd-kpi-v.success {
+  color: #009d5b;
+}
+.sevendot-admin .cd-kpi-v.info {
+  color: #3a6df0;
+}
+.sevendot-admin .cd-kpi-v .u {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8B95A1;
+  margin-left: 2px;
+}
+.sevendot-admin .cd-kpi-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.sevendot-admin .cd-kpi-foot .delta {
+  font-weight: 800;
+}
+.sevendot-admin .cd-kpi-foot .delta.up {
+  color: #009d5b;
+}
+.sevendot-admin .cd-kpi-foot .delta.down {
+  color: #dc3545;
+}
+.sevendot-admin .cd-kpi-foot .cd-kpi-sub {
+  color: #8B95A1;
+}
+
+/* 영역(라인) 차트 */
+.sevendot-admin .cd-area {
+  width: 100%;
+  position: relative;
+}
+.sevendot-admin .cd-area-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.sevendot-admin .cd-area-x {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B95A1;
+}
+/* 차트 호버 */
+.sevendot-admin .cd-trend-col {
+  cursor: pointer;
+}
+.sevendot-admin .cd-trend-dot {
+  transition: fill 0.1s;
+}
+.sevendot-admin .cd-trend-dot.on {
+  fill: #009d5b;
+  r: 5;
+}
+.sevendot-admin .cd-trend-tip {
+  position: absolute;
+  top: 4px;
+  transform: translateX(-50%);
+  background: #172033;
+  color: #fff;
+  border-radius: 12px;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  z-index: 5;
+}
+.sevendot-admin .cd-trend-tip b {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.sevendot-admin .cd-trend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e6e8eb;
+}
+.sevendot-admin .cd-trend-row .d {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.sevendot-admin .cd-trend-row .d.gold {
+  background: #e6a700;
+}
+.sevendot-admin .cd-trend-row .d.silver {
+  background: #94a3b8;
+}
+.sevendot-admin .cd-trend-row .d.bronze {
+  background: #c07a35;
+}
+
+/* 주간리포트: 학생별 받은 칭찬 */
+/* 학생별 받은 칭찬: 회색 보드 위 흰 카드 — 학생 단위 묶음이 또렷하게 */
+.sevendot-admin .cd-praise-week {
+  display: grid;
+  gap: 8px;
+  max-height: 540px;
+  overflow: auto;
+  background: #F5F6F8;
+  border-radius: 16px;
+  padding: 12px;
+}
+.sevendot-admin .cd-pw-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 1px 3px rgba(31, 45, 61, 0.05);
+  cursor: pointer;
+  transition: box-shadow 0.12s, border-color 0.12s;
+}
+.sevendot-admin .cd-pw-item:hover {
+  border-color: #009d5b;
+  box-shadow: 0 4px 14px rgba(0, 157, 91, 0.12);
+}
+.sevendot-admin .cd-pw-body {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-pw-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #191F28;
+  margin-bottom: 6px;
+}
+.sevendot-admin .cd-pw-cnt {
+  font-size: 12px;
+  font-weight: 800;
+  color: #8b5cf6;
+  background: #f3e9ff;
+  border-radius: 99px;
+  padding: 2px 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-pw-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .cd-pw-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #168043;
+  background: #e7f5ed;
+  border-radius: 99px;
+  padding: 3px 9px;
+}
+.sevendot-admin .cd-pw-go {
+  color: #B0B8C1;
+  flex-shrink: 0;
+}
+
+/* 이번 주 칭찬 TOP */
+.sevendot-admin .cd-rank {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-rank-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sevendot-admin .cd-rank-no {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 13px;
+  background: #f0f2f4;
+  color: #191F28;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-rank-no.r1 {
+  background: #fff7e0;
+  color: #e6a700;
+}
+.sevendot-admin .cd-rank-no.r2 {
+  background: #eef1f4;
+  color: #64748b;
+}
+.sevendot-admin .cd-rank-no.r3 {
+  background: #fbeee4;
+  color: #c07a35;
+}
+.sevendot-admin .cd-rank-name {
+  flex: 1;
+  font-weight: 700;
+  color: #191F28;
+}
+.sevendot-admin .cd-rank-cnt {
+  font-size: 13px;
+  font-weight: 800;
+  color: #8b5cf6;
+  background: #f3e9ff;
+  border-radius: 99px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+.sevendot-admin .cd-rank-cnt.brick {
+  color: #009d5b;
+  background: #e7f5ed;
+}
+
+/* 도넛 */
+.sevendot-admin .cd-donut-body {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.sevendot-admin .cd-donut {
+  --pct: 50%;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(#009d5b 0 var(--pct), #f0f2f4 var(--pct) 100%);
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-donut::after {
+  content: "";
+  position: absolute;
+  inset: 19%;
+  background: #fff;
+  border-radius: 50%;
+}
+.sevendot-admin .cd-donut-center {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sevendot-admin .cd-donut-center .dc-v {
+  font-size: 28px;
+  font-weight: 800;
+  color: #191F28;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.sevendot-admin .cd-donut-center .dc-k {
+  font-size: 12px;
+  color: #191F28;
+  margin-top: 3px;
+}
+
+/* 범례 */
+.sevendot-admin .cd-legend {
+  flex: 1;
+  min-width: 150px;
+}
+.sevendot-admin .cd-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333D4B;
+  padding: 5px 0;
+}
+.sevendot-admin .cd-legend-row em {
+  margin-left: auto;
+  font-style: normal;
+  font-weight: 800;
+  color: #191F28;
+}
+.sevendot-admin .cd-legend-row .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-legend-row .dot.success {
+  background: #009d5b;
+}
+.sevendot-admin .cd-legend-row .dot.warning {
+  background: #e8862c;
+}
+.sevendot-admin .cd-legend-row .dot.neutral {
+  background: #B0B8C1;
+}
+.sevendot-admin .cd-legend-row .dot.gold {
+  background: #e6a700;
+}
+.sevendot-admin .cd-legend-row .dot.silver {
+  background: #94a3b8;
+}
+.sevendot-admin .cd-legend-row .dot.bronze {
+  background: #c07a35;
+}
+
+/* 라벨 막대 (과목별 완료율) */
+.sevendot-admin .cd-metric {
+  display: grid;
+  gap: 14px;
+}
+.sevendot-admin .cd-metric-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  gap: 12px;
+  align-items: center;
+}
+.sevendot-admin .cd-metric-row .k {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+}
+.sevendot-admin .cd-metric-row .track {
+  height: 18px;
+  background: #f0f2f4;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-metric-row .fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #009d5b 0%, #32cd8b 100%);
+  border-radius: 99px;
+  transition: width 0.4s ease-out;
+}
+.sevendot-admin .cd-metric-row .v {
+  font-size: 13px;
+  font-weight: 800;
+  color: #191F28;
+  text-align: right;
+}
+
+/* ============================================================================
+   월별 학습현황 — 달력 히트맵
+   ============================================================================ */
+.sevendot-admin .cd-cal-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.sevendot-admin .cd-cal-head span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.sevendot-admin .cd-cal-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B7685;
+  background: #eef1f4;
+}
+.sevendot-admin .cd-cal-cell.empty {
+  background: transparent;
+}
+.sevendot-admin .cd-cal-cell.future {
+  background: #F5F6F8;
+  color: #B0B8C1;
+  border: 1px dashed #e6e8eb;
+}
+.sevendot-admin .cd-cal-cell.lv0 {
+  background: #eef1f4;
+}
+.sevendot-admin .cd-cal-cell.lv1 {
+  background: #c8ead7;
+}
+.sevendot-admin .cd-cal-cell.lv2 {
+  background: #86d0aa;
+  color: #11603c;
+}
+.sevendot-admin .cd-cal-cell.lv3 {
+  background: #32cd8b;
+  color: #0c4b2e;
+}
+.sevendot-admin .cd-cal-cell.lv4 {
+  background: #009d5b;
+  color: #fff;
+}
+.sevendot-admin .cd-cal-cell.today {
+  box-shadow: 0 0 0 2px #009d5b;
+}
+.sevendot-admin .cd-cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: flex-end;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-cal-legend i {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.sevendot-admin .cd-cal-legend i.lv0 {
+  background: #eef1f4;
+}
+.sevendot-admin .cd-cal-legend i.lv1 {
+  background: #c8ead7;
+}
+.sevendot-admin .cd-cal-legend i.lv2 {
+  background: #86d0aa;
+}
+.sevendot-admin .cd-cal-legend i.lv3 {
+  background: #32cd8b;
+}
+.sevendot-admin .cd-cal-legend i.lv4 {
+  background: #009d5b;
+}
+/* 일괄 등록 — 파일 업로드 영역 */
+.sevendot-admin .cd-bulk-upload-area {
+  border: 2px dashed #D1D6DB;
+  border-radius: 12px;
+  padding: 36px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.sevendot-admin .cd-bulk-upload-area.drag-over {
+  border-color: #009d5b;
+  background: #f0fdf9;
+}
+.cd-cal-tip {
+  position: fixed;
+  background: #191F28;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1000;
+  line-height: 1.4;
+}
+
+/* ============================================================================
+   FAQ — 아코디언
+   ============================================================================ */
+.sevendot-admin .cd-faq {
+  display: grid;
+  gap: 8px;
+}
+.sevendot-admin .cd-faq-item {
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff;
+  border: 0;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: #191F28;
+  text-align: left;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+.sevendot-admin .cd-faq-q:hover {
+  background: #f7faf9;
+}
+.sevendot-admin .cd-faq-ico {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #009d5b;
+  transition: transform 0.15s;
+}
+.sevendot-admin .cd-faq-item.open .cd-faq-ico {
+  transform: rotate(45deg);
+}
+.sevendot-admin .cd-faq-a {
+  display: none;
+  padding: 0 16px 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #191F28;
+  background: #fff;
+}
+.sevendot-admin .cd-faq-item.open .cd-faq-a {
+  display: block;
+}
+
+/* ----- 기관 정보 모달 ----- */
+.sevendot-admin .cd-org-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 14px;
+}
+.sevendot-admin .cd-org-ico {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #e7f5ed;
+  color: #009d5b;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-org-ico .material-symbols-outlined {
+  font-size: 28px;
+}
+.sevendot-admin .cd-org-list {
+  display: grid;
+}
+.sevendot-admin .cd-org-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 2px;
+  border-bottom: 1px solid #f4f6f8;
+  font-size: 15px;
+}
+.sevendot-admin .cd-org-row:last-child {
+  border-bottom: 0;
+}
+.sevendot-admin .cd-org-row > span {
+  color: #8B95A1;
+  font-weight: 600;
+}
+.sevendot-admin .cd-org-row > b {
+  color: #191F28;
+  font-weight: 700;
+}
+
+/* ============================================================================
+   학급 홈 상단 공동목표 배너 — 히어로 역할 (cd-hero-greet 제거 후 단독 사용)
+   ============================================================================ */
+/* 공동목표 배너 아이콘 */
+.sevendot-admin .cd-goal-ico {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  flex-shrink: 0;
+  background: #fff7e0;
+  color: #e6a700;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(230, 167, 0, 0.18);
+}
+.sevendot-admin .cd-goal-ico .material-symbols-outlined {
+  font-size: 28px;
+}
+/* ============================================================================
+   카드 모서리 20px 통일 + 큰 카드 패딩 20px 24px (귀엽게)
+   ============================================================================ */
+.sevendot-admin .section-box,
+.sevendot-admin .summary-cards .sc-card,
+.sevendot-admin .cd-kpi,
+.sevendot-admin .cd-coupon,
+.sevendot-admin .cd-goal-banner,
+.sevendot-admin .cd-notice-bar,
+.sevendot-admin .cd-student,
+.sevendot-admin .cd-learning-card,
+.sevendot-admin .cd-check-item,
+.sevendot-admin .cd-todo,
+.sevendot-admin .cd-mini-box,
+.sevendot-admin .cd-status-box,
+.sevendot-admin .cd-bank-item,
+.sevendot-admin .cd-pw-item,
+.sevendot-admin .cd-rank-item,
+.sevendot-admin .cd-praise-item,
+.sevendot-admin .cd-praise-reason-item,
+.sevendot-admin .cd-faq-item,
+.sevendot-admin .cd-coupon-card {
+  border-radius: 20px;
+}
+.sevendot-admin .summary-cards .sc-card,
+.sevendot-admin .cd-kpi,
+.sevendot-admin .cd-coupon,
+.sevendot-admin .cd-goal-banner {
+  padding: 20px 24px;
+}
+.sevendot-admin .section-box .section-body {
+  padding: 20px 24px;
+}
+.sevendot-admin .section-box .section-head {
+  padding: 16px 24px;
+}
+
+/* ----- 회사 공지 바 (대시보드 홈 하단) ----- */
+.sevendot-admin .cd-notice-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.12s;
+}
+.sevendot-admin .cd-notice-bar:hover {
+  border-color: #009d5b;
+}
+.sevendot-admin .cd-notice-ico {
+  display: inline-flex;
+  color: #009d5b;
+}
+.sevendot-admin .cd-notice-ico .material-symbols-outlined {
+  font-size: 20px;
+}
+.sevendot-admin .cd-notice-tag {
+  font-size: 12px;
+  font-weight: 800;
+  color: #009d5b;
+  padding-right: 12px;
+  border-right: 1px solid #e6e8eb;
+}
+.sevendot-admin .cd-notice-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333D4B;
+}
+@media (max-width: 600px) {
+  .sevendot-admin .cd-notice-bar {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .sevendot-admin .cd-notice-text {
+    font-size: 13px;
+  }
+}
+
+/* ============================================================================
+   카드 스타일 통일: 보더 제거 + 그림자
+   ----------------------------------------------------------------------------
+   - 컨테이너(surface): 진한 그림자
+   - 카드 안 항목(item): 옅은 그림자
+   - 보더로 표현하던 상태는 box-shadow 링으로 대체
+   ============================================================================ */
+.sevendot-admin .section-box,
+.sevendot-admin .summary-cards .sc-card,
+.sevendot-admin .cd-coupon,
+.sevendot-admin .cd-goal-banner,
+.sevendot-admin .cd-notice-bar {
+  border: 0;
+  box-shadow: 0 2px 8px rgba(31, 45, 61, 0.08);
+}
+.sevendot-admin .cd-check-item,
+.sevendot-admin .cd-mini-box,
+.sevendot-admin .cd-status-box,
+.sevendot-admin .cd-bank-item,
+.sevendot-admin .cd-learning-card,
+.sevendot-admin .cd-setting-row,
+.sevendot-admin .cd-praise-item,
+.sevendot-admin .cd-praise-reason-item,
+.sevendot-admin .cd-faq-item {
+  border: 0;
+  box-shadow: 0 1px 3px rgba(31, 45, 61, 0.07);
+}
+/* 학생 카드: 칸반 톤 — 흰 카드 + 부드러운 그림자 (상태는 칩이 표현) */
+.sevendot-admin .cd-student {
+  border: 1px solid #eef0f2;
+  box-shadow: 0 1px 4px rgba(31, 45, 61, 0.06);
+}
+/* 보더로 표현하던 상태 → 그림자 링 */
+.sevendot-admin .cd-student:hover {
+  box-shadow: 0 4px 14px rgba(0, 157, 91, 0.14);
+}
+.sevendot-admin .cd-student.selected {
+  border: 0;
+  box-shadow: 0 0 0 2px #009d5b, 0 2px 8px rgba(0, 157, 91, 0.12);
+}
+.sevendot-admin .cd-coupon:hover,
+.sevendot-admin .cd-notice-bar:hover,
+.sevendot-admin .cd-goal-banner:hover {
+  box-shadow: 0 4px 14px rgba(0, 157, 91, 0.14);
+}
+
+/* ----- 통일 시스템(sevendot-admin.css) 값 오버라이드 ----- */
+.sevendot-admin .summary-cards {
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.sevendot-admin .summary-cards .sc-k {
+  margin-bottom: 8px;
+}
+.sevendot-admin .summary-cards .sc-v {
+  font-size: 36px;
+}
+/* 등락 색 구분: 증가=빨강, 하락=파랑 */
+.sevendot-admin .summary-cards .sc-sub.up {
+  color: #dc3545;
+  font-weight: 700;
+}
+.sevendot-admin .summary-cards .sc-sub.down {
+  color: #3a6df0;
+  font-weight: 700;
+}
+
+/* ----- 토스트 ----- */
+.cd-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: #191F28;
+  color: #fff;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: 0.25s;
+  z-index: 2000;
+  pointer-events: none;
+}
+.cd-toast.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ----- 반응형 ----- */
+@media (max-width: 900px) {
+  /* 사이드바 → 상단바 아래 가로 스크롤 메뉴 */
+  .sevendot-admin .cd-side {
+    position: static;
+    width: auto;
+    border-right: 0;
+    border-bottom: 1px solid #e6e8eb;
+  }
+  .sevendot-admin .cd-side-acct,
+  .sevendot-admin .cd-side-promo {
+    display: none;
+  }
+  .sevendot-admin .cd-side-menu {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+  .sevendot-admin .cd-side-group {
+    display: none;
+  }
+  .sevendot-admin .cd-side-menu button,
+  .sevendot-admin .cd-side-menu a {
+    flex-direction: row;
+    height: auto;
+    gap: 6px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    width: auto;
+  }
+  .sevendot-admin .cd-side-menu .cd-si-full {
+    display: inline;
+  }
+  .sevendot-admin .cd-side-menu .cd-si-short {
+    display: none;
+  }
+  .sevendot-admin .cd-side-menu .cd-ext {
+    display: inline-flex;
+  }
+  .sevendot-admin .cd-side-sep {
+    width: 1px;
+    height: 20px;
+    margin: 0 4px;
+    align-self: center;
+  }
+  .sevendot-admin .rightBoxNT {
+    margin-left: 0;
+    min-height: 0;
+  }
+  /* 모바일: 2차 패널 숨기고 그룹 항목을 일반 가로 메뉴로 평탄화 */
+  .sevendot-admin .cd-side-menu .cd-has-sub { display: none; }
+  .sevendot-admin .cd-side-menu .cd-m-flat { display: contents; }
+  .cd-subpanel { visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+  .sevendot-admin.subpanel-open .rightBoxNT { margin-left: 0; transition: none; }
+}
+@media (max-width: 600px) {
+  .sevendot-admin .cd-topbar {
+    padding: 0 12px;
+  }
+  .sevendot-admin .cd-tb-link,
+  .sevendot-admin .cd-tb-sub {
+    display: none;
+  }
+}
+@media (max-width: 1024px) {
+  .sevendot-admin .cd-students {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sevendot-admin .cd-coupons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sevendot-admin .cd-2col,
+  .sevendot-admin .cd-2col-wide,
+  .sevendot-admin .cd-3col,
+  .sevendot-admin .cd-praise-manage,
+  .sevendot-admin .cd-bulk-layout {
+    grid-template-columns: 1fr;
+  }
+  .sevendot-admin .summary-cards.cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sevendot-admin .cd-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sevendot-admin .cd-learning-cards,
+  .sevendot-admin .cd-ai-options,
+  .sevendot-admin .cd-reasons {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .sevendot-admin .cd-students,
+  .sevendot-admin .cd-coupons,
+  .sevendot-admin .cd-mini-grid,
+  .sevendot-admin .cd-status-grid,
+  .sevendot-admin .cd-learning-cards {
+    grid-template-columns: 1fr;
+  }
+  .sevendot-admin .cd-balance {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+}
+
+/* ============================================================================
+   정돈 보조 클래스 — inline style 대체용
+   ============================================================================ */
+
+/* 테이블을 직접 담는 section-body (패딩 없음) */
+.sevendot-admin .section-body.tbl          { padding: 0; }
+
+/* 전체 너비 버튼 */
+.sevendot-admin .btn-block                 { width: 100%; }
+.sevendot-admin .btn-block.mt-s            { margin-top: 12px; }
+.sevendot-admin .btn-block.mt-m            { margin-top: 16px; }
+
+/* 텍스트형 요약카드 값 (숫자 외 문자열 — font-size 조정) */
+.sevendot-admin .sc-v.sc-text              { font-size: 17px; letter-spacing: -0.3px; }
+
+/* 초록 강조 텍스트 */
+.sevendot-admin .text-green                { color: #009d5b; }
+
+/* 브릭 금액 색 (양수/음수) */
+.sevendot-admin .money-plus                { color: #009d5b; }
+.sevendot-admin .money-minus               { color: #dc3545; }
+
+/* cd-desc 변형: 하단 간격 */
+.sevendot-admin .cd-desc.gap-b             { margin-bottom: 12px; }
+
+/* 아침게시판(홈) 추가 상태박스 상단 여백 */
+.sevendot-admin .cd-extra-box              { margin-top: 10px; }
+
+/* 빠른 지급 선택 학생 안내 */
+.sevendot-admin .cd-quick-note             { margin: 10px 0 0; }
+
+/* cd-head-actions 정렬 변형 */
+.sevendot-admin .cd-head-actions.row-start { justify-content: flex-start; }
+.sevendot-admin .cd-head-actions.row-end   { justify-content: flex-end; }
+.sevendot-admin .cd-head-actions.gap-t     { margin-top: 8px; }
+
+/* 모달 푸터·인라인 안내 텍스트 (flex 왼쪽 채움) */
+.sevendot-admin .cd-modal-note             { margin-right: auto; }
+
+/* 아침게시판 보기 모달 메타 */
+.sevendot-admin .cd-mv-meta                { margin-bottom: 12px; }
+
+/* 테이블 빈 행 패딩 */
+.sevendot-admin .tbl .empty-cell           { padding: 24px 20px; }
+
+/* 데이터 행 클릭 커서 (JS style="cursor:pointer" 대체) */
+.sevendot-admin .tbl tr[data-action]       { cursor: pointer; }
+
+/* guideBox 상단 여백 변형 */
+.sevendot-admin .guideBox.mt-s             { margin-top: 12px; }
+
+/* 학생 그리드 빈 상태: 전체 열 채우기 */
+.sevendot-admin .cd-students .empty-state  { grid-column: 1 / -1; }
+
+/* 일괄 등록: 중복 미리보기 행 */
+.sevendot-admin .cd-dupe                   { opacity: .45; }
+
+/* 에러 강조 텍스트 */
+.sevendot-admin .text-red                  { color: #dc3545; }
+
+/* ----- 2차 패널: 그룹 메뉴 트리 (앱인토스 개발자센터형) ----- */
+/* 레일 그룹 버튼 상태 표시 */
+.sevendot-admin .cd-side-menu .cd-has-sub.sub-open,
+.sevendot-admin .cd-side-menu .cd-has-sub.active { background: #e7f5ed; color: #009d5b; }
+/* 그룹 평탄화 항목: 데스크탑 숨김(모바일 전용) */
+.sevendot-admin .cd-side-menu .cd-m-flat { display: none; }
+
+/* 전체 높이 2차 패널: 아이콘 레일(64px) 옆에 고정 */
+.cd-subpanel {
+  position: fixed;
+  top: 56px;
+  left: 64px;
+  bottom: 0;
+  width: 230px;
+  background: #fff;
+  border-right: 1px solid #e6e8eb;
+  padding: 18px 14px;
+  z-index: 19;
+  overflow-y: auto;
+  /* display:none 대신 visibility+opacity+transform으로 부드러운 전환 */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.2s;
+}
+.cd-subpanel.open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0s;
+}
+.cd-subpanel-head {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191F28;
+  padding: 6px 10px 22px;
+}
+.cd-subpanel-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  color: #333D4B;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+.cd-subpanel-item:hover { background: #F5F6F8; }
+.cd-subpanel-item.active { background: #F2F3F5; color: #191F28; font-weight: 600; }
+.cd-subpanel-item.sub { padding-left: 26px; }
+
+/* 패널 안 아코디언 (2뎁스 그룹: 이력 등) */
+.cd-sp-acc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: 0;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #191F28;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cd-sp-acc-head:hover { background: #F5F6F8; }
+.cd-sp-arrow {
+  font-size: 20px;
+  color: #8B95A1;
+  transition: transform 0.15s;
+}
+.cd-sp-acc.open .cd-sp-arrow { transform: rotate(180deg); }
+.cd-sp-acc-body { display: none; }
+.cd-sp-acc.open .cd-sp-acc-body { display: block; }
+
+/* 패널이 열려 있는 동안 본문을 패널 폭만큼 밀기 */
+.sevendot-admin.subpanel-open .rightBoxNT { margin-left: 294px; }
+
+/* 초기 페이지 로드 시 transition 억제 (init 완료 후 JS가 이 클래스를 제거) */
+.no-transition,
+.no-transition * { transition: none !important; }
+
+/* ----- 학급 홈: 아침게시판 데일리 배너 ----- */
+.sevendot-admin .cd-morning-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  /* 아침게시판 그린 톤 통일 (미게시/게시완료 동일) */
+  background: linear-gradient(100deg, #eafaf1, #f7fdfa);
+  border: 1px solid #c4ebd5;
+}
+.sevendot-admin .cd-mb-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: #cdeede;
+  color: #009d5b;
+}
+.sevendot-admin .cd-mb-icon .material-symbols-outlined { font-size: 28px; }
+.sevendot-admin .cd-mb-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+.sevendot-admin .cd-mb-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sevendot-admin .cd-mb-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #191F28;
+}
+.sevendot-admin .cd-mb-desc {
+  font-size: 14px;
+  color: #191F28;
+}
+.sevendot-admin .cd-mb-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.sevendot-admin .cd-mb-chip {
+  font-size: 13px;
+  color: #191F28;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+.sevendot-admin .cd-mb-chip b {
+  color: #191F28;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.sevendot-admin .cd-morning-banner .btn { flex-shrink: 0; }
+@media (max-width: 720px) {
+  .sevendot-admin .cd-morning-banner {
+    flex-wrap: wrap;
+  }
+  .sevendot-admin .cd-morning-banner .btn {
+    width: 100%;
+  }
+}
+
+/* ----- 학급 홈: 운영 허브 위젯 ----- */
+/* 페이지 헤더 서브라인 (날짜 · 학급 컨텍스트) */
+.sevendot-admin .cd-page-sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #8B95A1;
+}
+
+/* 존 타이틀 (페이지 구역 라벨) */
+.sevendot-admin .cd-view > .cd-zone-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #191F28;
+  margin: 4px 2px 14px;
+}
+
+/* 히어로 행: 오늘 요약 + 공동목표 */
+.sevendot-admin .cd-hero-row > * {
+  margin-bottom: 0;
+}
+.sevendot-admin .cd-hero-today .section-body {
+  height: 100%;
+  padding: 24px;
+  display: grid;
+  gap: 10px;
+  align-content: center;
+  justify-items: start;
+}
+.sevendot-admin .cd-ht-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-ht-head {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191F28;
+  letter-spacing: -0.3px;
+}
+.sevendot-admin .cd-ht-head b.ok { color: #009d5b; }
+.sevendot-admin .cd-ht-head b.warn { color: #d97706; }
+.sevendot-admin .cd-ht-sub {
+  font-size: 13px;
+  color: #191F28;
+}
+.sevendot-admin .cd-ht-sub .couponWait {
+  color: #d97706;
+}
+.sevendot-admin .cd-ht-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* 빠른 작업 바로가기 */
+/* ----- 학생 명단: 행 클릭 → 학생 상세 ----- */
+.sevendot-admin .cd-roster-link {
+  cursor: pointer;
+}
+.sevendot-admin .cd-roster-link:hover td {
+  background: #fafbfc;
+}
+
+/* ----- 학생 보드: 자리배치 변경 연한 링크 ----- */
+.sevendot-admin .cd-grid-head-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.sevendot-admin .cd-link-soft {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B95A1;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+.sevendot-admin .cd-link-soft:hover {
+  color: #009d5b;
+}
+
+/* ----- 학생 상세 모달: 좌우 학생 이동 화살표 ----- */
+.sevendot-admin .cd-sd-modal {
+  position: relative;
+  /* 공용 .modal의 overflow:hidden이 양옆 화살표를 잘라서 이 모달만 해제 */
+  overflow: visible;
+}
+/* overflow 해제로 풀린 모서리 라운드를 내부 요소가 대신 책임 */
+.sevendot-admin .cd-sd-modal .modal-head {
+  border-radius: 16px 16px 0 0;
+}
+.sevendot-admin .cd-sd-modal .modal-body {
+  border-radius: 0 0 16px 16px;
+}
+.sevendot-admin .cd-sd-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(31, 45, 61, 0.16);
+  cursor: pointer;
+  z-index: 5;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.sevendot-admin .cd-sd-nav .material-symbols-outlined {
+  font-size: 24px;
+  color: #191F28;
+  padding: 0;
+}
+.sevendot-admin .cd-sd-nav:hover {
+  border-color: #009d5b;
+  box-shadow: 0 4px 16px rgba(0, 157, 91, 0.22);
+}
+.sevendot-admin .cd-sd-nav:hover .material-symbols-outlined {
+  color: #009d5b;
+}
+.sevendot-admin .cd-sd-nav.prev { left: -60px; }
+.sevendot-admin .cd-sd-nav.next { right: -60px; }
+/* 좁은 화면: 모달 안쪽 상단으로 들여놓기 */
+@media (max-width: 900px) {
+  .sevendot-admin .cd-sd-nav { top: 14px; transform: none; width: 34px; height: 34px; }
+  .sevendot-admin .cd-sd-nav.prev { left: auto; right: 92px; }
+  .sevendot-admin .cd-sd-nav.next { right: 48px; }
+}
+
+/* ----- 학생 카드: 칭찬·브릭 TOP 배지 (홈 랭킹 박스와 동일 데이터) ----- */
+.sevendot-admin .badge.cd-top-praise {
+  background: #e7f5ed;
+  color: #009d5b;
+}
+.sevendot-admin .badge.cd-top-brick {
+  background: #fff6cf;
+  color: #a16207;
+}
+
+/* ----- 칭찬 사유 커스텀 드롭다운 (Material 아이콘 + 직접 입력) ----- */
+.sevendot-admin .cd-reason-dd {
+  position: relative;
+}
+.sevendot-admin .cd-reason-dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: #fff;
+  border: 1px solid #D1D6DB;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+  font-family: inherit;
+  cursor: pointer;
+}
+.sevendot-admin .cd-reason-dd-btn .material-symbols-outlined {
+  font-size: 17px;
+  color: #009d5b;
+}
+.sevendot-admin .cd-reason-dd-btn .cd-dd-arrow {
+  font-size: 18px;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-reason-dd-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 210px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(31, 45, 61, 0.12);
+  padding: 6px;
+  z-index: 30;
+}
+.sevendot-admin .cd-reason-dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.sevendot-admin .cd-reason-dd-item .material-symbols-outlined {
+  font-size: 17px;
+  color: #009d5b;
+}
+.sevendot-admin .cd-reason-dd-item:hover {
+  background: #F5F6F8;
+}
+.sevendot-admin .cd-reason-dd-item.active {
+  background: #f3faf6;
+  color: #009d5b;
+}
+.sevendot-admin .cd-reason-dd-item.custom {
+  border-top: 1px solid #f0f1f3;
+  border-radius: 0;
+  margin-top: 4px;
+}
+.sevendot-admin .cd-reason-dd-item.manage {
+  color: #8B95A1;
+}
+.sevendot-admin .cd-reason-dd-item.manage .material-symbols-outlined {
+  color: #8B95A1;
+}
+.sevendot-admin .cd-reason-dd-item.manage:hover {
+  color: #009d5b;
+}
+.sevendot-admin .cd-reason-dd-item.manage:hover .material-symbols-outlined {
+  color: #009d5b;
+}
+.sevendot-admin .cd-custom-reason {
+  display: inline-flex;
+  gap: 6px;
+}
+
+/* ----- 아이콘 선택 버튼 행 (칭찬 사유 폼) ----- */
+.sevendot-admin .cd-icon-pick {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .cd-icon-pick button {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #F5F6F8;
+  border: 1.5px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.sevendot-admin .cd-icon-pick button .material-symbols-outlined {
+  font-size: 19px;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-icon-pick button.active {
+  background: #fff;
+  border-color: #009d5b;
+}
+.sevendot-admin .cd-icon-pick button.active .material-symbols-outlined {
+  color: #009d5b;
+}
+
+/* 칭찬 사유 칩·태그·목록 안 Material 아이콘 정렬 */
+.sevendot-admin .cd-reason .material-symbols-outlined,
+.sevendot-admin .cd-pw-tag .material-symbols-outlined,
+.sevendot-admin .cd-praise-reason-list .material-symbols-outlined {
+  font-size: 16px;
+  vertical-align: -3px;
+  color: #009d5b;
+}
+
+/* ----- 학급 홈: 오늘 브리핑 (할 일 3카운트 + 공동목표) ----- */
+.sevendot-admin .cd-briefing {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.sevendot-admin .cd-brief-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #191F28;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-brief-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.sevendot-admin .cd-brief-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+.sevendot-admin .cd-brief-chip .material-symbols-outlined {
+  font-size: 16px;
+}
+.sevendot-admin .cd-brief-chip b {
+  font-weight: 800;
+}
+.sevendot-admin .cd-brief-chip.warn {
+  background: #fff7ec;
+  border-color: #f6dcb6;
+  color: #b25e09;
+}
+.sevendot-admin .cd-brief-chip.warn:hover {
+  border-color: #e8a94f;
+  box-shadow: 0 2px 8px rgba(178, 94, 9, 0.12);
+}
+.sevendot-admin .cd-brief-chip.ok {
+  background: #f3faf6;
+  border-color: #d9efe3;
+  color: #009d5b;
+}
+.sevendot-admin .cd-brief-chip.ok:hover {
+  border-color: #9ed9bd;
+}
+.sevendot-admin .cd-brief-goal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 4px 8px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+.sevendot-admin .cd-brief-goal:hover {
+  background: #f3faf6;
+  border-color: #d9efe3;
+}
+.sevendot-admin .cd-brief-goal .cd-progress {
+  width: 120px;
+}
+.sevendot-admin .cd-brief-goal .percent {
+  font-size: 14px;
+  color: #009d5b;
+}
+
+.sevendot-admin .cd-quick-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .cd-quick-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333D4B;
+  cursor: pointer;
+  transition: box-shadow 0.12s, border-color 0.12s, color 0.12s;
+}
+.sevendot-admin .cd-quick-actions button:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.sevendot-admin .cd-quick-actions .material-symbols-outlined {
+  font-size: 20px;
+  color: #009d5b;
+}
+
+/* 학습 미완료 학생 칩 (클릭 시 학생 상세) */
+.sevendot-admin .cd-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sevendot-admin .cd-stu-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 99px;
+  padding: 5px 14px 5px 5px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333D4B;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+.sevendot-admin .cd-stu-chip:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .cd-stu-chip .cd-stu-no {
+  width: 26px;
+  height: 26px;
+  font-size: 12px;
+  border-radius: 99px;
+}
+
+/* 브릭장터 승인 대기 목록 */
+.sevendot-admin .cd-approve-list {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-approve-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #f0f2f4;
+  border-radius: 12px;
+}
+.sevendot-admin .cd-approve-info {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.sevendot-admin .cd-approve-btns {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* 처리할 일 3카드: 하단 CTA를 카드 바닥에 고정해 가로 정렬 */
+.sevendot-admin .cd-task-grid .section-box {
+  display: flex;
+  flex-direction: column;
+}
+.sevendot-admin .cd-task-grid .section-box .section-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.sevendot-admin .cd-task-grid .section-box .section-body > .btn-list {
+  margin-top: auto;
+}
+
+/* 칭찬 브릭 지급 후보 행 */
+.sevendot-admin .cd-praise-cands {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-praise-cand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #f0f2f4;
+  border-radius: 12px;
+}
+.sevendot-admin .cd-praise-cand .cd-stu-no {
+  width: 26px;
+  height: 26px;
+  font-size: 12px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-praise-cand .cd-pc-info {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.sevendot-admin .cd-praise-cand .cd-pc-info b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.sevendot-admin .cd-praise-cand .btn-sm,
+.sevendot-admin .cd-praise-cand .badge {
+  flex-shrink: 0;
+}
+
+/* 최근 학급 활동 피드 */
+.sevendot-admin .cd-feed {
+  display: grid;
+}
+.sevendot-admin .cd-feed-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px solid #f4f6f8;
+  font-size: 13px;
+}
+.sevendot-admin .cd-feed-row:last-child { border-bottom: 0; }
+.sevendot-admin .cd-feed-time {
+  color: #8B95A1;
+  flex-shrink: 0;
+  width: 56px;
+}
+.sevendot-admin .cd-feed-text {
+  flex: 1;
+  color: #333D4B;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sevendot-admin .cd-feed-meta {
+  color: #8B95A1;
+  flex-shrink: 0;
+}
+
+/* ======================================================================
+   번호순 / 자리배치도 순 토글
+   ====================================================================== */
+.sevendot-admin .cd-sort-toggle {
+  display: flex;
+  border: 1.5px solid #D1D6DB;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-sort-toggle button {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8B95A1;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+  white-space: nowrap;
+}
+.sevendot-admin .cd-sort-toggle button + button {
+  border-left: 1.5px solid #D1D6DB;
+}
+.sevendot-admin .cd-sort-toggle button.active {
+  background: #F5F6F8;
+  color: #191F28;
+}
+
+/* 자리배치도 순 빈 자리 카드 */
+.sevendot-admin .cd-student-empty {
+  background: #FAFAFA;
+  border: 2px dashed #E8EBED;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  color: #D1D6DB;
+  font-size: 18px;
+}
+
+/* ======================================================================
+   학급관리 4탭
+   ====================================================================== */
+.sevendot-admin .cd-mtab { display: none; }
+.sevendot-admin .cd-mtab.active { display: block; }
+
+/* ======================================================================
+   자리배치
+   ====================================================================== */
+.sevendot-admin .cd-seat-label-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+}
+.sevendot-admin .cd-seat-board {
+  margin-top: 4px;
+}
+.sevendot-admin .cd-seat-blackboard {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #333D4B;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  letter-spacing: 6px;
+}
+.sevendot-admin .cd-seat-grid {
+  display: grid;
+  gap: 10px;
+}
+.sevendot-admin .cd-seat {
+  background: #fff;
+  border: 2px solid #E8EBED;
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  min-height: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  user-select: none;
+}
+.sevendot-admin .cd-seat:hover { border-color: #009d5b; background: #f4fdf9; }
+.sevendot-admin .cd-seat.sel {
+  border-color: #009d5b;
+  background: #e3faf0;
+  box-shadow: 0 0 0 3px rgba(0,157,91,0.2);
+}
+.sevendot-admin .cd-seat.empty {
+  border-style: dashed;
+  background: #FAFAFA;
+}
+.sevendot-admin .cd-seat.empty:hover { border-color: #8B95A1; background: #F5F6F8; }
+.sevendot-admin .cd-seat-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #191F28;
+}
+.sevendot-admin .cd-seat-num {
+  font-size: 11px;
+  color: #8B95A1;
+}
+.sevendot-admin .cd-seat-empty {
+  font-size: 20px;
+  color: #D1D6DB;
+}
+.sevendot-admin .cd-seat.pinned {
+  border-color: #F59E0B;
+  background: #fffbeb;
+}
+.sevendot-admin .cd-seat.pinned:hover { border-color: #d97706; background: #fef3c7; }
+.sevendot-admin .cd-seat { position: relative; }
+.sevendot-admin .cd-seat-pin-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #D1D6DB;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+}
+.sevendot-admin .cd-seat-pin-btn .material-symbols-outlined { font-size: 14px; }
+.sevendot-admin .cd-seat:hover .cd-seat-pin-btn { opacity: 1; }
+.sevendot-admin .cd-seat-pin-btn:hover { color: #F59E0B; background: rgba(245,158,11,0.1); }
+.sevendot-admin .cd-seat-pin-btn.on { opacity: 1; color: #F59E0B; }
+
+/* ======================================================================
+   학급 게임 탭
+   ====================================================================== */
+.sevendot-admin .cd-game-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.sevendot-admin .cd-game-tab {
+  padding: 9px 22px;
+  border: 2px solid #E8EBED;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #8B95A1;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sevendot-admin .cd-game-tab:hover { border-color: #009d5b; color: #009d5b; }
+.sevendot-admin .cd-game-tab.active {
+  border-color: #009d5b;
+  color: #009d5b;
+  background: #f0fdf6;
+}
+.sevendot-admin .cd-game-pane { display: none; }
+.sevendot-admin .cd-game-pane.active { display: block; }
+
+/* 제비뽑기 */
+.sevendot-admin .cd-lottery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 0 4px;
+}
+.sevendot-admin .cd-lottery-stage {
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(135deg, #f0fdf8, #e6faf2);
+  border: 2px solid #b8e8d0;
+  border-radius: 20px;
+  padding: 40px 24px 28px;
+  text-align: center;
+}
+.sevendot-admin .cd-lottery-result {
+  font-size: 52px;
+  font-weight: 900;
+  color: #191F28;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sevendot-admin .cd-lottery-result.spinning { color: #8B95A1; }
+.sevendot-admin .cd-lottery-result.picked {
+  color: #009d5b;
+  animation: lot-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes lot-pop {
+  0%   { transform: scale(0.6); opacity: 0.4; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.sevendot-admin .cd-lottery-sub {
+  font-size: 13px;
+  color: #8B95A1;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.sevendot-admin .cd-lottery-btn { min-width: 160px; padding: 12px 28px; font-size: 15px; }
+.sevendot-admin .cd-lottery-exclude { width: 100%; }
+.sevendot-admin .cd-lottery-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.sevendot-admin .cd-lot-name {
+  padding: 5px 14px;
+  border: 1.5px solid #D1D6DB;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+  color: #333D4B;
+  transition: all 0.15s;
+}
+.sevendot-admin .cd-lot-name:hover { border-color: #009d5b; color: #009d5b; }
+.sevendot-admin .cd-lot-name.excluded {
+  background: #F5F6F8;
+  color: #B0B8C1;
+  text-decoration: line-through;
+  border-color: #E8EBED;
+}
+
+/* 팀 나누기 */
+.sevendot-admin .cd-teams-result { min-height: 60px; }
+.sevendot-admin .cd-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+.sevendot-admin .cd-team-card {
+  border: 1.5px solid #E8EBED;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-team-head {
+  background: #F5F6F8;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333D4B;
+  padding: 8px 12px;
+  border-bottom: 1px solid #E8EBED;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sevendot-admin .cd-team-members {
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sevendot-admin .cd-team-member {
+  font-size: 13px;
+  font-weight: 500;
+  color: #191F28;
+  padding: 2px 0;
+}
+
+/* 사다리타기 */
+.sevendot-admin .cd-ladder-wrap { position: relative; user-select: none; }
+.sevendot-admin .cd-ladder-tops,
+.sevendot-admin .cd-ladder-bots {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+.sevendot-admin .cd-ladder-tops { margin-bottom: 2px; }
+.sevendot-admin .cd-ladder-bots { margin-top: 2px; }
+.sevendot-admin .cd-ladder-name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 700;
+  color: #333D4B;
+  background: #F5F6F8;
+  border: 1.5px solid #E8EBED;
+  border-radius: 8px;
+  padding: 5px 4px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.15s;
+  margin: 0 2px;
+}
+.sevendot-admin .cd-ladder-name:hover { border-color: #009d5b; background: #f0fdf6; color: #009d5b; }
+.sevendot-admin .cd-ladder-name.traced { border-color: #b8e8d0; background: #f0fdf6; }
+.sevendot-admin .cd-ladder-name.active { border-color: #009d5b; background: #e3faf0; color: #009d5b; }
+.sevendot-admin .cd-ladder-canvas {
+  width: 100%;
+  display: block;
+}
+.sevendot-admin .cd-ladder-prize-label {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191F28;
+  text-align: center;
+  padding: 5px 4px;
+  margin: 0 2px;
+  background: #fff;
+  border: 1.5px solid #E8EBED;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sevendot-admin .cd-ladder-results {
+  min-height: 36px;
+  margin: 12px 0 0;
+}
+.sevendot-admin .cd-ladder-reveal {
+  background: #f0fdf6;
+  border: 1px solid #b8e8d0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 15px;
+  text-align: center;
+}
+.sevendot-admin .cd-ladder-reveal-all {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sevendot-admin .cd-ladder-result-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: #F5F6F8;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.sevendot-admin .cd-ladder-edit {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #E8EBED;
+}
+.sevendot-admin .cd-ladder-prize-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+.sevendot-admin .cd-ladder-prize-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ======================================================================
+   학급관리 메인 탭 — cd-manage-tabs
+   tab-pills 기본 스타일(밑줄형)을 카드·아이콘 형으로 오버라이드
+   ====================================================================== */
+.sevendot-admin .cd-manage-tabs.tab-pills {
+  display: flex;
+  gap: 6px;
+  padding-bottom: 0;
+  border-bottom: none;
+  background: transparent;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.sevendot-admin .cd-manage-tabs.tab-pills button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: #F5F6F8;
+  border: 1.5px solid transparent;
+  border-bottom: 1.5px solid transparent;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8B95A1;
+  transition: background 0.12s, color 0.12s, border-color 0.12s, box-shadow 0.12s;
+  white-space: nowrap;
+}
+.sevendot-admin .cd-manage-tabs.tab-pills button .material-symbols-outlined {
+  font-size: 17px;
+  line-height: 1;
+}
+.sevendot-admin .cd-manage-tabs.tab-pills button:hover:not(.active) {
+  background: #ECEEF0;
+  color: #191F28;
+  border-color: transparent;
+}
+.sevendot-admin .cd-manage-tabs.tab-pills button.active {
+  background: #fff;
+  border-color: #009d5b;
+  color: #009d5b;
+  box-shadow: 0 2px 10px rgba(0, 157, 91, 0.13);
+}
+
+/* ======================================================================
+   오늘의 현황 — 공동목표 인라인 배너 (소형)
+   ====================================================================== */
+.sevendot-admin .cd-goal-inline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: #f3faf6;
+  border: 1px solid #b7e5cd;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.sevendot-admin .cd-goal-inline:hover { background: #e8f6ee; }
+.sevendot-admin .cd-goal-inline .material-symbols-outlined {
+  font-size: 22px;
+  color: #009d5b;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-goal-inline-body {
+  flex: 1;
+  min-width: 0;
+}
+.sevendot-admin .cd-goal-inline-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sevendot-admin .cd-goal-inline-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.sevendot-admin .cd-goal-inline-bar {
+  flex: 1;
+  height: 6px;
+  background: #D1D6DB;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.sevendot-admin .cd-goal-inline-bar-fill {
+  height: 100%;
+  background: #009d5b;
+  border-radius: 99px;
+  transition: width 0.4s;
+}
+.sevendot-admin .cd-goal-inline-pct {
+  font-size: 12px;
+  font-weight: 700;
+  color: #009d5b;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-goal-inline-left {
+  font-size: 12px;
+  color: #8B95A1;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-goal-inline-action {
+  font-size: 12px;
+  font-weight: 600;
+  color: #009d5b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ======================================================================
+   칭찬 사유 탭 — 관리 레이아웃
+   ====================================================================== */
+.sevendot-admin .cd-praise-tab-wrap {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 20px;
+  /* 양쪽 박스 같은 높이로 — 리스트가 남은 높이를 채움 */
+  align-items: stretch;
+}
+.sevendot-admin .cd-praise-tab-wrap > .section-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.sevendot-admin .cd-praise-tab-wrap > .section-box > .section-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+/* 왼쪽 폼: 저장 버튼 행은 항상 박스 하단에 */
+.sevendot-admin .cd-praise-tab-wrap .section-body > .cd-head-actions.row-end {
+  margin-top: auto;
+}
+/* 오른쪽 리스트: 고정 max-height 해제 → 박스 높이에 맞춰 내부 스크롤 */
+.sevendot-admin .cd-praise-tab-wrap .cd-praise-reason-list {
+  flex: 1;
+  max-height: none;
+  min-height: 0;
+}
+@media (max-width: 900px) {
+  .sevendot-admin .cd-praise-tab-wrap { grid-template-columns: 1fr; }
+  .sevendot-admin .cd-praise-tab-wrap .cd-praise-reason-list { max-height: 320px; }
+}
+
+/* ----- 주간리포트 2단: 좌(칭찬 리스트) 높이를 우측 컬럼에 맞춤 ----- */
+.sevendot-admin [data-mtabpane="report"] .cd-2col-wide {
+  align-items: stretch;
+}
+.sevendot-admin [data-mtabpane="report"] .cd-2col-wide > .section-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.sevendot-admin [data-mtabpane="report"] .cd-2col-wide > .section-box > .section-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.sevendot-admin [data-mtabpane="report"] .cd-praise-week {
+  flex: 1;
+  max-height: none;
+  min-height: 0;
+}
+
+/* ======================================================================
+   브릭 통장 — 입출금 내역 (학생 상세 모달)
+   ====================================================================== */
+.sevendot-admin .cd-ledger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.sevendot-admin .cd-ledger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid #F5F6F8;
+}
+.sevendot-admin .cd-ledger-row:last-child { border-bottom: none; }
+.sevendot-admin .cd-ledger-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.sevendot-admin .cd-ledger-reason {
+  font-size: 13px;
+  font-weight: 600;
+  color: #191F28;
+}
+.sevendot-admin .cd-ledger-time {
+  font-size: 12px;
+}
+.sevendot-admin .cd-ledger-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-ledger-amt {
+  font-size: 14px;
+  font-weight: 700;
+}
+.sevendot-admin .cd-ledger-bal {
+  font-size: 12px;
+}
+.sevendot-admin .text-green { color: #009d5b; }
+.sevendot-admin .text-red   { color: #e53935; }
+
+/* ======================================================================
+   아침게시판 탭 — 미리보기 패널
+   ====================================================================== */
+.sevendot-admin .cd-morning-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sevendot-admin .cd-morning-preview .cd-preview-row {
+  display: flex;
+  gap: 10px;
+}
+.sevendot-admin .cd-morning-preview .cd-preview-row b {
+  font-size: 13px;
+  font-weight: 700;
+  color: #191F28;
+  min-width: 64px;
+  flex-shrink: 0;
+}
+.sevendot-admin .cd-period-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px 0;
+}
+.sevendot-admin .cd-period {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+.sevendot-admin .cd-period span {
+  font-size: 12px;
+  color: #8B95A1;
+  white-space: nowrap;
+}
+.sevendot-admin .cd-period input {
+  width: 72px;
+}

@@ -1,0 +1,439 @@
+/* ============================================================================
+   board_write.css - 게시판형 작성/수정 공통 (notice/policy/faq/lecture/experienceapply/inquiry 공유)
+   ============================================================================ */
+
+/* .bc-link 는 공통 sevendot-admin.css 로 이동 (14개 페이지 공유) */
+
+.sevendot-admin .nw-form {
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.sevendot-admin .nw-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 14px;
+}
+.sevendot-admin .nw-row:first-child {
+  padding-top: 0;
+}
+.sevendot-admin .nw-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sevendot-admin .nw-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(49, 58, 70, 0.9);
+  letter-spacing: -0.2px;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.sevendot-admin .nw-label .req {
+  color: #dc3545;
+  font-size: 14px;
+}
+
+.sevendot-admin .nw-field {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 카테고리 칩 셀렉트 */
+.sevendot-admin .nw-cat-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nw-cat-chips label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border: 1px solid #dee2e6;
+  border-radius: 99px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(49, 58, 70, 0.85);
+  transition: all 0.12s;
+}
+.sevendot-admin .nw-cat-chips label:hover {
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .nw-cat-chips input[type="radio"] {
+  display: none;
+}
+.sevendot-admin .nw-cat-chips input[type="radio"]:checked + .lbl {
+  color: #fff;
+}
+.sevendot-admin .nw-cat-chips label:has(input:checked) {
+  background: var(--cat-color, #009d5b);
+  border-color: var(--cat-color, #009d5b);
+  color: #fff;
+}
+
+/* 텍스트 input */
+.sevendot-admin .nw-input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0 14px;
+  font-size: 14px;
+  color: rgba(49, 58, 70, 0.95);
+  outline: none;
+  transition: border-color 0.12s;
+}
+.sevendot-admin .nw-input:focus {
+  border-color: #009d5b;
+}
+.sevendot-admin .nw-input::placeholder {
+  color: #cbd1d8;
+}
+
+.sevendot-admin .nw-char-count {
+  font-size: 13px;
+  color: #97989b;
+  text-align: right;
+  margin-top: 4px;
+}
+.sevendot-admin .nw-char-count.over {
+  color: #dc3545;
+  font-weight: 700;
+}
+
+/* 본문 에디터 (간단 toolbar + textarea) */
+.sevendot-admin .nw-editor {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.sevendot-admin .nw-editor:focus-within {
+  border-color: #009d5b;
+}
+.sevendot-admin .nw-toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px;
+  background: #fff;
+  border-bottom: 1px solid #e6e8eb;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.sevendot-admin .nw-toolbar button {
+  height: 30px;
+  min-width: 32px;
+  padding: 0 8px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(49, 58, 70, 0.85);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.sevendot-admin .nw-toolbar button:hover {
+  background: #f3faf6;
+  border-color: #009d5b;
+  color: #009d5b;
+}
+.sevendot-admin .nw-toolbar .sep {
+  width: 1px;
+  height: 20px;
+  background: #dee2e6;
+  margin: 0 4px;
+}
+.sevendot-admin .nw-editor textarea {
+  width: 100%;
+  min-height: 340px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(49, 58, 70, 0.9);
+  font-family: inherit;
+}
+
+/* 첨부파일 */
+.sevendot-admin .nw-attach-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sevendot-admin .nw-attach-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nw-attach-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid #009d5b;
+  color: #009d5b;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  transition: all 0.12s;
+}
+.sevendot-admin .nw-attach-btn:hover {
+  background: #f3faf6;
+  border-color: #007a47;
+  color: #007a47;
+}
+.sevendot-admin .nw-attach-btn .ico {
+  font-size: 14px;
+}
+.sevendot-admin .nw-attach-meta {
+  font-size: 13px;
+  color: #97989b;
+  line-height: 1.5;
+}
+
+.sevendot-admin .nw-attach-dropzone {
+  border: 1px dashed #c5cdd6;
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: #fff;
+  font-size: 13px;
+  color: #97989b;
+  text-align: center;
+  transition: all 0.12s;
+}
+.sevendot-admin .nw-attach-dropzone.drag-over {
+  border-color: #009d5b;
+  background: #f3faf6;
+  color: #009d5b;
+  border-style: solid;
+}
+
+/* 숨김용 파일 input (인라인 style="display:none" → 클래스) */
+.sevendot-admin .nw-file-hidden {
+  display: none;
+}
+
+.sevendot-admin .nw-attach-list {
+  margin-top: 4px;
+}
+.sevendot-admin .nw-attach-list .at-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.sevendot-admin .nw-attach-list .at-item + .at-item {
+  margin-top: 6px;
+}
+.sevendot-admin .nw-attach-list .at-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  background: #f0f2f4;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.sevendot-admin .nw-attach-list .at-name {
+  flex: 1;
+  color: rgba(49, 58, 70, 0.9);
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sevendot-admin .nw-attach-list .at-size {
+  color: #97989b;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.sevendot-admin .nw-attach-list .at-del {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #97989b;
+  font-size: 18px;
+  padding: 0 4px;
+  line-height: 1;
+}
+.sevendot-admin .nw-attach-list .at-del:hover {
+  color: #dc3545;
+}
+
+/* 옵션 (고정/푸시) */
+.sevendot-admin .nw-options {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nw-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(49, 58, 70, 0.9);
+  font-weight: 600;
+}
+.sevendot-admin .nw-options input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #009d5b;
+  cursor: pointer;
+}
+.sevendot-admin .nw-options .hint {
+  font-size: 13px;
+  color: #97989b;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+/* 팝업 노출 기간 (모든 인라인 → 클래스) */
+.sevendot-admin .nw-popup-range {
+  display: none;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e6e8eb;
+  border-radius: 6px;
+}
+.sevendot-admin .nw-popup-range.show {
+  display: block;
+}
+.sevendot-admin .nw-popup-range .pr-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(49, 58, 70, 0.9);
+  margin-bottom: 6px;
+}
+.sevendot-admin .nw-popup-range .pr-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sevendot-admin .nw-popup-range .pr-row input {
+  width: auto;
+  flex: 1;
+  min-width: 140px;
+}
+.sevendot-admin .nw-popup-range .pr-row .pr-sep {
+  color: #97989b;
+}
+.sevendot-admin .nw-popup-range .pr-note {
+  font-size: 13px;
+  color: #97989b;
+  margin-top: 6px;
+}
+
+/* 하단 버튼(.nw-foot)은 공통 sevendot-admin.css 로 이동 (중복 제거) */
+
+/* ----------------------------------------------------------------------------
+   [.nw-textarea] 단순 textarea — 구 inquiry_write.css .iw-textarea 흡수
+   (board_write 의 .nw-editor 툴바형과는 별개 — 가벼운 텍스트 입력용)
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .nw-textarea {
+  width: 100%;
+  min-height: 240px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(49, 58, 70, 0.9);
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.12s;
+}
+.sevendot-admin .nw-textarea:focus { border-color: #009d5b; }
+.sevendot-admin .nw-textarea::placeholder { color: #cbd1d8; }
+
+/* ----------------------------------------------------------------------------
+   [.nw-notify] 단일 알림 옵션 (체크박스 + 라벨) — 구 inquiry_write.css .iw-notify 흡수
+   .nw-options (체크박스 그룹) 와 별개로, 한 줄짜리 알림 동의용
+   ---------------------------------------------------------------------------- */
+.sevendot-admin .nw-notify {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(49, 58, 70, 0.85);
+}
+.sevendot-admin .nw-notify input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #009d5b;
+  cursor: pointer;
+}
+.sevendot-admin .nw-notify.sms { margin-top: 6px; }
+.sevendot-admin .nw-notify .nw-notify-num {
+  color: #97989b;
+  font-weight: 500;
+}
+/* 휴대폰 미인증 안내 */
+.sevendot-admin .nw-notify-unverified {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fff4e6;
+  border: 1px solid #f0d264;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #8a5a00;
+  margin-top: 6px;
+}
+.sevendot-admin .nw-notify-unverified .ico { flex-shrink: 0; }
+.sevendot-admin .nw-notify-unverified a {
+  color: #009d5b;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ============================================================================
+   [반응형]
+   ============================================================================ */
+@media (max-width: 640px) {
+  .sevendot-admin .nw-form {
+    padding: 16px;
+  }
+  .sevendot-admin .nw-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .sevendot-admin .nw-label {
+    padding-top: 0;
+  }
+}
