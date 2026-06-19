@@ -68,7 +68,7 @@
     const active = CLASSES.find(c => c.active) || CLASSES[0];
     const roleCls = CFG.role === 'principal' ? 'warning' : 'info';
     return `
-      <div class="cd-tb-brand"><img src="../image/7dot-logo.png" alt="세븐닷" class="cd-tb-logo">세븐닷 교사용 관리자 <span class="cd-tb-sub" data-shell-slot="orgName">${active.org}</span></div>
+      <div class="cd-tb-brand"><img src="../../../image/sevendot/7dot-logo.png" alt="세븐닷" class="cd-tb-logo">세븐닷 교사용 관리자 <span class="cd-tb-sub" data-shell-slot="orgName">${active.org}</span></div>
       <div class="cd-tb-right">
         <button class="cd-tb-link" type="button" data-action="topAlert">알림</button>
         <a class="cd-tb-link" href="${CFG.noticeHref}">공지사항</a>
