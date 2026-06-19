@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>보고서·알림 - 세븐닷 학원장 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="areport" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+    <div class="rightBoxNT">
+      <div class="content_area">
+        <div class="page-header">
+          <div><h2>보고서·알림</h2><p class="cd-page-sub">학원 전체·반별 학습 통계를 보고, 학부모에게 알림톡을 보냅니다.</p></div>
+        </div>
+        <section class="cd-view active" id="view-areport">
+          <div class="summary-cards">
+            <div class="sc-card"><div class="sc-k">평균 완료율</div><div class="sc-v success">80%</div><div class="sc-sub">이번 달</div></div>
+            <div class="sc-card"><div class="sc-k">평균 정답률</div><div class="sc-v">76%</div><div class="sc-sub">이번 달</div></div>
+            <div class="sc-card"><div class="sc-k">누적 출석</div><div class="sc-v">22일</div><div class="sc-sub">1인 평균</div></div>
+            <div class="sc-card"><div class="sc-k">미완료 학생</div><div class="sc-v warning">9명</div><div class="sc-sub">오늘 기준</div></div>
+          </div>
+          <div class="cd-2col cd-2col-wide">
+            <div class="section-box">
+              <div class="section-head"><div class="title">반별 완료율</div><button class="btn-sm" type="button" data-action="printDoc">PDF 출력</button></div>
+              <div class="section-body">
+                <div class="cd-metric">
+                  <div class="cd-metric-row"><span class="k">초등 국어 A반</span><span class="track"><span class="fill" style="width:88%"></span></span><span class="v">88%</span></div>
+                  <div class="cd-metric-row"><span class="k">초등 영어 B반</span><span class="track"><span class="fill" style="width:76%"></span></span><span class="v">76%</span></div>
+                  <div class="cd-metric-row"><span class="k">중등 수학반</span><span class="track"><span class="fill" style="width:64%"></span></span><span class="v">64%</span></div>
+                  <div class="cd-metric-row"><span class="k">중등 영어반</span><span class="track"><span class="fill" style="width:81%"></span></span><span class="v">81%</span></div>
+                  <div class="cd-metric-row"><span class="k">초등 종합반</span><span class="track"><span class="fill" style="width:92%"></span></span><span class="v">92%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="section-box">
+              <div class="section-head"><div class="title">알림톡 발송</div></div>
+              <div class="section-body">
+                <div class="cd-form-row"><label>대상</label><select class="form-select"><option>미완료 학생 학부모 (9명)</option><option>전체 학부모</option><option>반 선택…</option></select></div>
+                <div class="cd-form-row"><label>템플릿</label><select class="form-select"><option>오늘 학습 미완료 안내</option><option>주간 학습 리포트</option><option>결제 안내</option></select></div>
+                <button class="btn primary" type="button" data-action="demoAction" style="width:100%"><span class="material-symbols-outlined" style="font-size:17px;vertical-align:-3px">send</span> 알림톡 발송</button>
+              </div>
+            </div>
+          </div>
+          <div class="section-box">
+            <div class="section-head"><div class="title">발송 내역</div></div>
+            <div class="section-body tbl">
+              <table class="tbl">
+                <thead><tr><th>발송일</th><th>대상</th><th>템플릿</th><th class="center">건수</th><th class="center">상태</th></tr></thead>
+                <tbody>
+                  <tr><td class="muted">오늘 09:30</td><td>중등 수학반 학부모</td><td>오늘 학습 미완료 안내</td><td class="center">6</td><td class="center"><span class="badge success">발송완료</span></td></tr>
+                  <tr><td class="muted">어제 18:00</td><td>전체 학부모</td><td>주간 학습 리포트</td><td class="center">114</td><td class="center"><span class="badge success">발송완료</span></td></tr>
+                  <tr><td class="muted">3일 전</td><td>미납 학부모</td><td>결제 안내</td><td class="center">3</td><td class="center"><span class="badge success">발송완료</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>

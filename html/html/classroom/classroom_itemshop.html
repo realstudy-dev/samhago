@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아이템 샵 - 세븐닷 학원장 관리자</title>
+
+    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <!-- Google Material Symbols (아이콘 통일) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <!-- 페이지 전용 스타일 -->
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+    <link rel="stylesheet" href="../css/classroom_billing.css" />
+  </head>
+  <body class="sevendot-admin" data-page="ashop" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+      <!-- 페이지 헤더 -->
+      <div class="page-header">
+        <div>
+          <h2>아이템 샵</h2>
+          <p class="cd-page-sub">학원 운영에 필요한 소모품을 적립금으로 결제합니다.</p>
+        </div>
+      </div>
+
+      <!-- ==== 아이템 샵 ==== -->
+      <section class="cd-view active" id="view-ashop">
+
+        <!-- 적립금 배너 -->
+        <div class="cd-shop-bar">
+          <div class="cd-shop-bar-bal">
+            <span class="material-symbols-outlined">account_balance_wallet</span>
+            <div>
+              <div class="cd-desc">사용 가능 적립금</div>
+              <div class="cd-shop-bar-amt"><b id="shopBalance">320,000</b>원</div>
+            </div>
+          </div>
+          <div class="cd-shop-bar-actions">
+            <span class="cd-desc">적립금이 부족하면</span>
+            <button class="btn" type="button" id="btnGoDeposit">적립금 관리</button>
+          </div>
+        </div>
+
+        <!-- 카테고리 탭 -->
+        <div class="cd-cat-tabs" id="catTabs">
+          <button class="active" type="button" data-cat="ALL">전체 <span class="cd-cat-cnt">14</span></button>
+          <button type="button" data-cat="PAPER">종이류 <span class="cd-cat-cnt">4</span></button>
+          <button type="button" data-cat="PRINT">토너·잉크 <span class="cd-cat-cnt">2</span></button>
+          <button type="button" data-cat="STATIONERY">필기구·노트 <span class="cd-cat-cnt">3</span></button>
+          <button type="button" data-cat="HYGIENE">위생용품 <span class="cd-cat-cnt">3</span></button>
+          <button type="button" data-cat="SERVICE">인쇄 서비스 <span class="cd-cat-cnt">2</span></button>
+        </div>
+
+        <!-- 검색 · 정렬 -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:nowrap">
+          <input type="search" class="form-input" id="shopSearch" placeholder="상품명 검색" style="width:220px;flex-shrink:0" />
+          <span class="cd-desc" id="shopResultCnt" style="white-space:nowrap;flex-shrink:0">총 14개</span>
+          <select class="form-select" id="shopSort" style="width:140px;flex-shrink:0;margin-left:auto">
+            <option value="popular">인기순</option>
+            <option value="priceAsc">가격 낮은순</option>
+            <option value="priceDesc">가격 높은순</option>
+            <option value="new">신상품순</option>
+          </select>
+        </div>
+
+        <!-- 상품 그리드 -->
+        <div class="cd-item-grid" id="itemGrid"></div>
+        <div class="cd-shop-empty" id="shopEmpty" hidden>검색 결과가 없습니다. 검색어를 바꿔보세요.</div>
+      </section>
+
+      <!-- Footer -->
+      <div id="site-footer-mount"></div>
+      </div><!-- /.content_area -->
+    </div>
+
+    <!-- ===== 모달1: 상품 상세 · 수량 ===== -->
+    <div class="modal-overlay" id="itemModal">
+      <div class="modal">
+        <div class="modal-head"><div class="title">상품 상세</div><button class="close" type="button" data-close="itemModal">×</button></div>
+        <div class="modal-body">
+          <div class="cd-item-detail">
+            <div class="cd-item-thumb" id="dThumb"><span class="material-symbols-outlined">inventory_2</span></div>
+            <div class="cd-item-detail-info">
+              <span class="badge chip-color" id="dCat" style="--cat-color:var(--c-info-50);color:var(--c-info)">종이류</span>
+              <h3 id="dName" class="cd-item-detail-name">복사용지 A4</h3>
+              <p class="cd-desc" id="dDesc"></p>
+              <div class="cd-item-detail-price"><b id="dPrice">28,000</b>원 <span class="cd-desc">/ 개</span></div>
+              <div class="cd-desc" id="dStock">재고 42개 · 택배 (영업일 1~3일)</div>
+            </div>
+          </div>
+          <div class="cd-qty-row">
+            <span>수량</span>
+            <div class="cd-stepper">
+              <button type="button" data-q="-1">−</button>
+              <input type="number" id="dQty" value="1" min="1" />
+              <button type="button" data-q="1">+</button>
+            </div>
+          </div>
+          <div class="cd-pay-box" id="dPayBox"></div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn" type="button" data-close="itemModal">취소</button>
+          <button class="btn primary" type="button" id="btnToOrder">적립금으로 결제</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 모달2: 주문 정보 입력 ===== -->
+    <div class="modal-overlay" id="orderModal">
+      <div class="modal" style="max-width:560px">
+        <div class="modal-head"><div class="title">주문 정보 입력</div><button class="close" type="button" data-close="orderModal">×</button></div>
+        <div class="modal-body">
+          <div class="cd-form-block"><label class="cd-form-block-label" for="oName">받는 분</label><input class="form-input" id="oName" placeholder="이름" style="width:100%" /></div>
+          <div class="cd-form-block"><label class="cd-form-block-label" for="oPhone">연락처</label><input class="form-input" id="oPhone" placeholder="010-1234-5678" style="width:100%" /></div>
+          <div class="cd-form-block">
+            <label class="cd-form-block-label">배송지</label>
+            <div class="cd-addr-row">
+              <input class="form-input" id="oZip" placeholder="우편번호" style="width:120px" readonly />
+              <button class="btn" type="button" id="btnFindAddr">우편번호 찾기</button>
+            </div>
+            <input class="form-input" id="oAddr1" placeholder="기본 주소" style="width:100%;margin-top:8px" readonly />
+            <input class="form-input" id="oAddr2" placeholder="상세 주소" style="width:100%;margin-top:8px" />
+          </div>
+          <div class="cd-form-block">
+            <label class="cd-form-block-label" for="oMemo">배송 메모</label>
+            <select class="form-select" id="oMemo" style="width:100%">
+              <option value="">선택 안 함</option>
+              <option>부재 시 경비실에 보관해주세요</option>
+              <option>문 앞에 놓아주세요</option>
+              <option>택배함에 넣어주세요</option>
+              <option>배송 전 연락 부탁드려요</option>
+            </select>
+          </div>
+          <div class="cd-pay-box" id="oPayBox"></div>
+          <label class="cd-consent">
+            <input type="checkbox" id="oConsent" />
+            <span><b>[필수]</b> 개인정보 제3자 제공 동의</span>
+            <button class="cd-link" type="button" id="btnConsentMore">자세히 ▼</button>
+          </label>
+          <div class="cd-consent-detail" id="consentDetail" hidden>
+            <table class="tbl">
+              <tbody>
+                <tr><th>제공받는 자</th><td>판매업체</td></tr>
+                <tr><th>제공 항목</th><td>주문자명, 전화번호, 배송주소, 주문내역</td></tr>
+                <tr><th>이용 목적</th><td>상품 배송 및 배송 안내</td></tr>
+                <tr><th>보유 기간</th><td>배송 완료 후 5년</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn" type="button" data-close="orderModal">취소</button>
+          <button class="btn primary" type="button" id="btnToConfirm" disabled>적립금으로 결제</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 모달3: 주문 확정 ===== -->
+    <div class="modal-overlay" id="confirmModal">
+      <div class="modal">
+        <div class="modal-head"><div class="title">주문 확정</div><button class="close" type="button" data-close="confirmModal">×</button></div>
+        <div class="modal-body">
+          <div class="cd-modal-center">
+            <div class="cd-desc">적립금 결제 금액</div>
+            <div class="cd-dep-amount"><span id="cAmount">28,000</span><span class="unit">원</span></div>
+          </div>
+          <div class="cd-confirm-block">
+            <div class="cd-confirm-row"><span>주문 상품</span><b id="cItem">복사용지 A4 ×1</b></div>
+            <div class="cd-confirm-row"><span>받는 분</span><b id="cName">-</b></div>
+            <div class="cd-confirm-row"><span>연락처</span><b id="cPhone">-</b></div>
+            <div class="cd-confirm-row"><span>주소</span><b id="cAddr">-</b></div>
+            <div class="cd-confirm-row" id="cMemoRow"><span>배송 메모</span><b id="cMemo">-</b></div>
+          </div>
+          <div class="cd-pay-box" id="cPayBox"></div>
+          <div class="cd-desc" style="margin-top:10px">받는 분 정보는 판매업체에 이메일·카카오 알림톡으로 자동 전달됩니다.</div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn" type="button" data-close="confirmModal">취소</button>
+          <button class="btn primary" type="button" id="btnFinalize">결제하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+
+    <!-- 페이지 전용: 아이템 샵 구매 플로우 (이식: itemshop/item_shop.html) -->
+    <script>
+      (function () {
+        var fmt = function (n) { return n.toLocaleString("ko-KR"); };
+        function toastMsg(m) { if (window.toast) window.toast(m); }
+        function openModal(id) { document.getElementById(id).classList.add("show"); }
+        function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+
+        var BALANCE = 320000;
+        var CAT_LABEL = {
+          PAPER: ["종이류", "#e8f3ff", "#1b64da"], PRINT: ["토너·잉크", "#f3edff", "#7c3aed"],
+          STATIONERY: ["필기구·노트", "#e7f7ef", "#009d5b"], HYGIENE: ["위생용품", "#fff3e6", "#d97706"],
+          SERVICE: ["인쇄 서비스", "#eef1f4", "#4b5563"],
+        };
+        var ITEMS = [
+          { id: "ITEM-001", cat: "PAPER", name: "복사용지 A4 (5박스, 2,500매)", desc: "더블에이 80g A4 복사용지 5박스. 학원 1개월 분량.", price: 28000, stock: 42, badge: ["BEST", "warning"] },
+          { id: "ITEM-002", cat: "PAPER", name: "복사용지 A4 (1박스, 500매)", desc: "낱박스 단위 A4 복사용지.", price: 6000, stock: 120, badge: null },
+          { id: "ITEM-003", cat: "PAPER", name: "복사용지 A3 (1박스, 500매)", desc: "시험지·교재용 A3 복사용지.", price: 8000, stock: 60, badge: null },
+          { id: "ITEM-004", cat: "PAPER", name: "컬러용지 A4 (100매, 5색 혼합)", desc: "안내문·게시물용 컬러용지.", price: 5000, stock: 35, badge: ["NEW", "info"] },
+          { id: "ITEM-005", cat: "PRINT", name: "HP 78A 정품 토너 (검정)", desc: "HP 레이저 프린터용 정품 토너.", price: 68000, stock: 15, badge: ["BEST", "warning"] },
+          { id: "ITEM-006", cat: "PRINT", name: "캐논 PG-46 정품 잉크 카트리지", desc: "캐논 잉크젯 프린터용 정품 카트리지.", price: 35000, stock: 20, badge: null },
+          { id: "ITEM-007", cat: "STATIONERY", name: "모나미 153 볼펜 (검정, 50개입)", desc: "학원 비치용 볼펜 50자루.", price: 12000, stock: 80, badge: null },
+          { id: "ITEM-008", cat: "STATIONERY", name: "동아 연필 HB (50자루)", desc: "시험·필기용 HB 연필.", price: 8000, stock: 100, badge: null },
+          { id: "ITEM-009", cat: "STATIONERY", name: "모닝글로리 노트 A5 (10권)", desc: "학생 배부용 A5 노트.", price: 15000, stock: 45, badge: null },
+          { id: "ITEM-010", cat: "HYGIENE", name: "손소독제 1L 펌프 (2개입)", desc: "출입구 비치용 손소독제.", price: 18000, stock: 30, badge: null },
+          { id: "ITEM-011", cat: "HYGIENE", name: "KF-94 마스크 (100매)", desc: "성인용 KF-94 마스크 대용량.", price: 20000, stock: 55, badge: null },
+          { id: "ITEM-012", cat: "HYGIENE", name: "휴지·물티슈 세트 (대용량)", desc: "강의실 비치용 위생 세트.", price: 12000, stock: 40, badge: ["SALE", "danger"] },
+          { id: "ITEM-013", cat: "SERVICE", name: "교재 인쇄 서비스 (50권)", desc: "자체 교재 인쇄(흑백/컬러 선택). 주문제작.", price: 150000, stock: 999, badge: null },
+          { id: "ITEM-014", cat: "SERVICE", name: "교재 제본 서비스 (10권)", desc: "스프링/무선 제본. 주문제작.", price: 50000, stock: 999, badge: null },
+        ];
+
+        var curCat = "ALL", curSort = "popular", curSearch = "";
+        function stockText(s) { return s >= 999 ? "주문제작" : "재고 " + s + "개"; }
+
+        function renderGrid() {
+          var list = ITEMS.filter(function (it) {
+            if (curCat !== "ALL" && it.cat !== curCat) return false;
+            if (curSearch && it.name.indexOf(curSearch) === -1) return false;
+            return true;
+          });
+          if (curSort === "priceAsc") list.sort(function (a, b) { return a.price - b.price; });
+          else if (curSort === "priceDesc") list.sort(function (a, b) { return b.price - a.price; });
+          else if (curSort === "new") list.slice().reverse();
+          document.getElementById("shopResultCnt").textContent = "총 " + list.length + "개";
+          document.getElementById("shopEmpty").hidden = list.length > 0;
+          document.getElementById("itemGrid").innerHTML = list.map(function (it) {
+            var c = CAT_LABEL[it.cat];
+            var badge = it.badge ? '<span class="badge ' + it.badge[1] + ' cd-item-badge">' + it.badge[0] + "</span>" : "";
+            return '<button type="button" class="cd-item-card" data-id="' + it.id + '">' +
+              '<div class="cd-item-thumb"><span class="material-symbols-outlined">inventory_2</span>' + badge + "</div>" +
+              '<div class="cd-item-card-body">' +
+              '<span class="badge chip-color cd-item-cat" style="--cat-color:' + c[1] + ";color:" + c[2] + '">' + c[0] + "</span>" +
+              '<div class="cd-item-name">' + it.name + "</div>" +
+              '<div class="cd-item-foot"><b class="cd-item-price">' + fmt(it.price) + "원</b><span class=\"cd-desc\">" + stockText(it.stock) + "</span></div>" +
+              "</div></button>";
+          }).join("");
+        }
+        renderGrid();
+
+        document.getElementById("catTabs").addEventListener("click", function (e) {
+          var b = e.target.closest("[data-cat]"); if (!b) return;
+          curCat = b.dataset.cat;
+          this.querySelectorAll("button").forEach(function (x) { x.classList.toggle("active", x === b); });
+          renderGrid();
+        });
+        document.getElementById("shopSearch").addEventListener("input", function () { curSearch = this.value.trim(); renderGrid(); });
+        document.getElementById("shopSort").addEventListener("change", function () { curSort = this.value; renderGrid(); });
+        document.getElementById("btnGoDeposit").addEventListener("click", function () { window.location.href = "classroom_deposit.html"; });
+
+        /* ---------- 구매 플로우 ---------- */
+        var order = { item: null, qty: 1 };
+        function payBoxHtml(total) {
+          var after = BALANCE - total;
+          return '<div class="cd-pay-row"><span>결제 금액</span><b>' + fmt(total) + "원</b></div>" +
+            '<div class="cd-pay-row"><span>현재 적립금</span><span>' + fmt(BALANCE) + "원</span></div>" +
+            '<div class="cd-pay-row total"><span>결제 후 잔액</span><b class="' + (after < 0 ? "danger" : "success") + '">' + fmt(after) + "원</b></div>";
+        }
+        function detailTotal() { return order.item.price * order.qty; }
+
+        function openDetail(id) {
+          order.item = ITEMS.find(function (x) { return x.id === id; }); order.qty = 1;
+          var it = order.item, c = CAT_LABEL[it.cat];
+          document.getElementById("dCat").textContent = c[0];
+          document.getElementById("dCat").style.cssText = "--cat-color:" + c[1] + ";color:" + c[2];
+          document.getElementById("dName").textContent = it.name;
+          document.getElementById("dDesc").textContent = it.desc;
+          document.getElementById("dPrice").textContent = fmt(it.price);
+          document.getElementById("dStock").textContent = stockText(it.stock) + " · 택배 (영업일 1~3일)";
+          document.getElementById("dQty").value = 1;
+          document.getElementById("dPayBox").innerHTML = payBoxHtml(it.price);
+          openModal("itemModal");
+        }
+        document.getElementById("itemGrid").addEventListener("click", function (e) {
+          var c = e.target.closest(".cd-item-card"); if (!c) return; openDetail(c.dataset.id);
+        });
+        document.querySelector("#itemModal .cd-stepper").addEventListener("click", function (e) {
+          var b = e.target.closest("[data-q]"); if (!b) return;
+          order.qty = Math.max(1, order.qty + (+b.dataset.q));
+          document.getElementById("dQty").value = order.qty;
+          document.getElementById("dPayBox").innerHTML = payBoxHtml(detailTotal());
+        });
+        document.getElementById("dQty").addEventListener("input", function () {
+          order.qty = Math.max(1, parseInt(this.value || "1", 10));
+          document.getElementById("dPayBox").innerHTML = payBoxHtml(detailTotal());
+        });
+
+        document.getElementById("btnToOrder").addEventListener("click", function () {
+          closeModal("itemModal");
+          document.getElementById("oPayBox").innerHTML = payBoxHtml(detailTotal());
+          openModal("orderModal");
+        });
+
+        /* 모달2: 주문 정보 */
+        function checkOrderValid() {
+          var ok = document.getElementById("oName").value && document.getElementById("oPhone").value &&
+            document.getElementById("oZip").value && document.getElementById("oConsent").checked;
+          document.getElementById("btnToConfirm").disabled = !ok;
+        }
+        ["oName", "oPhone", "oConsent"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", checkOrderValid);
+          document.getElementById(id).addEventListener("change", checkOrderValid);
+        });
+        document.getElementById("btnFindAddr").addEventListener("click", function () {
+          document.getElementById("oZip").value = "06236";
+          document.getElementById("oAddr1").value = "서울특별시 강남구 테헤란로 123";
+          checkOrderValid();
+        });
+        document.getElementById("btnConsentMore").addEventListener("click", function () {
+          var d = document.getElementById("consentDetail");
+          d.hidden = !d.hidden;
+          this.textContent = d.hidden ? "자세히 ▼" : "접기 ▲";
+        });
+        document.getElementById("btnToConfirm").addEventListener("click", function () {
+          var total = detailTotal();
+          document.getElementById("cAmount").textContent = fmt(total);
+          document.getElementById("cItem").textContent = order.item.name + " ×" + order.qty;
+          document.getElementById("cName").textContent = document.getElementById("oName").value;
+          document.getElementById("cPhone").textContent = document.getElementById("oPhone").value;
+          var addr = document.getElementById("oAddr1").value + " " + document.getElementById("oAddr2").value;
+          document.getElementById("cAddr").textContent = addr.trim();
+          var memo = document.getElementById("oMemo").value;
+          document.getElementById("cMemoRow").hidden = !memo;
+          document.getElementById("cMemo").textContent = memo;
+          document.getElementById("cPayBox").innerHTML = payBoxHtml(total);
+          closeModal("orderModal"); openModal("confirmModal");
+        });
+
+        document.getElementById("btnFinalize").addEventListener("click", function () {
+          BALANCE -= detailTotal();
+          document.getElementById("shopBalance").textContent = fmt(BALANCE);
+          closeModal("confirmModal");
+          toastMsg("결제가 완료되었습니다. 받는 분 정보가 판매업체로 전달됩니다.");
+        });
+
+        /* ---------- 공통 모달 닫기 ---------- */
+        document.querySelectorAll(".modal-overlay").forEach(function (ov) {
+          ov.addEventListener("click", function (e) {
+            if (e.target === ov) ov.classList.remove("show");
+            var cl = e.target.closest("[data-close]");
+            if (cl) closeModal(cl.dataset.close);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

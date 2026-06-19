@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>반 관리 - 세븐닷 어드민</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="agroup" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+
+        <div class="page-header">
+          <div>
+            <h2>반 관리</h2>
+            <p class="cd-page-sub">반 목록과 반별 학생·학습 현황을 확인합니다.</p>
+          </div>
+          <div class="page-header-actions">
+            <button class="btn" type="button" data-action="createClass">
+              <span class="material-symbols-outlined">add</span>반 만들기
+            </button>
+          </div>
+        </div>
+
+        <section class="cd-view active" id="view-agroup">
+          <div class="cg-split">
+            <div class="cg-left">
+              <div class="section-box" style="overflow:hidden">
+                <div class="section-head" style="padding:16px 16px 12px">
+                  <div class="title">반 목록 <span class="muted" id="cgClassCount"></span></div>
+                </div>
+                <div id="cgClassList"></div>
+              </div>
+            </div>
+            <div class="cg-right">
+              <div class="section-box" id="cgDetailBox">
+                <div class="section-body" style="display:flex;align-items:center;justify-content:center;min-height:200px">
+                  <p class="cd-desc">좌측에서 반을 선택하세요.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals-group.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+    <script>
+    (function () {
+      if (!isInstitutionManager()) { setView('classmgmt'); return; }
+
+      /* [MOCK] 반 메타 — 개발자가 API로 교체 */
+      var CLASSES_META = [
+        { cls: '초등 국어 A반', teacherEmail: 'jieun.kim@7bricks.co.kr',    level: '초등 3~4학년', subject: '국어' },
+        { cls: '초등 영어 B반', teacherEmail: 'sujin.lee@7bricks.co.kr',    level: '초등 3~4학년', subject: '영어' },
+        { cls: '초등 종합반',   teacherEmail: 'minjun.park@7bricks.co.kr',  level: '초등 5~6학년', subject: '종합' },
+        { cls: '중등 수학반',   teacherEmail: 'seohyun.choi@7bricks.co.kr', level: '중등 1학년',   subject: '수학' },
+        { cls: '중등 영어반',   teacherEmail: 'haeun.jung@7bricks.co.kr',   level: '중등 2학년',   subject: '영어' },
+        { cls: '중등 종합반',   teacherEmail: 'sw.hong@7bricks.co.kr',      level: '중등 3학년',   subject: '종합' },
+      ];
+
+      /* [MOCK] 선생님 목록 — 개발자가 API(이메일 ID)로 교체 */
+      var TEACHERS = [
+        { name: '김지은', email: 'jieun.kim@7bricks.co.kr'    },
+        { name: '이수진', email: 'sujin.lee@7bricks.co.kr'    },
+        { name: '박민준', email: 'minjun.park@7bricks.co.kr'  },
+        { name: '최서현', email: 'seohyun.choi@7bricks.co.kr' },
+        { name: '정하은', email: 'haeun.jung@7bricks.co.kr'   },
+        { name: '홍승우', email: 'sw.hong@7bricks.co.kr'      },
+        { name: '오현수', email: 'hs.oh@7bricks.co.kr'        },
+        { name: '임지영', email: 'jy.lim@7bricks.co.kr'       },
+      ];
+
+      function teacherName(email) {
+        var t = TEACHERS.find(function (t) { return t.email === email; });
+        return t ? t.name : (email || '미배정');
+      }
+
+      /* ----- 학교/학원 구분 옵션 ----- */
+      var SCHOOL_GRADES  = ['초1','초2','초3','초4','초5','초6','중1','중2','중3','고1','고2','고3'];
+      var ACADEMY_LEVELS = ['입문','기초','초급','중급','고급','심화'];
+
+      function fillLevelSelect(selectId, labelId, currentVal) {
+        var isSchool = (typeof isSchoolOrg === 'function') && isSchoolOrg();
+        var opts = isSchool ? SCHOOL_GRADES : ACADEMY_LEVELS;
+        var lbl  = isSchool ? '학년' : '레벨';
+        var lbEl = document.getElementById(labelId);
+        if (lbEl) lbEl.textContent = lbl;
+        var sel = document.getElementById(selectId);
+        if (!sel) return;
+        sel.innerHTML = '<option value="">선택</option>' +
+          opts.map(function (o) {
+            return '<option' + (o === currentVal ? ' selected' : '') + '>' + o + '</option>';
+          }).join('');
+      }
+
+      function switchTeacherTab(prefix, tab) {
+        var existDiv = document.getElementById(prefix + 'TchExisting');
+        var newDiv   = document.getElementById(prefix + 'TchNew');
+        var btns = document.querySelectorAll('[data-tchmod-target="' + prefix + '"][data-tchmoda]');
+        btns.forEach(function (b) { b.classList.toggle('active', b.dataset.tchmoda === tab); });
+        if (existDiv) existDiv.hidden = (tab !== 'existing');
+        if (newDiv)   newDiv.hidden   = (tab !== 'new');
+      }
+
+      var selectedCls = null;
+
+      function stuOfCls(cls) {
+        var src = (typeof academyStudents !== 'undefined') ? academyStudents : [];
+        return src.filter(function (s) { return s.cls === cls; });
+      }
+
+      function statsOfCls(cls) {
+        var list = stuOfCls(cls);
+        var done     = list.filter(function (s) { return s.done; }).length;
+        var totalPts = list.reduce(function (a, s) { return a + (s.points || 0); }, 0);
+        var streak   = list.filter(function (s) { return (s.tag || '').includes('연속'); }).length;
+        return { total: list.length, done: done, totalPts: totalPts, streak: streak };
+      }
+
+      /* ----- 반 목록 ----- */
+      function renderList() {
+        var el = document.getElementById('cgClassList');
+        if (!el) return;
+        var cnt = document.getElementById('cgClassCount');
+        if (cnt) cnt.textContent = CLASSES_META.length + '개';
+        el.innerHTML = CLASSES_META.map(function (m) {
+          var st = statsOfCls(m.cls);
+          var active = selectedCls === m.cls;
+          return '<button type="button" class="cg-class-item' + (active ? ' active' : '') + '" data-cls="' + m.cls + '">' +
+            '<div class="cg-ci-name">' + m.cls + '</div>' +
+            '<div class="cg-ci-meta">' + teacherName(m.teacherEmail) + ' 선생님 · ' + st.total + '명</div>' +
+          '</button>';
+        }).join('');
+      }
+
+      /* ----- 반 상세 ----- */
+      function renderDetail(cls) {
+        var m = CLASSES_META.find(function (x) { return x.cls === cls; });
+        if (!m) return;
+        var st   = statsOfCls(cls);
+        var list = stuOfCls(cls);
+        var box  = document.getElementById('cgDetailBox');
+        if (!box) return;
+        var doneRate = st.total ? Math.round(st.done / st.total * 100) : 0;
+
+        box.innerHTML =
+          '<div class="section-head">' +
+            '<div>' +
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">' +
+                '<span style="font-size:18px;font-weight:700;color:var(--c-ink)">' + m.cls + '</span>' +
+                '<span class="badge neutral">' + m.subject + '</span>' +
+                '<span class="badge neutral">' + m.level + '</span>' +
+              '</div>' +
+              '<div class="cd-desc">' +
+                '<span class="material-symbols-outlined" style="font-size:14px;vertical-align:-2px">person</span> ' +
+                teacherName(m.teacherEmail) + ' 선생님 담당' +
+                ' <span class="muted" style="font-size:12px">· ' + m.teacherEmail + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<button class="btn" type="button" data-action="editClass" data-cls="' + m.cls + '">' +
+              '<span class="material-symbols-outlined" style="font-size:15px;vertical-align:-2px">settings</span> 반 설정' +
+            '</button>' +
+          '</div>' +
+          '<div class="section-body">' +
+            '<div class="cd-mini-grid" style="margin-bottom:20px">' +
+              '<div class="cd-mini-box" data-kpi="done">' +
+                '<span class="cd-kpi-ico material-symbols-outlined">check_circle</span>' +
+                '<span class="cd-kpi-val">' + st.done + '<span class="cd-kpi-unit">/' + st.total + '명</span></span>' +
+                '<span class="cd-kpi-label">오늘 학습완료</span>' +
+                '<div class="cd-kpi-sub">' +
+                  '<div class="cd-kpi-bar"><div class="cd-kpi-bar-fill" style="width:' + doneRate + '%"></div></div>' +
+                  '<span>달성률 ' + doneRate + '%</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="cd-mini-box" data-kpi="pts">' +
+                '<span class="cd-kpi-ico material-symbols-outlined">workspace_premium</span>' +
+                '<span class="cd-kpi-val">' + st.totalPts.toLocaleString() + '<span class="cd-kpi-unit">p</span></span>' +
+                '<span class="cd-kpi-label">전체 포인트</span>' +
+              '</div>' +
+              '<div class="cd-mini-box" data-kpi="streak">' +
+                '<span class="cd-kpi-ico material-symbols-outlined">local_fire_department</span>' +
+                '<span class="cd-kpi-val">' + st.streak + '<span class="cd-kpi-unit">명</span></span>' +
+                '<span class="cd-kpi-label">연속학습 중</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cd-bank-sub-title" style="margin-bottom:10px">학생 목록</div>' +
+            (list.length === 0
+              ? '<p class="cd-desc" style="text-align:center;padding:24px 0">이 반에 배정된 학생이 없습니다.</p>'
+              : '<table class="tbl">' +
+                '<thead><tr>' +
+                  '<th style="width:40px;text-align:center">번호</th>' +
+                  '<th>이름</th>' +
+                  '<th style="width:70px">과목</th>' +
+                  '<th style="width:110px">레벨</th>' +
+                  '<th style="width:80px">학습</th>' +
+                  '<th style="width:90px">스트릭</th>' +
+                  '<th class="right" style="width:80px">포인트</th>' +
+                '</tr></thead>' +
+                '<tbody>' +
+                list.map(function (s, i) {
+                  var hasStreak = (s.tag || '').includes('연속');
+                  return '<tr>' +
+                    '<td class="muted" style="text-align:center">' + (i + 1) + '</td>' +
+                    '<td style="font-weight:600">' + s.name + '</td>' +
+                    '<td><span class="badge neutral">' + (m.subject || '-') + '</span></td>' +
+                    '<td class="cd-desc">' + (m.level || '-') + '</td>' +
+                    '<td>' + (s.done ? '<span class="badge success">완료</span>' : '<span class="badge neutral">미완료</span>') + '</td>' +
+                    '<td>' + (hasStreak
+                      ? '<span class="badge warning"><span class="material-symbols-outlined" style="font-size:12px;vertical-align:-1px">local_fire_department</span>' + s.tag + '</span>'
+                      : '<span class="cd-desc">-</span>') + '</td>' +
+                    '<td class="right" style="font-weight:600">' + (s.points || 0).toLocaleString() + '<small class="cd-sc-pts-unit">p</small></td>' +
+                  '</tr>';
+                }).join('') +
+                '</tbody></table>') +
+          '</div>';
+      }
+
+      function selectCls(cls) {
+        selectedCls = cls;
+        renderList();
+        renderDetail(cls);
+      }
+
+      /* ----- 선생님 이메일 datalist 채우기 ----- */
+      function fillTeacherDatalist() {
+        var dl = document.getElementById('cgTeacherList');
+        if (!dl) return;
+        dl.innerHTML = TEACHERS.map(function (t) {
+          return '<option value="' + t.email + '">' + t.name + '</option>';
+        }).join('');
+      }
+
+      function setTeacherEmail(inputId, email) {
+        var el = document.getElementById(inputId);
+        if (el) el.value = email || '';
+      }
+
+      function validateEmail(val) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+
+      /* ----- 반 만들기 모달 ----- */
+      function openCreateModal() {
+        document.getElementById('cgCreateName').value = '';
+        setTeacherEmail('cgCreateTeacher', '');
+        if (document.getElementById('cgCreateTeacherName'))   document.getElementById('cgCreateTeacherName').value = '';
+        if (document.getElementById('cgCreateTeacherEmail2')) document.getElementById('cgCreateTeacherEmail2').value = '';
+        document.getElementById('cgCreateSubject').value = '';
+        fillLevelSelect('cgCreateLevel', 'cgCreateLvLabel', '');
+        switchTeacherTab('cgCreate', 'existing');
+        fillTeacherDatalist();
+        document.getElementById('cgCreateModal').classList.add('show');
+        document.getElementById('cgCreateName').focus();
+      }
+
+      function closeCreateModal() {
+        document.getElementById('cgCreateModal').classList.remove('show');
+      }
+
+      function saveCreateClass() {
+        var name    = document.getElementById('cgCreateName').value.trim();
+        var subject = document.getElementById('cgCreateSubject').value;
+        var level   = document.getElementById('cgCreateLevel').value;
+        if (!name) { document.getElementById('cgCreateName').focus(); toast('반 이름을 입력하세요.'); return; }
+        if (CLASSES_META.find(function (m) { return m.cls === name; })) { toast('이미 존재하는 반 이름입니다.'); return; }
+        var email = '';
+        var isNew = document.getElementById('cgCreateTchNew') && !document.getElementById('cgCreateTchNew').hidden;
+        if (isNew) {
+          var tName  = (document.getElementById('cgCreateTeacherName')   || {}).value.trim();
+          var tEmail = (document.getElementById('cgCreateTeacherEmail2') || {}).value.trim();
+          if (!tName)  { document.getElementById('cgCreateTeacherName').focus();   toast('선생님 이름을 입력하세요.'); return; }
+          if (!tEmail || !validateEmail(tEmail)) { document.getElementById('cgCreateTeacherEmail2').focus(); toast('올바른 이메일을 입력하세요.'); return; }
+          if (!TEACHERS.find(function (t) { return t.email === tEmail; })) {
+            TEACHERS.push({ name: tName, email: tEmail });
+            fillTeacherDatalist();
+          }
+          email = tEmail;
+        } else {
+          email = document.getElementById('cgCreateTeacher').value.trim();
+          if (email && !validateEmail(email)) { document.getElementById('cgCreateTeacher').focus(); toast('이메일 형식이 올바르지 않습니다.'); return; }
+        }
+        CLASSES_META.push({ cls: name, teacherEmail: email, subject: subject || '-', level: level || '-' });
+        closeCreateModal();
+        selectCls(name);
+        toast(name + ' 반이 생성됐습니다.');
+      }
+
+      /* ----- 반 설정 모달 ----- */
+      function openEditModal(cls) {
+        var m = CLASSES_META.find(function (x) { return x.cls === cls; });
+        if (!m) return;
+        fillTeacherDatalist();
+        document.getElementById('cgEditOrigCls').value = cls;
+        document.getElementById('cgEditName').value = m.cls;
+        fillLevelSelect('cgEditLevel', 'cgEditLvLabel', m.level);
+        document.getElementById('cgEditSubject').value = m.subject || '';
+        switchTeacherTab('cgEdit', 'existing');
+        setTeacherEmail('cgEditTeacher', m.teacherEmail);
+        if (document.getElementById('cgEditTeacherName'))   document.getElementById('cgEditTeacherName').value = '';
+        if (document.getElementById('cgEditTeacherEmail2')) document.getElementById('cgEditTeacherEmail2').value = '';
+        document.getElementById('cgEditModal').classList.add('show');
+      }
+
+      function closeEditModal() {
+        document.getElementById('cgEditModal').classList.remove('show');
+      }
+
+      function saveEditClass() {
+        var origCls = document.getElementById('cgEditOrigCls').value;
+        var newName = document.getElementById('cgEditName').value.trim();
+        var subject = document.getElementById('cgEditSubject').value;
+        var level   = document.getElementById('cgEditLevel').value;
+        if (!newName) { document.getElementById('cgEditName').focus(); toast('반 이름을 입력하세요.'); return; }
+        if (newName !== origCls && CLASSES_META.find(function (m) { return m.cls === newName; })) {
+          toast('이미 존재하는 반 이름입니다.'); return;
+        }
+        var email = '';
+        var isNew = document.getElementById('cgEditTchNew') && !document.getElementById('cgEditTchNew').hidden;
+        if (isNew) {
+          var tName  = (document.getElementById('cgEditTeacherName')   || {}).value.trim();
+          var tEmail = (document.getElementById('cgEditTeacherEmail2') || {}).value.trim();
+          if (!tName)  { document.getElementById('cgEditTeacherName').focus();   toast('선생님 이름을 입력하세요.'); return; }
+          if (!tEmail || !validateEmail(tEmail)) { document.getElementById('cgEditTeacherEmail2').focus(); toast('올바른 이메일을 입력하세요.'); return; }
+          if (!TEACHERS.find(function (t) { return t.email === tEmail; })) {
+            TEACHERS.push({ name: tName, email: tEmail });
+            fillTeacherDatalist();
+          }
+          email = tEmail;
+        } else {
+          email = document.getElementById('cgEditTeacher').value.trim();
+          if (email && !validateEmail(email)) { document.getElementById('cgEditTeacher').focus(); toast('이메일 형식이 올바르지 않습니다.'); return; }
+        }
+        var m = CLASSES_META.find(function (x) { return x.cls === origCls; });
+        if (!m) return;
+        m.cls          = newName;
+        m.teacherEmail = email   || m.teacherEmail;
+        m.subject      = subject || m.subject;
+        m.level        = level   || m.level;
+        closeEditModal();
+        selectCls(newName);
+        toast('반 설정이 저장됐습니다.');
+      }
+
+      function deleteClass() {
+        var origCls = document.getElementById('cgEditOrigCls').value;
+        if (!confirm(origCls + ' 반을 삭제할까요?\n삭제하면 되돌릴 수 없습니다.')) return;
+        var idx = CLASSES_META.findIndex(function (m) { return m.cls === origCls; });
+        if (idx !== -1) CLASSES_META.splice(idx, 1);
+        closeEditModal();
+        selectedCls = null;
+        renderList();
+        var box = document.getElementById('cgDetailBox');
+        if (box) box.innerHTML = '<div class="section-body" style="display:flex;align-items:center;justify-content:center;min-height:200px"><p class="cd-desc">좌측에서 반을 선택하세요.</p></div>';
+        toast(origCls + ' 반이 삭제됐습니다.');
+      }
+
+      /* ----- 초기화 ----- */
+      renderList();
+      if (CLASSES_META.length) selectCls(CLASSES_META[0].cls);
+
+      /* ----- 이벤트 ----- */
+      document.addEventListener('click', function (e) {
+        /* data-close: 모달 닫기 */
+        var closeTarget = e.target.closest('[data-close]');
+        if (closeTarget) {
+          var modal = document.getElementById(closeTarget.dataset.close);
+          if (modal) modal.classList.remove('show');
+          return;
+        }
+        var tchTab = e.target.closest('[data-tchmoda]');
+        if (tchTab) {
+          switchTeacherTab(tchTab.dataset.tchmodTarget, tchTab.dataset.tchmoda);
+          return;
+        }
+        if (e.target.closest('[data-action="createClass"]'))    { openCreateModal(); return; }
+        if (e.target.closest('[data-action="saveCreateClass"]')) { saveCreateClass(); return; }
+        var editBtn = e.target.closest('[data-action="editClass"]');
+        if (editBtn) { openEditModal(editBtn.dataset.cls); return; }
+        if (e.target.closest('[data-action="saveEditClass"]'))   { saveEditClass(); return; }
+        if (e.target.closest('[data-action="deleteClass"]'))     { deleteClass(); return; }
+        var clsBtn = e.target.closest('[data-cls]');
+        if (clsBtn && !clsBtn.dataset.action) { selectCls(clsBtn.dataset.cls); return; }
+        /* 모달 외부 클릭 닫기 */
+        if (e.target.id === 'cgCreateModal') { closeCreateModal(); return; }
+        if (e.target.id === 'cgEditModal')   { closeEditModal(); return; }
+      });
+    })();
+    </script>
+  </body>
+</html>

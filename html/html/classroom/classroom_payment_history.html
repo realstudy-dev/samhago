@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결제 내역 - 세븐닷 학원장 관리자</title>
+
+    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <!-- Google Material Symbols (아이콘 통일) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <!-- 페이지 전용 스타일 -->
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+    <link rel="stylesheet" href="../css/classroom_billing.css" />
+  </head>
+  <body class="sevendot-admin" data-page="apay" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+      <!-- 페이지 헤더 -->
+      <div class="page-header">
+        <div>
+          <button class="cd-back-link" type="button" data-menu="asub"><span class="material-symbols-outlined">arrow_back</span> 구독 관리</button>
+          <h2>결제 내역</h2>
+          <p class="cd-page-sub">세븐닷 구독 결제·환불 내역을 조회합니다.</p>
+        </div>
+      </div>
+
+      <!-- ==== 결제 내역 ==== -->
+      <section class="cd-view active" id="view-apay">
+
+        <!-- 조회 필터 -->
+        <div class="section-box">
+          <div class="section-body">
+            <div class="cd-filter-row">
+              <label class="cd-filter-label">기간</label>
+              <input type="date" class="form-input" id="payFrom" value="2026-01-01" />
+              <span class="cd-desc">~</span>
+              <input type="date" class="form-input" id="payTo" value="2026-07-01" />
+              <label class="cd-filter-label" style="margin-left:8px">상태</label>
+              <select class="form-select" id="payStatus">
+                <option value="">전체</option>
+                <option value="PAID">결제완료</option>
+                <option value="SCHEDULED">결제예정</option>
+                <option value="REFUNDED">환불완료</option>
+              </select>
+              <button class="btn primary" type="button" id="btnPaySearch">조회</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 결과 -->
+        <div class="section-box">
+          <div class="section-head"><div class="title">조회 결과 <span class="cd-desc" id="payCount">총 0건</span></div></div>
+          <div class="section-body tbl">
+            <table class="tbl">
+              <thead><tr><th>결제일</th><th>주문번호</th><th>상품명</th><th class="right">금액</th><th class="center">상태</th></tr></thead>
+              <tbody id="payRows"></tbody>
+            </table>
+            <div class="cd-pager" id="payPager"></div>
+          </div>
+        </div>
+
+        <div class="guideBox tip"><p>정기구독 결제는 매월 결제일 10:00 자동으로 진행됩니다. 상품 변경(다운그레이드) 시 차액은 환불 내역으로 표기됩니다.</p></div>
+      </section>
+
+      <!-- Footer -->
+      <div id="site-footer-mount"></div>
+      </div><!-- /.content_area -->
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+
+    <!-- 페이지 전용: 결제 내역 조회 (이식: subscription/product_purchase_complete.html) -->
+    <script>
+      (function () {
+        var fmt = function (n) { return n.toLocaleString("ko-KR"); };
+        var STATUS = {
+          PAID: ["결제완료", "paid"], SCHEDULED: ["결제예정", "scheduled"], REFUNDED: ["환불완료", "refunded"],
+        };
+        // 결제 내역 (이식: PAYMENTS — PAID / SCHEDULED / REFUNDED)
+        var PAYMENTS = [
+          { date: "2026-07-01", order: "ORD-20260701-000161", name: "[3과목] 정기구독 (50명)", amount: 77000, status: "SCHEDULED" },
+          { date: "2026-06-01", order: "ORD-20260601-000128", name: "[3과목] 정기구독 (50명)", amount: 77000, status: "PAID" },
+          { date: "2026-05-22", order: "ORD-20260522-000095", name: "[3과목] 정기구독 (50명) 신규 가입", amount: 77000, status: "PAID" },
+          { date: "2026-05-01", order: "ORD-20260501-000074", name: "[3과목] 정기구독 (50명)", amount: 77000, status: "PAID" },
+          { date: "2026-04-01", order: "ORD-20260401-000060", name: "[2과목] 정기구독 (50명)", amount: 55000, status: "PAID" },
+          { date: "2026-03-22", order: "ORD-20260322-000041", name: "상품 변경 차액 환불 (2→3과목 조정)", amount: -22000, status: "REFUNDED" },
+          { date: "2026-03-01", order: "ORD-20260301-000033", name: "[2과목] 정기구독 (50명)", amount: 55000, status: "PAID" },
+          { date: "2026-02-01", order: "ORD-20260201-000018", name: "[2과목] 정기구독 (50명)", amount: 55000, status: "PAID" },
+        ];
+
+        function render() {
+          var from = document.getElementById("payFrom").value;
+          var to = document.getElementById("payTo").value;
+          var st = document.getElementById("payStatus").value;
+          var rows = PAYMENTS.filter(function (p) {
+            if (from && p.date < from) return false;
+            if (to && p.date > to) return false;
+            if (st && p.status !== st) return false;
+            return true;
+          });
+          document.getElementById("payCount").textContent = "총 " + rows.length + "건";
+          var tb = document.getElementById("payRows");
+          if (!rows.length) { tb.innerHTML = '<tr><td colspan="5" class="center muted" style="padding:28px">조회 결과가 없습니다.</td></tr>'; document.getElementById("payPager").innerHTML = ""; return; }
+          tb.innerHTML = rows.map(function (p) {
+            var s = STATUS[p.status];
+            var amtCls = p.amount < 0 ? "refund danger" : "";
+            var amtTxt = (p.amount < 0 ? "−" : "") + fmt(Math.abs(p.amount)) + "원";
+            return "<tr><td class=\"muted\">" + p.date + '</td><td class="muted">' + p.order + "</td><td>" + p.name +
+              '</td><td class="right ' + amtCls + '"><b>' + amtTxt + '</b></td><td class="center"><span class="badge ' + s[1] + '">' + s[0] + "</span></td></tr>";
+          }).join("");
+          document.getElementById("payPager").innerHTML = '<button type="button" disabled>‹</button><button type="button" class="active">1</button><button type="button" disabled>›</button>';
+        }
+        render();
+        document.getElementById("btnPaySearch").addEventListener("click", render);
+        document.getElementById("payStatus").addEventListener("change", render);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>칭찬 사유 - 세븐닷 교사용 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="praiserule">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+
+        <div class="page-header">
+          <div>
+            <h2>칭찬 사유</h2>
+            <p class="cd-page-sub">포인트 지급 시 사용할 칭찬 사유를 관리합니다.</p>
+          </div>
+        </div>
+
+        <section class="cd-view active" id="view-praiserule">
+          <div class="cd-praise-tab-wrap">
+            <!-- 왼쪽: 사유 추가 폼 -->
+            <div class="section-box">
+              <div class="section-head"><div class="title">칭찬 사유 추가</div></div>
+              <div class="section-body">
+                <!-- 아이콘 선택 -->
+                <div class="cd-acct-field" style="margin-bottom:16px">
+                  <label class="cd-acct-label">아이콘</label>
+                  <input type="hidden" id="newPraiseIconTab" value="thumb_up" />
+                  <div class="cd-icon-pick" data-iconpick="newPraiseIconTab">
+                    <button type="button" class="active" data-icon="thumb_up"><span class="material-symbols-outlined">thumb_up</span></button>
+                    <button type="button" data-icon="chat_bubble"><span class="material-symbols-outlined">chat_bubble</span></button>
+                    <button type="button" data-icon="favorite"><span class="material-symbols-outlined">favorite</span></button>
+                    <button type="button" data-icon="track_changes"><span class="material-symbols-outlined">track_changes</span></button>
+                    <button type="button" data-icon="menu_book"><span class="material-symbols-outlined">menu_book</span></button>
+                    <button type="button" data-icon="auto_awesome"><span class="material-symbols-outlined">auto_awesome</span></button>
+                    <button type="button" data-icon="handshake"><span class="material-symbols-outlined">handshake</span></button>
+                    <button type="button" data-icon="local_fire_department"><span class="material-symbols-outlined">local_fire_department</span></button>
+                    <button type="button" data-icon="eco"><span class="material-symbols-outlined">eco</span></button>
+                    <button type="button" data-icon="emoji_events"><span class="material-symbols-outlined">emoji_events</span></button>
+                  </div>
+                </div>
+                <!-- 지급 브릭 + 칭찬 사유명 -->
+                <div class="cd-acct-grid">
+                  <div class="cd-acct-field">
+                    <label class="cd-acct-label">지급 브릭</label>
+                    <input class="form-input" id="newPraiseBrickTab" type="number" value="5" />
+                  </div>
+                  <div class="cd-acct-field">
+                    <label class="cd-acct-label">칭찬 사유명</label>
+                    <input class="form-input" id="newPraiseNameTab" placeholder="예: 발표를 잘했어요" />
+                  </div>
+                </div>
+                <!-- 설명 -->
+                <div class="cd-acct-field" style="margin-top:14px">
+                  <label class="cd-acct-label">설명 <span class="cd-desc">(선택)</span></label>
+                  <textarea class="form-textarea" id="newPraiseDescTab" rows="3" placeholder="예: 수업 시간에 자신 있게 발표하고 친구들의 생각도 잘 들어주었습니다."></textarea>
+                </div>
+                <!-- 저장 -->
+                <div class="cd-head-actions row-end" style="margin-top:16px">
+                  <button class="btn" type="button" data-action="resetPraiseFormTab">초기화</button>
+                  <button class="btn primary" type="button" data-action="savePraiseReasonTab">저장</button>
+                </div>
+              </div>
+            </div>
+            <!-- 오른쪽: 등록된 사유 목록 -->
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title">등록된 칭찬 사유</div>
+                <div class="cd-head-actions">
+                  <button class="cd-link" type="button" data-action="loadPraiseExamples">기본 칭찬 사유 불러오기</button>
+                </div>
+              </div>
+              <div class="section-body">
+                <div class="cd-desc gap-b">학생 카드를 누르면 이 사유로 바로 브릭을 지급할 수 있어요.</div>
+                <div class="cd-praise-reason-list" id="praiseReasonListCm"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>콘텐츠·레벨 - 세븐닷 학원장 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="alevel" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+    <div class="rightBoxNT">
+      <div class="content_area">
+        <div class="page-header">
+          <div><h2>콘텐츠·레벨</h2><p class="cd-page-sub">반별 적용 레벨을 한눈에 보고, 세븐닷 콘텐츠를 확인합니다.</p></div>
+        </div>
+        <section class="cd-view active" id="view-alevel">
+          <div class="section-box">
+            <div class="section-head"><div class="title">반별 적용 레벨</div><button class="btn-sm" type="button" data-menu="agroup">그룹 관리에서 조정</button></div>
+            <div class="section-body tbl">
+              <table class="tbl">
+                <thead><tr><th>반(그룹)</th><th>학년</th><th class="center">국어</th><th class="center">영어</th><th class="center">수학</th><th class="center">개별 조정</th></tr></thead>
+                <tbody>
+                  <tr><td><b>초등 국어 A반</b></td><td>초3~4</td><td class="center">레벨 1-1</td><td class="center">A-1</td><td class="center">레벨 1-1</td><td class="center"><span class="badge info">2명</span></td></tr>
+                  <tr><td><b>초등 영어 B반</b></td><td>초4~5</td><td class="center">레벨 1-2</td><td class="center">A-2</td><td class="center">레벨 1-2</td><td class="center"><span class="cd-desc">0명</span></td></tr>
+                  <tr><td><b>중등 수학반</b></td><td>중1~2</td><td class="center">레벨 2-1</td><td class="center">B-1</td><td class="center">레벨 2-1</td><td class="center"><span class="badge info">3명</span></td></tr>
+                  <tr><td><b>중등 영어반</b></td><td>중1~2</td><td class="center">레벨 2-2</td><td class="center">B-2</td><td class="center">레벨 2-2</td><td class="center"><span class="badge info">1명</span></td></tr>
+                  <tr><td><b>초등 종합반</b></td><td>초5~6</td><td class="center">레벨 1-1</td><td class="center">A-1</td><td class="center">레벨 1-1</td><td class="center"><span class="cd-desc">0명</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="cd-2col">
+            <div class="section-box">
+              <div class="section-head"><div class="title">세븐닷 콘텐츠 라이브러리</div><button class="btn-sm" type="button" data-menu="content">콘텐츠 미리보기</button></div>
+              <div class="section-body">
+                <div class="cd-metric">
+                  <div class="cd-metric-row"><span class="k">국어</span><span class="track"><span class="fill" style="width:80%"></span></span><span class="v">70회</span></div>
+                  <div class="cd-metric-row"><span class="k">영어</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="v">120회</span></div>
+                  <div class="cd-metric-row"><span class="k">수학</span><span class="track"><span class="fill" style="width:80%"></span></span><span class="v">70회</span></div>
+                </div>
+                <p class="cd-desc" style="margin-top:10px">일일·주간 테스트와 중간·기말 평가 문항 포함. 오답·교정 신고는 콘텐츠 미리보기에서.</p>
+              </div>
+            </div>
+            <div class="section-box">
+              <div class="section-head"><div class="title">자체 콘텐츠</div><button class="btn-sm" type="button" data-action="demoAction">업로드</button></div>
+              <div class="section-body">
+                <div class="cd-bank-coupon-item"><div class="cd-bank-coupon-info"><b>초등A반_5월 어휘.xlsx</b><span class="cd-desc">120개 · 초등 국어 A반 적용</span></div><span class="badge success">적용중</span></div>
+                <div class="cd-bank-coupon-item"><div class="cd-bank-coupon-info"><b>중등_수학_보충.xlsx</b><span class="cd-desc">80개 · 중등 수학반 적용</span></div><span class="badge success">적용중</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="guideBox tip"><p>레벨은 반 기본을 따르고, 진단 결과가 다른 학생만 그룹 관리에서 개별 조정합니다.</p></div>
+        </section>
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>

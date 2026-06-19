@@ -1,0 +1,438 @@
+/* ============================================================================
+   classroom_billing.css
+   구독 관리 · 예치금 · 아이템 샵 3개 화면 공용 컴포넌트
+   (이식: subscription/ · deposit/ · itemshop/ → 통일 admin 디자인 시스템)
+   토큰: 그린 var(--c-brand) · 보더 var(--c-border)/var(--c-divider) · 텍스트 var(--c-ink) · 뮤트 var(--c-muted)
+   ============================================================================ */
+
+/* 폼/버튼 요소도 페이지 폰트(Pretendard) 상속 — 브라우저 기본(Arial 등) 방지.
+   통일 CSS는 일부 컴포넌트에만 inherit를 걸어둬서, 커스텀 버튼이 시스템 폰트로 새는 것을 막음 */
+.sevendot-admin button,
+.sevendot-admin input,
+.sevendot-admin select,
+.sevendot-admin textarea { font-family: inherit; }
+
+/* 구독/결제 KPI 카드 — 텍스트·날짜 혼합이라 40px 대신 22px로 유지 */
+.sevendot-admin .billing-kpi .sc-v { font-size: 20px; }
+
+/* ---- 공통: 행 카드(좌 정보 / 우 액션) ---- */
+.sevendot-admin .cd-change-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.sevendot-admin .cd-change-info { display: flex; flex-direction: column; gap: 4px; min-width: 240px; flex: 1; }
+.sevendot-admin .cd-change-info b { font-size: 14px; color: var(--c-ink); }
+.sevendot-admin .cd-danger-zone { border-color: var(--c-danger-50); }
+.sevendot-admin .cd-danger-zone .section-head .title { color: var(--c-danger); }
+
+/* ---- 공통: 모달 폼 블록 ---- */
+.sevendot-admin .cd-form-block { margin-bottom: 16px; }
+.sevendot-admin .cd-form-block:last-child { margin-bottom: 0; }
+.sevendot-admin .cd-form-block-label {
+  display: block; font-size: 14px; font-weight: 600; color: var(--c-ink-2); margin-bottom: 6px;
+}
+
+/* ---- 공통: 모달 중앙 정렬(완료/경고) ---- */
+.sevendot-admin .cd-modal-center { text-align: center; padding: 8px 0 4px; }
+.sevendot-admin .cd-modal-lead { font-size: 14px; line-height: 1.6; color: var(--c-ink-2); margin: 0; }
+.sevendot-admin .cd-modal-h { font-size: 16px; font-weight: 700; color: var(--c-ink); margin: 14px 0 8px; }
+.sevendot-admin .cd-modal-icon {
+  width: 56px; height: 56px; border-radius: 50%; margin: 4px auto 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.sevendot-admin .cd-modal-icon .material-symbols-outlined { font-size: 32px; }
+.sevendot-admin .cd-modal-icon.warn { background: var(--c-warning-50); color: #d9480f; }
+.sevendot-admin .cd-modal-icon.ok { background: var(--c-brand-50); color: var(--c-brand); }
+
+/* ============================================================================
+   구독 관리
+   ============================================================================ */
+.sevendot-admin .cd-billcard {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px; border: 1px solid var(--c-border); border-radius: 12px; background: var(--c-surface-2); flex-wrap: wrap;
+}
+.sevendot-admin .cd-billcard-info { display: flex; align-items: center; gap: 14px; }
+.sevendot-admin .cd-billcard-ico {
+  font-size: 24px; color: var(--c-brand); background: var(--c-brand-50); border-radius: 10px;
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+}
+.sevendot-admin .cd-billcard-name { font-size: 16px; color: var(--c-ink); margin-bottom: 2px; }
+
+/* 플랜 선택 그리드 */
+.sevendot-admin .cd-plan-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px;
+}
+.sevendot-admin .cd-plan-card {
+  text-align: left; border: 1.5px solid var(--c-border); border-radius: 12px; background: var(--c-white);
+  padding: 12px; cursor: pointer; transition: border-color .12s, background .12s; font-size: 14px;
+}
+.sevendot-admin .cd-plan-card:hover:not(:disabled) { border-color: var(--c-brand-100); }
+.sevendot-admin .cd-plan-card.selected { border-color: var(--c-brand); background: var(--c-brand-50); }
+.sevendot-admin .cd-plan-card.current { background: var(--c-divider); cursor: default; opacity: .85; }
+.sevendot-admin .cd-plan-card-top { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 6px; }
+.sevendot-admin .cd-plan-card-top b { font-size: 14px; color: var(--c-ink); }
+.sevendot-admin .cd-plan-card-price { font-size: 16px; font-weight: 700; color: var(--c-ink); margin-bottom: 2px; }
+.sevendot-admin .cd-plan-card-price .unit { font-size: 14px; font-weight: 500; color: var(--c-muted); }
+
+/* 과목 선택 칩 */
+.sevendot-admin .cd-subject-pick { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.sevendot-admin .cd-subject-chip {
+  border: 1.5px solid var(--c-border); background: var(--c-white); border-radius: 99px; padding: 8px 18px;
+  font-size: 14px; font-weight: 600; color: var(--c-ink-2); cursor: pointer;
+}
+.sevendot-admin .cd-subject-chip.on { border-color: var(--c-brand); background: var(--c-brand-50); color: var(--c-brand); }
+.sevendot-admin .cd-subject-chip.locked { opacity: .7; cursor: default; }
+
+/* 변경 미리보기 */
+.sevendot-admin .cd-change-preview {
+  border: 1px solid var(--c-border); background: var(--c-brand-50); border-radius: 12px; padding: 14px 16px;
+}
+.sevendot-admin .cd-change-preview-row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding: 3px 0; }
+.sevendot-admin .cd-change-preview-row > span:first-child { color: var(--c-muted); font-size: 14px; }
+.sevendot-admin .cd-change-preview-row.arrow { justify-content: center; color: var(--c-brand); padding: 2px 0; }
+.sevendot-admin .cd-change-preview-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px dashed var(--c-border-st); margin-top: 8px; padding-top: 10px; font-size: 14px;
+}
+.sevendot-admin .cd-change-preview-foot b.danger { color: var(--c-danger); }
+.sevendot-admin .cd-change-preview-foot b.success { color: var(--c-brand); }
+
+/* ============================================================================
+   예치금
+   ============================================================================ */
+.sevendot-admin .cd-dep-hero {
+  display: flex; align-items: stretch; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.sevendot-admin .cd-dep-hero-main { flex: 1; min-width: 240px; }
+.sevendot-admin .cd-dep-label { font-size: 14px; color: var(--c-muted); margin-bottom: 6px; }
+.sevendot-admin .cd-dep-amount { font-size: 32px; font-weight: 700; color: var(--c-ink); letter-spacing: -1px; line-height: 1.1; margin-bottom: 8px; }
+.sevendot-admin .cd-dep-amount .unit { font-size: 20px; font-weight: 600; color: var(--c-ink-2); margin-left: 2px; }
+.sevendot-admin .cd-dep-stats { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.sevendot-admin .cd-dep-stat {
+  background: var(--c-surface); border-radius: 10px; padding: 12px 18px; min-width: 110px;
+}
+.sevendot-admin .cd-dep-stat-k { font-size: 14px; color: var(--c-muted); margin-bottom: 4px; }
+.sevendot-admin .cd-dep-stat-v { font-size: 16px; font-weight: 700; color: var(--c-ink); }
+/* 적립금 출금 — 히어로 안 작은 버튼(정기결제 우선차감 유도, 비권장 톤) */
+.sevendot-admin .cd-wd-mini { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.sevendot-admin .cd-wd-mini-btn {
+  border: 1px solid var(--c-border-st); background: var(--c-white); color: var(--c-ink-2); border-radius: 7px;
+  padding: 5px 12px; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.sevendot-admin .cd-wd-mini-btn:hover:not(:disabled) { border-color: var(--c-brand); color: var(--c-brand); }
+.sevendot-admin .cd-wd-mini-btn:disabled { color: var(--c-disabled); background: var(--c-surface); cursor: default; }
+.sevendot-admin .cd-wd-mini-note { font-size: 14px; color: var(--c-muted); }
+
+/* 토글 스위치 */
+.sevendot-admin .cd-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.sevendot-admin .cd-toggle-info { display: flex; flex-direction: column; gap: 3px; }
+.sevendot-admin .cd-toggle-info b { font-size: 14px; color: var(--c-ink); }
+.sevendot-admin .cd-switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
+.sevendot-admin .cd-switch input { opacity: 0; width: 0; height: 0; }
+.sevendot-admin .cd-switch-track {
+  position: absolute; inset: 0; background: var(--c-border-st); border-radius: 99px; transition: .18s; cursor: pointer;
+}
+.sevendot-admin .cd-switch-track::before {
+  content: ""; position: absolute; height: 22px; width: 22px; left: 3px; top: 3px;
+  background: var(--c-white); border-radius: 50%; transition: .18s; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+}
+.sevendot-admin .cd-switch input:checked + .cd-switch-track { background: var(--c-brand); }
+.sevendot-admin .cd-switch input:checked + .cd-switch-track::before { transform: translateX(22px); }
+
+/* 다음 결제 미리보기 */
+.sevendot-admin .cd-dep-preview { margin-top: 14px; border: 1px solid var(--c-border); border-radius: 10px; padding: 12px 14px; background: var(--c-surface-2); }
+.sevendot-admin .cd-dep-preview-row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding: 4px 0; }
+.sevendot-admin .cd-dep-preview-row > span:first-child { color: var(--c-muted); font-size: 14px; }
+.sevendot-admin .cd-dep-preview-row b.success { color: var(--c-brand); }
+.sevendot-admin .cd-dep-preview-row.total { border-top: 1px dashed var(--c-border-st); margin-top: 6px; padding-top: 10px; }
+.sevendot-admin .cd-dep-preview-row.total > span:first-child { color: var(--c-ink); font-weight: 600; }
+
+/* 1회성 금액 입력 */
+.sevendot-admin .cd-amount-input { position: relative; }
+.sevendot-admin .cd-amount-input .form-input { width: 100%; padding-right: 34px; text-align: right; font-size: 16px; font-weight: 700; }
+.sevendot-admin .cd-amount-unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--c-muted); font-size: 14px; }
+.sevendot-admin .cd-preset-row { display: flex; gap: 8px; margin-top: 10px; }
+.sevendot-admin .cd-preset {
+  flex: 1; border: 1px solid var(--c-border); background: var(--c-white); border-radius: 8px; padding: 9px 0;
+  font-size: 14px; font-weight: 600; color: var(--c-ink-2); cursor: pointer;
+}
+.sevendot-admin .cd-preset:hover { border-color: var(--c-brand); color: var(--c-brand); }
+.sevendot-admin .cd-dep-reserved {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 12px;
+  font-size: 14px; color: var(--c-ink); background: var(--c-surface); border-radius: 8px; padding: 10px 12px;
+}
+
+/* 거래 내역 필터 */
+.sevendot-admin .cd-tx-filter { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.sevendot-admin .cd-tx-filter button {
+  border: 1px solid var(--c-border); background: var(--c-white); border-radius: 99px; padding: 7px 16px;
+  font-size: 14px; font-weight: 600; color: var(--c-ink-2); cursor: pointer;
+}
+.sevendot-admin .cd-tx-filter button.active { background: var(--c-ink); border-color: var(--c-ink); color: var(--c-white); }
+
+/* ============================================================================
+   아이템 샵
+   ============================================================================ */
+.sevendot-admin .cd-shop-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  background: var(--c-white); border: 1px solid var(--c-border); border-radius: 14px; padding: 16px 18px; margin-bottom: 16px;
+}
+.sevendot-admin .cd-shop-bar-bal { display: flex; align-items: center; gap: 12px; }
+.sevendot-admin .cd-shop-bar-bal .material-symbols-outlined { font-size: 32px; color: var(--c-brand); background: var(--c-brand-50); border-radius: 10px; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; }
+.sevendot-admin .cd-shop-bar-amt { font-size: 20px; font-weight: 700; color: var(--c-ink); }
+.sevendot-admin .cd-shop-bar-amt b { font-size: 20px; }
+.sevendot-admin .cd-shop-bar-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* 카테고리 탭 */
+.sevendot-admin .cd-cat-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.sevendot-admin .cd-cat-tabs button {
+  border: 1px solid var(--c-border); background: var(--c-white); border-radius: 99px; padding: 8px 16px;
+  font-size: 14px; font-weight: 600; color: var(--c-ink-2); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+}
+.sevendot-admin .cd-cat-tabs button.active { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-white); }
+.sevendot-admin .cd-cat-cnt { font-size: 12px; opacity: .7; }
+
+.sevendot-admin .cd-shop-search { display: flex; align-items: center; gap: 10px; }
+
+/* 상품 그리드 */
+.sevendot-admin .cd-item-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.sevendot-admin .cd-item-card {
+  text-align: left; border: 1px solid var(--c-border); border-radius: 14px; background: var(--c-white);
+  overflow: hidden; cursor: pointer; transition: box-shadow .14s, border-color .14s; padding: 0;
+}
+.sevendot-admin .cd-item-card:hover { border-color: var(--c-brand-100); box-shadow: 0 6px 18px rgba(0,0,0,.07); }
+.sevendot-admin .cd-item-thumb {
+  position: relative; aspect-ratio: 1/1; width: 100%; background: var(--c-divider); display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.sevendot-admin .cd-item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sevendot-admin .cd-item-thumb .material-symbols-outlined { font-size: 32px; color: var(--c-disabled); }
+.sevendot-admin .cd-item-badge { position: absolute; top: 10px; left: 10px; }
+.sevendot-admin .cd-item-card-body { padding: 12px 14px 14px; }
+.sevendot-admin .cd-item-cat { margin-bottom: 8px; }
+.sevendot-admin .cd-item-name { font-size: 14px; font-weight: 600; color: var(--c-ink); line-height: 1.4; min-height: 39px; margin-bottom: 10px; }
+.sevendot-admin .cd-item-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.sevendot-admin .cd-item-price { font-size: 16px; font-weight: 700; color: var(--c-ink); }
+.sevendot-admin .cd-shop-empty { text-align: center; padding: 60px 0; color: var(--c-muted); font-size: 14px; }
+
+/* 상품 상세 모달 */
+.sevendot-admin .cd-item-detail { display: flex; gap: 16px; margin-bottom: 18px; }
+.sevendot-admin .cd-item-detail .cd-item-thumb { width: 110px; height: 110px; border-radius: 12px; flex-shrink: 0; }
+.sevendot-admin .cd-item-detail-info { flex: 1; }
+.sevendot-admin .cd-item-detail-name { font-size: 16px; font-weight: 700; color: var(--c-ink); margin: 8px 0 6px; }
+.sevendot-admin .cd-item-detail-price { font-size: 16px; margin: 8px 0 4px; }
+.sevendot-admin .cd-item-detail-price b { font-size: 20px; font-weight: 700; color: var(--c-ink); }
+
+/* 수량 스테퍼 */
+.sevendot-admin .cd-qty-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--c-divider); font-size: 14px; font-weight: 600; }
+.sevendot-admin .cd-stepper { display: inline-flex; align-items: center; border: 1px solid var(--c-border-st); border-radius: 8px; overflow: hidden; }
+.sevendot-admin .cd-stepper button { width: 38px; height: 38px; border: none; background: var(--c-surface); font-size: 16px; color: var(--c-ink-2); cursor: pointer; }
+.sevendot-admin .cd-stepper button:hover { background: var(--c-divider); }
+.sevendot-admin .cd-stepper input { width: 52px; height: 38px; border: none; border-left: 1px solid var(--c-border); border-right: 1px solid var(--c-border); text-align: center; font-size: 14px; font-weight: 700; -moz-appearance: textfield; }
+.sevendot-admin .cd-stepper input::-webkit-outer-spin-button, .sevendot-admin .cd-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* 결제 정보 박스 */
+.sevendot-admin .cd-pay-box { border: 1px solid var(--c-border); border-radius: 10px; padding: 14px 16px; background: var(--c-surface-2); }
+.sevendot-admin .cd-pay-row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; padding: 4px 0; }
+.sevendot-admin .cd-pay-row > span:first-child { color: var(--c-muted); font-size: 14px; }
+.sevendot-admin .cd-pay-row.total { border-top: 1px dashed var(--c-border-st); margin-top: 6px; padding-top: 10px; }
+.sevendot-admin .cd-pay-row.total > span:first-child { color: var(--c-ink); font-weight: 600; }
+.sevendot-admin .cd-pay-row b.success { color: var(--c-brand); }
+.sevendot-admin .cd-pay-row b.danger { color: var(--c-danger); }
+
+/* 주문 정보 입력 */
+.sevendot-admin .cd-addr-row { display: flex; gap: 8px; }
+.sevendot-admin .cd-consent {
+  display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; color: var(--c-ink);
+  background: var(--c-surface); border-radius: 8px; padding: 12px 14px; cursor: pointer;
+}
+.sevendot-admin .cd-consent input { width: 18px; height: 18px; accent-color: var(--c-brand); }
+.sevendot-admin .cd-consent .cd-link { margin-left: auto; }
+.sevendot-admin .cd-consent-detail { margin-top: 8px; border: 1px solid var(--c-border); border-radius: 8px; overflow: hidden; }
+.sevendot-admin .cd-consent-detail .tbl th { width: 110px; background: var(--c-surface); font-size: 14px; text-align: left; padding: 8px 12px; color: var(--c-ink-2); }
+.sevendot-admin .cd-consent-detail .tbl td { font-size: 14px; padding: 8px 12px; }
+
+/* 주문 확정 */
+.sevendot-admin .cd-confirm-block { border: 1px solid var(--c-border); border-radius: 10px; padding: 6px 16px; margin: 16px 0; }
+.sevendot-admin .cd-confirm-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; font-size: 14px; padding: 9px 0; border-bottom: 1px solid var(--c-surface); }
+.sevendot-admin .cd-confirm-row:last-child { border-bottom: none; }
+.sevendot-admin .cd-confirm-row > span:first-child { color: var(--c-muted); font-size: 14px; flex-shrink: 0; }
+.sevendot-admin .cd-confirm-row b { text-align: right; }
+
+/* ---- 반응형 ---- */
+@media (max-width: 1024px) {
+  .sevendot-admin .cd-plan-grid { grid-template-columns: repeat(2, 1fr); }
+  .sevendot-admin .cd-item-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .sevendot-admin .cd-item-grid { grid-template-columns: repeat(2, 1fr); }
+  .sevendot-admin .cd-dep-amount { font-size: 32px; }
+  .sevendot-admin .cd-auth-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================
+   결제 내역 (상세·도구 페이지)
+   ============================================================================ */
+/* 헤더 뒤로가기 */
+.sevendot-admin .cd-back-link {
+  display: inline-flex; align-items: center; gap: 2px; background: none; border: none;
+  padding: 0 0 4px; margin: 0; cursor: pointer; font-size: 14px; color: var(--c-muted);
+}
+.sevendot-admin .cd-back-link:hover { color: var(--c-brand); }
+.sevendot-admin .cd-back-link .material-symbols-outlined { font-size: 16px; }
+
+/* 결제 내역 조회 필터 */
+.sevendot-admin .cd-filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sevendot-admin .cd-filter-label { font-size: 14px; font-weight: 600; color: var(--c-ink-2); }
+.sevendot-admin .cd-filter-row .form-input[type="date"] { width: 160px; }
+.sevendot-admin .cd-filter-row .btn { margin-left: auto; }
+.sevendot-admin .tbl td.refund b { color: var(--c-danger); }
+
+/* 페이지네이션 */
+.sevendot-admin .cd-pager { display: flex; gap: 4px; justify-content: center; margin-top: 16px; }
+.sevendot-admin .cd-pager button {
+  min-width: 34px; height: 34px; border: 1px solid var(--c-border); background: var(--c-white); border-radius: 8px;
+  font-size: 14px; color: var(--c-ink-2); cursor: pointer;
+}
+.sevendot-admin .cd-pager button.active { background: var(--c-brand); border-color: var(--c-brand); color: var(--c-white); }
+.sevendot-admin .cd-pager button:disabled { color: var(--c-disabled); cursor: default; }
+
+@media (max-width: 1100px) {
+  .sevendot-admin .cd-pay-layout { grid-template-columns: 1fr; }
+  .sevendot-admin .cd-pay-aside { position: static; }
+}
+@media (max-width: 768px) {
+  .sevendot-admin .cd-filter-row .btn { margin-left: 0; }
+  .sevendot-admin .cd-pp-plans { grid-template-columns: 1fr; }
+  .sevendot-admin .cd-pp-step-label { display: none; }
+  .sevendot-admin .cd-pay-card { padding: 18px; }
+}
+
+/* ============================================================================
+   첫 결제 (결제 전 게이트) — 중앙 정렬 체크아웃
+   ============================================================================ */
+/* 결제 전 안내 바 */
+.sevendot-admin .cd-pay-notice {
+  display: flex; align-items: center; gap: 8px; font-size: 14px; color: #1b5fbf;
+  background: var(--c-surface); border: 1px solid #d6e6ff; border-radius: 12px; padding: 12px 16px; margin-bottom: 20px;
+}
+.sevendot-admin .cd-pay-notice .material-symbols-outlined { font-size: 16px; }
+
+/* 2단 레이아웃: 왼쪽 단계 / 오른쪽 주문 요약(고정) */
+.sevendot-admin .cd-pay-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+.sevendot-admin .cd-pay-main { min-width: 0; }
+.sevendot-admin .cd-pay-aside { position: sticky; top: 16px; }
+.sevendot-admin .cd-pay-summary { background: var(--c-white); border: 1px solid var(--c-divider); border-radius: 16px; padding: 20px; box-shadow: 0 4px 18px rgba(17, 24, 39, 0.05); }
+.sevendot-admin .cd-pay-summary-head { font-size: 16px; font-weight: 700; color: var(--c-ink); margin-bottom: 6px; }
+.sevendot-admin .cd-pay-summary-note { display: flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 14px; color: var(--c-muted); }
+.sevendot-admin .cd-pay-summary-note .material-symbols-outlined { font-size: 16px; }
+.sevendot-admin .cd-pay-summary-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; color: var(--c-disabled); font-size: 14px; line-height: 1.5; padding: 28px 0; }
+.sevendot-admin .cd-pay-summary-empty .material-symbols-outlined { font-size: 32px; color: var(--c-border-st); }
+
+/* 번호 스텝퍼 */
+.sevendot-admin .cd-pp-stepper { display: flex; align-items: center; margin: 2px 0 22px; }
+.sevendot-admin .cd-pp-step { display: flex; align-items: center; gap: 8px; color: var(--c-disabled); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.sevendot-admin .cd-pp-step:not(:last-child) { flex: 1; }
+.sevendot-admin .cd-pp-step:not(:last-child)::after { content: ""; flex: 1; height: 2px; background: var(--c-border); margin: 0 10px; border-radius: 2px; }
+.sevendot-admin .cd-pp-step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--c-border); color: var(--c-muted); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+.sevendot-admin .cd-pp-step.active { color: var(--c-ink); }
+.sevendot-admin .cd-pp-step.active .cd-pp-step-num { background: var(--c-brand); color: var(--c-white); }
+.sevendot-admin .cd-pp-step.done { color: var(--c-ink-2); }
+.sevendot-admin .cd-pp-step.done .cd-pp-step-num { background: var(--c-border); color: var(--c-brand); }
+.sevendot-admin .cd-pp-step.done:not(:last-child)::after { background: var(--c-brand-100); }
+
+/* 결제 카드 */
+.sevendot-admin .cd-pay-card { background: var(--c-white); border: 1px solid var(--c-divider); border-radius: 18px; padding: 28px; box-shadow: 0 4px 18px rgba(17, 24, 39, 0.05); }
+.sevendot-admin .cd-pay-step-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.sevendot-admin .cd-pay-step-head h2 { font-size: 16px; font-weight: 700; color: var(--c-ink); margin: 0; }
+.sevendot-admin .cd-pay-optional { font-size: 12px; color: var(--c-muted); background: var(--c-divider); padding: 2px 9px; border-radius: 6px; }
+.sevendot-admin .cd-pay-lead { font-size: 14px; color: var(--c-ink-3); line-height: 1.6; margin: 0 0 16px; }
+.sevendot-admin .cd-pay-hint { margin-top: 14px; font-size: 14px; color: var(--c-muted); }
+
+/* STEP 0 추천인 */
+.sevendot-admin .cd-pay-branch { display: flex; gap: 8px; max-width: 440px; }
+.sevendot-admin .cd-pay-branch .form-input { flex: 1; }
+
+/* STEP 1: 과목 플랜 + 정원 */
+.sevendot-admin .cd-pp-sublabel { font-size: 14px; font-weight: 700; color: var(--c-ink); margin: 0 0 10px; }
+/* 과목 플랜 / 정원 / 이용 과목 = 한 단계 안의 하위 섹션 → 균일한 위쪽 간격 */
+.sevendot-admin .cd-pp-block { margin-top: 22px; }
+.sevendot-admin .cd-pay-step-head + .cd-pp-sublabel { margin-top: 0; }
+.sevendot-admin .cd-pp-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sevendot-admin .cd-pp-plan {
+  position: relative; text-align: left; border: 2px solid var(--c-border); border-radius: 14px; padding: 18px;
+  background: var(--c-white); cursor: pointer; transition: border-color .12s, background .12s;
+}
+.sevendot-admin .cd-pp-plan:hover { border-color: var(--c-brand-100); }
+.sevendot-admin .cd-pp-plan.selected { border-color: var(--c-brand); background: var(--c-brand-50); }
+.sevendot-admin .cd-pp-plan-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.sevendot-admin .cd-pp-plan-name { font-size: 16px; font-weight: 700; color: var(--c-ink); }
+.sevendot-admin .cd-pp-plan-tag { font-size: 12px; color: var(--c-brand); background: var(--c-brand-50); padding: 2px 8px; border-radius: 6px; }
+.sevendot-admin .cd-pp-plan-desc { font-size: 14px; color: var(--c-ink-3); line-height: 1.5; margin-bottom: 12px; min-height: 38px; }
+.sevendot-admin .cd-pp-plan-from { font-size: 14px; color: var(--c-ink-2); }
+.sevendot-admin .cd-pp-plan-from b { font-size: 20px; font-weight: 700; color: var(--c-ink); }
+.sevendot-admin .cd-pp-plan-check { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%; background: var(--c-brand); color: var(--c-white); display: none; align-items: center; justify-content: center; }
+.sevendot-admin .cd-pp-plan-check .material-symbols-outlined { font-size: 16px; }
+.sevendot-admin .cd-pp-plan.selected .cd-pp-plan-check { display: flex; }
+
+.sevendot-admin .cd-pp-caps { display: flex; flex-direction: column; gap: 8px; }
+.sevendot-admin .cd-pp-cap {
+  display: flex; align-items: center; gap: 12px; border: 1.5px solid var(--c-border); border-radius: 12px;
+  padding: 13px 16px; background: var(--c-white); cursor: pointer; text-align: left; transition: border-color .12s, background .12s;
+}
+.sevendot-admin .cd-pp-cap:hover { border-color: var(--c-brand-100); }
+.sevendot-admin .cd-pp-cap.selected { border-color: var(--c-brand); background: var(--c-brand-50); }
+.sevendot-admin .cd-pp-cap-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--c-border-st); flex-shrink: 0; position: relative; }
+.sevendot-admin .cd-pp-cap.selected .cd-pp-cap-radio { border-color: var(--c-brand); }
+.sevendot-admin .cd-pp-cap.selected .cd-pp-cap-radio::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--c-brand); }
+.sevendot-admin .cd-pp-cap-main { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.sevendot-admin .cd-pp-cap-main b { font-size: 16px; color: var(--c-ink); }
+.sevendot-admin .cd-pp-cap-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.sevendot-admin .cd-pp-cap-orig { font-size: 14px; color: var(--c-disabled); text-decoration: line-through; }
+.sevendot-admin .cd-pp-cap-right b { font-size: 16px; font-weight: 700; color: var(--c-ink); }
+.sevendot-admin .cd-pp-cap-unit { font-size: 14px; font-weight: 500; color: var(--c-muted); margin-left: 2px; }
+.sevendot-admin .cd-pp-cap-save { font-size: 12px; font-weight: 700; color: var(--c-brand); background: var(--c-brand-50); padding: 2px 8px; border-radius: 6px; }
+.sevendot-admin .cd-pp-cap-save.base { color: var(--c-muted); background: var(--c-divider); }
+
+/* 결제 요약 (영수증) */
+.sevendot-admin .cd-pay-receipt { border: 1px solid var(--c-border); border-radius: 14px; padding: 4px 18px; margin: 8px 0 16px; background: var(--c-surface-2); }
+.sevendot-admin .cd-pay-receipt.compact { margin: 0 0 16px; }
+.sevendot-admin .cd-wz-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14px; padding: 11px 0; border-bottom: 1px solid var(--c-divider); }
+.sevendot-admin .cd-wz-row:last-child { border-bottom: none; }
+.sevendot-admin .cd-wz-row > span:first-child { color: var(--c-muted); font-size: 14px; }
+.sevendot-admin .cd-wz-row.total { border-top: 1px dashed var(--c-border-st); }
+.sevendot-admin .cd-wz-row.total > span:first-child { color: var(--c-ink); font-weight: 700; font-size: 14px; }
+.sevendot-admin .cd-wz-row.total b { font-size: 20px; color: var(--c-brand); }
+.sevendot-admin .cd-wz-row .strike { color: var(--c-disabled); text-decoration: line-through; font-size: 14px; margin-right: 6px; }
+.sevendot-admin .cd-wz-discount b { color: var(--c-danger); }
+
+/* 추천인 결과 */
+.sevendot-admin .cd-branch-result { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 14px; padding: 9px 13px; border-radius: 8px; }
+.sevendot-admin .cd-branch-result .material-symbols-outlined { font-size: 16px; }
+.sevendot-admin .cd-branch-result.ok { background: var(--c-brand-50); color: #00794a; }
+.sevendot-admin .cd-branch-result.err { background: var(--c-divider); color: var(--c-danger); }
+.sevendot-admin .cd-branch-result.plain { background: var(--c-divider); color: var(--c-ink-2); }
+
+/* 카드 입력 */
+.sevendot-admin .cd-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sevendot-admin .cd-card-grid .cd-form-block.full { grid-column: 1 / -1; margin-bottom: 0; }
+.sevendot-admin .cd-card-grid .cd-form-block { margin-bottom: 0; }
+
+/* 완료 */
+.sevendot-admin .cd-pay-done { text-align: center; padding: 12px 0; }
+.sevendot-admin .cd-pay-done-ring { width: 64px; height: 64px; border-radius: 50%; background: var(--c-divider); color: var(--c-brand); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.sevendot-admin .cd-pay-done-ring .material-symbols-outlined { font-size: 32px; }
+.sevendot-admin .cd-pay-done h2 { font-size: 20px; font-weight: 700; color: var(--c-ink); margin: 0 0 8px; }
+.sevendot-admin .cd-pay-done .cd-pay-receipt { text-align: left; max-width: 380px; margin: 16px auto 0; }
+
+/* 신뢰 안내 */
+.sevendot-admin .cd-pay-trust { display: flex; align-items: flex-start; gap: 6px; margin-top: 14px; padding: 0 4px; font-size: 14px; line-height: 1.5; color: var(--c-muted); }
+.sevendot-admin .cd-pay-trust .material-symbols-outlined { font-size: 16px; flex-shrink: 0; }
+
+/* 하단 액션 바 (카드 밖, 배경 없이) */
+.sevendot-admin .cd-pay-footbar {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 24px;
+}
+.sevendot-admin .cd-pay-footbar .btn { min-width: 120px; height: 46px; font-size: 14px; }
+.sevendot-admin .cd-pay-footbar .btn.lg { height: 50px; min-width: 200px; font-size: 16px; font-weight: 700; }
+.sevendot-admin .cd-pay-footbar .btn:only-child { margin-left: auto; }

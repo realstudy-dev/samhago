@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공동목표 - 세븐닷 어드민</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="goal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+
+        <div class="page-header">
+          <div>
+            <h2 id="goalPageTitle">우리 반 공동목표</h2>
+            <p class="cd-page-sub" id="goalPageSub">반이 함께 모은 포인트로 공동목표를 향해 가는 현황입니다.</p>
+          </div>
+          <div class="page-header-actions" id="goalPageActions" hidden>
+            <button class="btn" type="button" data-action="openOrgGoal">
+              <span class="material-symbols-outlined">add</span>전체 공동목표 만들기
+            </button>
+          </div>
+        </div>
+
+        <section class="cd-view active" id="view-goal">
+
+          <!-- 기관 관리자 전용: 반별 목표 현황 -->
+          <div id="goalOrgPanel" hidden>
+            <div class="section-box" style="margin-bottom:16px">
+              <div class="section-head">
+                <div class="title">
+                  <span class="material-symbols-outlined" style="font-size:18px;vertical-align:-4px;color:var(--c-brand)">flag</span>
+                  전체 기관 공동목표 현황
+                </div>
+              </div>
+              <div class="section-body" id="goalOrgCards">
+                <p class="cd-desc" style="text-align:center;padding:20px 0">아직 전체 공동목표가 없습니다. 만들기 버튼을 눌러 시작하세요.</p>
+              </div>
+            </div>
+
+            <div class="section-box" style="margin-bottom:16px">
+              <div class="section-head">
+                <div class="title">반별 목표 진행 요약</div>
+              </div>
+              <div class="section-body">
+                <table class="tbl" id="goalClassSummaryTbl">
+                  <thead><tr>
+                    <th>반</th>
+                    <th>담당 선생님</th>
+                    <th>진행률</th>
+                    <th class="right">현재 / 목표</th>
+                  </tr></thead>
+                  <tbody id="goalClassSummaryRows"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="cd-bank-sub-title" style="margin-bottom:10px">내 반 상세 현황</div>
+          </div>
+
+          <!-- 진행도(막대 통일) + 달성 보상(강조, 옆에) -->
+          <div class="cd-2col cd-2col-wide">
+            <div class="section-box">
+              <div class="section-head">
+                <div class="title"><span class="material-symbols-outlined" style="font-size:18px;vertical-align:-4px;color:var(--c-brand)">emoji_events</span> 공동목표 진행도</div>
+                <button class="btn" type="button" data-action="goal">목표 설정·수정</button>
+              </div>
+              <div class="section-body">
+                <div class="cd-goalp-title">서로 칭찬하고 함께 성장하기</div>
+                <div class="cd-goalp-bar-row">
+                  <div class="cd-progress lg cd-goalp-bar"><div class="cd-bar"></div></div>
+                  <span class="cd-goalp-pct percent">0%</span>
+                </div>
+                <div class="cd-goalp-num"><b class="goalNow">0</b> <span class="cd-desc">/ <span class="kpiGoalTarget">0</span> 포인트</span></div>
+                <div class="cd-goalp-left cd-desc cd-goal-left"></div>
+              </div>
+            </div>
+            <div class="section-box cd-goalp-reward">
+              <div class="section-head"><div class="title">달성 시 보상</div></div>
+              <div class="section-body" id="goalRewardBox"></div>
+            </div>
+          </div>
+
+          <!-- 기여도 순위 + 최근 적립 흐름 -->
+          <div class="cd-2col">
+            <div class="section-box">
+              <div class="section-head"><div class="title">기여도 순위 <span class="muted" id="goalContribCount"></span></div></div>
+              <div class="section-body"><div class="cd-goalp-rank" id="goalContribRank"></div></div>
+            </div>
+            <div class="section-box">
+              <div class="section-head"><div class="title">최근 적립 흐름</div><span class="cd-desc">공동목표에 쌓이는 포인트</span></div>
+              <div class="section-body tbl">
+                <table class="tbl">
+                  <thead><tr><th>시간</th><th>학생</th><th>내용</th><th class="right">포인트</th></tr></thead>
+                  <tbody id="goalHistoryRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 지난 공동목표 -->
+          <div class="section-box">
+            <div class="section-head"><div class="title">지난 공동목표</div><span class="cd-desc">클릭하면 상세 내용을 볼 수 있어요</span></div>
+            <div class="section-body"><div class="cd-pastgoal-list" id="goalHistoryList"></div></div>
+          </div>
+
+          <div class="guideBox tip"><p>공동목표 진행도는 학생들이 받은 포인트 총합으로 자동 계산됩니다.</p><ul><li>학습·칭찬으로 포인트가 쌓일수록 목표에 가까워집니다. 목표·보상은 '목표 설정·수정'에서 바꿀 수 있어요.</li></ul></div>
+
+        </section>
+
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+
+    <!-- 전체 공동목표 만들기 모달 (기관 관리자 전용) -->
+    <div class="modal-overlay" id="orgGoalModal">
+      <div class="modal" style="max-width:480px">
+        <div class="modal-head">
+          <div class="title">전체 공동목표 만들기</div>
+          <button type="button" class="close" data-close="orgGoalModal">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="cg-form-group">
+            <label class="cg-form-label">목표명 <span style="color:var(--c-danger)">*</span></label>
+            <input type="text" id="ogTitle" class="cg-form-input" placeholder="예: 이번 달 함께 성장하기" maxlength="30" />
+          </div>
+          <div class="cg-form-group">
+            <label class="cg-form-label">대상</label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer">
+                <input type="radio" name="ogScope" value="all" checked /> 전체 기관 (모든 반)
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer">
+                <input type="radio" name="ogScope" value="select" /> 특정 반 선택
+              </label>
+            </div>
+            <div id="ogClassPicker" style="display:none;margin-top:10px;padding:12px;border:1px solid var(--c-border);border-radius:8px;max-height:160px;overflow-y:auto" id="ogClassPicker"></div>
+          </div>
+          <div class="cg-form-group">
+            <label class="cg-form-label">목표 포인트 <span style="color:var(--c-danger)">*</span></label>
+            <input type="number" id="ogTarget" class="cg-form-input" placeholder="예: 10000" min="100" step="100" />
+          </div>
+          <div class="cg-form-group">
+            <label class="cg-form-label">달성 보상 내용</label>
+            <input type="text" id="ogReward" class="cg-form-input" placeholder="예: 치킨 파티" maxlength="30" />
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn" type="button" data-close="orgGoalModal">취소</button>
+          <button class="btn primary" type="button" data-action="saveOrgGoal">만들기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 반 상세 현황 모달 -->
+    <div class="modal-overlay" id="classDetailModal">
+      <div class="modal" style="max-width:540px">
+        <div class="modal-head">
+          <div>
+            <div class="title" id="cdmClassName">반 상세 현황</div>
+            <div class="muted" style="font-size:13px;margin-top:2px" id="cdmTeacher"></div>
+          </div>
+          <button type="button" class="close" data-close="classDetailModal">×</button>
+        </div>
+        <div class="modal-body">
+          <div style="margin-bottom:20px">
+            <div class="muted" style="font-size:12px;margin-bottom:3px">공동목표</div>
+            <div style="font-size:15px;font-weight:700;margin-bottom:12px;color:var(--c-ink)" id="cdmGoalTitle">-</div>
+            <div class="cd-progress lg" style="margin-bottom:8px">
+              <div class="cd-bar" id="cdmBar" style="width:0%"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span style="font-size:14px">달성률 <b id="cdmPct" style="color:var(--c-brand)">0%</b></span>
+              <span class="muted" style="font-size:14px"><b id="cdmNow">0</b> / <span id="cdmTarget">0</span>p</span>
+            </div>
+          </div>
+          <div style="background:var(--c-brand-50);border-radius:10px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px">
+            <span class="material-symbols-outlined" style="color:var(--c-brand);font-size:20px;flex-shrink:0">redeem</span>
+            <div>
+              <div class="muted" style="font-size:12px;margin-bottom:2px">달성 보상</div>
+              <div style="font-size:15px;font-weight:600" id="cdmReward">-</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:10px">기여도 TOP</div>
+              <div id="cdmContribs"></div>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:10px">최근 적립 흐름</div>
+              <div id="cdmHistory"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+    <script>
+    (function () {
+      /* ----- [MOCK] 반별 목표 요약 데이터 ----- */
+      var CLASS_GOALS = [
+        {
+          cls: '초등 국어 A반', teacher: '김지은', now: 1820, target: 2240, pct: 81,
+          goalTitle: '받아쓰기 100점 챌린지', reward: '피자 파티',
+          contribs: [
+            { name: '이서연', pts: 420 }, { name: '박지호', pts: 380 },
+            { name: '최수빈', pts: 310 }, { name: '김다원', pts: 280 }, { name: '정민기', pts: 220 }
+          ],
+          history: [
+            { time: '오늘 14:23', name: '이서연', desc: '학습 완료', pts: 15 },
+            { time: '오늘 11:10', name: '박지호', desc: '칭찬 받음', pts: 10 },
+            { time: '어제 16:44', name: '최수빈', desc: '학습 완료', pts: 15 }
+          ]
+        },
+        {
+          cls: '초등 영어 B반', teacher: '이수진', now: 540, target: 2000, pct: 27,
+          goalTitle: '영어 단어 1000개 마스터', reward: '영화 관람권',
+          contribs: [
+            { name: '한지원', pts: 180 }, { name: '오민서', pts: 140 },
+            { name: '윤채원', pts: 110 }, { name: '강지후', pts: 80 }, { name: '임서윤', pts: 55 }
+          ],
+          history: [
+            { time: '오늘 13:15', name: '한지원', desc: '학습 완료', pts: 20 },
+            { time: '오늘 10:00', name: '오민서', desc: '칭찬 받음', pts: 10 },
+            { time: '어제 15:30', name: '윤채원', desc: '학습 완료', pts: 20 }
+          ]
+        },
+        {
+          cls: '초등 종합반', teacher: '박민준', now: 1200, target: 1800, pct: 67,
+          goalTitle: '한 달 개근 도전', reward: '문화상품권 1만원',
+          contribs: [
+            { name: '조예린', pts: 310 }, { name: '신재원', pts: 270 },
+            { name: '백수아', pts: 220 }, { name: '황민준', pts: 190 }, { name: '서지안', pts: 160 }
+          ],
+          history: [
+            { time: '오늘 16:00', name: '조예린', desc: '출석 완료', pts: 10 },
+            { time: '오늘 08:45', name: '신재원', desc: '출석 완료', pts: 10 },
+            { time: '어제 17:20', name: '백수아', desc: '출석 완료', pts: 10 }
+          ]
+        },
+        {
+          cls: '중등 수학반', teacher: '최서현', now: 300, target: 3000, pct: 10,
+          goalTitle: '오답노트 완성 챌린지', reward: '치킨 파티',
+          contribs: [
+            { name: '이준혁', pts: 90 }, { name: '김태양', pts: 75 },
+            { name: '박채린', pts: 60 }, { name: '최민재', pts: 45 }, { name: '정유진', pts: 30 }
+          ],
+          history: [
+            { time: '오늘 17:10', name: '이준혁', desc: '학습 완료', pts: 15 },
+            { time: '어제 19:00', name: '김태양', desc: '칭찬 받음', pts: 10 },
+            { time: '어제 16:00', name: '박채린', desc: '학습 완료', pts: 15 }
+          ]
+        },
+        {
+          cls: '중등 영어반', teacher: '정하은', now: 2100, target: 2500, pct: 84,
+          goalTitle: '영어 에세이 10편 완성', reward: '아이스크림 파티',
+          contribs: [
+            { name: '류지아', pts: 520 }, { name: '문수현', pts: 460 },
+            { name: '전다인', pts: 380 }, { name: '손민준', pts: 310 }, { name: '나지호', pts: 260 }
+          ],
+          history: [
+            { time: '오늘 15:30', name: '류지아', desc: '에세이 제출', pts: 30 },
+            { time: '오늘 14:00', name: '문수현', desc: '에세이 제출', pts: 30 },
+            { time: '오늘 11:45', name: '전다인', desc: '학습 완료', pts: 20 }
+          ]
+        },
+        {
+          cls: '중등 종합반', teacher: '홍승우', now: 1600, target: 2000, pct: 80,
+          goalTitle: '친구 칭찬 릴레이', reward: '분식 파티',
+          contribs: [
+            { name: '고은비', pts: 380 }, { name: '양준서', pts: 340 },
+            { name: '하다은', pts: 290 }, { name: '오지훈', pts: 250 }, { name: '배채아', pts: 200 }
+          ],
+          history: [
+            { time: '오늘 16:20', name: '고은비', desc: '칭찬 받음', pts: 10 },
+            { time: '오늘 14:10', name: '양준서', desc: '칭찬 받음', pts: 10 },
+            { time: '오늘 10:30', name: '하다은', desc: '칭찬 받음', pts: 10 }
+          ]
+        }
+      ];
+
+      /* [MOCK] 전체 공동목표 목록 */
+      var ORG_GOALS = [];
+
+      /* ----- 역할별 페이지 초기화 ----- */
+      if (isInstitutionManager()) {
+        document.getElementById('goalPageTitle').textContent = '공동목표 관리';
+        document.getElementById('goalPageSub').textContent =
+          isPrincipal()
+            ? '학원 전체의 반별 공동목표를 관리하고 전체 목표를 생성합니다.'
+            : '학교 전체의 반별 공동목표를 관리하고 전체 목표를 생성합니다.';
+        document.getElementById('goalPageActions').hidden = false;
+        document.getElementById('goalOrgPanel').hidden = false;
+        renderClassSummary();
+      }
+
+      function renderClassSummary() {
+        var tbody = document.getElementById('goalClassSummaryRows');
+        if (!tbody) return;
+        tbody.innerHTML = CLASS_GOALS.map(function (g, i) {
+          var barColor = g.pct >= 80 ? '#009d5b' : g.pct >= 50 ? '#F59E0B' : '#8B95A1';
+          return '<tr data-goalidx="' + i + '" style="cursor:pointer" title="' + g.cls + ' 상세 보기">' +
+            '<td style="font-weight:600">' + g.cls + '</td>' +
+            '<td class="cd-desc">' + g.teacher + ' 선생님</td>' +
+            '<td>' +
+              '<div style="display:flex;align-items:center;gap:8px">' +
+                '<div style="flex:1;height:6px;background:var(--c-divider);border-radius:3px;overflow:hidden">' +
+                  '<div style="width:' + g.pct + '%;height:100%;background:' + barColor + ';border-radius:3px"></div>' +
+                '</div>' +
+                '<span style="font-size:12px;min-width:30px;color:' + barColor + ';font-weight:600">' + g.pct + '%</span>' +
+              '</div>' +
+            '</td>' +
+            '<td class="right" style="font-size:14px">' + g.now.toLocaleString() + '<span class="cd-desc"> / ' + g.target.toLocaleString() + 'p</span>' +
+              '<span class="muted" style="font-size:11px;margin-left:6px">상세 →</span>' +
+            '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      function openClassDetail(idx) {
+        var g = CLASS_GOALS[idx];
+        if (!g) return;
+        var pct = g.pct;
+        var barColor = pct >= 80 ? '#009d5b' : pct >= 50 ? '#F59E0B' : '#8B95A1';
+        document.getElementById('cdmClassName').textContent = g.cls + ' 목표 현황';
+        document.getElementById('cdmTeacher').textContent = g.teacher + ' 선생님';
+        document.getElementById('cdmGoalTitle').textContent = g.goalTitle || '-';
+        document.getElementById('cdmBar').style.width = pct + '%';
+        document.getElementById('cdmBar').style.background = barColor;
+        document.getElementById('cdmPct').textContent = pct + '%';
+        document.getElementById('cdmPct').style.color = barColor;
+        document.getElementById('cdmNow').textContent = g.now.toLocaleString();
+        document.getElementById('cdmTarget').textContent = g.target.toLocaleString();
+        document.getElementById('cdmReward').textContent = g.reward || '-';
+        var RANK_BG = ['#009d5b', '#F59E0B', '#CD7F32'];
+        var contribEl = document.getElementById('cdmContribs');
+        contribEl.innerHTML = (g.contribs || []).map(function (c, i) {
+          return '<div style="display:flex;align-items:center;gap:8px;padding:7px 0;' + (i < g.contribs.length - 1 ? 'border-bottom:1px solid #f5f5f5' : '') + '">' +
+            '<span style="width:20px;height:20px;border-radius:50%;background:' + (RANK_BG[i] || '#e6e8eb') + ';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0">' + (i + 1) + '</span>' +
+            '<span style="flex:1;font-size:14px">' + c.name + '</span>' +
+            '<span style="font-size:13px;font-weight:700;color:' + (RANK_BG[i] || '#191F28') + '">' + c.pts.toLocaleString() + 'p</span>' +
+          '</div>';
+        }).join('');
+        var histEl = document.getElementById('cdmHistory');
+        histEl.innerHTML = (g.history || []).map(function (h, i) {
+          return '<div style="padding:7px 0;' + (i < g.history.length - 1 ? 'border-bottom:1px solid #f5f5f5' : '') + '">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center">' +
+              '<span style="font-size:14px;font-weight:500">' + h.name + '</span>' +
+              '<span style="font-size:13px;font-weight:700;color:var(--c-brand)">+' + h.pts + 'p</span>' +
+            '</div>' +
+            '<div style="font-size:12px;color:var(--c-muted);margin-top:2px">' + h.time + ' · ' + h.desc + '</div>' +
+          '</div>';
+        }).join('');
+        document.getElementById('classDetailModal').classList.add('show');
+      }
+
+      function renderOrgGoals() {
+        var box = document.getElementById('goalOrgCards');
+        if (!box) return;
+        if (!ORG_GOALS.length) {
+          box.innerHTML = '<p class="cd-desc" style="text-align:center;padding:20px 0">아직 전체 공동목표가 없습니다. 만들기 버튼을 눌러 시작하세요.</p>';
+          return;
+        }
+        box.innerHTML = '<div class="cd-mini-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">' +
+          ORG_GOALS.map(function (g) {
+            return '<div class="cd-mini-box">' +
+              '<div class="cd-desc" style="margin-bottom:4px">' + g.scope + '</div>' +
+              '<b style="font-size:16px">' + g.title + '</b>' +
+              '<div style="margin-top:8px;height:6px;background:var(--c-divider);border-radius:3px">' +
+                '<div style="width:0%;height:100%;background:var(--c-brand);border-radius:3px"></div>' +
+              '</div>' +
+              '<div class="cd-desc" style="margin-top:6px">목표 ' + (g.target || 0).toLocaleString() + 'p · 보상: ' + (g.reward || '-') + '</div>' +
+            '</div>';
+          }).join('') +
+        '</div>';
+      }
+
+      /* ----- 전체 공동목표 만들기 모달 ----- */
+      function openOrgGoalModal() {
+        document.getElementById('ogTitle').value = '';
+        document.getElementById('ogTarget').value = '';
+        document.getElementById('ogReward').value = '';
+        document.querySelector('[name="ogScope"][value="all"]').checked = true;
+        document.getElementById('ogClassPicker').style.display = 'none';
+        /* 반 체크박스 동적 생성 */
+        var picker = document.getElementById('ogClassPicker');
+        picker.innerHTML = CLASS_GOALS.map(function (g) {
+          return '<label style="display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:6px;cursor:pointer">' +
+            '<input type="checkbox" name="ogClass" value="' + g.cls + '" /> ' + g.cls +
+          '</label>';
+        }).join('');
+        document.getElementById('orgGoalModal').classList.add('show');
+        document.getElementById('ogTitle').focus();
+      }
+
+      function saveOrgGoal() {
+        var title  = document.getElementById('ogTitle').value.trim();
+        var target = parseInt(document.getElementById('ogTarget').value, 10);
+        var reward = document.getElementById('ogReward').value.trim();
+        var scope  = document.querySelector('[name="ogScope"]:checked').value;
+        if (!title) { document.getElementById('ogTitle').focus(); toast('목표명을 입력하세요.'); return; }
+        if (!target || target < 100) { document.getElementById('ogTarget').focus(); toast('목표 포인트를 입력하세요.'); return; }
+        var scopeLabel = '전체 기관';
+        if (scope === 'select') {
+          var checked = Array.from(document.querySelectorAll('[name="ogClass"]:checked')).map(function (c) { return c.value; });
+          if (!checked.length) { toast('대상 반을 1개 이상 선택하세요.'); return; }
+          scopeLabel = checked.join(', ');
+        }
+        ORG_GOALS.push({ title: title, target: target, reward: reward, scope: scopeLabel });
+        document.getElementById('orgGoalModal').classList.remove('show');
+        renderOrgGoals();
+        toast('"' + title + '" 공동목표가 생성됐습니다.');
+      }
+
+      /* ----- 이벤트 ----- */
+      document.addEventListener('click', function (e) {
+        var closeTarget = e.target.closest('[data-close]');
+        if (closeTarget) {
+          var modal = document.getElementById(closeTarget.dataset.close);
+          if (modal) modal.classList.remove('show');
+          return;
+        }
+        if (e.target.closest('[data-action="openOrgGoal"]')) { openOrgGoalModal(); return; }
+        if (e.target.closest('[data-action="saveOrgGoal"]')) { saveOrgGoal(); return; }
+        var row = e.target.closest('tr[data-goalidx]');
+        if (row) { openClassDetail(parseInt(row.dataset.goalidx, 10)); return; }
+      });
+
+      /* ----- scope 라디오 연동 ----- */
+      document.querySelectorAll('[name="ogScope"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          document.getElementById('ogClassPicker').style.display =
+            this.value === 'select' ? 'block' : 'none';
+        });
+      });
+
+    })();
+    </script>
+  </body>
+</html>

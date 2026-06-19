@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>학생 관리 - 세븐닷 학원장 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="astudent" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+
+        <div class="page-header">
+          <div>
+            <h2>학생 관리</h2>
+            <p class="cd-page-sub">학원 전체 학생을 관리합니다. 행을 누르면 학생 상세(학습 결과·브릭 통장·결제 내역)를 볼 수 있어요.</p>
+          </div>
+        </div>
+
+        <section class="cd-view active" id="view-astudent">
+
+          <!-- 요약 KPI -->
+          <div class="summary-cards" id="astuKpi">
+            <div class="sc-card"><div class="sc-k">전체 학생</div><div class="sc-v" id="astuTotal">-</div><div class="sc-sub">재원 기준</div></div>
+            <div class="sc-card"><div class="sc-k">진단 대기</div><div class="sc-v warning" id="astuDiag">-</div><div class="sc-sub">신규 가입</div></div>
+            <div class="sc-card"><div class="sc-k">반 배정 대기</div><div class="sc-v info" id="astuPend">-</div><div class="sc-sub">진단 완료</div></div>
+            <div class="sc-card"><div class="sc-k">이용중지</div><div class="sc-v danger" id="astuSusp">-</div><div class="sc-sub">확인 필요</div></div>
+          </div>
+
+          <div class="cd-view-toolbar">
+            <div class="cd-desc">학생 명단을 등록·수정·삭제합니다. 행을 누르면 학생 상세를 볼 수 있어요.</div>
+            <div class="cd-head-actions">
+              <button class="btn" type="button" data-action="openBulk">학생 일괄 등록</button>
+              <button class="btn primary" type="button" data-action="openStudent">＋ 학생 등록</button>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <div class="nt-search">
+              <input type="search" id="rosterSearch" class="form-input" placeholder="학생 이름·이메일 검색" />
+              <select id="astuClsFilter" class="form-select"><option value="">전체 반</option></select>
+              <select id="astuStatusFilter" class="form-select">
+                <option value="">전체 상태</option>
+                <option value="진단 대기">진단 대기</option>
+                <option value="배정 대기">배정 대기</option>
+                <option value="학습중">학습중</option>
+                <option value="이용중지">이용중지</option>
+              </select>
+            </div>
+            <div class="section-body tbl">
+              <table class="tbl">
+                <thead>
+                  <tr>
+                    <th class="center">번호</th>
+                    <th>학생명</th>
+                    <th>로그인(이메일)</th>
+                    <th class="center">학년</th>
+                    <th class="center">레벨</th>
+                    <th class="center">최근 로그인</th>
+                    <th class="center">상태</th>
+                    <th class="right">브릭머니(포인트)</th>
+                    <th class="center">결제 내역</th>
+                    <th class="right">관리</th>
+                  </tr>
+                </thead>
+                <tbody id="rosterRows"></tbody>
+              </table>
+              <div class="nt-listnav incard">
+                <div class="numberBox"><p class="number">전체 <span class="n-color" id="rosterCount">0</span>명</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="guideBox tip">
+            <p>신규 학생은 진단 대기 → 진단 완료 → 반 배정 순으로 처리됩니다.</p>
+            <ul><li>행을 클릭하면 학생 상세에서 결제 내역을 포함한 전체 정보를 볼 수 있어요.</li></ul>
+          </div>
+
+        </section>
+
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+    <script>
+    (function () {
+      /* KPI 집계 — academyStudents 기준 */
+      var src = (typeof academyStudents !== 'undefined') ? academyStudents : [];
+      var kpi = { diag: 0, pend: 0, susp: 0 };
+      src.forEach(function (s) {
+        var st = s.status || s.studentStatus || '';
+        if (st === '진단 대기') kpi.diag++;
+        else if (st === '배정 대기') kpi.pend++;
+        else if (st === '이용중지' || st === '일시정지') kpi.susp++;
+      });
+      var el = function (id) { return document.getElementById(id); };
+      if (el('astuTotal')) el('astuTotal').textContent = src.length + '명';
+      if (el('astuDiag'))  el('astuDiag').textContent  = kpi.diag + '명';
+      if (el('astuPend'))  el('astuPend').textContent  = kpi.pend + '명';
+      if (el('astuSusp'))  el('astuSusp').textContent  = kpi.susp + '명';
+    })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결제·구독 - 세븐닷 학원장 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="abilling" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+    <div class="rightBoxNT">
+      <div class="content_area">
+        <div class="page-header">
+          <div><h2>결제·구독</h2><p class="cd-page-sub">받는 돈(수강료 수납)과 내는 돈(세븐닷 이용료·아이템 샵)을 한곳에서 관리합니다.</p></div>
+        </div>
+        <section class="cd-view active" id="view-abilling">
+
+          <!-- 내는 돈: 세븐닷 구독 -->
+          <div class="section-box">
+            <div class="section-head"><div class="title">세븐닷 이용료 (구독) <span class="badge danger">내는 돈</span></div><span class="cd-desc">다음 결제 2026-07-01</span></div>
+            <div class="section-body">
+              <div class="summary-cards billing-kpi">
+                <div class="sc-card"><div class="sc-k">현재 플랜</div><div class="sc-v">3과목 · 50명</div><div class="sc-sub">정기구독</div></div>
+                <div class="sc-card"><div class="sc-k">월 결제 금액</div><div class="sc-v">77,000<span class="unit">원</span></div><div class="sc-sub">부가세 포함</div></div>
+                <div class="sc-card"><div class="sc-k">이용 과목</div><div class="sc-v">국·영·수</div><div class="sc-sub">전 과목</div></div>
+                <div class="sc-card"><div class="sc-k">결제 카드</div><div class="sc-v">신한 ****1234</div><div class="sc-sub">2026-03-01 등록</div></div>
+              </div>
+              <div class="cd-head-actions" style="margin-top:14px;display:flex;gap:8px">
+                <button class="btn" type="button" data-action="demoAction">상품·인원 변경</button>
+                <button class="btn" type="button" data-action="demoAction">카드 변경</button>
+                <button class="btn" type="button" data-action="demoAction">구독 해지</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 내는 돈: 아이템 샵 -->
+          <div class="section-box">
+            <div class="section-head"><div class="title">아이템 샵 <span class="badge danger">내는 돈</span></div><span class="cd-desc">적립금 <b style="color:var(--c-brand)">320,000원</b> · <a class="cd-link" data-action="demoAction">관리</a></span></div>
+            <div class="section-body tbl">
+              <table class="tbl">
+                <thead><tr><th>아이템</th><th>분류</th><th class="right">단가</th><th class="center">재고</th><th class="center">구매</th></tr></thead>
+                <tbody>
+                  <tr><td><b>복사용지 A4 (5박스)</b> <span class="badge warning">BEST</span></td><td>종이류</td><td class="right">22,000원</td><td class="center">상시</td><td class="center"><button class="btn-sm" data-action="demoAction">담기</button></td></tr>
+                  <tr><td><b>HP 토너</b> <span class="badge warning">BEST</span></td><td>토너/잉크</td><td class="right">68,000원</td><td class="center">12</td><td class="center"><button class="btn-sm" data-action="demoAction">담기</button></td></tr>
+                  <tr><td><b>볼펜 50개입</b></td><td>필기구</td><td class="right">9,500원</td><td class="center">상시</td><td class="center"><button class="btn-sm" data-action="demoAction">담기</button></td></tr>
+                  <tr><td><b>KF-94 마스크 (50매)</b></td><td>위생용품</td><td class="right">15,000원</td><td class="center">8</td><td class="center"><button class="btn-sm" data-action="demoAction">담기</button></td></tr>
+                  <tr><td><b>교재 인쇄·제본 (50권)</b></td><td>인쇄</td><td class="right">120,000원</td><td class="center">주문제작</td><td class="center"><button class="btn-sm" data-action="demoAction">담기</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 받는 돈: 수강료 수납 -->
+          <div class="section-box">
+            <div class="section-head"><div class="title">수강료 수납 <span class="badge success">받는 돈</span></div><button class="btn-sm" type="button" data-action="demoAction">수납 안내 발송</button></div>
+            <div class="section-body">
+              <div class="summary-cards">
+                <div class="sc-card"><div class="sc-k">이번 달 수납</div><div class="sc-v success">8,420,000<span class="unit">원</span></div><div class="sc-sub">111명 완납</div></div>
+                <div class="sc-card"><div class="sc-k">미납</div><div class="sc-v danger">3건</div><div class="sc-sub">228,000원</div></div>
+              </div>
+              <div class="tbl" style="margin-top:12px">
+                <table class="tbl">
+                  <thead><tr><th>학생</th><th>반</th><th class="right">수강료</th><th class="center">납부일</th><th class="center">상태</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>박준호</b></td><td>중등 수학반</td><td class="right">76,000원</td><td class="center muted">-</td><td class="center"><span class="badge danger">미납</span></td></tr>
+                    <tr><td><b>최지우</b></td><td>중등 영어반</td><td class="right">76,000원</td><td class="center muted">-</td><td class="center"><span class="badge danger">미납</span></td></tr>
+                    <tr><td><b>정하준</b></td><td>초등 종합반</td><td class="right">76,000원</td><td class="center muted">-</td><td class="center"><span class="badge danger">미납</span></td></tr>
+                    <tr><td><b>김민준</b></td><td>초등 국어 A반</td><td class="right">76,000원</td><td class="center muted">06-03</td><td class="center"><span class="badge success">완납</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="guideBox tip"><p>받는 돈(학부모 → 학원: 수강료)과 내는 돈(학원 → 세븐닷: 구독·아이템)을 분리해 봅니다.</p></div>
+        </section>
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>

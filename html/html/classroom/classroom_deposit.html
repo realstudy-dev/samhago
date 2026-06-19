@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>적립금 - 세븐닷 학원장 관리자</title>
+
+    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <!-- Google Material Symbols (아이콘 통일) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <!-- 페이지 전용 스타일 -->
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+    <link rel="stylesheet" href="../css/classroom_billing.css" />
+  </head>
+  <body class="sevendot-admin" data-page="adep" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+      <!-- 페이지 헤더 -->
+      <div class="page-header">
+        <div>
+          <h2>적립금</h2>
+          <p class="cd-page-sub">학생 결제로 적립된 적립금을 정기결제·아이템 샵 결제에 사용하거나 출금합니다.</p>
+        </div>
+      </div>
+
+      <!-- ==== 적립금 ==== -->
+      <section class="cd-view active" id="view-adep">
+
+        <!-- 적립금 현황 (히어로) -->
+        <div class="section-box primary">
+          <div class="section-body">
+            <div class="cd-dep-hero">
+              <div class="cd-dep-hero-main">
+                <div class="cd-dep-label">사용 가능 적립금</div>
+                <div class="cd-dep-amount"><span id="depBalance">320,000</span><span class="unit">원</span></div>
+                <div class="cd-desc">학생 1인 결제 시 학원에 적립(인당 최대 3,300원) · 정기결제 우선 차감에 사용</div>
+                <div class="cd-wd-mini">
+                  <button class="cd-wd-mini-btn" type="button" id="btnWithdraw" disabled>출금 신청</button>
+                  <span class="cd-wd-mini-note" id="wdStatus"></span>
+                </div>
+              </div>
+              <div class="cd-dep-stats">
+                <div class="cd-dep-stat"><div class="cd-dep-stat-k">총 적립</div><div class="cd-dep-stat-v">600,000원</div></div>
+                <div class="cd-dep-stat"><div class="cd-dep-stat-k">총 사용</div><div class="cd-dep-stat-v">280,000원</div></div>
+                <div class="cd-dep-stat"><div class="cd-dep-stat-k">출금 완료</div><div class="cd-dep-stat-v">0원</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 설정: 정기결제 차감 / 1회성 사용 -->
+        <div class="cd-2col">
+          <div class="section-box">
+            <div class="section-head"><div class="title">정기결제 자동 차감</div></div>
+            <div class="section-body">
+              <div class="cd-toggle-row">
+                <div class="cd-toggle-info">
+                  <b>적립금 우선 차감</b>
+                  <span class="cd-desc">매월 정기결제 시 적립금을 먼저 차감하고 부족분만 카드로 결제합니다.</span>
+                </div>
+                <label class="cd-switch">
+                  <input type="checkbox" id="autoDeduct" checked />
+                  <span class="cd-switch-track"></span>
+                </label>
+              </div>
+              <div class="cd-dep-preview" id="autoPreview">
+                <div class="cd-dep-preview-row"><span>다음 청구액 (2026-07-01)</span><b>77,000원</b></div>
+                <div class="cd-dep-preview-row"><span>적립금 차감</span><b class="success">−77,000원</b></div>
+                <div class="cd-dep-preview-row total"><span>실제 카드 청구액</span><b>0원</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <div class="section-head"><div class="title">이번 결제에만 사용</div></div>
+            <div class="section-body">
+              <div class="cd-desc" style="margin-bottom:8px">다음 1회 정기결제에만 적용할 적립금 사용액을 예약합니다.</div>
+              <div class="cd-amount-input">
+                <input type="number" class="form-input" id="oneTimeAmt" placeholder="0" min="0" step="1000" />
+                <span class="cd-amount-unit">원</span>
+              </div>
+              <div class="cd-preset-row">
+                <button class="cd-preset" type="button" data-preset="10000">1만원</button>
+                <button class="cd-preset" type="button" data-preset="30000">3만원</button>
+                <button class="cd-preset" type="button" data-preset="77000">전액</button>
+              </div>
+              <button class="btn primary" type="button" id="btnReserve" style="width:100%;margin-top:12px">적립금 사용 예약</button>
+              <div class="cd-dep-reserved" id="reservedBox" hidden>
+                <span class="badge info">예약됨</span>
+                <span id="reservedText"></span>
+                <button class="cd-link" type="button" id="btnCancelReserve">예약 취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 거래 내역 -->
+        <div class="section-box">
+          <div class="section-head"><div class="title">거래 내역</div><span class="cd-desc">최근 30일</span></div>
+          <div class="section-body">
+            <div class="cd-tx-filter" id="txFilter">
+              <button class="active" type="button" data-tx="ALL">전체</button>
+              <button type="button" data-tx="EARN">적립</button>
+              <button type="button" data-tx="USE_ITEM">아이템 사용</button>
+              <button type="button" data-tx="USE_BILLING">정기결제 차감</button>
+              <button type="button" data-tx="WITHDRAW">출금</button>
+            </div>
+            <div class="tbl">
+              <table class="tbl">
+                <thead><tr><th>일시</th><th>유형</th><th>내용</th><th class="right">금액</th><th class="right">잔액</th></tr></thead>
+                <tbody id="txRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 출금 신청 완료 안내 -->
+        <div class="guideBox ok" id="wdConfirmInfo" hidden>
+          <p><b>출금 신청이 접수되었습니다.</b> 본사 확인 후 수수료 5%를 차감한 금액이 <b>익월 말일</b>에 등록 계좌로 지급됩니다. 계좌 정보 오입력으로 인한 미지급의 책임은 신청자에게 있습니다.</p>
+        </div>
+        <div class="guideBox tip"><p>적립금은 학생(학부모) 결제 시 학원에 적립되며, <b>정기결제 우선 차감</b>에 사용하는 것을 권장합니다. 출금은 <b>총 적립의 60% 사용</b> 후 잔여 적립금에 한해 <b>월 1회 · 최소 10만원</b>, 정산 수수료 5%를 차감해 <b>익월 말일</b>에 지급됩니다.</p></div>
+      </section>
+
+      <!-- Footer -->
+      <div id="site-footer-mount"></div>
+      </div><!-- /.content_area -->
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals-deposit.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+
+    <!-- 페이지 전용: 적립금 사용/출금 플로우 (이식: deposit/deposit_payment.html) -->
+    <script>
+      (function () {
+        var fmt = function (n) { return n.toLocaleString("ko-KR"); };
+        function toastMsg(m) { if (window.toast) window.toast(m); }
+        function openModal(id) { var el = document.getElementById(id); if (el) el.classList.add("show"); }
+        function closeModal(id) { var el = document.getElementById(id); if (el) el.classList.remove("show"); }
+
+        /* ---------- 거래 내역 ---------- */
+        var TX = [
+          { date: "2026-06-17", type: "EARN", desc: "학생 결제 적립 (김민준 외 3명)", amount: 13200, balance: 320000 },
+          { date: "2026-06-15", type: "USE_ITEM", desc: "아이템 샵 — 복사용지 A4 (5박스)", amount: -28000, balance: 306800 },
+          { date: "2026-06-12", type: "EARN", desc: "학생 결제 적립 (이서연 외 1명)", amount: 6600, balance: 334800 },
+          { date: "2026-06-10", type: "USE_BILLING", desc: "정기결제 적립금 차감 (6월분)", amount: -50000, balance: 328200 },
+          { date: "2026-06-05", type: "USE_ITEM", desc: "아이템 샵 — HP 78A 토너", amount: -68000, balance: 378200 },
+          { date: "2026-06-01", type: "EARN", desc: "학생 결제 적립 (정기 정산)", amount: 180000, balance: 446200 },
+        ];
+        var TYPE_LABEL = { EARN: ["적립", "success"], USE_ITEM: ["아이템 사용", "info"], USE_BILLING: ["정기결제 차감", "warning"], WITHDRAW: ["출금", "neutral"] };
+        function renderTx(filter) {
+          var rows = TX.filter(function (t) { return filter === "ALL" || t.type === filter; });
+          var tb = document.getElementById("txRows");
+          if (!rows.length) { tb.innerHTML = '<tr><td colspan="5" class="center muted" style="padding:24px">내역이 없습니다.</td></tr>'; return; }
+          tb.innerHTML = rows.map(function (t) {
+            var lb = TYPE_LABEL[t.type];
+            var amtCls = t.amount >= 0 ? "success" : "";
+            var amtTxt = (t.amount >= 0 ? "+" : "−") + fmt(Math.abs(t.amount)) + "원";
+            return "<tr><td>" + t.date + '</td><td><span class="badge ' + lb[1] + '">' + lb[0] + "</span></td><td>" + t.desc +
+              '</td><td class="right ' + amtCls + '"><b>' + amtTxt + '</b></td><td class="right">' + fmt(t.balance) + "원</td></tr>";
+          }).join("");
+        }
+        renderTx("ALL");
+        document.getElementById("txFilter").addEventListener("click", function (e) {
+          var b = e.target.closest("[data-tx]"); if (!b) return;
+          this.querySelectorAll("button").forEach(function (x) { x.classList.toggle("active", x === b); });
+          renderTx(b.dataset.tx);
+        });
+
+        /* ---------- 정기결제 자동 차감 토글 ---------- */
+        document.getElementById("autoDeduct").addEventListener("change", function () {
+          document.getElementById("autoPreview").style.display = this.checked ? "" : "none";
+          toastMsg(this.checked ? "정기결제 시 적립금을 우선 차감합니다." : "적립금 우선 차감을 해제했습니다.");
+        });
+
+        /* ---------- 1회성 적립금 사용 예약 ---------- */
+        var amt = document.getElementById("oneTimeAmt");
+        document.getElementById("txFilter"); // noop guard
+        document.querySelectorAll(".cd-preset").forEach(function (p) {
+          p.addEventListener("click", function () { amt.value = this.dataset.preset; });
+        });
+        document.getElementById("btnReserve").addEventListener("click", function () {
+          var v = parseInt(amt.value || "0", 10);
+          if (!v || v <= 0) { toastMsg("사용할 금액을 입력해주세요."); return; }
+          if (v > 320000) { toastMsg("사용 가능 적립금을 초과했습니다."); return; }
+          document.getElementById("reservedText").textContent = "다음 결제(2026-07-01)에 " + fmt(v) + "원 사용";
+          document.getElementById("reservedBox").hidden = false;
+          toastMsg(fmt(v) + "원 적립금 사용이 예약되었습니다.");
+        });
+        document.getElementById("btnCancelReserve").addEventListener("click", function () {
+          document.getElementById("reservedBox").hidden = true; amt.value = "";
+          toastMsg("예약을 취소했습니다.");
+        });
+
+        /* ---------- 적립금 출금 (제한적) ----------
+           규칙: 총 적립의 60% 사용 후 잔여만 · 월 1회 · 최소 10만원 · 수수료 5% · 익월 말 지급 */
+        var WD = { earned: 600000, used: 280000, balance: 320000, min: 100000, fee: 0.05, thresholdRate: 0.6 };
+        var withdrawnThisMonth = false;
+        var DEV_UNLOCK_WITHDRAW = true; /* TODO: 검수 후 false로 되돌릴 것 */
+        function updateWithdrawState() {
+          var threshold = Math.round(WD.earned * WD.thresholdRate);
+          var met = WD.used >= threshold;
+          var withdrawable = (met || DEV_UNLOCK_WITHDRAW) ? WD.balance : 0;
+          var minOK = withdrawable >= WD.min;
+          var can = DEV_UNLOCK_WITHDRAW ? !withdrawnThisMonth : (met && minOK && !withdrawnThisMonth);
+          document.getElementById("btnWithdraw").disabled = !can;
+          var st = document.getElementById("wdStatus");
+          if (withdrawnThisMonth) { st.textContent = "이번 달 출금 신청 완료 (월 1회)"; st.title = ""; return; }
+          if (!DEV_UNLOCK_WITHDRAW) {
+            if (!met) { st.textContent = "조건 미충족 · 적립 60% 사용 후 가능"; st.title = "총 적립의 60%(" + fmt(threshold) + "원) 사용 필요 — " + fmt(threshold - WD.used) + "원 더 사용하면 출금 신청 가능"; return; }
+            if (!minOK) { st.textContent = "최소 10만원 미만"; st.title = "출금 가능 잔여 " + fmt(withdrawable) + "원"; return; }
+          }
+          var net = Math.round(withdrawable * (1 - WD.fee));
+          st.textContent = "출금 신청 가능 " + fmt(net) + "원 (수수료 5%·익월 말)"; st.title = "출금 가능액 " + fmt(withdrawable) + "원 · 수수료 " + fmt(withdrawable - net) + "원 차감";
+        }
+        updateWithdrawState();
+        document.getElementById("btnWithdraw").addEventListener("click", function () {
+          if (this.disabled) return;
+          var avail = (WD.used >= Math.round(WD.earned * WD.thresholdRate) || DEV_UNLOCK_WITHDRAW) ? WD.balance : 0;
+          document.getElementById("wdAvailLabel").textContent = fmt(avail) + "원";
+          document.getElementById("wdAmount").value = "";
+          document.getElementById("wdAmount").max = avail;
+          document.getElementById("wdBank").value = "";
+          document.getElementById("wdAcctNum").value = "";
+          document.getElementById("wdAcctName").value = "";
+          ["wdCalcReq","wdCalcFee","wdCalcNet"].forEach(function(id){ document.getElementById(id).textContent = "-"; });
+          document.getElementById("wdDisclaimer").checked = false;
+          document.getElementById("wdSubmitBtn").disabled = true;
+          document.getElementById("wdAmountOver").style.display = "none";
+          document.getElementById("wdAmount").style.borderColor = "";
+          openModal("withdrawModal");
+        });
+
+        function syncWdSubmitBtn() {
+          var checked = document.getElementById("wdDisclaimer").checked;
+          document.getElementById("wdSubmitBtn").disabled = !checked;
+        }
+        document.getElementById("wdDisclaimer").addEventListener("change", syncWdSubmitBtn);
+
+        document.getElementById("wdAmount").addEventListener("input", function () {
+          var avail = parseInt(document.getElementById("wdAmount").max, 10) || WD.balance;
+          var v = parseInt(this.value, 10) || 0;
+          var overEl = document.getElementById("wdAmountOver");
+          if (v > avail) {
+            this.style.borderColor = "#e53935";
+            if (overEl) overEl.style.display = "";
+            document.getElementById("wdCalcReq").textContent = "-";
+            document.getElementById("wdCalcFee").textContent = "-";
+            document.getElementById("wdCalcNet").textContent = "-";
+            return;
+          }
+          this.style.borderColor = "";
+          if (overEl) overEl.style.display = "none";
+          var fee = Math.round(v * WD.fee);
+          var net = v - fee;
+          document.getElementById("wdCalcReq").textContent = v > 0 ? fmt(v) + "원" : "-";
+          document.getElementById("wdCalcFee").textContent = v > 0 ? "-" + fmt(fee) + "원" : "-";
+          document.getElementById("wdCalcNet").textContent = v > 0 ? fmt(net) + "원" : "-";
+        });
+
+        document.getElementById("wdSubmitBtn").addEventListener("click", function () {
+          var v = parseInt(document.getElementById("wdAmount").value, 10) || 0;
+          var bank = document.getElementById("wdBank").value;
+          var acct = document.getElementById("wdAcctNum").value.trim();
+          var name = document.getElementById("wdAcctName").value.trim();
+          var avail = parseInt(document.getElementById("wdAmount").max, 10) || WD.balance;
+          if (v < WD.min) { toastMsg("최소 100,000원 이상 입력해주세요."); return; }
+          if (v > avail) { toastMsg("출금 가능 잔액을 초과했습니다."); return; }
+          if (!bank) { toastMsg("은행을 선택해주세요."); return; }
+          if (!acct) { toastMsg("계좌번호를 입력해주세요."); return; }
+          if (!name) { toastMsg("예금주를 입력해주세요."); return; }
+          if (!document.getElementById("wdDisclaimer").checked) { toastMsg("면책 동의 체크 후 신청해주세요."); return; }
+          closeModal("withdrawModal");
+          withdrawnThisMonth = true; updateWithdrawState();
+          toastMsg("출금 신청이 접수되었습니다.");
+          /* 신청 완료 안내: 수수료·지급 일정 상세는 별도 박스로 표시 */
+          var infoBox = document.getE

@@ -3,139 +3,198 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>포인트 - 세븐닷 교사용 관리자</title>
-
-    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <title>포인트머니 - 세븐닷 교사용 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
     <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
     <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
-    <!-- Google Material Symbols (아이콘 통일) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
-    <!-- 페이지 전용 스타일 -->
     <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
-
-    <!--
-================================================================================
-  세븐닷 - 교사용 반 대시보드 (Classroom Dashboard)
-================================================================================
-  [목적]
-    담임/담당 교사가 한 반의 학습 현황·포인트·칭찬·공동목표·브릭장터·
-    게시판을 한 화면에서 운영.
-
-  [구성]  상단 탭(.tab-pills) 으로 7개 화면 전환
-    1. 반 홈     — 오늘 현황 요약 + 확인할 일 + 게시판 상태
-    2. 학생        — 학생 카드 그리드 + 공동목표 + 최근 활동
-    3. 포인트    — 통장 내역 + 학생별 잔액 + 빠른 지급
-    4. 브릭장터    — 쿠폰 등록/관리 + 사용 신청 승인
-    5. 주간리포트  — 학습 요약 + AI 코멘트
-    6. 알림게시판  — 게시판 작성 + 게시 내역
-    7. 설정        — 반/보상/장터 기준
-
-  [데이터]  현재는 js/classroom_dashboard.js 의 mock 배열. 실제 연동 시
-    GET /admin/classroom/{classId}/dashboard 등으로 교체.
-
-  [권한]  ROLE_TEACHER
-================================================================================
--->
   </head>
   <body class="sevendot-admin" data-page="brick">
-    <!-- 상단 글로벌 바 (카카오 비즈니스 파트너센터형) -->
-    <header class="cd-topbar">
-<div class="cd-tb-brand">세븐닷 교사용 관리자 <span class="cd-tb-sub">세븐학원</span></div>
-      <div class="cd-tb-right">
-        <button class="cd-tb-link" type="button" data-action="topAlert">알림</button>
-        <a class="cd-tb-link" href="../notice/notice_list.html">공지사항</a>
-        <a class="cd-tb-link" href="../inquiry/inquiry_list.html">고객센터</a>
-        <span class="cd-tb-acct">김선생님</span>
-      </div>
-    </header>
-
-    <!-- 좌측 사이드바 (실제 앱에서는 레이아웃 데코레이터가 제공 — 프로토타입은 직접 렌더) -->
-    <nav class="cd-side">
-      <button class="cd-side-acct" type="button" data-action="openOrgInfo">세븐초등학교 (4-1) <span class="cd-arrow">›</span></button>
-      <div class="cd-side-menu" id="cdSideMenu"><!-- JS 렌더 --></div>
-      <div class="cd-side-promo"><b>세븐브릭스 사용 가이드</b><span>반 운영과 보상 설정이 처음이라면 FAQ에서 빠르게 확인하세요.</span></div>
-    </nav>
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
 
     <div class="rightBoxNT">
       <div class="content_area">
-      <!-- 페이지 헤더 + 반 선택 -->
-      <div class="page-header">
-        <div>
-          <h2>포인트머니</h2>
-        </div>
-      </div>
 
-      <!-- ==== 포인트 ==== -->
-      <section class="cd-view active" id="view-brick">
-        <div class="cd-view-toolbar">
-          <div class="cd-desc">학생별 통장, 적립·사용, 공동목표 기여를 관리합니다.</div>
-          <div class="cd-head-actions">
-            <button class="btn" type="button" data-action="openBonus">전체 포인트 지급</button>
-            <button class="btn primary" type="button" data-action="openBrickGive">개별 포인트 지급</button>
-          </div>
-        </div>
-        <div class="summary-cards">
-          <div class="sc-card"><div class="sc-k">전체 포인트</div><div class="sc-v totalNum">0</div><div class="sc-sub">학생 합산</div></div>
-          <div class="sc-card"><div class="sc-k">오늘 지급</div><div class="sc-v success brickPlus">0</div><div class="sc-sub">학습·칭찬</div></div>
-          <div class="sc-card"><div class="sc-k">오늘 사용</div><div class="sc-v warning brickMinus">0</div><div class="sc-sub">포인트장터</div></div>
-          <div class="sc-card"><div class="sc-k">공동목표 기여</div><div class="sc-v goalNow">0</div><div class="sc-sub">이번 주 누적</div></div>
-        </div>
-
-        <div class="cd-2col cd-2col-wide">
-          <div class="section-box">
-            <div class="section-head"><div class="title">포인트 통장 내역</div></div>
-            <div class="nt-search">
-              <select id="brickTypeFilter" class="form-select"><option>전체</option><option>적립</option><option>사용</option><option>공동목표</option></select>
-              <input type="search" id="brickSearch" class="form-input" placeholder="학생 이름 검색" />
-              <button class="btn" type="button" data-action="filterLedger">조회</button>
-            </div>
-            <div class="section-body tbl">
-              <table class="tbl">
-                <thead><tr><th>시간</th><th>학생</th><th>구분</th><th>내용</th><th class="right">금액</th><th class="right">잔액</th></tr></thead>
-                <tbody id="brickLedgerRows"></tbody>
-              </table>
-            </div>
-          </div>
+        <div class="page-header">
           <div>
-            <div class="section-box">
-              <div class="section-head"><div class="title">학생별 통장</div></div>
-              <div class="section-body"><div class="cd-bank-list" id="bankList"></div></div>
+            <h2>포인트머니</h2>
+            <p class="cd-page-sub">우리 반 포인트 흐름을 통장처럼 기록하고, 학생별 내역을 한눈에 확인합니다.</p>
+          </div>
+        </div>
+
+        <section class="cd-view active" id="view-brick">
+
+          <!-- KPI 요약 카드 (두 탭 공통) -->
+          <div class="summary-cards">
+            <div class="sc-card"><div class="sc-k">학급 총 잔액</div><div class="sc-v totalNum">0</div><div class="sc-sub">전체 학생 합산</div></div>
+            <div class="sc-card"><div class="sc-k">오늘 지급</div><div class="sc-v success brickPlus">0</div><div class="sc-sub">학습·칭찬 적립</div></div>
+            <div class="sc-card"><div class="sc-k">오늘 사용</div><div class="sc-v warning brickMinus">0</div><div class="sc-sub">포인트장터 차감</div></div>
+            <div class="sc-card"><div class="sc-k">공동목표 진행도</div><div class="sc-v info"><span class="percent">0%</span></div><div class="sc-sub"><span class="goalNow">0</span> / <span class="kpiGoalTarget">0</span>p</div></div>
+          </div>
+
+          <!-- 탭 전환 -->
+          <div class="tab-pills cd-brick-tabs">
+            <button class="active" type="button" data-bricktab="class">
+              <span class="material-symbols-outlined">account_balance</span> 학급 통장
+            </button>
+            <button type="button" data-bricktab="student">
+              <span class="material-symbols-outlined">person_book</span> 학생별 통장
+            </button>
+          </div>
+
+          <!-- ── 탭 1: 학급 통장 ── -->
+          <div class="cd-brick-pane active" data-brickpane="class">
+
+            <!-- 학급 경제 현황 (반 홈에서 이동) -->
+            <div class="cd-2col" style="margin-bottom:16px">
+              <div class="section-box">
+                <div class="section-head"><div class="title">오늘 포인트 참여 현황</div></div>
+                <div class="section-body"><div id="econParticipation"></div></div>
+              </div>
+              <div class="section-box">
+                <div class="section-head"><div class="title">이번 주 경제 활동 분류</div></div>
+                <div class="section-body"><div id="econActivity"></div></div>
+              </div>
             </div>
+
+            <div class="cd-view-toolbar">
+              <div class="cd-desc">우리 반 모든 학생의 포인트 거래가 시간순으로 쌓입니다.</div>
+              <div class="cd-head-actions">
+                <button class="btn" type="button" data-action="openBonus">전체 일괄 지급</button>
+                <button class="btn primary" type="button" data-action="openBrickGive">개별 지급</button>
+              </div>
+            </div>
+
             <div class="section-box">
-              <div class="section-head"><div class="title">빠른 지급</div></div>
-              <div class="section-body">
-                <div class="cd-check-list">
-                  <div class="cd-check-item"><span><b>오늘 학습 완료</b><span class="cd-desc">학습 완료 보상</span></span><button class="btn-sm" type="button" data-action="quickLearning">+5</button></div>
-                  <div class="cd-check-item"><span><b>오답 다시 풀기</b><span class="cd-desc">다시 도전 보상</span></span><button class="btn-sm" type="button" data-action="quickRetry">+3</button></div>
-                  <div class="cd-check-item"><span><b>수업 집중 칭찬</b><span class="cd-desc">교사 칭찬 포인트</span></span><button class="btn-sm" type="button" data-action="quickPraise">+5</button></div>
-                  <div class="cd-check-item"><span><b>공동목표 기여</b><span class="cd-desc">우리 반 목표</span></span><button class="btn-sm" type="button" data-action="quickGoal">+5</button></div>
-                </div>
-                <p class="cd-desc cd-quick-note">선택된 학생: <b id="quickTargetName">-</b></p>
+              <div class="section-head">
+                <div class="title">학급 포인트 내역</div>
+              </div>
+              <div class="cd-ledger-filter-bar">
+                <select class="form-input" id="brickTypeFilter">
+                  <option>전체</option>
+                  <option>적립</option>
+                  <option>사용</option>
+                  <option>공동목표</option>
+                </select>
+                <select class="form-input" id="brickPointTypeFilter">
+                  <option value="">포인트 종류</option>
+                  <option value="brick">브릭포인트</option>
+                  <option value="praise">선생님포인트</option>
+                  <option value="parent">칭찬머니</option>
+                </select>
+                <input type="search" class="form-input" id="brickSearch" placeholder="학생 이름 검색" />
+                <button class="btn" type="button" data-action="filterLedger">조회</button>
+              </div>
+              <div class="section-body tbl">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th>시간</th>
+                      <th>학생</th>
+                      <th>구분</th>
+                      <th>내용</th>
+                      <th class="right">금액</th>
+                      <th class="right">잔액</th>
+                    </tr>
+                  </thead>
+                  <tbody id="brickLedgerRows"></tbody>
+                </table>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Footer -->
-      <div id="site-footer-mount"></div>
-      </div><!-- /.content_area -->
+          <!-- ── 탭 2: 학생별 통장 ── -->
+          <div class="cd-brick-pane" data-brickpane="student">
+            <div class="cd-brick-2col">
+
+              <!-- 왼쪽: 학생 목록 -->
+              <div class="section-box cd-bank-left">
+                <div class="section-head">
+                  <div class="title">학생 목록 <span class="muted" id="bankStudentCount"></span></div>
+                  <div class="cd-sd-sub-tabs" id="bankSortTabs">
+                    <button class="active" type="button" data-banksort="잔액순">잔액순</button>
+                    <button type="button" data-banksort="번호순">번호순</button>
+                  </div>
+                </div>
+                <div class="section-body cd-bank-list-body">
+                  <div class="cd-bank-select-list" id="bankSelectList"></div>
+                </div>
+              </div>
+
+              <!-- 오른쪽: 선택 학생 통장 -->
+              <div class="section-box cd-bank-right" id="studentBankPanel">
+
+                <!-- 선택 전 안내 -->
+                <div class="cd-bank-empty-state" id="bankEmptyState">
+                  <span class="material-symbols-outlined cd-empty-ico">person_search</span>
+                  <b>학생을 선택하면<br>개인 통장을 확인할 수 있습니다</b>
+                  <p class="cd-desc">왼쪽 목록에서 학생을 클릭하세요.</p>
+                </div>
+
+                <!-- 선택 후 통장 내용 -->
+                <div id="bankStudentContent" hidden>
+                  <div class="section-head">
+                    <div class="cd-bank-stu-hd" id="bankStuHd"></div>
+                    <div class="cd-head-actions">
+                      <span class="cd-bank-bal-pill"><span id="bankStudentBal">0</span>p</span>
+                    </div>
+                  </div>
+
+                  <!-- 포인트 지급 바 -->
+                  <div class="cd-bank-give-bar">
+                    <div class="cd-bank-give-label">포인트 지급</div>
+                    <div class="cd-bank-give-row">
+                      <select class="form-input cd-bank-reason" id="bankGiveReason">
+                        <option>학습 완료 칭찬</option>
+                        <option>오답 다시 풀기</option>
+                        <option>수업 집중 칭찬</option>
+                        <option>공동목표 기여</option>
+                      </select>
+                      <div class="cd-stepper">
+                        <button type="button" data-bankstep="-">-</button>
+                        <span id="bankGiveAmt">5</span>
+                        <button type="button" data-bankstep="+">+</button>
+                      </div>
+                      <button class="btn primary" type="button" data-action="bankGive">지급</button>
+                    </div>
+                  </div>
+
+                  <!-- 신청·보유 쿠폰 -->
+                  <div class="cd-bank-coupon-wrap">
+                    <div class="cd-bank-sub-title">신청·보유 쿠폰 <span class="muted" id="bankCouponCount"></span></div>
+                    <div class="cd-bank-coupon-list" id="studentBankCoupons"></div>
+                  </div>
+
+                  <!-- 거래 내역 -->
+                  <div class="cd-bank-ledger-wrap">
+                    <div class="cd-sd-ledger-filter" id="bankLedgerFilter">
+                      <button class="active" type="button" data-bankfilter="all">전체</button>
+                      <button type="button" data-bankfilter="적립">적립</button>
+                      <button type="button" data-bankfilter="사용">사용</button>
+                      <button type="button" data-bankfilter="공동목표">공동목표</button>
+                    </div>
+                    <div class="cd-ledger-list" id="studentBankLedger"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <div id="site-footer-mount"></div>
+      </div>
     </div>
 
-    <!-- ======================================================================
-     모달
-     ====================================================================== -->
-
-    <!-- 공통 모달: ../../js/admin/classroom/classroom-modals.js 가 body 끝에 주입 -->
-
     <div class="cd-toast" id="toast"></div>
-
-    <!-- 공통 스크립트 -->
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
     <script src="../../js/admin/common.js"></script>
     <script src="../../js/admin/footer.js"></script>
-    <!-- 페이지 전용 스크립트 -->
     <script src="../../js/admin/classroom/classroom-modals.js"></script>
     <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
   </body>

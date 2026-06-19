@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구독 관리 - 세븐닷 학원장 관리자</title>
+
+    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <!-- Google Material Symbols (아이콘 통일) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <!-- 페이지 전용 스타일 -->
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+    <link rel="stylesheet" href="../css/classroom_billing.css" />
+  </head>
+  <body class="sevendot-admin" data-page="asub" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+
+    <div class="rightBoxNT">
+      <div class="content_area">
+      <!-- 페이지 헤더 -->
+      <div class="page-header">
+        <div>
+          <h2>구독 관리</h2>
+          <p class="cd-page-sub">이용 상품 · 결제 카드 · 다음 결제일을 관리합니다.</p>
+        </div>
+        <div class="cd-head-actions">
+          <button class="btn" type="button" data-menu="agate">결제 전(첫 결제) 화면 보기</button>
+        </div>
+      </div>
+
+      <!-- ==== 구독 관리 ==== -->
+      <section class="cd-view active" id="view-asub">
+
+        <!-- 현재 구독 요약 -->
+        <div class="section-box primary">
+          <div class="section-head">
+            <div class="title">현재 구독 <span class="badge success" id="subStatusBadge">이용 중</span></div>
+            <span class="cd-desc">구독번호 <b id="subNo">SUB-20260522-128</b> · 매월 1일 자동결제</span>
+          </div>
+          <div class="section-body">
+            <div class="summary-cards billing-kpi">
+              <div class="sc-card"><div class="sc-k">현재 플랜</div><div class="sc-v" id="subPlanName">3과목 · 50명</div><div class="sc-sub">정기구독 (무약정)</div></div>
+              <div class="sc-card"><div class="sc-k">월 결제 금액</div><div class="sc-v" id="subPrice">77,000<span class="unit">원</span></div><div class="sc-sub">부가세 포함</div></div>
+              <div class="sc-card"><div class="sc-k">다음 결제일</div><div class="sc-v" id="subNextDate">2026-07-01</div><div class="sc-sub">가입일 기준 매월</div></div>
+              <div class="sc-card"><div class="sc-k">이용 과목</div><div class="sc-v" id="subSubjects">국·영·수</div><div class="sc-sub">전 과목</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 결제 카드 -->
+        <div class="section-box">
+          <div class="section-head"><div class="title">결제 카드</div></div>
+          <div class="section-body">
+            <div class="cd-billcard">
+              <div class="cd-billcard-info">
+                <span class="material-symbols-outlined cd-billcard-ico">credit_card</span>
+                <div>
+                  <div class="cd-billcard-name"><b id="cardCompany">신한카드</b> <span id="cardLast4">****-****-****-1234</span></div>
+                  <div class="cd-desc">등록일 <span id="cardReg">2026-05-22</span> · 매월 결제일 10:00 자동결제</div>
+                </div>
+              </div>
+              <button class="btn" type="button" data-action="demoAction">카드 변경</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 구독 변경 -->
+        <div class="section-box">
+          <div class="section-head"><div class="title">구독 변경</div><span class="cd-desc">변경 사항은 다음 결제일부터 적용됩니다</span></div>
+          <div class="section-body">
+            <div class="cd-change-row">
+              <div class="cd-change-info">
+                <b>상품 · 인원 변경</b>
+                <span class="cd-desc">과목 수(2/3과목)와 학생수 구간(50·100·200·300명)을 바꿀 수 있어요. 학생이 늘수록 인당 단가가 낮아집니다.</span>
+              </div>
+              <button class="btn primary" type="button" id="btnChangePlan">상품·인원 변경</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 최근 결제 내역 -->
+        <div class="section-box">
+          <div class="section-head"><div class="title">최근 결제 내역</div><button class="cd-link" type="button" data-menu="apay">전체 결제 내역 보기 →</button></div>
+          <div class="section-body tbl">
+            <table class="tbl">
+              <thead><tr><th>결제일</th><th>상품</th><th class="right">금액</th><th class="center">상태</th></tr></thead>
+              <tbody>
+                <tr><td>2026-07-01</td><td>[3과목] 정기구독 (50명)</td><td class="right"><b>77,000원</b></td><td class="center"><span class="badge scheduled">결제예정</span></td></tr>
+                <tr><td>2026-06-01</td><td>[3과목] 정기구독 (50명)</td><td class="right"><b>77,000원</b></td><td class="center"><span class="badge paid">결제완료</span></td></tr>
+                <tr><td>2026-05-22</td><td>[3과목] 정기구독 (50명) 신규 가입</td><td class="right"><b>77,000원</b></td><td class="center"><span class="badge paid">결제완료</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 구독 해지 -->
+        <div class="section-box cd-danger-zone">
+          <div class="section-head"><div class="title">구독 해지</div></div>
+          <div class="section-body">
+            <div class="cd-change-row">
+              <div class="cd-change-info">
+                <b>구독 해지</b>
+                <span class="cd-desc">해지 신청 시 자동결제가 즉시 중지되며, 이미 결제한 사용권은 종료일까지 그대로 이용할 수 있습니다. (일할 환불 없음)</span>
+              </div>
+              <button class="btn danger" type="button" id="btnCancelSub">구독 해지</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="guideBox tip"><p>약정이 없는 월 단위 구독입니다. 상품 변경은 다음 결제일부터, 해지는 신청 즉시 처리되며 본사 승인 절차가 없습니다.</p></div>
+      </section>
+
+      <!-- Footer -->
+      <div id="site-footer-mount"></div>
+      </div><!-- /.content_area -->
+    </div>
+
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals-subscription.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+
+    <!-- 페이지 전용: 구독 변경/해지 플로우 (이식: subscription/subscription_manage.html) -->
+    <script>
+      (function () {
+        var fmt = function (n) { return n.toLocaleString("ko-KR"); };
+        var SUBJECTS = ["국어", "영어", "수학"];
+        // 학생수 구간 정액제 (부가세 포함) — SUBSCRIPTION_FLOW.md §3.1
+        var PRICE = {
+          2: { 50: 55000, 100: 99000, 200: 165000, 300: 220000 },
+          3: { 50: 77000, 100: 132000, 200: 220000, 300: 297000 },
+        };
+        var CAPS = [50, 100, 200, 300];
+        var CUR = { subjects: 3, cap: 50 };
+        var sel = { subjects: null, cap: null, picked: ["국어", "영어", "수학"] };
+
+        function toastMsg(m) { if (window.toast) window.toast(m); }
+        function openModal(id) { var el = document.getElementById(id); if (el) el.classList.add("show"); }
+        function closeModal(id) { var el = document.getElementById(id); if (el) el.classList.remove("show"); }
+
+        /* ---------- 상품·인원 변경 ---------- */
+        function renderPlanGrid() {
+          var html = "";
+          [2, 3].forEach(function (subj) {
+            CAPS.forEach(function (cap) {
+              var price = PRICE[subj][cap];
+              var isCur = subj === CUR.subjects && cap === CUR.cap;
+              var isSel = subj === sel.subjects && cap === sel.cap;
+              var cls = "cd-plan-card" + (isCur ? " current" : "") + (isSel ? " selected" : "");
+              html +=
+                '<button type="button" class="' + cls + '" data-subj="' + subj + '" data-cap="' + cap + '"' + (isCur ? " disabled" : "") + ">" +
+                '<div class="cd-plan-card-top"><b>' + subj + "과목 · " + cap + "명</b>" + (isCur ? '<span class="badge neutral">현재</span>' : "") + "</div>" +
+                '<div class="cd-plan-card-price">' + fmt(price) + '<span class="unit">원</span> <span class="cd-desc">/월</span></div>' +
+                '<div class="cd-desc">인당 ' + fmt(Math.round(price / cap)) + "원</div>" +
+                "</button>";
+            });
+          });
+          document.getElementById("planGrid").innerHTML = html;
+        }
+
+        function renderSubjectPick() {
+          var block = document.getElementById("subjectBlock");
+          var hint = document.getElementById("subjectHint");
+          var wrap = document.getElementById("subjectPick");
+          if (sel.subjects === null) { block.hidden = true; return; }
+          block.hidden = false;
+          if (sel.subjects === 3) {
+            sel.picked = ["국어", "영어", "수학"];
+            hint.textContent = "3과목 상품은 국·영·수가 자동 선택됩니다.";
+          } else {
+            if (sel.picked.length !== 2) sel.picked = ["국어", "영어"];
+            hint.textContent = "국·영·수 중 2개를 선택해주세요. (" + sel.picked.length + "/2)";
+          }
+          wrap.innerHTML = SUBJECTS.map(function (s) {
+            var on = sel.picked.indexOf(s) > -1;
+            var locked = sel.subjects === 3;
+            return '<button type="button" class="cd-subject-chip' + (on ? " on" : "") + (locked ? " locked" : "") + '" data-subj-name="' + s + '"' + (locked ? " disabled" : "") + ">" + s + "</button>";
+          }).join("");
+        }
+
+        function renderPreview() {
+          var box = document.getElementById("changePreview");
+          var btn = document.getElementById("btnSubmitChange");
+          var valid = sel.subjects && sel.cap && (sel.subjects === 3 || sel.picked.length === 2) && !(sel.subjects === CUR.subjects && sel.cap === CUR.cap);
+          if (!sel.subjects || !sel.cap) { box.hidden = true; btn.disabled = true; return; }
+          box.hidden = false;
+          var curPrice = PRICE[CUR.subjects][CUR.cap];
+          var newPrice = PRICE[sel.subjects][sel.cap];
+          document.getElementById("prevCur").textContent = "[" + CUR.subjects + "과목] " + CUR.cap + "명 · " + fmt(curPrice) + "원";
+          document.getElementById("prevNew").textContent = "[" + sel.subjects + "과목] " + sel.cap + "명 · " + fmt(newPrice) + "원";
+          var diff = newPrice - curPrice;
+          var diffEl = document.getElementById("prevDiff");
+          diffEl.textContent = (diff > 0 ? "+" : diff < 0 ? "−" : "") + fmt(Math.abs(diff)) + "원 / 월";
+          diffEl.className = diff > 0 ? "danger" : diff < 0 ? "success" : "";
+          btn.disabled = !valid;
+        }
+
+        document.getElementById("btnChangePlan").addEventListener("click", function () {
+          sel = { subjects: null, cap: null, picked: ["국어", "영어", "수학"] };
+          renderPlanGrid(); renderSubjectPick(); renderPreview();
+          openModal("changePlanModal");
+        });
+
+        document.getElementById("planGrid").addEventListener("click", function (e) {
+          var c = e.target.closest(".cd-plan-card"); if (!c || c.disabled) return;
+          sel.subjects = +c.dataset.subj; sel.cap = +c.dataset.cap;
+          if (sel.subjects === 3) sel.picked = ["국어", "영어", "수학"];
+          else if (sel.picked.length !== 2) sel.picked = ["국어", "영어"];
+          renderPlanGrid(); renderSubjectPick(); renderPreview();
+        });
+
+        document.getElementById("subjectPick").addEventListener("click", function (e) {
+          var c = e.target.closest(".cd-subject-chip"); if (!c || c.disabled) return;
+          var name = c.dataset.subjName;
+          var i = sel.picked.indexOf(name);
+          if (i > -1) sel.picked.splice(i, 1);
+          else { if (sel.picked.length >= 2) sel.picked.shift(); sel.picked.push(name); }
+          renderSubjectPick(); renderPreview();
+        });
+
+        document.getElementById("btnSubmitChange").addEventListener("click", function () {
+          closeModal("changePlanModal");
+          toastMsg("상품 변경이 예약되었습니다. 다음 결제일부터 새 요금으로 자동 적용됩니다.");
+        });
+
+        /* ---------- 구독 해지 (3단계) ---------- */
+        var cstep = 1;
+        function renderCancel() {
+          document.querySelectorAll("[data-cancel-step]").forEach(function (el) {
+            el.hidden = +el.dataset.cancelStep !== cstep;
+          });
+          var foot = document.getElementById("cancelFoot");
+          var title = document.getElementById("cancelTitle");
+          if (cstep === 1) {
+            title.textContent = "구독 해지";
+            foot.innerHTML = '<button class="btn" type="button" data-close="cancelModal">취소</button><button class="btn danger" type="button" id="cNext">다음</button>';
+            document.getElementById("cNext").onclick = function () {
+              if (!document.getElementById("cancelReason").value) { toastMsg("해지 사유를 선택해주세요."); return; }
+              cstep = 2; renderCancel();
+            };
+          } else if (cstep === 2) {
+            title.textContent = "해지 최종 확인";
+            foot.innerHTML = '<button class="btn" type="button" id="cBack">돌아가기</button><button class="btn danger solid" type="button" id="cConfirm">네, 해지할게요</button>';
+            document.getElementById("cBack").onclick = function () { cstep = 1; renderCancel(); };
+            document.getElementById("cConfirm").onclick = function () {
+              cstep = 3; renderCancel();
+              document.getElementById("subStatusBadge").textContent = "해지 완료";
+              document.getElementById("subStatusBadge").className = "badge neutral";
+            };
+          } else {
+            title.textContent = "해지 완료";
+            foot.innerHTML = '<button class="btn primary" type="button" data-close="cancelModal">확인</button>';
+          }
+        }
+        document.getElementById("btnCancelSub").addEventListener("click", function () {
+          cstep = 1; document.getElementById("cancelReason").value = ""; document.getElementById("cancelMemo").value = "";
+          renderCancel(); openModal("cancelModal");
+        });
+
+        /* ---------- 공통 모달 닫기 ---------- */
+        document.querySelectorAll(".modal-overlay").forEach(function (ov) {
+          ov.addEventListener("click", function (e) {
+            if (e.target === ov) ov.classList.remove("show");
+            var cl = e.target.closest("[data-close]");
+            if (cl) closeModal(cl.dataset.close);
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

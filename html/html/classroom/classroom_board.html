@@ -4,146 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판 - 세븐닷 교사용 관리자</title>
-
-    <!-- 통일 디자인 시스템 (실제 앱과 동일) -->
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
     <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
     <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
-    <!-- Google Material Symbols (아이콘 통일) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
-    <!-- 페이지 전용 스타일 -->
     <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
-
-    <!--
-================================================================================
-  세븐닷 - 교사용 반 대시보드 (Classroom Dashboard)
-================================================================================
-  [목적]
-    담임/담당 교사가 한 반의 학습 현황·포인트·칭찬·공동목표·포인트장터·
-    게시판을 한 화면에서 운영.
-
-  [구성]  상단 탭(.tab-pills) 으로 7개 화면 전환
-    1. 반 홈     — 오늘 현황 요약 + 확인할 일 + 게시판 상태
-    2. 학생        — 학생 카드 그리드 + 공동목표 + 최근 활동
-    3. 포인트    — 통장 내역 + 학생별 잔액 + 빠른 지급
-    4. 포인트장터    — 쿠폰 등록/관리 + 사용 신청 승인
-    5. 주간리포트  — 학습 요약 + AI 코멘트
-    6. 알림게시판  — 게시판 작성 + 게시 내역
-    7. 설정        — 반/보상/장터 기준
-
-  [데이터]  현재는 js/classroom_dashboard.js 의 mock 배열. 실제 연동 시
-    GET /admin/classroom/{classId}/dashboard 등으로 교체.
-
-  [권한]  ROLE_TEACHER
-================================================================================
--->
   </head>
   <body class="sevendot-admin" data-page="board">
-    <header class="cd-topbar">
-      <div class="cd-tb-brand">세븐닷 교사용 관리자 <span class="cd-tb-sub">세븐학원</span></div>
-      <div class="cd-tb-right">
-        <button class="cd-tb-link" type="button" data-action="topAlert">알림</button>
-        <a class="cd-tb-link" href="../notice/notice_list.html">공지사항</a>
-        <a class="cd-tb-link" href="../inquiry/inquiry_list.html">고객센터</a>
-        <span class="cd-tb-acct">김선생님</span>
-      </div>
-    </header>
-
-    <!-- 좌측 사이드바 (실제 앱에서는 레이아웃 데코레이터가 제공 — 프로토타입은 직접 렌더) -->
-    <nav class="cd-side">
-      <button class="cd-side-acct" type="button" data-action="openOrgInfo">세븐초등학교 (4-1) <span class="cd-arrow">›</span></button>
-      <div class="cd-side-menu" id="cdSideMenu"><!-- JS 렌더 --></div>
-      <div class="cd-side-promo"><b>세븐닷 사용 가이드</b><span>반 운영과 보상 설정이 처음이라면 FAQ에서 빠르게 확인하세요.</span></div>
-    </nav>
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
 
     <div class="rightBoxNT">
       <div class="content_area">
-      <!-- 페이지 헤더 + 반 선택 -->
-      <div class="page-header">
-        <div>
-          <h2>게시판</h2>
-        </div>
-      </div>
 
-      <!-- ==== 게시판 ==== -->
-      <section class="cd-view active" id="view-board">
-        <div class="cd-view-toolbar">
-          <div class="cd-desc">학생들이 아침에 세븐닷를 열면 가장 먼저 보는 안내를 작성·게시합니다.</div>
+        <div class="page-header">
+          <div>
+            <h2>게시판</h2>
+            <p class="cd-page-sub">학생이 세븐닷을 열면 가장 먼저 보게 되는 공지 화면을 관리합니다.</p>
+          </div>
         </div>
 
-        <!-- 현재 게시 상태 -->
-        <div class="cd-board-status">
-          <span class="material-symbols-outlined">wb_sunny</span>
-          <div><b>현재 게시 중</b><span id="boardLiveInfo">오늘의 수업 안내 · 오늘 09:30 · 전체 학생 21명</span></div>
-          <span class="badge success">게시 중</span>
-        </div>
+        <section class="cd-view active" id="view-board">
 
-        <div class="cd-2col cd-2col-wide">
-          <!-- 작성 폼 -->
-          <div class="section-box">
+          <!-- ── ZONE 1: 현재 게시 중인 게시판 ── -->
+          <div class="section-box cd-board-live" id="boardLiveCard">
             <div class="section-head">
-              <div class="title">작성 <span class="badge info">작성 중 · 초안</span></div>
+              <div class="title">
+                <span class="material-symbols-outlined" style="font-size:18px;vertical-align:-4px;color:var(--c-brand)">campaign</span>
+                지금 학생 화면에 게시 중
+              </div>
               <div class="cd-head-actions">
-                <button class="btn-sm" type="button" data-action="polish">AI 문장 다듬기</button>
-                <button class="btn-sm" type="button" data-action="draft">AI 초안 생성</button>
+                <span class="badge success">게시 중</span>
+                <span class="cd-desc" id="boardLiveMeta"></span>
+                <button class="btn-sm" type="button" data-action="dupMorning" data-i="0">복제해서 수정</button>
+                <button class="btn-sm reject" type="button" data-action="stopBoard">게시 중단</button>
               </div>
             </div>
-            <div class="section-body">
-              <div class="guideBox tip"><p>아래 내용을 직접 입력하세요</p><ul><li>교시·준비물·아침활동·전달사항을 수정한 뒤 <b>학생 화면에 게시하기</b>를 누르면 새로 게시됩니다. 오른쪽에서 학생 화면을 실시간으로 미리볼 수 있어요.</li></ul></div>
-              <label class="cd-field-label">오늘의 수업</label>
-              <div class="cd-schedule" id="schedule"></div>
-              <label class="cd-field-label">수업 준비</label>
-              <textarea class="form-textarea cd-board-field" data-field="ready" rows="2" placeholder="예: 국어 공책, 수학 익힘책, 색연필 준비">국어 공책, 수학 익힘책, 색연필 준비</textarea>
-              <label class="cd-field-label">아침활동</label>
-              <textarea class="form-textarea cd-board-field" data-field="morning" rows="2" placeholder="예: 세븐닷 학습 완료 후 독서 10분 하기">세븐닷 학습 완료 후 독서 10분 하기</textarea>
-              <label class="cd-field-label">전달사항</label>
-              <textarea class="form-textarea cd-board-field" data-field="notice" rows="2" placeholder="예: 오늘은 미술 준비물을 꼭 챙겨 주세요.">오늘은 미술 준비물을 꼭 챙겨 주세요.</textarea>
-              <button class="btn primary btn-block mt-m" type="button" data-action="post">학생 화면에 게시하기</button>
+            <div class="section-body cd-board-live-body">
+              <div class="cd-board-live-title" id="boardLiveTitle"></div>
+              <div class="cd-board-preview-rows">
+                <div class="cd-bpr">
+                  <span class="cd-bpr-ico"><span class="material-symbols-outlined">schedule</span></span>
+                  <div class="cd-bpr-main"><span class="cd-bpr-label">오늘의 수업</span><div class="cd-period-list" id="boardLiveSubj"></div></div>
+                </div>
+                <div class="cd-bpr">
+                  <span class="cd-bpr-ico"><span class="material-symbols-outlined">backpack</span></span>
+                  <div class="cd-bpr-main"><span class="cd-bpr-label">수업 준비</span><span id="boardLiveReady"></span></div>
+                </div>
+                <div class="cd-bpr">
+                  <span class="cd-bpr-ico"><span class="material-symbols-outlined">wb_sunny</span></span>
+                  <div class="cd-bpr-main"><span class="cd-bpr-label">아침활동</span><span id="boardLiveMorning"></span></div>
+                </div>
+                <div class="cd-bpr">
+                  <span class="cd-bpr-ico"><span class="material-symbols-outlined">campaign</span></span>
+                  <div class="cd-bpr-main"><span class="cd-bpr-label">전달사항</span><span id="boardLiveNotice"></span></div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 학생 화면 미리보기 -->
+          <!-- 게시 없을 때 empty state -->
+          <div class="cd-empty-hero" id="boardEmptyState" hidden>
+            <span class="material-symbols-outlined cd-empty-ico">campaign</span>
+            <b>지금 학생들이 볼 수 있는 게시판이 없습니다</b>
+            <p class="cd-desc">게시판을 작성하면 학생이 세븐닷을 열었을 때 가장 먼저 보게 됩니다.</p>
+            <button class="btn primary" type="button" data-action="openBoardWrite">게시판 작성하기</button>
+          </div>
+
+          <!-- ── ZONE 2: 게시 이력 + 복제 ── -->
           <div class="section-box">
-            <div class="section-head"><div class="title">학생 화면 미리보기</div><span class="badge neutral">실시간</span></div>
-            <div class="section-body">
-              <div class="cd-preview-row"><b>오늘의 수업</b><div class="cd-period-list" id="previewSchedule"></div></div>
-              <div class="cd-preview-row"><b>수업 준비</b><div id="pReady"></div></div>
-              <div class="cd-preview-row"><b>아침활동</b><div id="pMorning"></div></div>
-              <div class="cd-preview-row"><b>전달사항</b><div id="pNotice"></div></div>
+            <div class="section-head">
+              <div class="title">게시 이력</div>
+              <div class="cd-head-actions">
+                <span class="cd-desc">클릭하면 내용 확인 및 복제를 할 수 있습니다</span>
+                <button class="btn-sm" type="button" data-action="openBoardWrite">+ 새 게시판 작성</button>
+              </div>
+            </div>
+            <div class="section-body tbl">
+              <table class="tbl">
+                <thead><tr><th>제목</th><th>대상</th><th>게시일</th><th class="right">관리</th></tr></thead>
+                <tbody id="boardHistory"></tbody>
+              </table>
             </div>
           </div>
-        </div>
 
-        <!-- 게시 이력 (게시판 리스트) -->
-        <div class="section-box">
-          <div class="section-head"><div class="title">최근 게시판</div><div class="cd-desc">행을 클릭하면 게시 내용을 보고, 복제해 다시 쓸 수 있습니다.</div></div>
-          <div class="section-body tbl">
-            <table class="tbl">
-              <thead><tr><th>제목</th><th>대상</th><th>게시일</th><th class="right">관리</th></tr></thead>
-              <tbody id="boardHistory"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Footer -->
-      <div id="site-footer-mount"></div>
-      </div><!-- /.content_area -->
+        <div id="site-footer-mount"></div>
+      </div>
     </div>
 
-    <!-- ======================================================================
-     모달
-     ====================================================================== -->
-
-    <!-- 공통 모달: ../../js/admin/classroom/classroom-modals.js 가 body 끝에 주입 -->
-
     <div class="cd-toast" id="toast"></div>
-
-    <!-- 공통 스크립트 -->
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
     <script src="../../js/admin/common.js"></script>
     <script src="../../js/admin/footer.js"></script>
-    <!-- 페이지 전용 스크립트 -->
     <script src="../../js/admin/classroom/classroom-modals.js"></script>
     <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
   </body>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공지·문의 - 세븐닷 학원장 관리자</title>
+    <link rel="stylesheet" href="../../css/admin/classroom/tokens.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/sevendot-admin.css" />
+    <link rel="stylesheet" href="../../css/admin/classroom/standalone.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,0" />
+    <link rel="stylesheet" href="../../css/admin/classroom/classroom_dashboard.css" />
+  </head>
+  <body class="sevendot-admin" data-page="anotice" data-mode="principal">
+    <header class="cd-topbar" data-shell="topbar"></header>
+    <nav class="cd-side" data-shell="sidebar"></nav>
+    <div class="rightBoxNT">
+      <div class="content_area">
+        <div class="page-header">
+          <div><h2>공지·문의</h2><p class="cd-page-sub">본사 공지사항을 확인하고, 1:1 문의를 남깁니다.</p></div>
+        </div>
+        <section class="cd-view active" id="view-anotice">
+          <div class="cd-2col">
+            <div class="section-box">
+              <div class="section-head"><div class="title">공지사항</div></div>
+              <div class="section-body tbl">
+                <table class="tbl">
+                  <thead><tr><th>제목</th><th class="center">날짜</th><th class="center">상태</th></tr></thead>
+                  <tbody>
+                    <tr><td>[필독] 7월 콘텐츠 업데이트 안내</td><td class="center muted">06-15</td><td class="center"><span class="badge danger">안읽음</span></td></tr>
+                    <tr><td>여름방학 특강 운영 가이드</td><td class="center muted">06-10</td><td class="center"><span class="badge neutral">읽음</span></td></tr>
+                    <tr><td>결제 시스템 정기 점검 (06-20)</td><td class="center muted">06-08</td><td class="center"><span class="badge neutral">읽음</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="section-box">
+              <div class="section-head"><div class="title">1:1 문의</div><button class="btn-sm" type="button" data-action="demoAction">+ 문의하기</button></div>
+              <div class="section-body tbl">
+                <table class="tbl">
+                  <thead><tr><th>제목</th><th class="center">등록일</th><th class="center">상태</th></tr></thead>
+                  <tbody>
+                    <tr><td>학생 일괄 등록 엑셀 양식 문의</td><td class="center muted">06-14</td><td class="center"><span class="badge success">답변완료</span></td></tr>
+                    <tr><td>구독 인원 변경 시 정산 방식</td><td class="center muted">06-12</td><td class="center"><span class="badge warning">처리중</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="guideBox tip"><p>본사 공지·점검 일정과 문의 답변을 여기서 확인합니다.</p></div>
+        </section>
+        <div id="site-footer-mount"></div>
+      </div>
+    </div>
+    <div class="cd-toast" id="toast"></div>
+    <script src="../../js/admin/classroom/classroom-shell.js"></script>
+    <script src="../../js/admin/common.js"></script>
+    <script src="../../js/admin/footer.js"></script>
+    <script src="../../js/admin/classroom/classroom-modals.js"></script>
+    <script src="../../js/admin/classroom/classroom_dashboard.js"></script>
+  </body>
+</html>
